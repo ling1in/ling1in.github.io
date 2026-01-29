@@ -1,3 +1,18 @@
 title: 我的小破站
 description: 随便写写人生
-theme: jekyll-theme-cayman   # 或 minimal, architect, slate 等
+# Welcome to Chirpy!
+# -----------------
+# This `_config.yml` is the main configuration file for your site.
+# You can customize most of the site settings here.
+
+# The title and description of your site
+title: Your Name / Blog Title
+tagline: A Minimal, Responsive, and Feature-rich Jekyll Theme for Technical Writing
+
+# The base hostname & protocol for your site (without trailing slash)
+url: "https://ling1in.github.io"
+
+# If your site is in a subdirectory (e.g. /blog), set baseurl to "/blog" and url to "https://username.github.io"
+baseurl: ""  # Important: usually empty for user site like username.github.io
+
+# ... 其他 Chirpy 配置，如 timezone, lang, avatar 等
