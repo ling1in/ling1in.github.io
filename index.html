@@ -1,0 +1,151 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的博客</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        /* 导航栏样式 */
+        nav {
+            background: #2196F3;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* 头部横幅 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        /* 主要内容区 */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        /* 文章卡片 */
+        .post {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .post:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+        .post h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .post p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .post small {
+            color: #999;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="index.html">🏠 首页</a></li>
+            <li><a href="about.html">👤 关于我</a></li>
+            <li><a href="projects.html">🎨 作品集</a></li>
+        </ul>
+    </nav>
+    
+    <!-- 头部横幅 -->
+    <div class="header">
+        <h1>🌟 欢迎来到我的博客</h1>
+        <p>记录我的编程学习之旅</p>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div class="container">
+        <div class="post">
+            <h2>📝 我的第一篇文章</h2>
+            <p>今天我学会了用 GitHub 搭建博客，太酷了！</p>
+            <p>原来做一个网站并没有想象中那么难，只要跟着教程一步一步来就可以了。接下来我要学习更多的 HTML 和 CSS 知识！</p>
+            <small>📅 2025年1月29日</small>
+        </div>
+        
+        <div class="post">
+            <h2>🎮 我喜欢的游戏</h2>
+            <p>最近在玩《我的世界》，用红石做了一个自动门，感觉和编程有点像！</p>
+            <p>游戏里的逻辑思维对学编程很有帮助呢～</p>
+            <small>📅 2025年1月28日</small>
+        </div>
+        
+        <div class="post">
+            <h2>📚 开始学习 Python</h2>
+            <p>听说 Python 是最适合初学者的编程语言，我决定开始学习它！</p>
+            <p>今天学会了用 print() 打印"Hello World"，虽然很简单但很开心！</p>
+            <small>📅 2025年1月27日</small>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>💻 Made with ❤️ by 小明 | 2025</p>
+        <p>托管于 GitHub Pages</p>
+    </footer>
+</body>
+</html>
+```
