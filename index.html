@@ -192,6 +192,201 @@
             display: none;
         }
         
+        /* 两侧樱花树装饰 */
+        .sakura-tree-left,
+        .sakura-tree-right {
+            position: fixed;
+            bottom: 0;
+            width: 180px;
+            height: 350px;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.7;
+            transition: opacity 0.5s ease;
+        }
+        
+        .sakura-tree-left {
+            left: -20px;
+        }
+        
+        .sakura-tree-right {
+            right: -20px;
+            transform: scaleX(-1);
+        }
+        
+        /* 树干 */
+        .tree-trunk {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 120px;
+            background: linear-gradient(90deg, #5d4037 0%, #8d6e63 50%, #5d4037 100%);
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .tree-trunk::before {
+            content: '';
+            position: absolute;
+            bottom: 30px;
+            left: -8px;
+            width: 15px;
+            height: 60px;
+            background: linear-gradient(90deg, #6d4c41 0%, #a1887f 50%, #6d4c41 100%);
+            border-radius: 8px;
+            transform: rotate(-20deg);
+        }
+        
+        .tree-trunk::after {
+            content: '';
+            position: absolute;
+            bottom: 50px;
+            right: -10px;
+            width: 18px;
+            height: 70px;
+            background: linear-gradient(90deg, #5d4037 0%, #8d6e63 50%, #5d4037 100%);
+            border-radius: 9px;
+            transform: rotate(15deg);
+        }
+        
+        /* 树冠 - 由多个圆形组成 */
+        .tree-crown {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 200px;
+        }
+        
+        .crown-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffb6c1 0%, #ff69b4 40%, #db7093 100%);
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
+            animation: treeSway 4s ease-in-out infinite;
+        }
+        
+        .crown-circle:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            bottom: 80px;
+            left: 30px;
+            animation-delay: 0s;
+        }
+        
+        .crown-circle:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            bottom: 120px;
+            left: 10px;
+            background: radial-gradient(circle at 30% 30%, #ffc0cb 0%, #ff69b4 40%, #db7093 100%);
+            animation-delay: 0.5s;
+        }
+        
+        .crown-circle:nth-child(3) {
+            width: 90px;
+            height: 90px;
+            bottom: 100px;
+            right: 10px;
+            background: radial-gradient(circle at 30% 30%, #ffb6c1 0%, #ff1493 40%, #c71585 100%);
+            animation-delay: 1s;
+        }
+        
+        .crown-circle:nth-child(4) {
+            width: 70px;
+            height: 70px;
+            bottom: 140px;
+            left: 45px;
+            background: radial-gradient(circle at 30% 30%, #ffd1dc 0%, #ff69b4 40%, #db7093 100%);
+            animation-delay: 1.5s;
+        }
+        
+        .crown-circle:nth-child(5) {
+            width: 60px;
+            height: 60px;
+            bottom: 60px;
+            right: 20px;
+            background: radial-gradient(circle at 30% 30%, #ffc0cb 0%, #ff69b4 40%, #db7093 100%);
+            animation-delay: 2s;
+        }
+        
+        @keyframes treeSway {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-5px) rotate(2deg); }
+        }
+        
+        /* 飘落的花瓣从树上 */
+        .tree-petal {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(255,182,193,0.9) 0%, rgba(255,182,193,0.4) 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            pointer-events: none;
+            animation: petalFall 6s linear infinite;
+        }
+        
+        @keyframes petalFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(200px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* 不同主题的树样式 */
+        [data-theme="lain"] .crown-circle {
+            background: radial-gradient(circle at 30% 30%, #ff0040 0%, #990033 100%);
+            box-shadow: 0 0 20px rgba(255, 0, 64, 0.5);
+        }
+        
+        [data-theme="lain"] .tree-petal {
+            background: radial-gradient(circle, rgba(255,0,64,0.9) 0%, rgba(255,0,64,0.4) 100%);
+        }
+        
+        [data-theme="inception"] .crown-circle {
+            background: radial-gradient(circle at 30% 30%, #f39c12 0%, #d68910 100%);
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
+        }
+        
+        [data-theme="inception"] .tree-petal {
+            background: radial-gradient(circle, rgba(243,156,18,0.9) 0%, rgba(243,156,18,0.4) 100%);
+        }
+        
+        [data-theme="matrix"] .crown-circle {
+            background: radial-gradient(circle at 30% 30%, #00ff00 0%, #008800 100%);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        }
+        
+        [data-theme="matrix"] .tree-petal {
+            background: radial-gradient(circle, rgba(0,255,0,0.9) 0%, rgba(0,255,0,0.4) 100%);
+        }
+        
+        /* 移动端隐藏樱花树 */
+        @media (max-width: 1200px) {
+            .sakura-tree-left,
+            .sakura-tree-right {
+                width: 120px;
+                height: 250px;
+                opacity: 0.5;
+            }
+            .tree-crown {
+                width: 100px;
+                height: 140px;
+            }
+            .crown-circle:nth-child(1) { width: 70px; height: 70px; bottom: 60px; left: 20px; }
+            .crown-circle:nth-child(2) { width: 55px; height: 55px; bottom: 90px; left: 5px; }
+            .crown-circle:nth-child(3) { width: 60px; height: 60px; bottom: 75px; right: 5px; }
+            .crown-circle:nth-child(4) { width: 50px; height: 50px; bottom: 105px; left: 30px; }
+            .crown-circle:nth-child(5) { width: 40px; height: 40px; bottom: 45px; right: 15px; }
+        }
+        
+        @media (max-width: 768px) {
+            .sakura-tree-left,
+            .sakura-tree-right {
+                display: none;
+            }
+        }
+
         /* 飘落的樱花/粒子 */
         .sakura {
             position: fixed;
@@ -807,6 +1002,40 @@
         <button class="theme-btn" data-theme="matrix" title="黑客帝国">💊</button>
     </div>
 
+    <!-- 左侧樱花树 -->
+    <div class="sakura-tree-left">
+        <div class="tree-crown">
+            <div class="crown-circle"></div>
+            <div class="crown-circle"></div>
+            <div class="crown-circle"></div>
+            <div class="crown-circle"></div>
+            <div class="crown-circle"></div>
+            <div class="tree-petal" style="left: 20%; top: 30%; animation-delay: 0s;"></div>
+            <div class="tree-petal" style="left: 40%; top: 50%; animation-delay: 2s;"></div>
+            <div class="tree-petal" style="left: 60%; top: 20%; animation-delay: 4s;"></div>
+            <div class="tree-petal" style="left: 80%; top: 40%; animation-delay: 1s;"></div>
+            <div class="tree-petal" style="left: 30%; top: 60%; animation-delay: 3s;"></div>
+        </div>
+        <div class="tree-trunk"></div>
+    </div>
+    
+    <!-- 右侧樱花树 -->
+    <div class="sakura-tree-right">
+        <div class="tree-crown">
+            <div class="crown-circle"></div>
+            <div class="crown-circle"></div>
+            <div class="crown-circle"></div>
+            <div class="crown-circle"></div>
+            <div class="crown-circle"></div>
+            <div class="tree-petal" style="left: 20%; top: 30%; animation-delay: 0.5s;"></div>
+            <div class="tree-petal" style="left: 40%; top: 50%; animation-delay: 2.5s;"></div>
+            <div class="tree-petal" style="left: 60%; top: 20%; animation-delay: 4.5s;"></div>
+            <div class="tree-petal" style="left: 80%; top: 40%; animation-delay: 1.5s;"></div>
+            <div class="tree-petal" style="left: 30%; top: 60%; animation-delay: 3.5s;"></div>
+        </div>
+        <div class="tree-trunk"></div>
+    </div>
+    
     <!-- 飘落的樱花/粒子 -->
     <div class="sakura"></div>
     <div class="sakura"></div>
