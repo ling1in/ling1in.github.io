@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>🦞 龙虾折腾日记 - 安装踩坑记录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        /* 导航栏样式 - 与首页保持一致 */
+        nav {
+            background: #2196F3;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* 头部横幅 */
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        /* 主要内容区 */
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        /* 日记卡片 */
+        .diary-entry {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .diary-entry:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+        .diary-entry h2 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .diary-entry .date {
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        .diary-entry p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        /* 问题框 */
+        .problem-box {
+            background: #fff5f5;
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .problem-box h4 {
+            color: #c0392b;
+            margin-bottom: 8px;
+        }
+        
+        /* 解决方案框 */
+        .solution-box {
+            background: #f0fff4;
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .solution-box h4 {
+            color: #27ae60;
+            margin-bottom: 8px;
+        }
+        
+        /* 代码块 */
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        /* 标签 */
+        .tag {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #2196F3;
+            padding: 3px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        .tag.error {
+            background: #ffebee;
+            color: #e74c3c;
+        }
+        .tag.success {
+            background: #e8f5e9;
+            color: #27ae60;
+        }
+        .tag.warning {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <ul>
+            <li><a href="index.html">🏠 首页</a></li>
+            <li><a href="about.html">👤 关于我</a></li>
+            <li><a href="projects.html">🦞 龙虾学习日志</a></li>
+            <li><a href="openclaw-setup.html">🔧 折腾日记</a></li>
+        </ul>
+    </nav>
+    
+    <!-- 头部横幅 -->
+    <div class="header">
+        <h1>🦞 龙虾折腾日记</h1>
+        <p>记录安装 OpenClaw 的血泪史和各种踩坑过程</p>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div class="container">
+        <!-- 第一天 -->
+        <div class="diary-entry">
+            <h2>💥 Day 1 - 刚开始就翻车</h2>
+            <p class="date">📅 2025年1月20日</p>
+            
+            <p>今天满怀信心地准备安装龙虾 AI，结果第一步就卡住了...</p>
+            
+            <div class="problem-box">
+                <h4>❌ 问题：Python 版本不兼容</h4>
+                <p>运行安装脚本时提示：<code>Python 3.8+ is required</code></p>
+                <p>而我系统里只有 Python 3.7，升级后发现 pip 全乱了 🤯</p>
+            </div>
+            
+            <div class="solution-box">
+                <h4>✅ 解决方案</h4>
+                <p>1. 卸载旧版 Python</p>
+                <p>2. 从官网下载 Python 3.10（不要太新也不要太旧）</p>
+                <p>3. 安装时勾选 "Add to PATH"（这点很关键！）</p>
+                <div class="code-block">
+# 验证安装
+python --version
+pip --version
+                </div>
+            </div>
+            
+            <p>
+                <span class="tag error">Python</span>
+                <span class="tag warning">环境配置</span>
+            </p>
+        </div>
+        
+        <!-- 第二天 -->
+        <div class="diary-entry">
+            <h2>🔥 Day 2 - 依赖地狱</h2>
+            <p class="date">📅 2025年1月21日</p>
+            
+            <p>终于搞定了 Python，准备运行一键安装脚本，结果...</p>
+            
+            <div class="problem-box">
+                <h4>❌ 问题：pip 依赖冲突</h4>
+                <p>安装过程中各种红色报错：</p>
+                <div class="code-block">
+ERROR: Cannot install openclaw because these 
+package versions have conflicting dependencies.
+                </div>
+                <p>numpy、torch、pydantic 各种版本打架，安装1小时，报错59个 💀</p>
+            </div>
+            
+            <div class="solution-box">
+                <h4>✅ 解决方案</h4>
+                <p>创建虚拟环境隔离依赖：</p>
+                <div class="code-block">
+# 创建虚拟环境
+python -m venv openclaw_env
+
+# 激活（Windows）
+openclaw_env\Scripts\activate
+
+# 激活（Mac/Linux）
+source openclaw_env/bin/activate
+
+# 再运行安装脚本
+pip install -r requirements.txt
+                </div>
+                <p>💡 心得：永远不要在全局环境安装 AI 项目依赖！</p>
+            </div>
+            
+            <p>
+                <span class="tag error">pip</span>
+                <span class="tag warning">依赖冲突</span>
+                <span class="tag success">虚拟环境</span>
+            </p>
+        </div>
+        
+        <!-- 第三天 -->
+        <div class="diary-entry">
+            <h2>🌙 Day 3 - 显卡驱动 nightmare</h2>
+            <p class="date">📅 2025年1月22日</p>
+            
+            <p>环境终于配好了，启动服务时却又出问题...</p>
+            
+            <div class="problem-box">
+                <h4>❌ 问题：CUDA 版本不匹配</h4>
+                <p>报错信息：</p>
+                <div class="code-block">
+RuntimeError: CUDA error: no kernel image 
+is available for execution on the device
+                </div>
+                <p>我的显卡是 GTX 1060，装的 CUDA 12.0，但 torch 只支持 CUDA 11.8</p>
+            </div>
+            
+            <div class="solution-box">
+                <h4>✅ 解决方案</h4>
+                <p>1. 卸载 CUDA 12.0</p>
+                <p>2. 安装 CUDA 11.8</p>
+                <p>3. 重装对应版本的 torch：</p>
+                <div class="code-block">
+# 先卸载现有 torch
+pip uninstall torch torchvision torchaudio
+
+# 安装 CUDA 11.8 版本
+pip install torch torchvision torchaudio \
+    --index-url https://download.pytorch.org/whl/cu118
+                </div>
+            </div>
+            
+            <p>
+                <span class="tag error">CUDA</span>
+                <span class="tag error">显卡驱动</span>
+                <span class="tag warning">GPU</span>
+            </p>
+        </div>
+        
+        <!-- 第四天 -->
+        <div class="diary-entry">
+            <h2>😤 Day 4 - 端口被占用</h2>
+            <p class="date">📅 2025年1月23日</p>
+            
+            <p>所有依赖都搞定了，终于要启动了！结果...</p>
+            
+            <div class="problem-box">
+                <h4>❌ 问题：端口 8000 被占用</h4>
+                <p>启动服务时报错：</p>
+                <div class="code-block">
+OSError: [Errno 98] address already in use: ('0.0.0.0', 8000)
+                </div>
+                <p>原来我之前装的某个软件占用了 8000 端口 😭</p>
+            </div>
+            
+            <div class="solution-box">
+                <h4>✅ 解决方案</h4>
+                <p>方案一：找出并杀掉占用进程</p>
+                <div class="code-block">
+# Windows
+netstat -ano | findstr :8000
+taskkill /PID 1234 /F
+
+# Mac/Linux
+lsof -i :8000
+kill -9 1234
+                </div>
+                <p>方案二：修改配置文件换端口</p>
+                <div class="code-block">
+# 在 config.yaml 里修改
+server:
+  port: 8080  # 改成别的端口
+                </div>
+            </div>
+            
+            <p>
+                <span class="tag error">端口冲突</span>
+                <span class="tag success">已解决</span>
+            </p>
+        </div>
+        
+        <!-- 第五天 -->
+        <div class="diary-entry">
+            <h2>🎉 Day 5 - 终于成功了！</h2>
+            <p class="date">📅 2025年1月24日</p>
+            
+            <p>经历了4天的折腾，今天终于看到 "Server started successfully" 了！</p>
+            
+            <div class="solution-box">
+                <h4>✅ 最终检查清单</h4>
+                <p>如果你也在安装，建议按这个顺序检查：</p>
+                <ol style="margin-left: 20px; color: #666;">
+                    <li>Python 版本 >= 3.8 且 < 3.12</li>
+                    <li>使用了虚拟环境（venv/conda）</li>
+                    <li>CUDA 版本与显卡兼容（NVIDIA 控制面板查看）</li>
+                    <li>torch 版本与 CUDA 版本匹配</li>
+                    <li>端口未被占用（8000 或自定义端口）</li>
+                    <li>API Key 配置正确</li>
+                </ol>
+            </div>
+            
+            <div class="problem-box">
+                <h4>📝 血泪教训总结</h4>
+                <p>1. <strong>不要急躁</strong> - AI 工具的环境配置本来就很复杂</p>
+                <p>2. <strong>看官方文档</strong> - 很多问题文档里其实都写了</p>
+                <p>3. <strong>善用搜索</strong> - GitHub Issues 里几乎能找到所有错误的解决方案</p>
+                <p>4. <strong>做好记录</strong> - 就像这篇日记，方便以后复盘</p>
+            </div>
+            
+            <p>
+                <span class="tag success">成功安装</span>
+                <span class="tag">经验总结</span>
+            </p>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <p>🔧 折腾不息，踩坑不止 | ling1in</p>
+        <p>有问题欢迎交流：jaylen1128@email.com</p>
+    </footer>
+</body>
+</html>
