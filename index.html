@@ -1,28 +1,88 @@
-```html
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>我的博客</title>
+    <title>🌠 我的博客 | ling1in</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            line-height: 1.6;
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a3e 0%, #2d3561 30%, #4a569d 60%, #dcaeb3 100%);
+            min-height: 100vh;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.9);
+            position: relative;
+            overflow-x: hidden;
         }
         
-        /* 导航栏样式 */
+        /* 星空背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 50px 90px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 80px 10px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 250px 180px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 300px 90px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 350px 40px, rgba(255,255,255,0.6), transparent);
+            background-repeat: repeat;
+            background-size: 400px 200px;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* 彗星装饰 */
+        .comet {
+            position: fixed;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transform: rotate(-45deg);
+            animation: comet 8s linear infinite;
+            z-index: 0;
+        }
+        .comet:nth-child(1) { top: 10%; left: -100px; animation-delay: 0s; }
+        .comet:nth-child(2) { top: 30%; left: -100px; animation-delay: 3s; }
+        .comet:nth-child(3) { top: 60%; left: -100px; animation-delay: 6s; }
+        
+        @keyframes comet {
+            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(120vw) translateY(120vh) rotate(-45deg); opacity: 0; }
+        }
+        
+        /* 导航栏 */
         nav {
-            background: #2196F3;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             padding: 15px 0;
             position: sticky;
             top: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
         }
         nav ul {
             list-style: none;
@@ -30,78 +90,117 @@
             margin: 0 auto;
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 0 20px;
         }
         nav a {
-            color: white;
+            color: rgba(255,255,255,0.9);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
             padding: 10px 20px;
             border-radius: 25px;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
         }
         nav a:hover {
             background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(126, 200, 227, 0.3);
         }
         
         /* 头部横幅 */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
             text-align: center;
-            padding: 60px 20px;
+            padding: 100px 20px 60px;
+            position: relative;
+            z-index: 1;
         }
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #7ec8e3 50%, #e7a4e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(126, 200, 227, 0.3);
         }
         .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+            font-size: 1.3em;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+            letter-spacing: 2px;
         }
         
         /* 主要内容区 */
         .container {
             max-width: 800px;
-            margin: 30px auto;
-            padding: 0 20px;
+            margin: 0 auto;
+            padding: 0 20px 50px;
+            position: relative;
+            z-index: 1;
         }
         
-        /* 文章卡片 */
+        /* 文章卡片 - 毛玻璃效果 */
         .post {
-            background: white;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 15px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 30px;
+            margin: 25px 0;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
         }
         .post:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 12px 40px rgba(126, 200, 227, 0.2);
+            border-color: rgba(126, 200, 227, 0.3);
         }
         .post h2 {
-            color: #333;
+            color: #fff;
             margin-bottom: 15px;
+            font-size: 1.5em;
+            font-weight: 600;
         }
         .post p {
-            color: #666;
-            margin-bottom: 10px;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 12px;
+            font-weight: 300;
         }
         .post small {
-            color: #999;
+            color: rgba(126, 200, 227, 0.8);
+            display: block;
+            margin-top: 15px;
+            font-size: 0.9em;
         }
         
         /* 页脚 */
         footer {
             text-align: center;
-            padding: 30px;
-            color: #999;
-            margin-top: 50px;
+            padding: 40px 20px;
+            color: rgba(255,255,255,0.5);
+            position: relative;
+            z-index: 1;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+        footer p {
+            margin: 5px 0;
+            font-weight: 300;
         }
     </style>
 </head>
 <body>
+    <!-- 彗星装饰 -->
+    <div class="comet"></div>
+    <div class="comet"></div>
+    <div class="comet"></div>
+    
     <!-- 导航栏 -->
     <nav>
         <ul>
@@ -114,7 +213,7 @@
     
     <!-- 头部横幅 -->
     <div class="header">
-        <h1>🌟 欢迎来到我的博客</h1>
+        <h1>🌠 欢迎来到我的博客</h1>
         <p>记录我的编程学习之旅</p>
     </div>
     
@@ -144,9 +243,8 @@
     
     <!-- 页脚 -->
     <footer>
-        <p>💻 Made with ❤️ by 小明 | 2025</p>
+        <p>💻 Made with ❤️ by ling1in | 2025</p>
         <p>托管于 GitHub Pages</p>
     </footer>
 </body>
 </html>
-```

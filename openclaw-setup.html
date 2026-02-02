@@ -2,29 +2,87 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>🦞 龙虾折腾日记 - 安装踩坑实录</title>
+    <title>🌠 龙虾折腾日记 | ling1in</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a3e 0%, #2d3561 30%, #4a569d 60%, #dcaeb3 100%);
             min-height: 100vh;
-            color: #333;
-            line-height: 1.6;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.9);
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 星空背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 50px 90px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 80px 10px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(2px 2px at 250px 180px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 300px 90px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(2px 2px at 350px 40px, rgba(255,255,255,0.6), transparent);
+            background-repeat: repeat;
+            background-size: 400px 200px;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        /* 彗星装饰 */
+        .comet {
+            position: fixed;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transform: rotate(-45deg);
+            animation: comet 8s linear infinite;
+            z-index: 0;
+        }
+        .comet:nth-child(1) { top: 10%; left: -100px; animation-delay: 0s; }
+        .comet:nth-child(2) { top: 30%; left: -100px; animation-delay: 3s; }
+        .comet:nth-child(3) { top: 60%; left: -100px; animation-delay: 6s; }
+        
+        @keyframes comet {
+            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(120vw) translateY(120vh) rotate(-45deg); opacity: 0; }
         }
         
         /* 导航栏 */
         nav {
-            background: rgba(33, 150, 243, 0.95);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             padding: 15px 0;
             position: sticky;
             top: 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
+            z-index: 100;
         }
         nav ul {
             list-style: none;
@@ -32,90 +90,84 @@
             margin: 0 auto;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
             padding: 0 20px;
         }
         nav a {
-            color: white;
+            color: rgba(255,255,255,0.9);
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
             padding: 10px 20px;
             border-radius: 25px;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
         }
         nav a:hover {
             background: rgba(255,255,255,0.2);
             transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(126, 200, 227, 0.3);
         }
         
         /* 头部横幅 */
         .header {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #8e44ad 100%);
-            color: white;
             text-align: center;
-            padding: 80px 20px;
+            padding: 80px 20px 60px;
             position: relative;
-            overflow: hidden;
-        }
-        .header::before {
-            content: '🦞';
-            position: absolute;
-            font-size: 200px;
-            opacity: 0.1;
-            top: -50px;
-            right: -50px;
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
+            z-index: 1;
         }
         .header h1 {
             font-size: 3em;
+            font-weight: 700;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #fff 0%, #7ec8e3 50%, #e7a4e0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(126, 200, 227, 0.3);
         }
         .header p {
             font-size: 1.3em;
-            opacity: 0.95;
-            max-width: 600px;
-            margin: 0 auto;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+            letter-spacing: 2px;
         }
         
         /* 主要内容区 */
         .container {
             max-width: 850px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 0 auto;
+            padding: 0 20px 50px;
+            position: relative;
+            z-index: 1;
         }
         
         /* 章节卡片 */
         .chapter {
-            background: white;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 20px;
             margin: 30px 0;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
             overflow: hidden;
             transition: transform 0.3s;
         }
         .chapter:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.1);
         }
         .chapter-header {
             padding: 25px 30px;
             color: white;
             position: relative;
+            background: linear-gradient(135deg, rgba(126,200,227,0.4) 0%, rgba(231,164,224,0.3) 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .chapter-1 .chapter-header { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-        .chapter-2 .chapter-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
-        .chapter-3 .chapter-header { background: linear-gradient(135deg, #3498db, #2980b9); }
-        .chapter-4 .chapter-header { background: linear-gradient(135deg, #f39c12, #e67e22); }
-        .chapter-5 .chapter-header { background: linear-gradient(135deg, #27ae60, #229954); }
-        
         .chapter-header h2 {
-            font-size: 1.8em;
-            margin-bottom: 8px;
+            font-size: 1.6em;
             display: flex;
             align-items: center;
             gap: 15px;
@@ -124,7 +176,7 @@
             background: rgba(255,255,255,0.2);
             padding: 5px 15px;
             border-radius: 20px;
-            font-size: 0.5em;
+            font-size: 0.6em;
             font-weight: normal;
         }
         .chapter-content {
@@ -133,14 +185,14 @@
         
         /* 症状框 */
         .symptom {
-            background: #fff5f5;
-            border-left: 5px solid #e74c3c;
+            background: rgba(231, 76, 60, 0.15);
+            border-left: 4px solid #e74c3c;
             padding: 20px;
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
         .symptom h3 {
-            color: #c0392b;
+            color: #ff6b6b;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -149,14 +201,14 @@
         
         /* 诊断框 */
         .diagnosis {
-            background: #fffbeb;
-            border-left: 5px solid #f59e0b;
+            background: rgba(245, 158, 11, 0.15);
+            border-left: 4px solid #f59e0b;
             padding: 20px;
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
         .diagnosis h3 {
-            color: #d97706;
+            color: #fbbf24;
             margin-bottom: 10px;
         }
         
@@ -173,21 +225,21 @@
             gap: 10px;
         }
         .attempt.fail {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
         .attempt.success {
-            background: #f0fdf4;
-            border: 1px solid #86efac;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
         }
         .attempt.note {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
         
         /* 代码块 */
         .code-block {
-            background: #1e1e2e;
+            background: rgba(30, 30, 46, 0.8);
             color: #cdd6f4;
             padding: 20px;
             border-radius: 12px;
@@ -198,6 +250,7 @@
             line-height: 1.6;
             position: relative;
             white-space: pre;
+            border: 1px solid rgba(255,255,255,0.1);
         }
         .code-block::before {
             content: '';
@@ -217,11 +270,13 @@
         
         /* 通关配置区域 */
         .final-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(102,126,234,0.4) 0%, rgba(118,75,162,0.3) 100%);
             border-radius: 20px;
             padding: 40px;
             margin: 40px 0;
             color: white;
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
         }
         .final-section h2 {
             font-size: 2em;
@@ -229,7 +284,7 @@
             text-align: center;
         }
         .final-section .code-block {
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
             margin: 20px 0;
         }
         
@@ -238,36 +293,42 @@
             width: 100%;
             border-collapse: collapse;
             margin: 25px 0;
-            background: white;
+            background: rgba(255,255,255,0.08);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
         .tips-table th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(126,200,227,0.4) 0%, rgba(231,164,224,0.3) 100%);
             color: white;
             padding: 15px;
             text-align: left;
+            font-weight: 500;
         }
         .tips-table td {
             padding: 15px;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.85);
         }
         .tips-table tr:last-child td {
             border-bottom: none;
         }
         .tips-table tr:hover {
-            background: #f9fafb;
+            background: rgba(255,255,255,0.05);
         }
         
         /* 后记 */
         .epilogue {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, rgba(17,153,142,0.4) 0%, rgba(56,239,125,0.3) 100%);
             border-radius: 20px;
             padding: 40px;
             margin: 40px 0;
             color: white;
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
         }
         .epilogue h2 {
             font-size: 2em;
@@ -275,7 +336,7 @@
         }
         .epilogue .suggestions {
             text-align: left;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.1);
             padding: 25px;
             border-radius: 15px;
             margin-top: 20px;
@@ -283,21 +344,29 @@
         .epilogue .suggestions li {
             margin: 12px 0;
             padding-left: 10px;
+            list-style: none;
         }
         
         /* 页脚 */
         footer {
             text-align: center;
             padding: 40px;
-            color: rgba(255,255,255,0.7);
+            color: rgba(255,255,255,0.5);
             margin-top: 50px;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
         }
         footer a {
-            color: #64b5f6;
+            color: #7ec8e3;
         }
     </style>
 </head>
 <body>
+    <!-- 彗星装饰 -->
+    <div class="comet"></div>
+    <div class="comet"></div>
+    <div class="comet"></div>
+    
     <!-- 导航栏 -->
     <nav>
         <ul>
@@ -318,7 +387,7 @@
     <div class="container">
         
         <!-- 第一章 -->
-        <div class="chapter chapter-1">
+        <div class="chapter">
             <div class="chapter-header">
                 <h2>
                     <span>📜</span>
@@ -366,7 +435,7 @@ npm config set prefix '~/.npm-global'</code>
         </div>
         
         <!-- 第二章 -->
-        <div class="chapter chapter-2">
+        <div class="chapter">
             <div class="chapter-header">
                 <h2>
                     <span>📜</span>
@@ -412,7 +481,7 @@ npm error Your cache folder contains root-owned files</code>
         </div>
         
         <!-- 第三章 -->
-        <div class="chapter chapter-3">
+        <div class="chapter">
             <div class="chapter-header">
                 <h2>
                     <span>📜</span>
@@ -456,7 +525,7 @@ export all_proxy=socks5://127.0.0.1:7890</code>
         </div>
         
         <!-- 第四章 -->
-        <div class="chapter chapter-4">
+        <div class="chapter">
             <div class="chapter-header">
                 <h2>
                     <span>📜</span>
@@ -490,10 +559,10 @@ export all_proxy=socks5://127.0.0.1:7890</code>
                     </div>
                 </div>
                 
-                <div style="background: #f0fdf4; padding: 20px; border-radius: 12px; margin: 15px 0;">
-                    <ol style="margin-left: 25px; line-height: 2;">
+                <div style="background: rgba(34, 197, 94, 0.15); padding: 20px; border-radius: 12px; margin: 15px 0; border: 1px solid rgba(34, 197, 94, 0.3);">
+                    <ol style="margin-left: 25px; line-height: 2; color: rgba(255,255,255,0.9);">
                         <li>先登录 Discord</li>
-                        <li>访问 <a href="https://discord.com/developers/applications" target="_blank" style="color: #2196F3;">discord.com/developers/applications</a></li>
+                        <li>访问 <a href="https://discord.com/developers/applications" target="_blank" style="color: #7ec8e3;">discord.com/developers/applications</a></li>
                         <li>创建 Application → 左侧找到 OAuth2 → URL Generator</li>
                     </ol>
                 </div>
@@ -527,7 +596,7 @@ openclaw setup</code></div>
         </div>
         
         <!-- 踩坑心得表格 -->
-        <h2 style="color: white; text-align: center; margin: 40px 0 20px;">💡 踩坑心得</h2>
+        <h2 style="color: rgba(255,255,255,0.9); text-align: center; margin: 40px 0 20px;">💡 踩坑心得</h2>
         <table class="tips-table">
             <thead>
                 <tr>
@@ -570,7 +639,7 @@ openclaw setup</code></div>
             <h2>🎉 后记</h2>
             <p>折腾 4 个回合后，终于看到这只龙虾成功跑起来：</p>
             
-            <div class="code-block" style="text-align: center; font-size: 1.2em;">
+            <div class="code-block" style="text-align: center; font-size: 1.2em; background: rgba(0,0,0,0.3);">
 <code>🦞 OpenClaw 2026.1.30 — Because the right answer is usually a script.</code>
             </div>
             
