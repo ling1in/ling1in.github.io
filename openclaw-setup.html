@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>🦞 龙虾折腾日记 - 安装踩坑记录</title>
+    <title>🦞 龙虾折腾日记 - 安装踩坑实录</title>
     <style>
         * {
             margin: 0;
@@ -10,18 +10,21 @@
             box-sizing: border-box;
         }
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            color: #333;
             line-height: 1.6;
         }
         
-        /* 导航栏样式 - 与首页保持一致 */
+        /* 导航栏 */
         nav {
-            background: #2196F3;
+            background: rgba(33, 150, 243, 0.95);
             padding: 15px 0;
             position: sticky;
             top: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
         }
         nav ul {
             list-style: none;
@@ -29,7 +32,9 @@
             margin: 0 auto;
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 0 20px;
         }
         nav a {
             color: white;
@@ -37,140 +42,257 @@
             font-weight: bold;
             padding: 10px 20px;
             border-radius: 25px;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
         nav a:hover {
             background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
         }
         
         /* 头部横幅 */
         .header {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #8e44ad 100%);
             color: white;
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '🦞';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
         }
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
         .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+            font-size: 1.3em;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         /* 主要内容区 */
         .container {
-            max-width: 800px;
-            margin: 30px auto;
+            max-width: 850px;
+            margin: 40px auto;
             padding: 0 20px;
         }
         
-        /* 日记卡片 */
-        .diary-entry {
+        /* 章节卡片 */
+        .chapter {
             background: white;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 15px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            transition: transform 0.3s;
         }
-        .diary-entry:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        .chapter:hover {
+            transform: translateY(-5px);
         }
-        .diary-entry h2 {
-            color: #e74c3c;
-            margin-bottom: 15px;
+        .chapter-header {
+            padding: 25px 30px;
+            color: white;
+            position: relative;
+        }
+        .chapter-1 .chapter-header { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .chapter-2 .chapter-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .chapter-3 .chapter-header { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .chapter-4 .chapter-header { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .chapter-5 .chapter-header { background: linear-gradient(135deg, #27ae60, #229954); }
+        
+        .chapter-header h2 {
+            font-size: 1.8em;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
-        .diary-entry .date {
-            color: #999;
-            font-size: 0.9em;
-            margin-bottom: 15px;
+        .chapter-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.5em;
+            font-weight: normal;
         }
-        .diary-entry p {
-            color: #666;
+        .chapter-content {
+            padding: 30px;
+        }
+        
+        /* 症状框 */
+        .symptom {
+            background: #fff5f5;
+            border-left: 5px solid #e74c3c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .symptom h3 {
+            color: #c0392b;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* 诊断框 */
+        .diagnosis {
+            background: #fffbeb;
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .diagnosis h3 {
+            color: #d97706;
             margin-bottom: 10px;
         }
         
-        /* 问题框 */
-        .problem-box {
-            background: #fff5f5;
-            border-left: 4px solid #e74c3c;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+        /* 折腾记录 */
+        .attempts {
+            margin: 20px 0;
         }
-        .problem-box h4 {
-            color: #c0392b;
-            margin-bottom: 8px;
+        .attempt {
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
         }
-        
-        /* 解决方案框 */
-        .solution-box {
-            background: #f0fff4;
-            border-left: 4px solid #27ae60;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 0 8px 8px 0;
+        .attempt.fail {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
         }
-        .solution-box h4 {
-            color: #27ae60;
-            margin-bottom: 8px;
+        .attempt.success {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+        }
+        .attempt.note {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
         }
         
         /* 代码块 */
-        code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            color: #e74c3c;
-        }
         .code-block {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 8px;
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 20px;
+            border-radius: 12px;
             overflow-x: auto;
-            margin: 10px 0;
-            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
             font-size: 0.9em;
+            line-height: 1.5;
+            position: relative;
+        }
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 12px;
+            height: 12px;
+            background: #ff5f56;
+            border-radius: 50%;
+            box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27ca40;
+        }
+        .code-block code {
+            display: block;
+            padding-top: 20px;
         }
         
-        /* 标签 */
-        .tag {
-            display: inline-block;
-            background: #e3f2fd;
-            color: #2196F3;
-            padding: 3px 12px;
+        /* 通关配置区域 */
+        .final-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            color: white;
+        }
+        .final-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .final-section .code-block {
+            background: rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+        
+        /* 心得表格 */
+        .tips-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .tips-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        .tips-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .tips-table tr:last-child td {
+            border-bottom: none;
+        }
+        .tips-table tr:hover {
+            background: #f9fafb;
+        }
+        
+        /* 后记 */
+        .epilogue {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            color: white;
+            text-align: center;
+        }
+        .epilogue h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .epilogue .suggestions {
+            text-align: left;
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
             border-radius: 15px;
-            font-size: 12px;
-            margin-right: 8px;
-            margin-bottom: 8px;
+            margin-top: 20px;
         }
-        .tag.error {
-            background: #ffebee;
-            color: #e74c3c;
-        }
-        .tag.success {
-            background: #e8f5e9;
-            color: #27ae60;
-        }
-        .tag.warning {
-            background: #fff3e0;
-            color: #f57c00;
+        .epilogue .suggestions li {
+            margin: 12px 0;
+            padding-left: 10px;
         }
         
         /* 页脚 */
         footer {
             text-align: center;
-            padding: 30px;
-            color: #999;
+            padding: 40px;
+            color: rgba(255,255,255,0.7);
             margin-top: 50px;
+        }
+        footer a {
+            color: #64b5f6;
         }
     </style>
 </head>
@@ -188,205 +310,288 @@
     <!-- 头部横幅 -->
     <div class="header">
         <h1>🦞 龙虾折腾日记</h1>
-        <p>记录安装 OpenClaw 的血泪史和各种踩坑过程</p>
+        <p>npm install 的血泪史：从 EACCES 到 🎉 成功的通关实录</p>
     </div>
     
     <!-- 主要内容 -->
     <div class="container">
-        <!-- 第一天 -->
-        <div class="diary-entry">
-            <h2>💥 Day 1 - 刚开始就翻车</h2>
-            <p class="date">📅 2025年1月20日</p>
-            
-            <p>今天满怀信心地准备安装龙虾 AI，结果第一步就卡住了...</p>
-            
-            <div class="problem-box">
-                <h4>❌ 问题：Python 版本不兼容</h4>
-                <p>运行安装脚本时提示：<code>Python 3.8+ is required</code></p>
-                <p>而我系统里只有 Python 3.7，升级后发现 pip 全乱了 🤯</p>
+        
+        <!-- 第一章 -->
+        <div class="chapter chapter-1">
+            <div class="chapter-header">
+                <h2>
+                    <span>📜</span>
+                    第一章：权限大魔王
+                    <span class="chapter-badge">BOSS LV.1</span>
+                </h2>
             </div>
-            
-            <div class="solution-box">
-                <h4>✅ 解决方案</h4>
-                <p>1. 卸载旧版 Python</p>
-                <p>2. 从官网下载 Python 3.10（不要太新也不要太旧）</p>
-                <p>3. 安装时勾选 "Add to PATH"（这点很关键！）</p>
+            <div class="chapter-content">
+                <div class="symptom">
+                    <h3>🩸 症状</h3>
+                    <p>一上来就被 <code>EACCES: permission denied</code> 拍在脸上</p>
+                </div>
+                
                 <div class="code-block">
-# 验证安装
-python --version
-pip --version
+<code>npm error code EACCES
+npm error syscall mkdir
+npm error path /usr/local/lib/node_modules/openclaw</code>
+                </div>
+                
+                <div class="diagnosis">
+                    <h3>🔍 诊断</h3>
+                    <p>npm 默认想往系统目录 <code>/usr/local</code> 里塞东西，但 macOS 说：<strong>"你没 root 权限，爬！"</strong></p>
+                </div>
+                
+                <div class="attempts">
+                    <div class="attempt fail">
+                        <span>❌</span>
+                        <span><strong>第一次尝试：</strong>直接 <code>npm install -g</code>，跪了</span>
+                    </div>
+                    <div class="attempt success">
+                        <span>✅</span>
+                        <span><strong>解决方案：</strong>配置 npm 使用用户目录 <code>~/.npm-global</code>，绕过权限封锁</span>
+                    </div>
+                    <div class="attempt note">
+                        <span>📝</span>
+                        <span><strong>配置命令：</strong></span>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+<code>mkdir -p ~/.npm-global
+npm config set prefix '~/.npm-global'</code>
                 </div>
             </div>
-            
-            <p>
-                <span class="tag error">Python</span>
-                <span class="tag warning">环境配置</span>
-            </p>
         </div>
         
-        <!-- 第二天 -->
-        <div class="diary-entry">
-            <h2>🔥 Day 2 - 依赖地狱</h2>
-            <p class="date">📅 2025年1月21日</p>
-            
-            <p>终于搞定了 Python，准备运行一键安装脚本，结果...</p>
-            
-            <div class="problem-box">
-                <h4>❌ 问题：pip 依赖冲突</h4>
-                <p>安装过程中各种红色报错：</p>
-                <div class="code-block">
-ERROR: Cannot install openclaw because these 
-package versions have conflicting dependencies.
-                </div>
-                <p>numpy、torch、pydantic 各种版本打架，安装1小时，报错59个 💀</p>
+        <!-- 第二章 -->
+        <div class="chapter chapter-2">
+            <div class="chapter-header">
+                <h2>
+                    <span>📜</span>
+                    第二章：缓存里的幽灵文件
+                    <span class="chapter-badge">BOSS LV.2</span>
+                </h2>
             </div>
-            
-            <div class="solution-box">
-                <h4>✅ 解决方案</h4>
-                <p>创建虚拟环境隔离依赖：</p>
-                <div class="code-block">
-# 创建虚拟环境
-python -m venv openclaw_env
-
-# 激活（Windows）
-openclaw_env\Scripts\activate
-
-# 激活（Mac/Linux）
-source openclaw_env/bin/activate
-
-# 再运行安装脚本
-pip install -r requirements.txt
+            <div class="chapter-content">
+                <div class="symptom">
+                    <h3>🩸 症状</h3>
+                    <p>设置好路径后，又遇到 EEXIST 和权限错误</p>
                 </div>
-                <p>💡 心得：永远不要在全局环境安装 AI 项目依赖！</p>
+                
+                <div class="code-block">
+<code>npm error EACCES: permission denied, mkdir '/Users/eason/.npm/_cacache/...'
+npm error Your cache folder contains root-owned files</code>
+                </div>
+                
+                <div class="diagnosis">
+                    <h3>🔍 诊断</h3>
+                    <p>之前用 <code>sudo</code> 装过东西，缓存目录里残留了 root 权限的文件，普通用户删不掉</p>
+                </div>
+                
+                <div class="attempts">
+                    <div class="attempt fail">
+                        <span>❌</span>
+                        <span>尝试 <code>rm -rf ~/.npm/_cacache</code>，Permission denied</span>
+                    </div>
+                    <div class="attempt fail">
+                        <span>❌</span>
+                        <span>尝试 <code>npm cache clean --force</code>，npm 说："不行，有 root 文件"</span>
+                    </div>
+                    <div class="attempt note">
+                        <span>📝</span>
+                        <span><strong>修复命令（需要 sudo）：</strong></span>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+<code>sudo chown -R $(whoami) ~/.npm</code>
+                </div>
             </div>
-            
-            <p>
-                <span class="tag error">pip</span>
-                <span class="tag warning">依赖冲突</span>
-                <span class="tag success">虚拟环境</span>
-            </p>
         </div>
         
-        <!-- 第三天 -->
-        <div class="diary-entry">
-            <h2>🌙 Day 3 - 显卡驱动 nightmare</h2>
-            <p class="date">📅 2025年1月22日</p>
-            
-            <p>环境终于配好了，启动服务时却又出问题...</p>
-            
-            <div class="problem-box">
-                <h4>❌ 问题：CUDA 版本不匹配</h4>
-                <p>报错信息：</p>
-                <div class="code-block">
-RuntimeError: CUDA error: no kernel image 
-is available for execution on the device
-                </div>
-                <p>我的显卡是 GTX 1060，装的 CUDA 12.0，但 torch 只支持 CUDA 11.8</p>
+        <!-- 第三章 -->
+        <div class="chapter chapter-3">
+            <div class="chapter-header">
+                <h2>
+                    <span>📜</span>
+                    第三章：网络墙中墙
+                    <span class="chapter-badge">BOSS LV.3</span>
+                </h2>
             </div>
-            
-            <div class="solution-box">
-                <h4>✅ 解决方案</h4>
-                <p>1. 卸载 CUDA 12.0</p>
-                <p>2. 安装 CUDA 11.8</p>
-                <p>3. 重装对应版本的 torch：</p>
+            <div class="chapter-content">
+                <div class="symptom">
+                    <h3>🩸 症状</h3>
+                    <p>好不容易权限修好了，又遇到 ECONNRESET</p>
+                </div>
+                
                 <div class="code-block">
-# 先卸载现有 torch
-pip uninstall torch torchvision torchaudio
-
-# 安装 CUDA 11.8 版本
-pip install torch torchvision torchaudio \
-    --index-url https://download.pytorch.org/whl/cu118
+<code>npm error network request to https://codeload.github.com/... failed
+npm error reason: read ECONNRESET</code>
+                </div>
+                
+                <div class="diagnosis">
+                    <h3>🔍 诊断</h3>
+                    <p>openclaw 依赖中有从 GitHub 直接下载的包（libsignal-node），网络连接被重置</p>
+                </div>
+                
+                <div class="attempts">
+                    <div class="attempt fail">
+                        <span>❌</span>
+                        <span>直连失败，卡在下载依赖</span>
+                    </div>
+                    <div class="attempt success">
+                        <span>✅</span>
+                        <span><strong>解决方案：</strong>开启代理</span>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+<code>export https_proxy=http://127.0.0.1:7890
+export http_proxy=http://127.0.0.1:7890
+export all_proxy=socks5://127.0.0.1:7890</code>
                 </div>
             </div>
-            
-            <p>
-                <span class="tag error">CUDA</span>
-                <span class="tag error">显卡驱动</span>
-                <span class="tag warning">GPU</span>
-            </p>
         </div>
         
-        <!-- 第四天 -->
-        <div class="diary-entry">
-            <h2>😤 Day 4 - 端口被占用</h2>
-            <p class="date">📅 2025年1月23日</p>
-            
-            <p>所有依赖都搞定了，终于要启动了！结果...</p>
-            
-            <div class="problem-box">
-                <h4>❌ 问题：端口 8000 被占用</h4>
-                <p>启动服务时报错：</p>
-                <div class="code-block">
-OSError: [Errno 98] address already in use: ('0.0.0.0', 8000)
-                </div>
-                <p>原来我之前装的某个软件占用了 8000 端口 😭</p>
+        <!-- 第四章 -->
+        <div class="chapter chapter-4">
+            <div class="chapter-header">
+                <h2>
+                    <span>📜</span>
+                    第四章：Discord 开发者迷宫
+                    <span class="chapter-badge">HIDDEN STAGE</span>
+                </h2>
             </div>
-            
-            <div class="solution-box">
-                <h4>✅ 解决方案</h4>
-                <p>方案一：找出并杀掉占用进程</p>
-                <div class="code-block">
-# Windows
-netstat -ano | findstr :8000
-taskkill /PID 1234 /F
-
-# Mac/Linux
-lsof -i :8000
-kill -9 1234
+            <div class="chapter-content">
+                <div class="symptom">
+                    <h3>🩸 症状</h3>
+                    <p>想配 Discord，找不到 Developer Portal，OAuth2 位置成谜</p>
                 </div>
-                <p>方案二：修改配置文件换端口</p>
-                <div class="code-block">
-# 在 config.yaml 里修改
-server:
-  port: 8080  # 改成别的端口
+                
+                <div class="diagnosis">
+                    <h3>🔍 诊断</h3>
+                    <p>Discord 开发者界面隐藏深，新手容易迷路</p>
+                </div>
+                
+                <div class="attempts">
+                    <div class="attempt fail">
+                        <span>❌</span>
+                        <span>直接访问链接 404</span>
+                    </div>
+                    <div class="attempt fail">
+                        <span>❌</span>
+                        <span>找到 Portal 后，OAuth2 在左侧菜单里，但不容易发现</span>
+                    </div>
+                    <div class="attempt success">
+                        <span>✅</span>
+                        <span><strong>正确路径：</strong></span>
+                    </div>
+                </div>
+                
+                <div style="background: #f0fdf4; padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <ol style="margin-left: 25px; line-height: 2;">
+                        <li>先登录 Discord</li>
+                        <li>访问 <a href="https://discord.com/developers/applications" target="_blank" style="color: #2196F3;">discord.com/developers/applications</a></li>
+                        <li>创建 Application → 左侧找到 OAuth2 → URL Generator</li>
+                    </ol>
                 </div>
             </div>
-            
-            <p>
-                <span class="tag error">端口冲突</span>
-                <span class="tag success">已解决</span>
-            </p>
         </div>
         
-        <!-- 第五天 -->
-        <div class="diary-entry">
-            <h2>🎉 Day 5 - 终于成功了！</h2>
-            <p class="date">📅 2025年1月24日</p>
+        <!-- 最终通关配置 -->
+        <div class="final-section">
+            <h2>🏆 最终通关配置</h2>
+            <p style="text-align: center; margin-bottom: 25px; opacity: 0.9;">完整安装命令（供后人参考）</p>
             
-            <p>经历了4天的折腾，今天终于看到 "Server started successfully" 了！</p>
-            
-            <div class="solution-box">
-                <h4>✅ 最终检查清单</h4>
-                <p>如果你也在安装，建议按这个顺序检查：</p>
-                <ol style="margin-left: 20px; color: #666;">
-                    <li>Python 版本 >= 3.8 且 < 3.12</li>
-                    <li>使用了虚拟环境（venv/conda）</li>
-                    <li>CUDA 版本与显卡兼容（NVIDIA 控制面板查看）</li>
-                    <li>torch 版本与 CUDA 版本匹配</li>
-                    <li>端口未被占用（8000 或自定义端口）</li>
-                    <li>API Key 配置正确</li>
-                </ol>
+            <div class="code-block">
+<code># 1. 修复权限（如果之前有 root 残留）
+sudo chown -R $(whoami) ~/.npm
+
+# 2. 配置用户级全局安装
+mkdir -p ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
+source ~/.zshrc
+
+# 3. 设置代理（中国大陆用户）
+export https_proxy=http://127.0.0.1:7890
+export http_proxy=http://127.0.0.1:7890
+export all_proxy=socks5://127.0.0.1:7890
+
+# 4. 安装！
+npm install -g openclaw@latest
+
+# 5. 初始化
+openclaw setup</code>
             </div>
-            
-            <div class="problem-box">
-                <h4>📝 血泪教训总结</h4>
-                <p>1. <strong>不要急躁</strong> - AI 工具的环境配置本来就很复杂</p>
-                <p>2. <strong>看官方文档</strong> - 很多问题文档里其实都写了</p>
-                <p>3. <strong>善用搜索</strong> - GitHub Issues 里几乎能找到所有错误的解决方案</p>
-                <p>4. <strong>做好记录</strong> - 就像这篇日记，方便以后复盘</p>
-            </div>
-            
-            <p>
-                <span class="tag success">成功安装</span>
-                <span class="tag">经验总结</span>
-            </p>
         </div>
+        
+        <!-- 踩坑心得表格 -->
+        <h2 style="color: white; text-align: center; margin: 40px 0 20px;">💡 踩坑心得</h2>
+        <table class="tips-table">
+            <thead>
+                <tr>
+                    <th>问题类型</th>
+                    <th>出现频率</th>
+                    <th>血压指数</th>
+                    <th>解决方案</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>权限不足</strong></td>
+                    <td>⭐⭐⭐⭐⭐</td>
+                    <td>🔴🔴🔴🔴🔴</td>
+                    <td>改 prefix + chown</td>
+                </tr>
+                <tr>
+                    <td><strong>缓存幽灵</strong></td>
+                    <td>⭐⭐⭐</td>
+                    <td>🔴🔴🔴</td>
+                    <td>sudo chown -R</td>
+                </tr>
+                <tr>
+                    <td><strong>网络拦截</strong></td>
+                    <td>⭐⭐⭐⭐</td>
+                    <td>🔴🔴🔴🔴</td>
+                    <td>开代理</td>
+                </tr>
+                <tr>
+                    <td><strong>Discord 迷路</strong></td>
+                    <td>⭐⭐</td>
+                    <td>🔴🔴</td>
+                    <td>仔细看左侧菜单</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- 后记 -->
+        <div class="epilogue">
+            <h2>🎉 后记</h2>
+            <p>折腾 4 个回合后，终于看到这只龙虾成功跑起来：</p>
+            
+            <div class="code-block" style="text-align: center; font-size: 1.2em;">
+<code>🦞 OpenClaw 2026.1.30 — Because the right answer is usually a script.</code>
+            </div>
+            
+            <div class="suggestions">
+                <h3 style="margin-bottom: 15px;">📋 给后来人的建议：</h3>
+                <ul style="list-style: none;">
+                    <li>✅ macOS 用户直接配好 <code>~/.npm-global</code>，避免权限噩梦</li>
+                    <li>✅ 中国大陆用户提前开好代理，GitHub 依赖逃不掉</li>
+                    <li>✅ Discord 配置时记得开 <strong>MESSAGE CONTENT INTENT</strong>，不然 Bot 是聋子</li>
+                    <li>✅ 把这篇日记收藏，下次换电脑不迷路</li>
+                </ul>
+            </div>
+        </div>
+        
     </div>
     
     <!-- 页脚 -->
     <footer>
-        <p>🔧 折腾不息，踩坑不止 | ling1in</p>
-        <p>有问题欢迎交流：jaylen1128@email.com</p>
+        <p>🔧 折腾不息，踩坑不止 | 由 ling1in 血泪撰写</p>
+        <p>有问题欢迎交流：<a href="mailto:jaylen1128@email.com">jaylen1128@email.com</a></p>
     </footer>
 </body>
 </html>
