@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>🌸 ling1in 的小宇宙</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
         
         body {
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'ZCOOL KuaiLe', 'Nunito', -apple-system, sans-serif;
             background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 30%, #E8F4F8 60%, #FFF0F5 100%);
             min-height: 100vh;
             line-height: 1.8;
@@ -380,6 +380,37 @@
                 transform: translateY(60px) rotate(360deg) scale(0.3);
             }
         }
+        
+        /* 颜文字冒泡 */
+        .kaomoji-float {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            color: #e85a71;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 183, 197, 0.8);
+            animation: kaomojiPop 2s ease-out forwards;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        @keyframes kaomojiPop {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-20deg);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1.2) rotate(10deg);
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1) rotate(0deg) translateY(-20px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8) rotate(10deg) translateY(-50px);
+            }
+        }
     </style>
     <script>
         // 樱花拖尾特效
@@ -424,6 +455,75 @@
                     lastTime = now;
                 }
             });
+        })();
+        
+        // 颜文字冒泡特效
+        (function() {
+            const kaomojis = [
+                '(｡♥‿♥｡)', '(◕‿◕)', '(*^ω^)', '(◍•ᴗ•◍)', '(｡◕‿◕｡)',
+                '(*≧ω≦)', '(｡･ω･｡)', '(✿◠‿◠)', '(◕ᴗ◕✿)', '(｡♥‿♥｡)',
+                '(*^^*)', '(◠‿◠)', '｡^‿^｡', '(人◕ω◕)', 'ヾ(◍°∇°◍)',
+                '(｡･ω･｡)', '(*ﾟ▽ﾟ*)', '(｡♥‿♥｡)', '(´｡• ᵕ •｡)', '(*ˊᵕˋ*)',
+                '(｡◕ ∀ ◕｡)', '(◍•ᴗ•◍)❤', '(◕‿◕✿)', '(*´▽`*)', '(｡◕‿◕｡)'
+            ];
+            
+            let mouseX = 0, mouseY = 0;
+            let lastMoveTime = Date.now();
+            let isIdle = false;
+            let spawnInterval = null;
+            
+            // 跟踪鼠标位置
+            document.addEventListener('mousemove', function(e) {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                lastMoveTime = Date.now();
+                
+                // 如果之前在静止状态，现在移动了，停止生成
+                if (isIdle) {
+                    isIdle = false;
+                    if (spawnInterval) {
+                        clearInterval(spawnInterval);
+                        spawnInterval = null;
+                    }
+                }
+            });
+            
+            // 创建颜文字
+            function createKaomoji() {
+                const kaomoji = document.createElement('div');
+                kaomoji.className = 'kaomoji-float';
+                kaomoji.textContent = kaomojis[Math.floor(Math.random() * kaomojis.length)];
+                
+                // 在光标周围随机位置
+                const offsetX = (Math.random() - 0.5) * 120;
+                const offsetY = (Math.random() - 0.5) * 120;
+                kaomoji.style.left = (mouseX + offsetX) + 'px';
+                kaomoji.style.top = (mouseY + offsetY) + 'px';
+                
+                // 随机大小
+                const size = Math.random() * 6 + 16;
+                kaomoji.style.fontSize = size + 'px';
+                
+                document.body.appendChild(kaomoji);
+                
+                // 动画结束后移除
+                setTimeout(() => kaomoji.remove(), 2000);
+            }
+            
+            // 检查静止状态
+            function checkIdle() {
+                const now = Date.now();
+                const idleTime = now - lastMoveTime;
+                
+                if (idleTime > 5000 && !isIdle) {
+                    // 静止超过5秒，开始生成颜文字
+                    isIdle = true;
+                    spawnInterval = setInterval(createKaomoji, 400);
+                }
+            }
+            
+            // 每100ms检查一次
+            setInterval(checkIdle, 100);
         })();
     </script>
     
