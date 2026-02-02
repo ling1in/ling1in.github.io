@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>🌸 关于我 | ling1in</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,7 +12,7 @@
         }
         
         body {
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Noto Sans SC', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 30%, #E8F4F8 60%, #FFF0F5 100%);
             min-height: 100vh;
             line-height: 1.7;
@@ -60,6 +60,66 @@
             10% { opacity: 1; }
             90% { opacity: 1; }
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        /* 漂浮的语录 */
+        .floating-quote {
+            position: fixed;
+            font-size: 0.85em;
+            font-weight: 300;
+            text-align: center;
+            opacity: 0;
+            animation: floatQuote 15s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+            max-width: 200px;
+            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+        }
+        
+        .floating-quote .jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            display: block;
+            color: #667eea;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+            font-weight: 400;
+        }
+        
+        .floating-quote .cn {
+            display: block;
+            color: #e85a71;
+            font-size: 0.95em;
+        }
+        
+        .floating-quote:nth-child(5) { left: 5%; top: 15%; animation-delay: 0s; }
+        .floating-quote:nth-child(6) { left: 75%; top: 20%; animation-delay: 3s; }
+        .floating-quote:nth-child(7) { left: 8%; top: 50%; animation-delay: 6s; }
+        .floating-quote:nth-child(8) { left: 80%; top: 55%; animation-delay: 9s; }
+        .floating-quote:nth-child(9) { left: 3%; top: 80%; animation-delay: 12s; }
+        .floating-quote:nth-child(10) { left: 78%; top: 85%; animation-delay: 1.5s; }
+        .floating-quote:nth-child(11) { left: 12%; top: 35%; animation-delay: 4.5s; }
+        .floating-quote:nth-child(12) { left: 85%; top: 70%; animation-delay: 7.5s; }
+        
+        @keyframes floatQuote {
+            0%, 100% { 
+                opacity: 0; 
+                transform: translateY(20px) translateX(0); 
+            }
+            10% { 
+                opacity: 0.9; 
+            }
+            25% { 
+                transform: translateY(-10px) translateX(10px); 
+            }
+            50% { 
+                transform: translateY(0) translateX(-5px); 
+            }
+            75% { 
+                transform: translateY(-15px) translateX(5px); 
+            }
+            90% { 
+                opacity: 0.9; 
+            }
         }
         
         /* 返回链接 */
@@ -178,6 +238,54 @@
     <div class="sakura"></div>
     <div class="sakura"></div>
     <div class="sakura"></div>
+    
+    <!-- 漂浮的语录 - 你的名字 -->
+    <div class="floating-quote">
+        <span class="jp">重要な人、忘れたくない人、忘れちゃダメな人</span>
+        <span class="cn">重要的人，不想忘记的人，绝不能忘记的人</span>
+    </div>
+    
+    <!-- 漂浮的语录 - 天气之子 -->
+    <div class="floating-quote">
+        <span class="jp">君のことが好きだ。僕はこの世界が君を中心に回ってる</span>
+        <span class="cn">我喜欢你，我的世界以你为中心转动</span>
+    </div>
+    
+    <!-- 漂浮的语录 - 秒速五厘米 -->
+    <div class="floating-quote">
+        <span class="jp">桜の落ちる速度は秒速五センチメートル</span>
+        <span class="cn">樱花飘落的速度是每秒五厘米</span>
+    </div>
+    
+    <!-- 漂浮的语录 - 言叶之庭 -->
+    <div class="floating-quote">
+        <span class="jp">隠れてないで、もっと遠くへ行こう</span>
+        <span class="cn">别再躲藏了，去更远的地方吧</span>
+    </div>
+    
+    <!-- 漂浮的语录 - 你的名字 -->
+    <div class="floating-quote">
+        <span class="jp">僕たちは、時間の旅人だね</span>
+        <span class="cn">我们是时间的旅行者</span>
+    </div>
+    
+    <!-- 漂浮的语录 - 天气之子 -->
+    <div class="floating-quote">
+        <span class="jp">天気の子なんだよ</span>
+        <span class="cn">我是天气之子</span>
+    </div>
+    
+    <!-- 漂浮的语录 - 秒速五厘米 -->
+    <div class="floating-quote">
+        <span class="jp">一緒にいたかった</span>
+        <span class="cn">好想和你在一起</span>
+    </div>
+    
+    <!-- 漂浮的语录 - 言叶之庭 -->
+    <div class="floating-quote">
+        <span class="jp">夢ならばどれほどよかったでしょう</span>
+        <span class="cn">如果是梦该有多好啊</span>
+    </div>
     
     <a href="index.html" class="back-link">← 返回首页</a>
     <a href="openclaw-setup.html" class="back-link">🔧 折腾日记</a>
