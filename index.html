@@ -359,5 +359,73 @@
         <p style="margin-top: 15px; font-size: 0.8em;">Made with ❤️ by ling1in | 2025</p>
     </div>
     
+    <!-- 樱花拖尾特效 -->
+    <style>
+        .cursor-sakura {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 10px rgba(255, 183, 197, 0.6);
+            animation: sakuraFall 1.5s ease-out forwards;
+        }
+        
+        @keyframes sakuraFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(60px) rotate(360deg) scale(0.3);
+            }
+        }
+    </style>
+    <script>
+        // 樱花拖尾特效
+        (function() {
+            function createSakura(x, y) {
+                const sakura = document.createElement('div');
+                sakura.className = 'cursor-sakura';
+                const size = Math.random() * 10 + 8;
+                sakura.style.width = size + 'px';
+                sakura.style.height = size + 'px';
+                sakura.style.left = x + 'px';
+                sakura.style.top = y + 'px';
+                const colors = [
+                    'rgba(255, 183, 197, 0.8)',
+                    'rgba(255, 192, 203, 0.8)',
+                    'rgba(255, 160, 180, 0.8)',
+                    'rgba(255, 218, 225, 0.8)'
+                ];
+                sakura.style.background = colors[Math.floor(Math.random() * colors.length)];
+                const rotation = Math.random() * 360;
+                sakura.style.transform = `rotate(${rotation}deg)`;
+                document.body.appendChild(sakura);
+                setTimeout(() => sakura.remove(), 1500);
+            }
+            
+            let lastTime = 0;
+            const throttle = 30;
+            
+            document.addEventListener('mousemove', function(e) {
+                const now = Date.now();
+                if (now - lastTime > throttle) {
+                    createSakura(e.clientX, e.clientY);
+                    lastTime = now;
+                }
+            });
+            
+            document.addEventListener('touchmove', function(e) {
+                const now = Date.now();
+                if (now - lastTime > throttle) {
+                    const touch = e.touches[0];
+                    createSakura(touch.clientX, touch.clientY);
+                    lastTime = now;
+                }
+            });
+        })();
+    </script>
+    
 </body>
 </html>
