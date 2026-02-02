@@ -192,269 +192,222 @@
             display: none;
         }
         
-        /* 两侧樱花树装饰 */
-        .sakura-tree-left,
-        .sakura-tree-right {
+        /* 樱花树边框装饰 - 四边分布 */
+        .sakura-border {
             position: fixed;
-            bottom: 0;
-            width: 180px;
-            height: 350px;
-            z-index: 0;
             pointer-events: none;
-            opacity: 0.7;
-            transition: opacity 0.5s ease;
-        }
-        
-        /* 左侧树位置 - 形成树林 */
-        .sakura-tree-left.tree-pos-1 {
-            left: -30px;
-            bottom: 0;
-            z-index: 2;
-        }
-        
-        .sakura-tree-left.tree-pos-2 {
-            left: 60px;
-            bottom: -30px;
-            transform: scale(0.7);
-            opacity: 0.5;
-            z-index: 1;
-        }
-        
-        .sakura-tree-left.tree-pos-3 {
-            left: 120px;
-            bottom: -50px;
-            transform: scale(0.5);
-            opacity: 0.35;
             z-index: 0;
         }
         
-        .sakura-tree-left.tree-pos-4 {
-            left: 10px;
-            bottom: -60px;
-            transform: scale(0.4);
-            opacity: 0.25;
-            z-index: 0;
-        }
-        
-        /* 右侧树位置 - 形成树林 */
-        .sakura-tree-right.tree-pos-1 {
-            right: -30px;
-            bottom: 0;
-            transform: scaleX(-1);
-            z-index: 2;
-        }
-        
-        .sakura-tree-right.tree-pos-2 {
-            right: 60px;
-            bottom: -30px;
-            transform: scaleX(-1) scale(0.7);
-            opacity: 0.5;
-            z-index: 1;
-        }
-        
-        .sakura-tree-right.tree-pos-3 {
-            right: 120px;
-            bottom: -50px;
-            transform: scaleX(-1) scale(0.5);
-            opacity: 0.35;
-            z-index: 0;
-        }
-        
-        .sakura-tree-right.tree-pos-4 {
-            right: 10px;
-            bottom: -60px;
-            transform: scaleX(-1) scale(0.4);
-            opacity: 0.25;
-            z-index: 0;
-        }
-        
-        /* 树干 */
-        .tree-trunk {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 25px;
+        /* 顶部树枝 - 从上方垂下 */
+        .sakura-border.top {
+            top: -10px;
+            left: 0;
+            right: 0;
             height: 120px;
-            background: linear-gradient(90deg, #5d4037 0%, #8d6e63 50%, #5d4037 100%);
-            border-radius: 10px 10px 0 0;
+            background: 
+                /* 主枝 */
+                radial-gradient(ellipse 80px 40px at 5% 0%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 100px 50px at 15% 0%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 90px 45px at 25% 0%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 120px 60px at 40% 0%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 100px 50px at 55% 0%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 90px 45px at 70% 0%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 110px 55px at 85% 0%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 80px 40px at 95% 0%, #5d4037 0%, transparent 70%),
+                /* 细枝 */
+                radial-gradient(ellipse 60px 30px at 10% 20%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 70px 35px at 30% 25%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 80px 40px at 50% 30%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 65px 32px at 75% 22%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 55px 28px at 90% 18%, #6d4c41 0%, transparent 60%);
+            opacity: 0.8;
         }
         
-        .tree-trunk::before {
+        /* 顶部樱花 */
+        .sakura-border.top::before {
             content: '';
             position: absolute;
-            bottom: 30px;
-            left: -8px;
-            width: 15px;
-            height: 60px;
-            background: linear-gradient(90deg, #6d4c41 0%, #a1887f 50%, #6d4c41 100%);
-            border-radius: 8px;
-            transform: rotate(-20deg);
-        }
-        
-        .tree-trunk::after {
-            content: '';
-            position: absolute;
-            bottom: 50px;
-            right: -10px;
-            width: 18px;
-            height: 70px;
-            background: linear-gradient(90deg, #5d4037 0%, #8d6e63 50%, #5d4037 100%);
-            border-radius: 9px;
-            transform: rotate(15deg);
-        }
-        
-        /* 树冠 - 由多个圆形组成 */
-        .tree-crown {
-            position: absolute;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 160px;
-            height: 200px;
-        }
-        
-        .crown-circle {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #ffb6c1 0%, #ff69b4 40%, #db7093 100%);
-            box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
-            animation: treeSway 4s ease-in-out infinite;
-        }
-        
-        .crown-circle:nth-child(1) {
-            width: 100px;
+            top: 0;
+            left: 0;
+            right: 0;
             height: 100px;
-            bottom: 80px;
-            left: 30px;
-            animation-delay: 0s;
+            background:
+                /* 樱花簇 */
+                radial-gradient(circle 25px at 3% 15%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 30px at 8% 35%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 20px at 12% 10%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 35px at 18% 40%, #ffb6c1 0%, #ff1493 50%, transparent 70%),
+                radial-gradient(circle 28px at 22% 20%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 32px at 28% 45%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 22px at 35% 15%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 38px at 42% 50%, #ffb6c1 0%, #ff1493 50%, transparent 70%),
+                radial-gradient(circle 26px at 48% 25%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 34px at 55% 40%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 24px at 62% 18%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 36px at 68% 48%, #ffb6c1 0%, #ff1493 50%, transparent 70%),
+                radial-gradient(circle 28px at 75% 22%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 32px at 82% 42%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 22px at 88% 15%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 30px at 95% 35%, #ffb6c1 0%, #ff69b4 50%, transparent 70%);
+            animation: borderSway 5s ease-in-out infinite;
         }
         
-        .crown-circle:nth-child(2) {
-            width: 80px;
-            height: 80px;
-            bottom: 120px;
-            left: 10px;
-            background: radial-gradient(circle at 30% 30%, #ffc0cb 0%, #ff69b4 40%, #db7093 100%);
-            animation-delay: 0.5s;
+        /* 底部树枝 - 从下方生长 */
+        .sakura-border.bottom {
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background:
+                radial-gradient(ellipse 100px 50px at 8% 100%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 120px 60px at 20% 100%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 90px 45px at 35% 100%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 110px 55px at 50% 100%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 95px 48px at 65% 100%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 130px 65px at 80% 100%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 85px 42px at 92% 100%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 70px 35px at 5% 80%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 80px 40px at 28% 75%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 65px 32px at 45% 70%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 75px 38px at 72% 78%, #6d4c41 0%, transparent 60%);
+            opacity: 0.8;
         }
         
-        .crown-circle:nth-child(3) {
-            width: 90px;
-            height: 90px;
-            bottom: 100px;
-            right: 10px;
-            background: radial-gradient(circle at 30% 30%, #ffb6c1 0%, #ff1493 40%, #c71585 100%);
-            animation-delay: 1s;
-        }
-        
-        .crown-circle:nth-child(4) {
-            width: 70px;
-            height: 70px;
-            bottom: 140px;
-            left: 45px;
-            background: radial-gradient(circle at 30% 30%, #ffd1dc 0%, #ff69b4 40%, #db7093 100%);
-            animation-delay: 1.5s;
-        }
-        
-        .crown-circle:nth-child(5) {
-            width: 60px;
-            height: 60px;
-            bottom: 60px;
-            right: 20px;
-            background: radial-gradient(circle at 30% 30%, #ffc0cb 0%, #ff69b4 40%, #db7093 100%);
-            animation-delay: 2s;
-        }
-        
-        @keyframes treeSway {
-            0%, 100% { transform: translateY(0) rotate(-2deg); }
-            50% { transform: translateY(-5px) rotate(2deg); }
-        }
-        
-        /* 飘落的花瓣从树上 */
-        .tree-petal {
+        .sakura-border.bottom::before {
+            content: '';
             position: absolute;
-            width: 8px;
-            height: 8px;
-            background: radial-gradient(circle, rgba(255,182,193,0.9) 0%, rgba(255,182,193,0.4) 100%);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            pointer-events: none;
-            animation: petalFall 6s linear infinite;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 90px;
+            background:
+                radial-gradient(circle 28px at 5% 85%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 32px at 12% 65%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 24px at 18% 88%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 36px at 25% 60%, #ffb6c1 0%, #ff1493 50%, transparent 70%),
+                radial-gradient(circle 26px at 32% 82%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 34px at 40% 58%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 22px at 48% 85%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 38px at 55% 55%, #ffb6c1 0%, #ff1493 50%, transparent 70%),
+                radial-gradient(circle 28px at 62% 80%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 32px at 70% 52%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 24px at 78% 78%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 36px at 85% 58%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 26px at 92% 82%, #ffc0cb 0%, #ff69b4 50%, transparent 70%);
+            animation: borderSway 5s ease-in-out infinite reverse;
         }
         
-        @keyframes petalFall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(200px) rotate(360deg); opacity: 0; }
+        /* 左侧树枝 */
+        .sakura-border.left {
+            left: -10px;
+            top: 80px;
+            bottom: 80px;
+            width: 100px;
+            background:
+                radial-gradient(ellipse 40px 80px at 0% 10%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 50px 100px at 0% 25%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 45px 90px at 0% 40%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 55px 110px at 0% 55%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 48px 95px at 0% 70%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 52px 105px at 0% 85%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 35px 70px at 20% 15%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 40px 80px at 25% 35%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 38px 75px at 22% 60%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 42px 85px at 28% 80%, #6d4c41 0%, transparent 60%);
+            opacity: 0.8;
         }
         
-        /* 不同主题的树样式 */
-        [data-theme="lain"] .crown-circle {
-            background: radial-gradient(circle at 30% 30%, #ff0040 0%, #990033 100%);
-            box-shadow: 0 0 20px rgba(255, 0, 64, 0.5);
+        .sakura-border.left::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            background:
+                radial-gradient(circle 24px at 15% 8%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 28px at 5% 18%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 22px at 20% 28%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 32px at 8% 38%, #ffb6c1 0%, #ff1493 50%, transparent 70%),
+                radial-gradient(circle 26px at 18% 48%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 30px at 6% 58%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 24px at 22% 68%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 34px at 10% 78%, #ffb6c1 0%, #ff1493 50%, transparent 70%),
+                radial-gradient(circle 28px at 20% 88%, #ffc0cb 0%, #ff69b4 50%, transparent 70%);
+            animation: borderSway 6s ease-in-out infinite;
         }
         
-        [data-theme="lain"] .tree-petal {
-            background: radial-gradient(circle, rgba(255,0,64,0.9) 0%, rgba(255,0,64,0.4) 100%);
+        /* 右侧树枝 */
+        .sakura-border.right {
+            right: -10px;
+            top: 80px;
+            bottom: 80px;
+            width: 100px;
+            background:
+                radial-gradient(ellipse 40px 80px at 100% 12%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 50px 100px at 100% 28%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 45px 90px at 100% 42%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 55px 110px at 100% 58%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 48px 95px at 100% 72%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 52px 105px at 100% 88%, #5d4037 0%, transparent 70%),
+                radial-gradient(ellipse 35px 70px at 80% 18%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 40px 80px at 75% 38%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 38px 75px at 78% 62%, #6d4c41 0%, transparent 60%),
+                radial-gradient(ellipse 42px 85px at 72% 82%, #6d4c41 0%, transparent 60%);
+            opacity: 0.8;
         }
         
-        [data-theme="inception"] .crown-circle {
-            background: radial-gradient(circle at 30% 30%, #f39c12 0%, #d68910 100%);
-            box-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
+        .sakura-border.right::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            background:
+                radial-gradient(circle 24px at 85% 10%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 28px at 95% 22%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 22px at 80% 32%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 32px at 92% 42%, #ffb6c1 0%, #ff1493 50%, transparent 70%),
+                radial-gradient(circle 26px at 82% 52%, #ffc0cb 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 30px at 94% 62%, #ffb6c1 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 24px at 78% 72%, #ffd1dc 0%, #ff69b4 50%, transparent 70%),
+                radial-gradient(circle 34px at 90% 82%, #ffb6c1 0%, #ff1493 50%, transparent 70%),
+                radial-gradient(circle 28px at 80% 92%, #ffc0cb 0%, #ff69b4 50%, transparent 70%);
+            animation: borderSway 6s ease-in-out infinite reverse;
         }
         
-        [data-theme="inception"] .tree-petal {
-            background: radial-gradient(circle, rgba(243,156,18,0.9) 0%, rgba(243,156,18,0.4) 100%);
+        @keyframes borderSway {
+            0%, 100% { transform: translateX(0) scale(1); }
+            50% { transform: translateX(3px) scale(1.02); }
         }
         
-        [data-theme="matrix"] .crown-circle {
-            background: radial-gradient(circle at 30% 30%, #00ff00 0%, #008800 100%);
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+        /* 不同主题的边框样式 */
+        [data-theme="lain"] .sakura-border.top::before,
+        [data-theme="lain"] .sakura-border.bottom::before,
+        [data-theme="lain"] .sakura-border.left::before,
+        [data-theme="lain"] .sakura-border.right::before {
+            filter: hue-rotate(300deg) saturate(2);
         }
         
-        [data-theme="matrix"] .tree-petal {
-            background: radial-gradient(circle, rgba(0,255,0,0.9) 0%, rgba(0,255,0,0.4) 100%);
+        [data-theme="inception"] .sakura-border.top::before,
+        [data-theme="inception"] .sakura-border.bottom::before,
+        [data-theme="inception"] .sakura-border.left::before,
+        [data-theme="inception"] .sakura-border.right::before {
+            filter: hue-rotate(30deg) saturate(1.5);
         }
         
-        /* 平板适配 - 缩小树林 */
-        @media (max-width: 1200px) {
-            .sakura-tree-left,
-            .sakura-tree-right {
-                width: 120px;
-                height: 250px;
-            }
-            
-            .sakura-tree-left.tree-pos-1,
-            .sakura-tree-right.tree-pos-1 {
-                opacity: 0.6;
-            }
-            
-            .sakura-tree-left.tree-pos-2,
-            .sakura-tree-right.tree-pos-2 {
-                transform: scale(0.5);
-                opacity: 0.35;
-            }
-            
-            .sakura-tree-left.tree-pos-3,
-            .sakura-tree-right.tree-pos-3,
-            .sakura-tree-left.tree-pos-4,
-            .sakura-tree-right.tree-pos-4 {
-                display: none;
-            }
-            
-            .tree-crown {
-                width: 100px;
-                height: 140px;
-            }
-            .crown-circle:nth-child(1) { width: 70px; height: 70px; bottom: 60px; left: 20px; }
-            .crown-circle:nth-child(2) { width: 55px; height: 55px; bottom: 90px; left: 5px; }
-            .crown-circle:nth-child(3) { width: 60px; height: 60px; bottom: 75px; right: 5px; }
-            .crown-circle:nth-child(4) { width: 50px; height: 50px; bottom: 105px; left: 30px; }
-            .crown-circle:nth-child(5) { width: 40px; height: 40px; bottom: 45px; right: 15px; }
+        [data-theme="matrix"] .sakura-border.top::before,
+        [data-theme="matrix"] .sakura-border.bottom::before,
+        [data-theme="matrix"] .sakura-border.left::before,
+        [data-theme="matrix"] .sakura-border.right::before {
+            filter: hue-rotate(90deg) saturate(2);
         }
         
+        /* 移动端隐藏边框 */
         @media (max-width: 768px) {
-            .sakura-tree-left,
-            .sakura-tree-right {
+            .sakura-border {
                 display: none;
             }
         }
@@ -1074,123 +1027,11 @@
         <button class="theme-btn" data-theme="matrix" title="黑客帝国">💊</button>
     </div>
 
-    <!-- 左侧樱花树林 -->
-    <!-- 左1 - 近景大树 -->
-    <div class="sakura-tree-left tree-pos-1">
-        <div class="tree-crown">
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="tree-petal" style="left: 20%; top: 30%; animation-delay: 0s;"></div>
-            <div class="tree-petal" style="left: 40%; top: 50%; animation-delay: 2s;"></div>
-            <div class="tree-petal" style="left: 60%; top: 20%; animation-delay: 4s;"></div>
-            <div class="tree-petal" style="left: 80%; top: 40%; animation-delay: 1s;"></div>
-            <div class="tree-petal" style="left: 30%; top: 60%; animation-delay: 3s;"></div>
-        </div>
-        <div class="tree-trunk"></div>
-    </div>
-    
-    <!-- 左2 - 中景树 -->
-    <div class="sakura-tree-left tree-pos-2">
-        <div class="tree-crown">
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="tree-petal" style="left: 25%; top: 35%; animation-delay: 1s;"></div>
-            <div class="tree-petal" style="left: 50%; top: 45%; animation-delay: 3s;"></div>
-            <div class="tree-petal" style="left: 70%; top: 25%; animation-delay: 5s;"></div>
-        </div>
-        <div class="tree-trunk"></div>
-    </div>
-    
-    <!-- 左3 - 远景小树 -->
-    <div class="sakura-tree-left tree-pos-3">
-        <div class="tree-crown">
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="tree-petal" style="left: 30%; top: 40%; animation-delay: 0.5s;"></div>
-            <div class="tree-petal" style="left: 60%; top: 30%; animation-delay: 2.5s;"></div>
-        </div>
-        <div class="tree-trunk"></div>
-    </div>
-    
-    <!-- 左4 - 底部小树丛 -->
-    <div class="sakura-tree-left tree-pos-4">
-        <div class="tree-crown">
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-        </div>
-        <div class="tree-trunk"></div>
-    </div>
-    
-    <!-- 右侧樱花树林 -->
-    <!-- 右1 - 近景大树 -->
-    <div class="sakura-tree-right tree-pos-1">
-        <div class="tree-crown">
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="tree-petal" style="left: 20%; top: 30%; animation-delay: 0.5s;"></div>
-            <div class="tree-petal" style="left: 40%; top: 50%; animation-delay: 2.5s;"></div>
-            <div class="tree-petal" style="left: 60%; top: 20%; animation-delay: 4.5s;"></div>
-            <div class="tree-petal" style="left: 80%; top: 40%; animation-delay: 1.5s;"></div>
-            <div class="tree-petal" style="left: 30%; top: 60%; animation-delay: 3.5s;"></div>
-        </div>
-        <div class="tree-trunk"></div>
-    </div>
-    
-    <!-- 右2 - 中景树 -->
-    <div class="sakura-tree-right tree-pos-2">
-        <div class="tree-crown">
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="tree-petal" style="left: 25%; top: 35%; animation-delay: 1.5s;"></div>
-            <div class="tree-petal" style="left: 50%; top: 45%; animation-delay: 3.5s;"></div>
-            <div class="tree-petal" style="left: 70%; top: 25%; animation-delay: 5.5s;"></div>
-        </div>
-        <div class="tree-trunk"></div>
-    </div>
-    
-    <!-- 右3 - 远景小树 -->
-    <div class="sakura-tree-right tree-pos-3">
-        <div class="tree-crown">
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="tree-petal" style="left: 30%; top: 40%; animation-delay: 0.8s;"></div>
-            <div class="tree-petal" style="left: 60%; top: 30%; animation-delay: 2.8s;"></div>
-        </div>
-        <div class="tree-trunk"></div>
-    </div>
-    
-    <!-- 右4 - 底部小树丛 -->
-    <div class="sakura-tree-right tree-pos-4">
-        <div class="tree-crown">
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-            <div class="crown-circle"></div>
-        </div>
-        <div class="tree-trunk"></div>
-    </div>
+    <!-- 樱花树边框装饰 -->
+    <div class="sakura-border top"></div>
+    <div class="sakura-border bottom"></div>
+    <div class="sakura-border left"></div>
+    <div class="sakura-border right"></div>
     
     <!-- 飘落的樱花/粒子 -->
     <div class="sakura"></div>
