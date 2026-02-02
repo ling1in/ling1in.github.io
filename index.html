@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#87CEEB">
     <title>ling1in 的小宇宙</title>
     <!-- 字体：新海诚-可爱 | 玲音-恐怖 | 盗梦空间-优雅 | 黑客帝国-代码 -->
     <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;600;700&family=Noto+Serif+JP:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -76,6 +78,12 @@
             box-sizing: border-box;
         }
         
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         body {
             font-family: var(--font-main);
             background: var(--bg-gradient);
@@ -84,22 +92,26 @@
             color: var(--text-color);
             position: relative;
             overflow-x: hidden;
-            padding: 20px;
+            padding: 15px;
+            padding-top: 70px;
             transition: all 0.5s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* 主题切换按钮 */
         .theme-switcher {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 10px;
+            right: 10px;
             z-index: 1000;
             display: flex;
-            gap: 8px;
-            background: rgba(255,255,255,0.2);
+            gap: 6px;
+            background: rgba(255,255,255,0.25);
             backdrop-filter: blur(10px);
-            padding: 8px;
-            border-radius: 30px;
+            -webkit-backdrop-filter: blur(10px);
+            padding: 6px;
+            border-radius: 25px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
@@ -109,21 +121,26 @@
         }
 
         .theme-btn {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             border: 2px solid transparent;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 1.2em;
+            font-size: 1em;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(255,255,255,0.9);
+            -webkit-tap-highlight-color: transparent;
         }
 
         .theme-btn:hover {
             transform: scale(1.15);
+        }
+        
+        .theme-btn:active {
+            transform: scale(0.95);
         }
 
         .theme-btn.active {
@@ -254,12 +271,13 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255,255,255,0.8);
-            padding: 15px 0;
-            position: sticky;
+            padding: 12px 0;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            z-index: 99;
             box-shadow: 0 2px 20px var(--shadow-color);
-            margin: -20px -20px 20px -20px;
             transition: all 0.5s;
         }
 
@@ -280,22 +298,39 @@
             margin: 0 auto;
             display: flex;
             justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            padding: 0 20px;
+            gap: 10px;
+            flex-wrap: nowrap;
+            padding: 0 80px 0 15px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
+        
+        nav ul::-webkit-scrollbar {
+            display: none;
+        }
+        
+        nav li {
+            flex-shrink: 0;
+        }
+        
         nav a {
             color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 8px 14px;
+            border-radius: 20px;
             transition: all 0.3s ease;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             box-shadow: 0 2px 10px var(--shadow-color);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            display: block;
+            -webkit-tap-highlight-color: transparent;
         }
-        nav a:hover {
+        nav a:hover, nav a:active {
             background: var(--accent-color);
             color: white;
             transform: translateY(-2px);
@@ -305,34 +340,36 @@
         /* 头部 */
         .header {
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 30px 15px 25px;
             position: relative;
             z-index: 1;
         }
         .header h1 {
-            font-size: 2.5em;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-color) 50%, var(--accent-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.3;
         }
         .header p {
-            font-size: 1.1em;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             color: var(--text-secondary);
             font-weight: 300;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
         
         /* 三个漂浮卡片容器 */
         .floating-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             justify-content: center;
             align-items: start;
-            gap: 30px;
-            padding: 40px 20px;
+            gap: 20px;
+            padding: 20px 10px;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
@@ -342,15 +379,15 @@
         /* 漂浮卡片 */
         .float-card {
             width: 100%;
-            max-width: 280px;
-            min-height: 220px;
+            max-width: 100%;
+            min-height: 180px;
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--card-border);
-            border-radius: 24px;
-            box-shadow: 0 12px 40px var(--shadow-color);
-            padding: 28px 24px;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px var(--shadow-color);
+            padding: 22px 18px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -428,16 +465,16 @@
         
         /* 图标 */
         .card-icon {
-            width: 70px;
-            height: 70px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2em;
-            margin-bottom: 18px;
+            font-size: 1.8em;
+            margin-bottom: 12px;
             transition: all 0.4s ease;
-            box-shadow: 0 8px 25px var(--shadow-color);
+            box-shadow: 0 6px 20px var(--shadow-color);
             background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-color) 100%);
         }
         
@@ -460,64 +497,66 @@
         
         /* 卡片标题 */
         .card-title {
-            font-size: 1.25em;
+            font-size: clamp(1.1rem, 4vw, 1.25rem);
             font-weight: 600;
             color: var(--text-color);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         
         /* 卡片内容 */
         .card-text {
             color: var(--text-secondary);
-            font-size: 0.9em;
-            line-height: 1.7;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            line-height: 1.6;
         }
         
         /* 日期标签 */
         .card-date {
             display: inline-block;
-            margin-top: 14px;
-            padding: 6px 14px;
+            margin-top: 10px;
+            padding: 5px 12px;
             background: var(--shadow-color);
-            border-radius: 15px;
+            border-radius: 12px;
             color: var(--accent-color);
-            font-size: 0.75em;
+            font-size: 0.7rem;
             font-weight: 500;
         }
         
         /* 北京时间显示 */
         .beijing-time {
-            margin-top: 15px;
-            padding: 12px 24px;
+            margin-top: 12px;
+            padding: 10px 16px;
             background: rgba(255,255,255,0.25);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: 16px;
             border: 1px solid rgba(255,255,255,0.3);
             display: inline-block;
             transition: all 0.3s ease;
+            max-width: 90vw;
         }
         
-        .beijing-time:hover {
-            transform: scale(1.05);
+        .beijing-time:hover, .beijing-time:active {
+            transform: scale(1.03);
             box-shadow: 0 5px 20px var(--shadow-color);
         }
         
         .time-label {
-            font-size: 0.8em;
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
             color: var(--text-secondary);
-            margin-bottom: 4px;
-            letter-spacing: 2px;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
         }
         
         .time-display {
-            font-size: 1.8em;
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
             font-weight: 700;
             color: var(--accent-color);
             font-family: 'JetBrains Mono', monospace;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--cursor-color);
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px var(--cursor-color);
             transition: all 0.1s ease;
+            white-space: nowrap;
         }
         
         .time-display.pulse {
@@ -526,13 +565,13 @@
         
         @keyframes timePulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); text-shadow: 0 0 30px var(--accent-color); }
+            50% { transform: scale(1.03); text-shadow: 0 0 25px var(--accent-color); }
         }
         
         .time-date {
-            font-size: 0.75em;
+            font-size: clamp(0.65rem, 2vw, 0.75rem);
             color: var(--text-secondary);
-            margin-top: 4px;
+            margin-top: 3px;
         }
         
         [data-theme="lain"] .beijing-time,
@@ -603,42 +642,158 @@
             }
         }
 
-        /* 响应式 */
+        /* 响应式 - 平板 */
         @media (max-width: 1200px) {
             .floating-cards {
                 grid-template-columns: repeat(3, 1fr);
-                max-width: 1000px;
+                gap: 18px;
+                padding: 20px 15px;
             }
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 992px) {
             .floating-cards {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
+                gap: 16px;
             }
+            .float-card {
+                min-height: 190px;
+                padding: 20px 16px;
+            }
+        }
+        
+        /* 响应式 - 手机 */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+                padding-top: 65px;
+            }
+            
+            .theme-switcher {
+                top: 8px;
+                right: 8px;
+                gap: 5px;
+                padding: 5px;
+                border-radius: 20px;
+            }
+            
+            .theme-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 0.85em;
+            }
+            
+            nav {
+                padding: 10px 0;
+            }
+            
+            nav ul {
+                padding: 0 75px 0 10px;
+                gap: 8px;
+            }
+            
+            nav a {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+                border-radius: 16px;
+            }
+            
+            .floating-cards {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px 5px;
+            }
+            
             .float-card {
                 max-width: 100%;
                 min-height: auto;
-                padding: 24px 20px;
+                padding: 20px 18px;
+                border-radius: 18px;
+                animation-duration: 6s !important;
             }
-            .theme-switcher {
-                top: 10px;
-                right: 10px;
-                transform: scale(0.9);
+            
+            .card-icon {
+                width: 52px;
+                height: 52px;
+                font-size: 1.6em;
+                margin-bottom: 10px;
+            }
+            
+            .beijing-time {
+                padding: 8px 14px;
+                margin-top: 10px;
+            }
+            
+            .footer-decoration {
+                padding: 30px 15px 20px;
+                font-size: 0.85em;
+            }
+            
+            /* 减少移动端动画强度 */
+            @keyframes float1 { 0%, 100% { transform: translateY(0) rotate(-0.5deg); } 50% { transform: translateY(-8px) rotate(0.5deg); } }
+            @keyframes float2 { 0%, 100% { transform: translateY(0) rotate(0.5deg); } 50% { transform: translateY(-10px) rotate(-0.5deg); } }
+            @keyframes float3 { 0%, 100% { transform: translateY(0) rotate(-0.3deg); } 50% { transform: translateY(-6px) rotate(0.3deg); } }
+            @keyframes float4 { 0%, 100% { transform: translateY(0) rotate(0.3deg); } 50% { transform: translateY(-9px) rotate(-0.3deg); } }
+            @keyframes float5 { 0%, 100% { transform: translateY(0) rotate(-0.4deg); } 50% { transform: translateY(-7px) rotate(0.4deg); } }
+            @keyframes float6 { 0%, 100% { transform: translateY(0) rotate(0.2deg); } 50% { transform: translateY(-8px) rotate(-0.2deg); } }
+            @keyframes float7 { 0%, 100% { transform: translateY(0) rotate(-0.3deg); } 50% { transform: translateY(-11px) rotate(0.3deg); } }
+        }
+        
+        /* 超小屏幕优化 */
+        @media (max-width: 380px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .header {
+                padding: 20px 10px 20px;
+            }
+            
+            .theme-btn {
+                width: 26px;
+                height: 26px;
+                font-size: 0.8em;
+            }
+            
+            nav a {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .float-card {
+                padding: 18px 14px;
+            }
+            
+            .card-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 1.5em;
             }
         }
         
-        @media (max-width: 600px) {
+        /* 横屏手机优化 */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 20px 15px;
+            }
+            
             .floating-cards {
-                grid-template-columns: 1fr;
-                gap: 25px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
             }
+            
             .float-card {
-                max-width: 320px;
+                min-height: 150px;
+                padding: 15px 12px;
             }
-            .time-display {
-                font-size: 1.4em;
-                letter-spacing: 2px;
+        }
+        
+        /* 减少动画偏好 */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
