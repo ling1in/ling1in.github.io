@@ -3,8 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <title>🌸 龙虾折腾日记 | ling1in</title>
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- 字体：新海诚-可爱 | 玲音-恐怖 | 盗梦空间-优雅 | 黑客帝国-代码 -->
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;600;700&family=Noto+Serif+JP:wght@400;600;700&family=Playfair+Display:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* 默认：新海诚主题 */
+            --bg-gradient: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 30%, #E8F4F8 60%, #FFF0F5 100%);
+            --text-color: #4a5568;
+            --text-secondary: #718096;
+            --accent-color: #e85a71;
+            --accent-secondary: #667eea;
+            --card-bg: rgba(255,255,255,0.9);
+            --card-border: rgba(255,255,255,0.95);
+            --shadow-color: rgba(135, 206, 235, 0.25);
+            --font-main: 'ZCOOL KuaiLe', 'Nunito', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --cursor-color: rgba(255, 183, 197, 0.8);
+            --kaomoji-color: #e85a71;
+            --nav-bg: rgba(255,255,255,0.7);
+            --nav-border: rgba(255,255,255,0.8);
+            --code-bg: rgba(30, 30, 46, 0.9);
+            --code-color: #cdd6f4;
+        }
+
+        /* 玲音主题 */
+        [data-theme="lain"] {
+            --bg-gradient: linear-gradient(180deg, #0a0a0f 0%, #1a0a1a 30%, #0f0510 60%, #000000 100%);
+            --text-color: #ff0040;
+            --text-secondary: #cc0033;
+            --accent-color: #ff0040;
+            --accent-secondary: #990033;
+            --card-bg: rgba(20, 0, 10, 0.9);
+            --card-border: rgba(255, 0, 64, 0.3);
+            --shadow-color: rgba(255, 0, 64, 0.3);
+            --font-main: 'Noto Serif JP', serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --cursor-color: rgba(255, 0, 64, 0.8);
+            --kaomoji-color: #ff0040;
+            --nav-bg: rgba(0,0,0,0.6);
+            --nav-border: rgba(255, 0, 64, 0.3);
+            --code-bg: rgba(10, 0, 5, 0.95);
+            --code-color: #ff0040;
+        }
+
+        /* 盗梦空间主题 */
+        [data-theme="inception"] {
+            --bg-gradient: linear-gradient(180deg, #2c3e50 0%, #34495e 30%, #5d6d7e 60%, #85929e 100%);
+            --text-color: #f39c12;
+            --text-secondary: #d68910;
+            --accent-color: #f39c12;
+            --accent-secondary: #e67e22;
+            --card-bg: rgba(44, 62, 80, 0.95);
+            --card-border: rgba(243, 156, 18, 0.3);
+            --shadow-color: rgba(243, 156, 18, 0.2);
+            --font-main: 'Playfair Display', serif;
+            --font-mono: 'Playfair Display', serif;
+            --cursor-color: rgba(243, 156, 18, 0.8);
+            --kaomoji-color: #f39c12;
+            --nav-bg: rgba(44, 62, 80, 0.8);
+            --nav-border: rgba(243,156,18,0.3);
+            --code-bg: rgba(30, 40, 50, 0.95);
+            --code-color: #f39c12;
+        }
+
+        /* 黑客帝国主题 */
+        [data-theme="matrix"] {
+            --bg-gradient: linear-gradient(180deg, #000000 0%, #0d1f0d 30%, #001a00 60%, #000000 100%);
+            --text-color: #00ff00;
+            --text-secondary: #00cc00;
+            --accent-color: #00ff00;
+            --accent-secondary: #00aa00;
+            --card-bg: rgba(0, 20, 0, 0.95);
+            --card-border: rgba(0, 255, 0, 0.3);
+            --shadow-color: rgba(0, 255, 0, 0.2);
+            --font-main: 'JetBrains Mono', monospace;
+            --font-mono: 'JetBrains Mono', monospace;
+            --cursor-color: rgba(0, 255, 0, 0.8);
+            --kaomoji-color: #00ff00;
+            --nav-bg: rgba(0,0,0,0.6);
+            --nav-border: rgba(0, 255, 0, 0.3);
+            --code-bg: rgba(0, 20, 0, 0.95);
+            --code-color: #00ff00;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,16 +93,65 @@
         }
         
         body {
-            font-family: 'ZCOOL KuaiLe', 'Nunito', sans-serif;
-            background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 30%, #E8F4F8 60%, #FFF0F5 100%);
+            font-family: var(--font-main);
+            background: var(--bg-gradient);
             min-height: 100vh;
             line-height: 1.7;
-            color: #4a5568;
+            color: var(--text-color);
             position: relative;
             overflow-x: hidden;
+            transition: all 0.5s ease;
         }
+
+        /* 主题切换按钮 */
+        .theme-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="lain"] .theme-switcher,
+        [data-theme="matrix"] .theme-switcher {
+            background: rgba(0,0,0,0.4);
+        }
+
+        .theme-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.9);
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .theme-btn.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .theme-btn[data-theme="default"] { background: linear-gradient(135deg, #87CEEB, #FFB6C1); }
+        .theme-btn[data-theme="lain"] { background: #ff0040; color: white; }
+        .theme-btn[data-theme="inception"] { background: #f39c12; color: white; }
+        .theme-btn[data-theme="matrix"] { background: #000; color: #00ff00; border: 1px solid #00ff00; }
         
-        /* 蓝天白云背景 */
+        /* 背景装饰 - 新海诚 */
         body::before {
             content: '';
             position: fixed;
@@ -37,9 +167,31 @@
                 radial-gradient(circle at 10% 70%, rgba(255,255,255,0.7) 0%, transparent 35%);
             pointer-events: none;
             z-index: 0;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        /* 玲音主题背景 - 静电效果 */
+        [data-theme="lain"]::before {
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,64,0.03) 2px, rgba(255,0,64,0.03) 4px);
+            opacity: 0.5;
+        }
+
+        /* 盗梦空间背景 - 迷雾 */
+        [data-theme="inception"]::before {
+            background-image: 
+                radial-gradient(circle at 30% 30%, rgba(243,156,18,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05) 0%, transparent 40%);
+            opacity: 0.6;
+        }
+
+        /* 黑客帝国背景 - 代码雨效果由JS处理 */
+        [data-theme="matrix"]::before {
+            display: none;
         }
         
-        /* 飘落的樱花 */
+        /* 飘落的樱花/粒子 */
         .sakura {
             position: fixed;
             width: 15px;
@@ -50,6 +202,33 @@
             z-index: 0;
             pointer-events: none;
         }
+
+        /* 玲音主题 - 红色碎片 */
+        [data-theme="lain"] .sakura {
+            background: radial-gradient(circle, rgba(255,0,64,0.9) 0%, rgba(255,0,64,0.4) 50%, transparent 70%);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            border-radius: 0;
+        }
+
+        /* 盗梦空间主题 - 金色尘埃 */
+        [data-theme="inception"] .sakura {
+            background: radial-gradient(circle, rgba(243,156,18,0.9) 0%, rgba(243,156,18,0.4) 50%, transparent 70%);
+        }
+
+        /* 黑客帝国主题 - 绿色代码 */
+        [data-theme="matrix"] .sakura {
+            width: 10px;
+            height: 14px;
+            background: rgba(0,255,0,0.8);
+            border-radius: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: #00ff00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         .sakura:nth-child(1) { left: 5%; animation-duration: 12s; animation-delay: 0s; }
         .sakura:nth-child(2) { left: 15%; animation-duration: 14s; animation-delay: 2s; }
         .sakura:nth-child(3) { left: 25%; animation-duration: 11s; animation-delay: 4s; }
@@ -67,18 +246,38 @@
             90% { opacity: 1; }
             100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
+
+        /* 黑客帝国代码雨 */
+        .matrix-code {
+            position: fixed;
+            color: #00ff00;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            opacity: 0;
+            animation: matrixFall 3s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes matrixFall {
+            0% { transform: translateY(-100px); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
         
         /* 导航栏 */
         nav {
-            background: rgba(255,255,255,0.7);
+            background: var(--nav-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.8);
+            border-bottom: 1px solid var(--nav-border);
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 20px rgba(135, 206, 235, 0.3);
+            box-shadow: 0 2px 20px var(--shadow-color);
+            transition: all 0.5s;
         }
         nav ul {
             list-style: none;
@@ -91,21 +290,21 @@
             padding: 0 20px;
         }
         nav a {
-            color: #5a6c7d;
+            color: var(--text-color);
             text-decoration: none;
             font-weight: 500;
             padding: 10px 20px;
             border-radius: 25px;
             transition: all 0.3s ease;
-            background: rgba(255,255,255,0.6);
-            border: 1px solid rgba(255,183,197,0.3);
-            box-shadow: 0 2px 10px rgba(135, 206, 235, 0.2);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 2px 10px var(--shadow-color);
         }
         nav a:hover {
-            background: rgba(255,183,197,0.3);
-            color: #e85a71;
+            background: var(--accent-color);
+            color: white;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 183, 197, 0.4);
+            box-shadow: 0 5px 20px var(--shadow-color);
         }
         
         /* 头部横幅 */
@@ -119,15 +318,15 @@
             font-size: 3em;
             font-weight: 700;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #e85a71 50%, #f093fb 100%);
+            background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-color) 50%, var(--accent-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(232, 90, 113, 0.2);
+            text-shadow: 0 0 30px var(--shadow-color);
         }
         .header p {
             font-size: 1.3em;
-            color: #718096;
+            color: var(--text-secondary);
             font-weight: 300;
             letter-spacing: 2px;
         }
@@ -143,35 +342,35 @@
         
         /* 章节卡片 */
         .chapter {
-            background: rgba(255,255,255,0.9);
+            background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.95);
+            border: 1px solid var(--card-border);
             border-radius: 20px;
             margin: 30px 0;
-            box-shadow: 0 8px 32px rgba(135, 206, 235, 0.2);
+            box-shadow: 0 8px 32px var(--shadow-color);
             overflow: hidden;
             transition: transform 0.3s;
         }
         .chapter:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(255, 183, 197, 0.25);
+            box-shadow: 0 12px 40px var(--shadow-color);
         }
         .chapter-header {
             padding: 25px 30px;
-            background: linear-gradient(135deg, rgba(135,206,235,0.5) 0%, rgba(255,183,197,0.4) 100%);
-            border-bottom: 1px solid rgba(255,183,197,0.3);
+            background: linear-gradient(135deg, var(--shadow-color) 0%, rgba(255,183,197,0.2) 100%);
+            border-bottom: 1px solid var(--card-border);
         }
         .chapter-header h2 {
             font-size: 1.6em;
-            color: #4a5568;
+            color: var(--text-color);
             display: flex;
             align-items: center;
             gap: 15px;
         }
         .chapter-badge {
-            background: rgba(255,255,255,0.6);
-            color: #e85a71;
+            background: var(--card-bg);
+            color: var(--accent-color);
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.6em;
@@ -189,6 +388,18 @@
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
+        [data-theme="lain"] .symptom {
+            background: rgba(255, 0, 64, 0.15);
+            border-left-color: #ff0040;
+        }
+        [data-theme="inception"] .symptom {
+            background: rgba(243, 156, 18, 0.15);
+            border-left-color: #f39c12;
+        }
+        [data-theme="matrix"] .symptom {
+            background: rgba(0, 255, 0, 0.15);
+            border-left-color: #00ff00;
+        }
         .symptom h3 {
             color: #e74c3c;
             margin-bottom: 10px;
@@ -196,6 +407,9 @@
             align-items: center;
             gap: 8px;
         }
+        [data-theme="lain"] .symptom h3 { color: #ff0040; }
+        [data-theme="inception"] .symptom h3 { color: #f39c12; }
+        [data-theme="matrix"] .symptom h3 { color: #00ff00; }
         
         /* 诊断框 */
         .diagnosis {
@@ -205,10 +419,25 @@
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
+        [data-theme="lain"] .diagnosis {
+            background: rgba(153, 0, 51, 0.2);
+            border-left-color: #990033;
+        }
+        [data-theme="inception"] .diagnosis {
+            background: rgba(230, 126, 34, 0.15);
+            border-left-color: #e67e22;
+        }
+        [data-theme="matrix"] .diagnosis {
+            background: rgba(0, 170, 0, 0.15);
+            border-left-color: #00aa00;
+        }
         .diagnosis h3 {
             color: #d97706;
             margin-bottom: 10px;
         }
+        [data-theme="lain"] .diagnosis h3 { color: #cc0033; }
+        [data-theme="inception"] .diagnosis h3 { color: #d68910; }
+        [data-theme="matrix"] .diagnosis h3 { color: #00cc00; }
         
         /* 折腾记录 */
         .attempts {
@@ -234,21 +463,37 @@
             background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
         }
+        [data-theme="lain"] .attempt.fail {
+            background: rgba(255, 0, 64, 0.15);
+            border-color: rgba(255, 0, 64, 0.4);
+        }
+        [data-theme="lain"] .attempt.success {
+            background: rgba(153, 0, 51, 0.2);
+            border-color: rgba(153, 0, 51, 0.4);
+        }
+        [data-theme="matrix"] .attempt.fail {
+            background: rgba(255, 0, 0, 0.15);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+        [data-theme="matrix"] .attempt.success {
+            background: rgba(0, 255, 0, 0.15);
+            border-color: rgba(0, 255, 0, 0.4);
+        }
         
         /* 代码块 */
         .code-block {
-            background: rgba(30, 30, 46, 0.9);
-            color: #cdd6f4;
+            background: var(--code-bg);
+            color: var(--code-color);
             padding: 20px;
             border-radius: 12px;
             overflow-x: auto;
             margin: 15px 0;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-family: var(--font-mono);
             font-size: 0.9em;
             line-height: 1.6;
             position: relative;
             white-space: pre;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--card-border);
         }
         .code-block::before {
             content: '';
@@ -268,25 +513,25 @@
         
         /* 通关配置区域 */
         .final-section {
-            background: linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.15) 100%);
+            background: linear-gradient(135deg, var(--shadow-color) 0%, rgba(118,75,162,0.15) 100%);
             border-radius: 20px;
             padding: 40px;
             margin: 40px 0;
-            color: #4a5568;
-            border: 1px solid rgba(255,183,197,0.4);
+            color: var(--text-color);
+            border: 1px solid var(--card-border);
             backdrop-filter: blur(10px);
         }
         .final-section h2 {
             font-size: 2em;
             margin-bottom: 20px;
             text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #e85a71 50%, #f093fb 100%);
+            background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-color) 50%, var(--accent-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .final-section .code-block {
-            background: rgba(30, 30, 46, 0.95);
+            background: var(--code-bg);
             margin: 20px 0;
         }
         
@@ -295,30 +540,30 @@
             width: 100%;
             border-collapse: collapse;
             margin: 25px 0;
-            background: rgba(255,255,255,0.9);
+            background: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.2);
+            box-shadow: 0 4px 15px var(--shadow-color);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,183,197,0.3);
+            border: 1px solid var(--card-border);
         }
         .tips-table th {
-            background: linear-gradient(135deg, rgba(135,206,235,0.5) 0%, rgba(255,183,197,0.4) 100%);
-            color: #4a5568;
+            background: linear-gradient(135deg, var(--shadow-color) 0%, rgba(255,183,197,0.2) 100%);
+            color: var(--text-color);
             padding: 15px;
             text-align: left;
             font-weight: 600;
         }
         .tips-table td {
             padding: 15px;
-            border-bottom: 1px solid rgba(255,183,197,0.2);
-            color: #718096;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-secondary);
         }
         .tips-table tr:last-child td {
             border-bottom: none;
         }
         .tips-table tr:hover {
-            background: rgba(255,183,197,0.1);
+            background: var(--shadow-color);
         }
         
         /* 后记 */
@@ -327,22 +572,22 @@
             border-radius: 20px;
             padding: 40px;
             margin: 40px 0;
-            color: #4a5568;
+            color: var(--text-color);
             text-align: center;
-            border: 1px solid rgba(255,183,197,0.4);
+            border: 1px solid var(--card-border);
             backdrop-filter: blur(10px);
         }
         .epilogue h2 {
             font-size: 2em;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #e85a71 50%, #f093fb 100%);
+            background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-color) 50%, var(--accent-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .epilogue .suggestions {
             text-align: left;
-            background: rgba(255,255,255,0.6);
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 15px;
             margin-top: 20px;
@@ -351,25 +596,100 @@
             margin: 12px 0;
             padding-left: 10px;
             list-style: none;
-            color: #718096;
+            color: var(--text-secondary);
         }
         
         /* 页脚 */
         footer {
             text-align: center;
             padding: 40px;
-            color: #718096;
+            color: var(--text-secondary);
             margin-top: 50px;
-            background: rgba(255,255,255,0.6);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
         }
         footer a {
-            color: #e85a71;
+            color: var(--accent-color);
+        }
+
+        /* 樱花拖尾特效 */
+        .cursor-sakura {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            box-shadow: 0 0 10px var(--cursor-color);
+            animation: sakuraFall 1.5s ease-out forwards;
+        }
+        
+        @keyframes sakuraFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(60px) rotate(360deg) scale(0.3);
+            }
+        }
+        
+        /* 颜文字冒泡 */
+        .kaomoji-float {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            color: var(--kaomoji-color);
+            font-weight: bold;
+            text-shadow: 0 0 10px var(--cursor-color);
+            animation: kaomojiPop 2s ease-out forwards;
+            font-family: var(--font-mono);
+        }
+        
+        @keyframes kaomojiPop {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-20deg);
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1.2) rotate(10deg);
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1) rotate(0deg) translateY(-20px);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.8) rotate(10deg) translateY(-50px);
+            }
+        }
+
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .theme-switcher {
+                top: 10px;
+                right: 10px;
+                transform: scale(0.9);
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .final-section, .epilogue {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 飘落的樱花 -->
+    <!-- 主题切换按钮 -->
+    <div class="theme-switcher">
+        <button class="theme-btn active" data-theme="default" title="新海诚">🌸</button>
+        <button class="theme-btn" data-theme="lain" title="玲音">👁️</button>
+        <button class="theme-btn" data-theme="inception" title="盗梦空间">🌀</button>
+        <button class="theme-btn" data-theme="matrix" title="黑客帝国">💊</button>
+    </div>
+
+    <!-- 飘落的樱花/粒子 -->
     <div class="sakura"></div>
     <div class="sakura"></div>
     <div class="sakura"></div>
@@ -574,9 +894,9 @@ export all_proxy=socks5://127.0.0.1:7890</code>
                 </div>
                 
                 <div style="background: rgba(34, 197, 94, 0.1); padding: 20px; border-radius: 12px; margin: 15px 0; border: 1px solid rgba(34, 197, 94, 0.3);">
-                    <ol style="margin-left: 25px; line-height: 2; color: #718096;">
+                    <ol style="margin-left: 25px; line-height: 2; color: var(--text-secondary);">
                         <li>先登录 Discord</li>
-                        <li>访问 <a href="https://discord.com/developers/applications" target="_blank" style="color: #e85a71;">discord.com/developers/applications</a></li>
+                        <li>访问 <a href="https://discord.com/developers/applications" target="_blank" style="color: var(--accent-color);">discord.com/developers/applications</a></li>
                         <li>创建 Application → 左侧找到 OAuth2 → URL Generator</li>
                     </ol>
                 </div>
@@ -586,7 +906,7 @@ export all_proxy=socks5://127.0.0.1:7890</code>
         <!-- 最终通关配置 -->
         <div class="final-section">
             <h2>🏆 最终通关配置</h2>
-            <p style="text-align: center; margin-bottom: 25px; color: #718096;">完整安装命令（供后人参考）</p>
+            <p style="text-align: center; margin-bottom: 25px; color: var(--text-secondary);">完整安装命令（供后人参考）</p>
             
             <div class="code-block"><code># 1. 修复权限（如果之前有 root 残留）
 sudo chown -R $(whoami) ~/.npm
@@ -610,7 +930,7 @@ openclaw setup</code></div>
         </div>
         
         <!-- 踩坑心得表格 -->
-        <h2 style="color: #4a5568; text-align: center; margin: 40px 0 20px;">💡 踩坑心得</h2>
+        <h2 style="color: var(--text-color); text-align: center; margin: 40px 0 20px;">💡 踩坑心得</h2>
         <table class="tips-table">
             <thead>
                 <tr>
@@ -653,12 +973,12 @@ openclaw setup</code></div>
             <h2>🎉 后记</h2>
             <p>折腾 4 个回合后，终于看到这只龙虾成功跑起来：</p>
             
-            <div class="code-block" style="text-align: center; font-size: 1.2em; background: rgba(30, 30, 46, 0.95);">
+            <div class="code-block" style="text-align: center; font-size: 1.2em; background: var(--code-bg);">
 <code>🦞 OpenClaw 2026.1.30 — Because the right answer is usually a script.</code>
             </div>
             
             <div class="suggestions">
-                <h3 style="margin-bottom: 15px; color: #4a5568;">📋 给后来人的建议：</h3>
+                <h3 style="margin-bottom: 15px; color: var(--text-color);">📋 给后来人的建议：</h3>
                 <ul style="list-style: none;">
                     <li>✅ macOS 用户直接配好 <code>~/.npm-global</code>，避免权限噩梦</li>
                     <li>✅ 中国大陆用户提前开好代理，GitHub 依赖逃不掉</li>
@@ -676,60 +996,64 @@ openclaw setup</code></div>
         <p>有问题欢迎 Discord 交流：jaylen0728</p>
     </footer>
     
-    <!-- 樱花拖尾特效 -->
-    <style>
-        .cursor-sakura {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            box-shadow: 0 0 10px rgba(255, 183, 197, 0.6);
-            animation: sakuraFall 1.5s ease-out forwards;
-        }
-        
-        @keyframes sakuraFall {
-            0% {
-                opacity: 1;
-                transform: translateY(0) rotate(0deg) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(60px) rotate(360deg) scale(0.3);
-            }
-        }
-        
-        /* 颜文字冒泡 */
-        .kaomoji-float {
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            color: #e85a71;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(255, 183, 197, 0.8);
-            animation: kaomojiPop 2s ease-out forwards;
-            font-family: 'Nunito', sans-serif;
-        }
-        
-        @keyframes kaomojiPop {
-            0% {
-                opacity: 0;
-                transform: scale(0) rotate(-20deg);
-            }
-            20% {
-                opacity: 1;
-                transform: scale(1.2) rotate(10deg);
-            }
-            50% {
-                opacity: 0.9;
-                transform: scale(1) rotate(0deg) translateY(-20px);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0.8) rotate(10deg) translateY(-50px);
-            }
-        }
-    </style>
     <script>
+        // 主题切换系统
+        (function() {
+            const themeBtns = document.querySelectorAll('.theme-btn');
+            const body = document.body;
+            
+            // 从 localStorage 读取主题
+            const savedTheme = localStorage.getItem('theme') || 'default';
+            body.setAttribute('data-theme', savedTheme);
+            updateActiveButton(savedTheme);
+            
+            // 黑客帝国主题特殊处理 - 添加代码字符
+            if (savedTheme === 'matrix') {
+                initMatrixCode();
+            }
+            
+            themeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const theme = btn.getAttribute('data-theme');
+                    body.setAttribute('data-theme', theme);
+                    localStorage.setItem('theme', theme);
+                    updateActiveButton(theme);
+                    
+                    // 黑客帝国主题初始化代码雨
+                    if (theme === 'matrix') {
+                        initMatrixCode();
+                    } else {
+                        removeMatrixCode();
+                    }
+                });
+            });
+            
+            function updateActiveButton(theme) {
+                themeBtns.forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+                });
+            }
+            
+            // 黑客帝国代码雨
+            function initMatrixCode() {
+                if (document.querySelector('.matrix-code')) return;
+                const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+                for (let i = 0; i < 20; i++) {
+                    const code = document.createElement('div');
+                    code.className = 'matrix-code';
+                    code.textContent = chars[Math.floor(Math.random() * chars.length)];
+                    code.style.left = Math.random() * 100 + '%';
+                    code.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    code.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(code);
+                }
+            }
+            
+            function removeMatrixCode() {
+                document.querySelectorAll('.matrix-code').forEach(el => el.remove());
+            }
+        })();
+
         // 樱花拖尾特效
         (function() {
             function createSakura(x, y) {
@@ -740,12 +1064,19 @@ openclaw setup</code></div>
                 sakura.style.height = size + 'px';
                 sakura.style.left = x + 'px';
                 sakura.style.top = y + 'px';
-                const colors = [
-                    'rgba(255, 183, 197, 0.8)',
-                    'rgba(255, 192, 203, 0.8)',
-                    'rgba(255, 160, 180, 0.8)',
-                    'rgba(255, 218, 225, 0.8)'
-                ];
+                
+                const theme = document.body.getAttribute('data-theme');
+                let colors;
+                if (theme === 'lain') {
+                    colors = ['rgba(255,0,64,0.8)', 'rgba(200,0,50,0.8)'];
+                } else if (theme === 'matrix') {
+                    colors = ['rgba(0,255,0,0.8)'];
+                } else if (theme === 'inception') {
+                    colors = ['rgba(243,156,18,0.8)', 'rgba(230,126,34,0.8)'];
+                } else {
+                    colors = ['rgba(255,183,197,0.8)', 'rgba(255,192,203,0.8)', 'rgba(255,160,180,0.8)', 'rgba(255,218,225,0.8)'];
+                }
+                
                 sakura.style.background = colors[Math.floor(Math.random() * colors.length)];
                 const rotation = Math.random() * 360;
                 sakura.style.transform = `rotate(${rotation}deg)`;
@@ -773,10 +1104,7 @@ openclaw setup</code></div>
                 }
             });
         })();
-    </script>
-    
-    <!-- 颜文字冒泡特效 -->
-    <script>
+        
         // 颜文字冒泡特效
         (function() {
             const kaomojis = [
@@ -820,7 +1148,6 @@ openclaw setup</code></div>
                 kaomoji.style.fontSize = size + 'px';
                 
                 document.body.appendChild(kaomoji);
-                
                 setTimeout(() => kaomoji.remove(), 2000);
             }
             
@@ -837,6 +1164,5 @@ openclaw setup</code></div>
             setInterval(checkIdle, 100);
         })();
     </script>
-    
 </body>
 </html>
