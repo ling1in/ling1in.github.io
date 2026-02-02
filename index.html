@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>🌸 我的博客 | ling1in</title>
+    <title>🌸 ling1in 的小宇宙</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -19,6 +19,7 @@
             color: #4a5568;
             position: relative;
             overflow-x: hidden;
+            padding: 20px;
         }
         
         /* 蓝天白云背景 */
@@ -33,8 +34,7 @@
                 radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9) 0%, transparent 40%),
                 radial-gradient(circle at 80% 30%, rgba(255,255,255,0.7) 0%, transparent 35%),
                 radial-gradient(circle at 40% 60%, rgba(255,255,255,0.8) 0%, transparent 45%),
-                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.6) 0%, transparent 30%),
-                radial-gradient(circle at 10% 70%, rgba(255,255,255,0.7) 0%, transparent 35%);
+                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.6) 0%, transparent 30%);
             pointer-events: none;
             z-index: 0;
         }
@@ -42,22 +42,13 @@
         /* 飘落的樱花 */
         .sakura {
             position: fixed;
-            width: 20px;
-            height: 20px;
+            width: 15px;
+            height: 15px;
             background: radial-gradient(circle, rgba(255,183,197,0.9) 0%, rgba(255,183,197,0.4) 50%, transparent 70%);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             animation: fall linear infinite;
             z-index: 0;
             pointer-events: none;
-        }
-        .sakura::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,183,197,0.7) 0%, transparent 70%);
-            border-radius: 50%;
-            transform: rotate(60deg);
         }
         .sakura:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
         .sakura:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; }
@@ -86,6 +77,7 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 20px rgba(135, 206, 235, 0.3);
+            margin: -20px -20px 20px -20px;
         }
         nav ul {
             list-style: none;
@@ -115,89 +107,213 @@
             box-shadow: 0 5px 20px rgba(255, 183, 197, 0.4);
         }
         
-        /* 头部横幅 */
+        /* 头部 */
         .header {
             text-align: center;
-            padding: 100px 20px 60px;
+            padding: 40px 20px 30px;
             position: relative;
             z-index: 1;
         }
         .header h1 {
-            font-size: 3em;
+            font-size: 2.5em;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             background: linear-gradient(135deg, #667eea 0%, #e85a71 50%, #f093fb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 30px rgba(232, 90, 113, 0.2);
         }
         .header p {
-            font-size: 1.3em;
+            font-size: 1.1em;
             color: #718096;
             font-weight: 300;
-            letter-spacing: 2px;
         }
         
-        /* 主要内容区 */
-        .container {
-            max-width: 800px;
+        /* 三个漂浮卡片容器 */
+        .floating-cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 40px 20px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px 50px;
             position: relative;
             z-index: 1;
         }
         
-        /* 文章卡片 */
-        .post {
-            background: rgba(255,255,255,0.85);
+        /* 漂浮卡片 */
+        .float-card {
+            width: 280px;
+            height: 380px;
+            background: rgba(255,255,255,0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.9);
+            border: 1px solid rgba(255,255,255,0.95);
+            border-radius: 30px;
+            box-shadow: 0 15px 50px rgba(135, 206, 235, 0.25);
             padding: 30px;
-            margin: 25px 0;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(135, 206, 235, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 每个卡片不同的漂浮动画 */
+        .float-card:nth-child(1) {
+            animation: float1 4s ease-in-out infinite;
+            border-top: 4px solid #667eea;
+        }
+        .float-card:nth-child(2) {
+            animation: float2 4.5s ease-in-out infinite;
+            border-top: 4px solid #e85a71;
+            margin-top: 30px;
+        }
+        .float-card:nth-child(3) {
+            animation: float3 5s ease-in-out infinite;
+            border-top: 4px solid #f093fb;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0) rotate(1deg); }
+            50% { transform: translateY(-20px) rotate(-1deg); }
+        }
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+            50% { transform: translateY(-12px) rotate(0.5deg); }
+        }
+        
+        .float-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 60px rgba(255, 183, 197, 0.35);
+        }
+        
+        /* 图标 */
+        .card-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            margin-bottom: 20px;
             transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        .post:hover {
-            transform: translateY(-5px);
-            background: rgba(255,255,255,0.95);
-            box-shadow: 0 12px 40px rgba(255, 183, 197, 0.3);
-            border-color: rgba(255,183,197,0.5);
+        
+        .float-card:nth-child(1) .card-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
-        .post h2 {
+        .float-card:nth-child(2) .card-icon {
+            background: linear-gradient(135deg, #e85a71 0%, #f093fb 100%);
+            box-shadow: 0 10px 30px rgba(232, 90, 113, 0.3);
+        }
+        .float-card:nth-child(3) .card-icon {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+        }
+        
+        .float-card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* 卡片标题 */
+        .card-title {
+            font-size: 1.4em;
+            font-weight: 600;
             color: #4a5568;
             margin-bottom: 15px;
-            font-size: 1.5em;
+        }
+        
+        /* 卡片内容 */
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+        }
+        
+        .card-item {
+            background: rgba(135, 206, 235, 0.1);
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            text-align: left;
+            transition: all 0.3s ease;
+            border-left: 3px solid rgba(102, 126, 234, 0.5);
+        }
+        
+        .float-card:nth-child(2) .card-item {
+            background: rgba(232, 90, 113, 0.08);
+            border-left-color: rgba(232, 90, 113, 0.5);
+        }
+        .float-card:nth-child(3) .card-item {
+            background: rgba(240, 147, 251, 0.1);
+            border-left-color: rgba(240, 147, 251, 0.5);
+        }
+        
+        .card-item:hover {
+            background: rgba(135, 206, 235, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .card-item-title {
             font-weight: 600;
+            color: #4a5568;
+            font-size: 0.95em;
+            margin-bottom: 4px;
         }
-        .post p {
+        
+        .card-item-desc {
             color: #718096;
-            margin-bottom: 12px;
-            font-weight: 400;
+            font-size: 0.85em;
+            line-height: 1.5;
         }
-        .post small {
+        
+        .card-date {
             color: #e85a71;
-            display: block;
-            margin-top: 15px;
-            font-size: 0.9em;
+            font-size: 0.75em;
+            margin-top: 5px;
             font-weight: 500;
         }
         
-        /* 页脚 */
-        footer {
+        /* 底部装饰 */
+        .footer-decoration {
             text-align: center;
             padding: 40px 20px;
-            color: #718096;
+            color: #a0aec0;
+            font-size: 0.9em;
             position: relative;
             z-index: 1;
-            background: rgba(255,255,255,0.6);
-            backdrop-filter: blur(10px);
         }
-        footer p {
-            margin: 5px 0;
-            font-weight: 400;
+        
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .floating-cards {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .float-card:nth-child(2) {
+                margin-top: 0;
+            }
+            .float-card {
+                width: 100%;
+                max-width: 350px;
+                height: auto;
+                min-height: 350px;
+            }
         }
     </style>
 </head>
@@ -222,40 +338,76 @@
         </ul>
     </nav>
     
-    <!-- 头部横幅 -->
+    <!-- 头部 -->
     <div class="header">
-        <h1>🌸 欢迎来到我的博客</h1>
-        <p>记录我的编程学习之旅</p>
+        <h1>🌸 ling1in 的小宇宙</h1>
+        <p>欢迎来到我的小小世界，这里有我的学习、游戏和代码</p>
     </div>
     
-    <!-- 主要内容 -->
-    <div class="container">
-        <div class="post">
-            <h2>📝 我的第一篇文章</h2>
-            <p>今天我学会了用 GitHub 搭建博客，太酷了！</p>
-            <p>原来做一个网站并没有想象中那么难，只要跟着教程一步一步来就可以了。接下来我要学习更多的 HTML 和 CSS 知识！</p>
-            <small>📅 2025年1月29日</small>
+    <!-- 三个漂浮卡片 -->
+    <div class="floating-cards">
+        
+        <!-- 学习博客卡片 -->
+        <div class="float-card">
+            <div class="card-icon">📝</div>
+            <div class="card-title">学习 & 博客</div>
+            <div class="card-content">
+                <div class="card-item">
+                    <div class="card-item-title">搭建个人博客</div>
+                    <div class="card-item-desc">学会了用 GitHub Pages 搭建网站，原来做网站没那么难！</div>
+                    <div class="card-date">📅 2025年1月29日</div>
+                </div>
+                <div class="card-item">
+                    <div class="card-item-title">HTML & CSS</div>
+                    <div class="card-item-desc">正在学习网页开发基础，想要做出更酷的效果</div>
+                    <div class="card-date">📅 持续学习中</div>
+                </div>
+            </div>
         </div>
         
-        <div class="post">
-            <h2>🎮 我喜欢的游戏</h2>
-            <p>最近在玩《无畏契约》，作为一个新手正在努力练习枪法和走位！</p>
-            <p>游戏里的团队配合和战术思维对学编程很有帮助呢，都需要快速反应和策略规划～</p>
-            <small>📅 2025年1月28日</small>
+        <!-- 游戏卡片 -->
+        <div class="float-card">
+            <div class="card-icon">🎮</div>
+            <div class="card-title">游戏世界</div>
+            <div class="card-content">
+                <div class="card-item">
+                    <div class="card-item-title">无畏契约新手</div>
+                    <div class="card-item-desc">正在努力练习枪法和走位，团队配合和战术思维对编程很有帮助！</div>
+                    <div class="card-date">📅 2025年1月28日</div>
+                </div>
+                <div class="card-item">
+                    <div class="card-item-title">游戏心得</div>
+                    <div class="card-item-desc">快速反应和策略规划，游戏和编程都需要这些能力～</div>
+                    <div class="card-date">📅 持续游玩中</div>
+                </div>
+            </div>
         </div>
         
-        <div class="post">
-            <h2>📚 开始学习 Python</h2>
-            <p>听说 Python 是最适合初学者的编程语言，我决定开始学习它！</p>
-            <p>今天学会了用 print() 打印"Hello World"，虽然很简单但很开心！</p>
-            <small>📅 2025年1月27日</small>
+        <!-- 编程卡片 -->
+        <div class="float-card">
+            <div class="card-icon">💻</div>
+            <div class="card-title">编程之旅</div>
+            <div class="card-content">
+                <div class="card-item">
+                    <div class="card-item-title">Hello Python!</div>
+                    <div class="card-item-desc">听说 Python 最适合初学者，今天学会了 print("Hello World")！</div>
+                    <div class="card-date">📅 2025年1月27日</div>
+                </div>
+                <div class="card-item">
+                    <div class="card-item-title">未来目标</div>
+                    <div class="card-item-desc">希望能做出自己的游戏，成为一名优秀的程序员！</div>
+                    <div class="card-date">📅 梦想进行时</div>
+                </div>
+            </div>
         </div>
+        
     </div>
     
-    <!-- 页脚 -->
-    <footer>
-        <p>💻 Made with ❤️ by ling1in | 2025</p>
-        <p>托管于 GitHub Pages</p>
-    </footer>
+    <!-- 底部 -->
+    <div class="footer-decoration">
+        <p>💫 探索这三个小世界，了解更多关于我的故事 💫</p>
+        <p style="margin-top: 10px; font-size: 0.8em;">Made with ❤️ by ling1in | 2025</p>
+    </div>
+    
 </body>
 </html>
