@@ -195,8 +195,9 @@
             margin: 15px 0;
             font-family: 'JetBrains Mono', 'Fira Code', monospace;
             font-size: 0.9em;
-            line-height: 1.5;
+            line-height: 1.6;
             position: relative;
+            white-space: pre;
         }
         .code-block::before {
             content: '';
@@ -504,8 +505,7 @@ export all_proxy=socks5://127.0.0.1:7890</code>
             <h2>🏆 最终通关配置</h2>
             <p style="text-align: center; margin-bottom: 25px; opacity: 0.9;">完整安装命令（供后人参考）</p>
             
-            <div class="code-block">
-<code># 1. 修复权限（如果之前有 root 残留）
+            <div class="code-block"><code># 1. 修复权限（如果之前有 root 残留）
 sudo chown -R $(whoami) ~/.npm
 
 # 2. 配置用户级全局安装
@@ -523,8 +523,7 @@ export all_proxy=socks5://127.0.0.1:7890
 npm install -g openclaw@latest
 
 # 5. 初始化
-openclaw setup</code>
-            </div>
+openclaw setup</code></div>
         </div>
         
         <!-- 踩坑心得表格 -->
