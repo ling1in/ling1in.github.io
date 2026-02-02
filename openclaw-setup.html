@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>🌠 龙虾折腾日记 | ling1in</title>
+    <title>🌸 龙虾折腾日记 | ling1in</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,15 +13,15 @@
         
         body {
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #1a1a3e 0%, #2d3561 30%, #4a569d 60%, #dcaeb3 100%);
+            background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 30%, #E8F4F8 60%, #FFF0F5 100%);
             min-height: 100vh;
             line-height: 1.7;
-            color: rgba(255,255,255,0.9);
+            color: #4a5568;
             position: relative;
             overflow-x: hidden;
         }
         
-        /* 星空背景 */
+        /* 蓝天白云背景 */
         body::before {
             content: '';
             position: fixed;
@@ -30,59 +30,55 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 50px 90px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(1px 1px at 80px 10px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 250px 180px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(1px 1px at 300px 90px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 350px 40px, rgba(255,255,255,0.6), transparent);
-            background-repeat: repeat;
-            background-size: 400px 200px;
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9) 0%, transparent 40%),
+                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.7) 0%, transparent 35%),
+                radial-gradient(circle at 40% 60%, rgba(255,255,255,0.8) 0%, transparent 45%),
+                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.6) 0%, transparent 30%),
+                radial-gradient(circle at 10% 70%, rgba(255,255,255,0.7) 0%, transparent 35%);
             pointer-events: none;
             z-index: 0;
-            animation: twinkle 4s ease-in-out infinite;
         }
         
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-        
-        /* 彗星装饰 */
-        .comet {
+        /* 飘落的樱花 */
+        .sakura {
             position: fixed;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            transform: rotate(-45deg);
-            animation: comet 8s linear infinite;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle, rgba(255,183,197,0.9) 0%, rgba(255,183,197,0.4) 50%, transparent 70%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: fall linear infinite;
             z-index: 0;
+            pointer-events: none;
         }
-        .comet:nth-child(1) { top: 10%; left: -100px; animation-delay: 0s; }
-        .comet:nth-child(2) { top: 30%; left: -100px; animation-delay: 3s; }
-        .comet:nth-child(3) { top: 60%; left: -100px; animation-delay: 6s; }
+        .sakura:nth-child(1) { left: 5%; animation-duration: 12s; animation-delay: 0s; }
+        .sakura:nth-child(2) { left: 15%; animation-duration: 14s; animation-delay: 2s; }
+        .sakura:nth-child(3) { left: 25%; animation-duration: 11s; animation-delay: 4s; }
+        .sakura:nth-child(4) { left: 35%; animation-duration: 13s; animation-delay: 1s; }
+        .sakura:nth-child(5) { left: 45%; animation-duration: 15s; animation-delay: 3s; }
+        .sakura:nth-child(6) { left: 55%; animation-duration: 12s; animation-delay: 5s; }
+        .sakura:nth-child(7) { left: 65%; animation-duration: 14s; animation-delay: 2.5s; }
+        .sakura:nth-child(8) { left: 75%; animation-duration: 11s; animation-delay: 4.5s; }
+        .sakura:nth-child(9) { left: 85%; animation-duration: 13s; animation-delay: 1.5s; }
+        .sakura:nth-child(10) { left: 95%; animation-duration: 15s; animation-delay: 3.5s; }
         
-        @keyframes comet {
-            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateX(120vw) translateY(120vh) rotate(-45deg); opacity: 0; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
         
         /* 导航栏 */
         nav {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.8);
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 20px rgba(135, 206, 235, 0.3);
         }
         nav ul {
             list-style: none;
@@ -95,19 +91,21 @@
             padding: 0 20px;
         }
         nav a {
-            color: rgba(255,255,255,0.9);
+            color: #5a6c7d;
             text-decoration: none;
             font-weight: 500;
             padding: 10px 20px;
             border-radius: 25px;
             transition: all 0.3s ease;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,183,197,0.3);
+            box-shadow: 0 2px 10px rgba(135, 206, 235, 0.2);
         }
         nav a:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,183,197,0.3);
+            color: #e85a71;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(126, 200, 227, 0.3);
+            box-shadow: 0 5px 20px rgba(255, 183, 197, 0.4);
         }
         
         /* 头部横幅 */
@@ -121,15 +119,15 @@
             font-size: 3em;
             font-weight: 700;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff 0%, #7ec8e3 50%, #e7a4e0 100%);
+            background: linear-gradient(135deg, #667eea 0%, #e85a71 50%, #f093fb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 40px rgba(126, 200, 227, 0.3);
+            text-shadow: 0 0 30px rgba(232, 90, 113, 0.2);
         }
         .header p {
             font-size: 1.3em;
-            color: rgba(255,255,255,0.7);
+            color: #718096;
             font-weight: 300;
             letter-spacing: 2px;
         }
@@ -145,39 +143,39 @@
         
         /* 章节卡片 */
         .chapter {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.95);
             border-radius: 20px;
             margin: 30px 0;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 32px rgba(135, 206, 235, 0.2);
             overflow: hidden;
             transition: transform 0.3s;
         }
         .chapter:hover {
             transform: translateY(-3px);
-            background: rgba(255,255,255,0.1);
+            box-shadow: 0 12px 40px rgba(255, 183, 197, 0.25);
         }
         .chapter-header {
             padding: 25px 30px;
-            color: white;
-            position: relative;
-            background: linear-gradient(135deg, rgba(126,200,227,0.4) 0%, rgba(231,164,224,0.3) 100%);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(135deg, rgba(135,206,235,0.5) 0%, rgba(255,183,197,0.4) 100%);
+            border-bottom: 1px solid rgba(255,183,197,0.3);
         }
         .chapter-header h2 {
             font-size: 1.6em;
+            color: #4a5568;
             display: flex;
             align-items: center;
             gap: 15px;
         }
         .chapter-badge {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.6);
+            color: #e85a71;
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.6em;
-            font-weight: normal;
+            font-weight: 600;
         }
         .chapter-content {
             padding: 30px;
@@ -185,14 +183,14 @@
         
         /* 症状框 */
         .symptom {
-            background: rgba(231, 76, 60, 0.15);
+            background: rgba(231, 76, 60, 0.1);
             border-left: 4px solid #e74c3c;
             padding: 20px;
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
         .symptom h3 {
-            color: #ff6b6b;
+            color: #e74c3c;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -201,14 +199,14 @@
         
         /* 诊断框 */
         .diagnosis {
-            background: rgba(245, 158, 11, 0.15);
+            background: rgba(245, 158, 11, 0.1);
             border-left: 4px solid #f59e0b;
             padding: 20px;
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
         .diagnosis h3 {
-            color: #fbbf24;
+            color: #d97706;
             margin-bottom: 10px;
         }
         
@@ -225,21 +223,21 @@
             gap: 10px;
         }
         .attempt.fail {
-            background: rgba(239, 68, 68, 0.15);
+            background: rgba(239, 68, 68, 0.1);
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
         .attempt.success {
-            background: rgba(34, 197, 94, 0.15);
+            background: rgba(34, 197, 94, 0.1);
             border: 1px solid rgba(34, 197, 94, 0.3);
         }
         .attempt.note {
-            background: rgba(59, 130, 246, 0.15);
+            background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
         }
         
         /* 代码块 */
         .code-block {
-            background: rgba(30, 30, 46, 0.8);
+            background: rgba(30, 30, 46, 0.9);
             color: #cdd6f4;
             padding: 20px;
             border-radius: 12px;
@@ -270,21 +268,25 @@
         
         /* 通关配置区域 */
         .final-section {
-            background: linear-gradient(135deg, rgba(102,126,234,0.4) 0%, rgba(118,75,162,0.3) 100%);
+            background: linear-gradient(135deg, rgba(102,126,234,0.2) 0%, rgba(118,75,162,0.15) 100%);
             border-radius: 20px;
             padding: 40px;
             margin: 40px 0;
-            color: white;
-            border: 1px solid rgba(255,255,255,0.15);
+            color: #4a5568;
+            border: 1px solid rgba(255,183,197,0.4);
             backdrop-filter: blur(10px);
         }
         .final-section h2 {
             font-size: 2em;
             margin-bottom: 20px;
             text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #e85a71 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .final-section .code-block {
-            background: rgba(0,0,0,0.4);
+            background: rgba(30, 30, 46, 0.95);
             margin: 20px 0;
         }
         
@@ -293,50 +295,54 @@
             width: 100%;
             border-collapse: collapse;
             margin: 25px 0;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.9);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.2);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,183,197,0.3);
         }
         .tips-table th {
-            background: linear-gradient(135deg, rgba(126,200,227,0.4) 0%, rgba(231,164,224,0.3) 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(135,206,235,0.5) 0%, rgba(255,183,197,0.4) 100%);
+            color: #4a5568;
             padding: 15px;
             text-align: left;
-            font-weight: 500;
+            font-weight: 600;
         }
         .tips-table td {
             padding: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.85);
+            border-bottom: 1px solid rgba(255,183,197,0.2);
+            color: #718096;
         }
         .tips-table tr:last-child td {
             border-bottom: none;
         }
         .tips-table tr:hover {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,183,197,0.1);
         }
         
         /* 后记 */
         .epilogue {
-            background: linear-gradient(135deg, rgba(17,153,142,0.4) 0%, rgba(56,239,125,0.3) 100%);
+            background: linear-gradient(135deg, rgba(17,153,142,0.2) 0%, rgba(56,239,125,0.15) 100%);
             border-radius: 20px;
             padding: 40px;
             margin: 40px 0;
-            color: white;
+            color: #4a5568;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,183,197,0.4);
             backdrop-filter: blur(10px);
         }
         .epilogue h2 {
             font-size: 2em;
             margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #e85a71 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .epilogue .suggestions {
             text-align: left;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.6);
             padding: 25px;
             border-radius: 15px;
             margin-top: 20px;
@@ -345,27 +351,35 @@
             margin: 12px 0;
             padding-left: 10px;
             list-style: none;
+            color: #718096;
         }
         
         /* 页脚 */
         footer {
             text-align: center;
             padding: 40px;
-            color: rgba(255,255,255,0.5);
+            color: #718096;
             margin-top: 50px;
-            background: rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.6);
             backdrop-filter: blur(10px);
         }
         footer a {
-            color: #7ec8e3;
+            color: #e85a71;
         }
     </style>
 </head>
 <body>
-    <!-- 彗星装饰 -->
-    <div class="comet"></div>
-    <div class="comet"></div>
-    <div class="comet"></div>
+    <!-- 飘落的樱花 -->
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
     
     <!-- 导航栏 -->
     <nav>
@@ -559,10 +573,10 @@ export all_proxy=socks5://127.0.0.1:7890</code>
                     </div>
                 </div>
                 
-                <div style="background: rgba(34, 197, 94, 0.15); padding: 20px; border-radius: 12px; margin: 15px 0; border: 1px solid rgba(34, 197, 94, 0.3);">
-                    <ol style="margin-left: 25px; line-height: 2; color: rgba(255,255,255,0.9);">
+                <div style="background: rgba(34, 197, 94, 0.1); padding: 20px; border-radius: 12px; margin: 15px 0; border: 1px solid rgba(34, 197, 94, 0.3);">
+                    <ol style="margin-left: 25px; line-height: 2; color: #718096;">
                         <li>先登录 Discord</li>
-                        <li>访问 <a href="https://discord.com/developers/applications" target="_blank" style="color: #7ec8e3;">discord.com/developers/applications</a></li>
+                        <li>访问 <a href="https://discord.com/developers/applications" target="_blank" style="color: #e85a71;">discord.com/developers/applications</a></li>
                         <li>创建 Application → 左侧找到 OAuth2 → URL Generator</li>
                     </ol>
                 </div>
@@ -572,7 +586,7 @@ export all_proxy=socks5://127.0.0.1:7890</code>
         <!-- 最终通关配置 -->
         <div class="final-section">
             <h2>🏆 最终通关配置</h2>
-            <p style="text-align: center; margin-bottom: 25px; opacity: 0.9;">完整安装命令（供后人参考）</p>
+            <p style="text-align: center; margin-bottom: 25px; color: #718096;">完整安装命令（供后人参考）</p>
             
             <div class="code-block"><code># 1. 修复权限（如果之前有 root 残留）
 sudo chown -R $(whoami) ~/.npm
@@ -596,7 +610,7 @@ openclaw setup</code></div>
         </div>
         
         <!-- 踩坑心得表格 -->
-        <h2 style="color: rgba(255,255,255,0.9); text-align: center; margin: 40px 0 20px;">💡 踩坑心得</h2>
+        <h2 style="color: #4a5568; text-align: center; margin: 40px 0 20px;">💡 踩坑心得</h2>
         <table class="tips-table">
             <thead>
                 <tr>
@@ -639,12 +653,12 @@ openclaw setup</code></div>
             <h2>🎉 后记</h2>
             <p>折腾 4 个回合后，终于看到这只龙虾成功跑起来：</p>
             
-            <div class="code-block" style="text-align: center; font-size: 1.2em; background: rgba(0,0,0,0.3);">
+            <div class="code-block" style="text-align: center; font-size: 1.2em; background: rgba(30, 30, 46, 0.95);">
 <code>🦞 OpenClaw 2026.1.30 — Because the right answer is usually a script.</code>
             </div>
             
             <div class="suggestions">
-                <h3 style="margin-bottom: 15px;">📋 给后来人的建议：</h3>
+                <h3 style="margin-bottom: 15px; color: #4a5568;">📋 给后来人的建议：</h3>
                 <ul style="list-style: none;">
                     <li>✅ macOS 用户直接配好 <code>~/.npm-global</code>，避免权限噩梦</li>
                     <li>✅ 中国大陆用户提前开好代理，GitHub 依赖逃不掉</li>

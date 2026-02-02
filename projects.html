@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>🌠 龙虾学习日志 | ling1in</title>
+    <title>🌸 龙虾学习日志 | ling1in</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,16 +13,16 @@
         
         body {
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #1a1a3e 0%, #2d3561 30%, #4a569d 60%, #dcaeb3 100%);
+            background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 30%, #E8F4F8 60%, #FFF0F5 100%);
             min-height: 100vh;
             line-height: 1.8;
-            color: rgba(255,255,255,0.9);
+            color: #4a5568;
             position: relative;
             overflow-x: hidden;
             padding: 30px 20px;
         }
         
-        /* 星空背景 */
+        /* 蓝天白云背景 */
         body::before {
             content: '';
             position: fixed;
@@ -31,24 +31,36 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 50px 90px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(1px 1px at 80px 10px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 250px 180px, rgba(255,255,255,0.7), transparent);
-            background-repeat: repeat;
-            background-size: 400px 200px;
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9) 0%, transparent 40%),
+                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.7) 0%, transparent 35%),
+                radial-gradient(circle at 40% 60%, rgba(255,255,255,0.8) 0%, transparent 45%),
+                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.6) 0%, transparent 30%);
             pointer-events: none;
             z-index: 0;
-            animation: twinkle 4s ease-in-out infinite;
         }
         
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+        /* 飘落的樱花 */
+        .sakura {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle, rgba(255,183,197,0.9) 0%, rgba(255,183,197,0.4) 50%, transparent 70%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: fall linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .sakura:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
+        .sakura:nth-child(2) { left: 30%; animation-duration: 14s; animation-delay: 2s; }
+        .sakura:nth-child(3) { left: 50%; animation-duration: 11s; animation-delay: 4s; }
+        .sakura:nth-child(4) { left: 70%; animation-duration: 13s; animation-delay: 1s; }
+        .sakura:nth-child(5) { left: 90%; animation-duration: 15s; animation-delay: 3s; }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
         
         /* 返回链接 */
@@ -56,55 +68,45 @@
             display: inline-block;
             margin: 0 10px 25px 0;
             text-decoration: none;
-            color: rgba(255,255,255,0.8);
-            background: rgba(255,255,255,0.1);
+            color: #5a6c7d;
+            background: rgba(255,255,255,0.7);
             padding: 10px 20px;
             border-radius: 25px;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,183,197,0.4);
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
             position: relative;
             z-index: 1;
+            box-shadow: 0 2px 10px rgba(135, 206, 235, 0.2);
         }
         .back-link:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,183,197,0.3);
+            color: #e85a71;
             transform: translateX(-5px);
-            box-shadow: 0 5px 20px rgba(126, 200, 227, 0.3);
+            box-shadow: 0 5px 20px rgba(255, 183, 197, 0.3);
         }
         
         h1 { 
-            color: #fff;
+            color: #4a5568;
             font-size: 2.2em;
             margin: 20px 0 10px;
             position: relative;
             z-index: 1;
-            background: linear-gradient(135deg, #fff 0%, #7ec8e3 50%, #e7a4e0 100%);
+            background: linear-gradient(135deg, #667eea 0%, #e85a71 50%, #f093fb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
         p {
-            color: rgba(255,255,255,0.7);
+            color: #718096;
             margin-bottom: 20px;
             position: relative;
             z-index: 1;
         }
         
-        .avatar {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: 15px;
-            margin: 20px 0;
-            border: 2px solid rgba(255,255,255,0.2);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-        }
-        
         h3 {
-            color: #7ec8e3;
+            color: #e85a71;
             margin: 35px 0 15px;
             font-size: 1.4em;
             position: relative;
@@ -112,28 +114,35 @@
         }
         
         .info {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.9);
             padding: 25px;
             border-radius: 15px;
             margin: 15px 0 30px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 32px rgba(135, 206, 235, 0.2);
             position: relative;
             z-index: 1;
         }
         
         .info span {
-            color: rgba(255,255,255,0.85);
+            color: #718096;
             display: block;
             line-height: 1.9;
-            font-weight: 300;
+            font-weight: 400;
             white-space: pre-wrap;
         }
     </style>
 </head>
 <body>
+    <!-- 飘落的樱花 -->
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    
     <a href="index.html" class="back-link">← 返回首页</a>
     <a href="openclaw-setup.html" class="back-link">🔧 折腾日记</a>
     

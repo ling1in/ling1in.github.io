@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>🌠 我的博客 | ling1in</title>
+    <title>🌸 我的博客 | ling1in</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -13,15 +13,15 @@
         
         body {
             font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #1a1a3e 0%, #2d3561 30%, #4a569d 60%, #dcaeb3 100%);
+            background: linear-gradient(180deg, #87CEEB 0%, #B8E6F0 30%, #E8F4F8 60%, #FFF0F5 100%);
             min-height: 100vh;
             line-height: 1.7;
-            color: rgba(255,255,255,0.9);
+            color: #4a5568;
             position: relative;
             overflow-x: hidden;
         }
         
-        /* 星空背景 */
+        /* 蓝天白云背景 */
         body::before {
             content: '';
             position: fixed;
@@ -30,59 +30,62 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 50px 90px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(1px 1px at 80px 10px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.6), transparent),
-                radial-gradient(1px 1px at 200px 50px, rgba(255,255,255,0.9), transparent),
-                radial-gradient(2px 2px at 250px 180px, rgba(255,255,255,0.7), transparent),
-                radial-gradient(1px 1px at 300px 90px, rgba(255,255,255,0.8), transparent),
-                radial-gradient(2px 2px at 350px 40px, rgba(255,255,255,0.6), transparent);
-            background-repeat: repeat;
-            background-size: 400px 200px;
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.9) 0%, transparent 40%),
+                radial-gradient(circle at 80% 30%, rgba(255,255,255,0.7) 0%, transparent 35%),
+                radial-gradient(circle at 40% 60%, rgba(255,255,255,0.8) 0%, transparent 45%),
+                radial-gradient(circle at 70% 80%, rgba(255,255,255,0.6) 0%, transparent 30%),
+                radial-gradient(circle at 10% 70%, rgba(255,255,255,0.7) 0%, transparent 35%);
             pointer-events: none;
             z-index: 0;
-            animation: twinkle 4s ease-in-out infinite;
         }
         
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-        
-        /* 彗星装饰 */
-        .comet {
+        /* 飘落的樱花 */
+        .sakura {
             position: fixed;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            transform: rotate(-45deg);
-            animation: comet 8s linear infinite;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(255,183,197,0.9) 0%, rgba(255,183,197,0.4) 50%, transparent 70%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: fall linear infinite;
             z-index: 0;
+            pointer-events: none;
         }
-        .comet:nth-child(1) { top: 10%; left: -100px; animation-delay: 0s; }
-        .comet:nth-child(2) { top: 30%; left: -100px; animation-delay: 3s; }
-        .comet:nth-child(3) { top: 60%; left: -100px; animation-delay: 6s; }
+        .sakura::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,183,197,0.7) 0%, transparent 70%);
+            border-radius: 50%;
+            transform: rotate(60deg);
+        }
+        .sakura:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
+        .sakura:nth-child(2) { left: 25%; animation-duration: 15s; animation-delay: 2s; }
+        .sakura:nth-child(3) { left: 40%; animation-duration: 10s; animation-delay: 4s; }
+        .sakura:nth-child(4) { left: 55%; animation-duration: 14s; animation-delay: 1s; }
+        .sakura:nth-child(5) { left: 70%; animation-duration: 11s; animation-delay: 3s; }
+        .sakura:nth-child(6) { left: 85%; animation-duration: 13s; animation-delay: 5s; }
+        .sakura:nth-child(7) { left: 5%; animation-duration: 16s; animation-delay: 2.5s; }
+        .sakura:nth-child(8) { left: 95%; animation-duration: 12s; animation-delay: 4.5s; }
         
-        @keyframes comet {
-            0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateX(120vw) translateY(120vh) rotate(-45deg); opacity: 0; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
         
         /* 导航栏 */
         nav {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.8);
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 20px rgba(135, 206, 235, 0.3);
         }
         nav ul {
             list-style: none;
@@ -95,19 +98,21 @@
             padding: 0 20px;
         }
         nav a {
-            color: rgba(255,255,255,0.9);
+            color: #5a6c7d;
             text-decoration: none;
             font-weight: 500;
             padding: 10px 20px;
             border-radius: 25px;
             transition: all 0.3s ease;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,183,197,0.3);
+            box-shadow: 0 2px 10px rgba(135, 206, 235, 0.2);
         }
         nav a:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,183,197,0.3);
+            color: #e85a71;
             transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(126, 200, 227, 0.3);
+            box-shadow: 0 5px 20px rgba(255, 183, 197, 0.4);
         }
         
         /* 头部横幅 */
@@ -121,15 +126,15 @@
             font-size: 3em;
             font-weight: 700;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff 0%, #7ec8e3 50%, #e7a4e0 100%);
+            background: linear-gradient(135deg, #667eea 0%, #e85a71 50%, #f093fb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 0 40px rgba(126, 200, 227, 0.3);
+            text-shadow: 0 0 30px rgba(232, 90, 113, 0.2);
         }
         .header p {
             font-size: 1.3em;
-            color: rgba(255,255,255,0.7);
+            color: #718096;
             font-weight: 300;
             letter-spacing: 2px;
         }
@@ -143,63 +148,69 @@
             z-index: 1;
         }
         
-        /* 文章卡片 - 毛玻璃效果 */
+        /* 文章卡片 */
         .post {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.9);
             padding: 30px;
             margin: 25px 0;
             border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 32px rgba(135, 206, 235, 0.2);
             transition: all 0.4s ease;
         }
         .post:hover {
             transform: translateY(-5px);
-            background: rgba(255,255,255,0.12);
-            box-shadow: 0 12px 40px rgba(126, 200, 227, 0.2);
-            border-color: rgba(126, 200, 227, 0.3);
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 12px 40px rgba(255, 183, 197, 0.3);
+            border-color: rgba(255,183,197,0.5);
         }
         .post h2 {
-            color: #fff;
+            color: #4a5568;
             margin-bottom: 15px;
             font-size: 1.5em;
             font-weight: 600;
         }
         .post p {
-            color: rgba(255,255,255,0.75);
+            color: #718096;
             margin-bottom: 12px;
-            font-weight: 300;
+            font-weight: 400;
         }
         .post small {
-            color: rgba(126, 200, 227, 0.8);
+            color: #e85a71;
             display: block;
             margin-top: 15px;
             font-size: 0.9em;
+            font-weight: 500;
         }
         
         /* 页脚 */
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: rgba(255,255,255,0.5);
+            color: #718096;
             position: relative;
             z-index: 1;
-            background: rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.6);
             backdrop-filter: blur(10px);
         }
         footer p {
             margin: 5px 0;
-            font-weight: 300;
+            font-weight: 400;
         }
     </style>
 </head>
 <body>
-    <!-- 彗星装饰 -->
-    <div class="comet"></div>
-    <div class="comet"></div>
-    <div class="comet"></div>
+    <!-- 飘落的樱花 -->
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
+    <div class="sakura"></div>
     
     <!-- 导航栏 -->
     <nav>
@@ -213,7 +224,7 @@
     
     <!-- 头部横幅 -->
     <div class="header">
-        <h1>🌠 欢迎来到我的博客</h1>
+        <h1>🌸 欢迎来到我的博客</h1>
         <p>记录我的编程学习之旅</p>
     </div>
     
@@ -228,8 +239,8 @@
         
         <div class="post">
             <h2>🎮 我喜欢的游戏</h2>
-            <p>最近在玩《我的世界》，用红石做了一个自动门，感觉和编程有点像！</p>
-            <p>游戏里的逻辑思维对学编程很有帮助呢～</p>
+            <p>最近在玩《无畏契约》，作为一个新手正在努力练习枪法和走位！</p>
+            <p>游戏里的团队配合和战术思维对学编程很有帮助呢，都需要快速反应和策略规划～</p>
             <small>📅 2025年1月28日</small>
         </div>
         
