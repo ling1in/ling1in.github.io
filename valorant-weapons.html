@@ -82,6 +82,41 @@
             border: 2px solid var(--accent-color);
             box-shadow: 0 0 10px var(--accent-color);
         }
+        .game-mode-switcher {
+            position: fixed;
+            top: 55px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .game-mode-btn {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.1));
+            border: 2px solid rgba(255,215,0,0.4);
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: #ffd700;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .game-mode-btn:hover {
+            transform: scale(1.05);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        .game-mode-btn.mobile {
+            background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,150,255,0.1));
+            border-color: rgba(0,200,255,0.4);
+            color: #00c8ff;
+        }
+        .game-mode-btn.mobile:hover {
+            border-color: #00c8ff;
+            box-shadow: 0 0 20px rgba(0,200,255,0.3);
+        }
         .header {
             text-align: center;
             padding: 40px 15px;
@@ -240,6 +275,12 @@
         <button class="theme-btn" data-theme="matrix">💊</button>
     </div>
 
+    <div class="game-mode-switcher">
+        <button class="game-mode-btn" id="gameModeBtn" onclick="toggleGameMode()">
+            📱 如果你来自《无畏契约：源能行动》
+        </button>
+    </div>
+
     <nav>
         <ul>
             <li><a href="index.html">🏠 首页</a></li>
@@ -262,32 +303,32 @@
             <div class="weapon-category-card active" data-category="rifles" onclick="showWeaponCategory('rifles')">
                 <div class="category-icon"><img src="images/weapons/狂徒.png" alt="步枪" style="width:70px;height:70px;object-fit:contain;"></div>
                 <div class="category-name">步枪</div>
-                <div class="category-count">4种</div>
+                <div class="category-count" id="riflesCount">4种</div>
             </div>
             <div class="weapon-category-card" data-category="pistols" onclick="showWeaponCategory('pistols')">
                 <div class="category-icon"><img src="images/weapons/正义.png" alt="手枪" style="width:70px;height:70px;object-fit:contain;"></div>
                 <div class="category-name">手枪</div>
-                <div class="category-count">6种</div>
+                <div class="category-count" id="pistolsCount">6种</div>
             </div>
             <div class="weapon-category-card" data-category="smgs" onclick="showWeaponCategory('smgs')">
                 <div class="category-icon"><img src="images/weapons/骇灵.png" alt="冲锋枪" style="width:70px;height:70px;object-fit:contain;"></div>
                 <div class="category-name">冲锋枪</div>
-                <div class="category-count">2种</div>
+                <div class="category-count" id="smgsCount">2种</div>
             </div>
             <div class="weapon-category-card" data-category="lmgs" onclick="showWeaponCategory('lmgs')">
                 <div class="category-icon"><img src="images/weapons/奥丁.png" alt="机枪" style="width:70px;height:70px;object-fit:contain;"></div>
                 <div class="category-name">机枪</div>
-                <div class="category-count">2种</div>
+                <div class="category-count" id="lmgsCount">2种</div>
             </div>
             <div class="weapon-category-card" data-category="snipers" onclick="showWeaponCategory('snipers')">
                 <div class="category-icon"><img src="images/weapons/冥驹.png" alt="狙击枪" style="width:70px;height:70px;object-fit:contain;"></div>
                 <div class="category-name">狙击枪</div>
-                <div class="category-count">3种</div>
+                <div class="category-count" id="snipersCount">3种</div>
             </div>
             <div class="weapon-category-card" data-category="shotguns" onclick="showWeaponCategory('shotguns')">
                 <div class="category-icon"><img src="images/weapons/判官.png" alt="霰弹枪" style="width:70px;height:70px;object-fit:contain;"></div>
                 <div class="category-name">霰弹枪</div>
-                <div class="category-count">2种</div>
+                <div class="category-count" id="shotgunsCount">2种</div>
             </div>
         </div>
         
@@ -296,7 +337,8 @@
 
     <script>
         // 枪械数据（来自valorant-api.com官方中文数据）
-        const weaponsData = {
+        // PC版枪械数据（19种）
+        const pcWeaponsData = {
             rifles: [
                 {
                     name: '狂徒',
@@ -444,6 +486,138 @@
             ],
         };
 
+        // 手游版《源能行动》枪械数据（15种核心武器）
+        const mobileWeaponsData = {
+            rifles: [
+                {
+                    name: '狂徒',
+                    img: '',
+                    price: 2900,
+                    desc: '高伤害全自动步枪，手游中自动开火辅助让爆头更容易。',
+                    stats: { damage: 90, fireRate: 60, accuracy: 75, range: 85 }
+                },
+                {
+                    name: '幻影',
+                    img: '',
+                    price: 2900,
+                    desc: '装备消音器的全自动步枪，手游中后坐力更小，适合新手上手。',
+                    stats: { damage: 75, fireRate: 75, accuracy: 85, range: 75 }
+                },
+                {
+                    name: '戍卫',
+                    img: '',
+                    price: 2250,
+                    desc: '半自动精确步枪，手游中瞄准辅助让点射更简单。',
+                    stats: { damage: 95, fireRate: 35, accuracy: 95, range: 95 }
+                },
+            ],
+            pistols: [
+                {
+                    name: '标配',
+                    img: '',
+                    price: 0,
+                    desc: '免费起始手枪，手游中自动开火让新手也能轻松上手。',
+                    stats: { damage: 45, fireRate: 50, accuracy: 65, range: 40 }
+                },
+                {
+                    name: '短炮',
+                    img: '',
+                    price: 300,
+                    desc: '双管霰弹手枪，手游近距离自动瞄准一击必杀。',
+                    stats: { damage: 80, fireRate: 25, accuracy: 35, range: 20 }
+                },
+                {
+                    name: '狂怒',
+                    img: '',
+                    price: 450,
+                    desc: '全自动手枪，手游中配合自动开火近距离很强。',
+                    stats: { damage: 50, fireRate: 85, accuracy: 50, range: 35 }
+                },
+                {
+                    name: '鬼魅',
+                    img: '',
+                    price: 500,
+                    desc: '装备消音器的手枪，手游中精准度高，eco局首选。',
+                    stats: { damage: 60, fireRate: 45, accuracy: 80, range: 60 }
+                },
+                {
+                    name: '正义',
+                    img: '',
+                    price: 800,
+                    desc: '重型左轮手枪，手游中瞄准辅助让爆头更容易。',
+                    stats: { damage: 95, fireRate: 30, accuracy: 75, range: 65 }
+                },
+            ],
+            smgs: [
+                {
+                    name: '蜂刺',
+                    img: '',
+                    price: 1100,
+                    desc: '高射速冲锋枪，手游跑打很准，经济局神器。',
+                    stats: { damage: 55, fireRate: 80, accuracy: 60, range: 45 }
+                },
+                {
+                    name: '骇灵',
+                    img: '',
+                    price: 1600,
+                    desc: '装备消音器的冲锋枪，手游中稳定性极佳。',
+                    stats: { damage: 60, fireRate: 75, accuracy: 75, range: 55 }
+                },
+            ],
+            lmgs: [
+                {
+                    name: '战神',
+                    img: '',
+                    price: 1600,
+                    desc: '轻型机枪，手游中自动开火配合大弹夹压制力极强。',
+                    stats: { damage: 50, fireRate: 70, accuracy: 65, range: 60 }
+                },
+                {
+                    name: '奥丁',
+                    img: '',
+                    price: 3200,
+                    desc: '重型机枪，手游中穿透薄墙自动开火很适合架点。',
+                    stats: { damage: 55, fireRate: 85, accuracy: 60, range: 70 }
+                },
+            ],
+            snipers: [
+                {
+                    name: '冥驹',
+                    img: '',
+                    price: 4700,
+                    desc: '重型狙击枪，手游中开镜更稳，一击必杀。',
+                    stats: { damage: 100, fireRate: 20, accuracy: 98, range: 100 }
+                },
+                {
+                    name: '飞将',
+                    img: '',
+                    price: 950,
+                    desc: '杠杆式狙击枪，手游中移动射击精准，经济局首选。',
+                    stats: { damage: 85, fireRate: 40, accuracy: 90, range: 90 }
+                },
+            ],
+            shotguns: [
+                {
+                    name: '判官',
+                    img: '',
+                    price: 1850,
+                    desc: '全自动霰弹枪，手游中自动开火近距离统治力极强。',
+                    stats: { damage: 90, fireRate: 60, accuracy: 30, range: 18 }
+                },
+                {
+                    name: '雄鹿',
+                    img: '',
+                    price: 850,
+                    desc: '泵动式霰弹枪，手游中近距离自动瞄准一击必杀。',
+                    stats: { damage: 95, fireRate: 30, accuracy: 35, range: 20 }
+                },
+            ],
+        };
+
+        // 当前使用的数据源
+        let weaponsData = pcWeaponsData;
+        let isMobileMode = localStorage.getItem('gameMode') === 'mobile';
+
         // 主题切换
         const themeBtns = document.querySelectorAll('.theme-btn');
         const body = document.body;
@@ -465,6 +639,50 @@
             themeBtns.forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
             });
+        }
+
+        // 游戏模式切换
+        function toggleGameMode() {
+            isMobileMode = !isMobileMode;
+            localStorage.setItem('gameMode', isMobileMode ? 'mobile' : 'pc');
+            applyGameMode();
+        }
+
+        // 应用游戏模式
+        function applyGameMode() {
+            const btn = document.getElementById('gameModeBtn');
+            const title = document.querySelector('.header h1');
+            
+            // 切换数据源
+            weaponsData = isMobileMode ? mobileWeaponsData : pcWeaponsData;
+            
+            if (isMobileMode) {
+                btn.innerHTML = '🎮 返回《Valorant》PC版';
+                btn.classList.add('mobile');
+                title.innerHTML = '🔫 源能行动枪械档案';
+                document.title = '🔫 源能行动枪械档案 | ling1in';
+            } else {
+                btn.innerHTML = '📱 如果你来自《无畏契约：源能行动》';
+                btn.classList.remove('mobile');
+                title.innerHTML = '🔫 Valorant 枪械档案';
+                document.title = '🔫 Valorant 枪械档案 | ling1in';
+            }
+            
+            // 更新分类卡片上的武器数量
+            updateWeaponCounts();
+            
+            // 重新渲染当前分类
+            renderWeapons(currentWeaponCategory);
+        }
+
+        // 更新武器分类数量
+        function updateWeaponCounts() {
+            document.getElementById('riflesCount').textContent = weaponsData.rifles.length;
+            document.getElementById('pistolsCount').textContent = weaponsData.pistols.length;
+            document.getElementById('smgsCount').textContent = weaponsData.smgs.length;
+            document.getElementById('lmgsCount').textContent = weaponsData.lmgs.length;
+            document.getElementById('snipersCount').textContent = weaponsData.snipers.length;
+            document.getElementById('shotgunsCount').textContent = weaponsData.shotguns.length;
         }
 
         // 枪械相关函数
@@ -519,6 +737,11 @@
                     <span class="stat-value">${value}</span>
                 </div>
             `;
+        }
+
+        // 页面加载时应用保存的游戏模式
+        if (isMobileMode) {
+            applyGameMode();
         }
 
         // 初始化显示步枪
