@@ -715,6 +715,24 @@
 
         // 页面加载时自动开始
         window.addEventListener('DOMContentLoaded', startQuotesAnimation);
+
+        // 恢复音乐播放（如果从valorant页面点击过来）
+        window.addEventListener('load', function() {
+            const playingId = sessionStorage.getItem('playingMusic');
+            const playingTime = sessionStorage.getItem('musicPlayingTime');
+            
+            // 如果在5分钟内点击过播放，则恢复播放器
+            if (playingId && playingTime && (Date.now() - parseInt(playingTime)) < 300000) {
+                let bgMusicPlayer = document.createElement('div');
+                bgMusicPlayer.id = 'mini-music-player';
+                bgMusicPlayer.style.cssText = 'position: fixed; bottom: 10px; right: 10px; width: 66px; height: 86px; z-index: 9999; opacity: 0.3; transition: opacity 0.3s;';
+                bgMusicPlayer.innerHTML = '<iframe src="//music.163.com/outchain/player?type=2&id=' + playingId + '&auto=1&height=86" width="100%" height="86" frameborder="0"></iframe>';
+                document.body.appendChild(bgMusicPlayer);
+                
+                bgMusicPlayer.addEventListener('mouseenter', () => bgMusicPlayer.style.opacity = '1');
+                bgMusicPlayer.addEventListener('mouseleave', () => bgMusicPlayer.style.opacity = '0.3');
+            }
+        });
     </script>
 </body>
 </html>
