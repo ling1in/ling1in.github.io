@@ -430,6 +430,123 @@
             color: var(--text-secondary);
             line-height: 1.6;
         }
+        /* 资讯专栏样式 */
+        .news-section {
+            max-width: 1400px;
+            margin: 60px auto 0;
+            padding: 20px;
+        }
+        .news-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .news-filter-btn {
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 25px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .news-filter-btn:hover, .news-filter-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .news-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .news-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .news-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        .news-image {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, rgba(255,70,85,0.3), rgba(15,25,35,0.8));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        .news-content {
+            padding: 20px;
+        }
+        .news-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-bottom: 10px;
+        }
+        .news-tag.update { background: rgba(74, 222, 128, 0.2); color: #4ade80; }
+        .news-tag.esports { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .news-tag.skin { background: rgba(139, 92, 246, 0.2); color: #a78bfa; }
+        .news-tag.agent { background: rgba(255, 70, 85, 0.2); color: #ff4655; }
+        .news-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .news-excerpt {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .news-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .news-load-more {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .load-more-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--accent-color), #ff6b7a);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .load-more-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 70, 85, 0.4);
+        }
             color: var(--accent-color);
         }
         .skill-desc { font-size: 0.9rem; color: var(--text-secondary); }
@@ -575,6 +692,25 @@
         </div>
         
         <div class="weapons-grid" id="weaponsGrid"></div>
+    </div>
+
+    <!-- 最新资讯 -->
+    <div class="news-section" id="newsSection">
+        <h2 class="section-title">📰 Valorant 最新资讯</h2>
+        
+        <div class="news-filters" id="newsFilters">
+            <button class="news-filter-btn active" data-filter="all" onclick="filterNews('all')">全部</button>
+            <button class="news-filter-btn" data-filter="update" onclick="filterNews('update')">版本更新</button>
+            <button class="news-filter-btn" data-filter="esports" onclick="filterNews('esports')">电竞赛事</button>
+            <button class="news-filter-btn" data-filter="skin" onclick="filterNews('skin')">皮肤套装</button>
+            <button class="news-filter-btn" data-filter="agent" onclick="filterNews('agent')">特工情报</button>
+        </div>
+        
+        <div class="news-grid" id="newsGrid"></div>
+        
+        <div class="news-load-more">
+            <button class="load-more-btn" onclick="loadMoreNews()">加载更多资讯</button>
+        </div>
     </div>
 
     <script>
@@ -1054,6 +1190,91 @@
             ]
         };
 
+        // 资讯数据
+        const newsData = [
+            {
+                id: 1,
+                title: '新赛季「炽阳破晓」正式开启',
+                excerpt: '全新赛季带来全新战令皮肤、排位重置以及地图轮换，还有惊喜新特工即将登场！',
+                tag: 'update',
+                tagName: '版本更新',
+                emoji: '🌅',
+                date: '2026-02-01'
+            },
+            {
+                id: 2,
+                title: 'VCT 2026 冠军赛赛制公布',
+                excerpt: 'Riot Games 公布了2026年VCT冠军赛的完整赛制，总奖金池突破500万美元！',
+                tag: 'esports',
+                tagName: '电竞赛事',
+                emoji: '🏆',
+                date: '2026-01-28'
+            },
+            {
+                id: 3,
+                title: '「混沌序幕」皮肤套装上线',
+                excerpt: '全新终极品质皮肤套装「混沌序幕」震撼登场，包含狂徒、幻影、间谍等武器皮肤。',
+                tag: 'skin',
+                tagName: '皮肤套装',
+                emoji: '⚔️',
+                date: '2026-01-25'
+            },
+            {
+                id: 4,
+                title: '新特工Waylay幻棱能力解析',
+                excerpt: '来自印度的光之先锋Waylay正式加入战场，她的棱镜能力如何改变对局？',
+                tag: 'agent',
+                tagName: '特工情报',
+                emoji: '💠',
+                date: '2026-01-22'
+            },
+            {
+                id: 5,
+                title: '9.02版本平衡性调整一览',
+                excerpt: 'Vandal价格微调，Jett技能冷却时间调整，多名特工迎来强度优化。',
+                tag: 'update',
+                tagName: '版本更新',
+                emoji: '⚖️',
+                date: '2026-01-20'
+            },
+            {
+                id: 6,
+                title: 'EDG夺得VCT中国赛区冠军',
+                excerpt: 'EDG在决赛中以3:1击败对手，成功晋级VCT大师赛！',
+                tag: 'esports',
+                tagName: '电竞赛事',
+                emoji: '🥇',
+                date: '2026-01-18'
+            },
+            {
+                id: 7,
+                title: '「离子圣芒2.0」即将返场',
+                excerpt: '玩家最喜爱的离子圣芒系列皮肤即将限时返场，包含全新近战武器皮肤。',
+                tag: 'skin',
+                tagName: '皮肤套装',
+                emoji: '✨',
+                date: '2026-01-15'
+            },
+            {
+                id: 8,
+                title: 'Tejo钛狐使用率达到新高',
+                excerpt: '新特工Tejo在职业赛场的选取率突破40%，成为控场位首选！',
+                tag: 'agent',
+                tagName: '特工情报',
+                emoji: '🎯',
+                date: '2026-01-12'
+            },
+            {
+                id: 9,
+                title: '地图池轮换：微风岛屿回归',
+                excerpt: '经典地图微风岛屿重新加入排位地图池，同时隐士修所暂时移除。',
+                tag: 'update',
+                tagName: '版本更新',
+                emoji: '🗺️',
+                date: '2026-01-10'
+            }
+        ];
+
         // 主题切换
         const themeBtns = document.querySelectorAll('.theme-btn');
         const body = document.body;
@@ -1131,6 +1352,67 @@
 
         // 初始化显示步枪
         renderWeapons('rifles');
+
+        // 资讯相关函数
+        let currentNewsFilter = 'all';
+        let displayedNewsCount = 6;
+
+        function filterNews(filter) {
+            currentNewsFilter = filter;
+            displayedNewsCount = 6;
+            
+            // 更新按钮状态
+            document.querySelectorAll('.news-filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
+            });
+            
+            renderNews();
+        }
+
+        function renderNews() {
+            const grid = document.getElementById('newsGrid');
+            let filteredNews = currentNewsFilter === 'all' 
+                ? newsData 
+                : newsData.filter(n => n.tag === currentNewsFilter);
+            
+            const displayNews = filteredNews.slice(0, displayedNewsCount);
+            
+            grid.innerHTML = displayNews.map((news, i) => `
+                <div class="news-card" onclick="openNewsDetail(${news.id})" style="animation: fadeIn 0.3s ease ${i * 0.1}s both;">
+                    <div class="news-image">${news.emoji}</div>
+                    <div class="news-content">
+                        <span class="news-tag ${news.tag}">${news.tagName}</span>
+                        <h3 class="news-title">${news.title}</h3>
+                        <p class="news-excerpt">${news.excerpt}</p>
+                        <div class="news-meta">
+                            <span class="news-date">📅 ${news.date}</span>
+                            <span>阅读更多 →</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // 更新加载更多按钮显示
+            const loadMoreBtn = document.querySelector('.load-more-btn');
+            if (loadMoreBtn) {
+                loadMoreBtn.style.display = displayedNewsCount >= filteredNews.length ? 'none' : 'inline-block';
+            }
+        }
+
+        function loadMoreNews() {
+            displayedNewsCount += 3;
+            renderNews();
+        }
+
+        function openNewsDetail(newsId) {
+            const news = newsData.find(n => n.id === newsId);
+            if (news) {
+                alert(`📰 ${news.title}\n\n${news.excerpt}\n\n📅 发布时间：${news.date}\n🏷️ 分类：${news.tagName}\n\n（点击确定关闭）`);
+            }
+        }
+
+        // 初始化渲染资讯
+        renderNews();
 
         // 显示职位选择
         function showRoleSelection() {
