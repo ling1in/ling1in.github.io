@@ -398,6 +398,27 @@
             justify-content: center;
             font-size: 1.5rem;
         }
+        .agent-tip-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255,70,85,0.3), rgba(255,70,85,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 2px solid rgba(255,70,85,0.3);
+        }
+        .agent-tip-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .agent-tip-card:hover .agent-tip-avatar img {
+            transform: scale(1.1);
+        }
         .agent-tip-name {
             font-size: 1.15rem;
             font-weight: 700;
@@ -1182,7 +1203,7 @@
         const agentTipsData = [
             {
                 name: '捷风',
-                emoji: '🌪️',
+                avatar: 'images/agents/捷风.png',
                 role: '决斗',
                 color: '#3498db',
                 tips: [
@@ -1194,7 +1215,7 @@
             },
             {
                 name: '雷兹',
-                emoji: '💥',
+                avatar: 'images/agents/雷兹.png',
                 role: '决斗',
                 color: '#e74c3c',
                 tips: [
@@ -1206,7 +1227,7 @@
             },
             {
                 name: '不死鸟',
-                emoji: '🔥',
+                avatar: 'images/agents/不死鸟.png',
                 role: '决斗',
                 color: '#e67e22',
                 tips: [
@@ -1218,7 +1239,7 @@
             },
             {
                 name: '霓虹',
-                emoji: '⚡',
+                avatar: 'images/agents/霓虹.png',
                 role: '决斗',
                 color: '#00bcd4',
                 tips: [
@@ -1230,7 +1251,7 @@
             },
             {
                 name: '夜戮',
-                emoji: '🎭',
+                avatar: 'images/agents/夜露.png',
                 role: '决斗',
                 color: '#9b59b6',
                 tips: [
@@ -1242,7 +1263,7 @@
             },
             {
                 name: '芮娜',
-                emoji: '👁️',
+                avatar: 'images/agents/芮娜.png',
                 role: '决斗',
                 color: '#8e44ad',
                 tips: [
@@ -1254,7 +1275,7 @@
             },
             {
                 name: '斯凯',
-                emoji: '🦘',
+                avatar: 'images/agents/斯凯.png',
                 role: '先锋',
                 color: '#2ecc71',
                 tips: [
@@ -1266,7 +1287,7 @@
             },
             {
                 name: '猎枭',
-                emoji: '🏹',
+                avatar: 'images/agents/猎枭.png',
                 role: '先锋',
                 color: '#f39c12',
                 tips: [
@@ -1278,7 +1299,7 @@
             },
             {
                 name: '铁臂',
-                emoji: '🦾',
+                avatar: 'images/agents/铁臂.png',
                 role: '先锋',
                 color: '#795548',
                 tips: [
@@ -1290,7 +1311,7 @@
             },
             {
                 name: '盖可',
-                emoji: '🦎',
+                avatar: 'images/agents/盖可.png',
                 role: '先锋',
                 color: '#8bc34a',
                 tips: [
@@ -1302,7 +1323,7 @@
             },
             {
                 name: '零',
-                emoji: '🕸️',
+                avatar: 'images/agents/零.png',
                 role: '哨位',
                 color: '#607d8b',
                 tips: [
@@ -1314,7 +1335,7 @@
             },
             {
                 name: '奇乐',
-                emoji: '🤖',
+                avatar: 'images/agents/奇乐.png',
                 role: '哨位',
                 color: '#ff9800',
                 tips: [
@@ -1326,7 +1347,7 @@
             },
             {
                 name: '贤者',
-                emoji: '❄️',
+                avatar: 'images/agents/贤者.png',
                 role: '哨位',
                 color: '#00bcd4',
                 tips: [
@@ -1338,7 +1359,7 @@
             },
             {
                 name: '尚勃勒',
-                emoji: '🎩',
+                avatar: 'images/agents/尚勃勒.png',
                 role: '哨位',
                 color: '#ffd700',
                 tips: [
@@ -1350,7 +1371,7 @@
             },
             {
                 name: '炼狱',
-                emoji: '🌋',
+                avatar: 'images/agents/炼狱.png',
                 role: '控场',
                 color: '#e67e22',
                 tips: [
@@ -1362,7 +1383,7 @@
             },
             {
                 name: '欧门',
-                emoji: '👻',
+                avatar: 'images/agents/幽影.png',
                 role: '控场',
                 color: '#6c5ce7',
                 tips: [
@@ -1374,7 +1395,7 @@
             },
             {
                 name: '蝰蛇',
-                emoji: '🐍',
+                avatar: 'images/agents/蝰蛇.png',
                 role: '控场',
                 color: '#27ae60',
                 tips: [
@@ -1386,7 +1407,7 @@
             },
             {
                 name: '海神',
-                emoji: '🌊',
+                avatar: 'images/agents/海神.png',
                 role: '控场',
                 color: '#2980b9',
                 tips: [
@@ -1398,7 +1419,7 @@
             },
             {
                 name: '星礈',
-                emoji: '⭐',
+                avatar: 'images/agents/星礈.png',
                 role: '控场',
                 color: '#9b59b6',
                 tips: [
@@ -1410,7 +1431,7 @@
             },
             {
                 name: '维斯',
-                emoji: '🕷️',
+                avatar: 'images/agents/维斯.png',
                 role: '哨位',
                 color: '#8e44ad',
                 tips: [
@@ -1422,7 +1443,7 @@
             },
             {
                 name: '幻棱',
-                emoji: '💎',
+                avatar: 'images/agents/幻棱.png',
                 role: '决斗',
                 color: '#00cec9',
                 tips: [
@@ -1434,7 +1455,7 @@
             },
             {
                 name: '黑梦',
-                emoji: '🦇',
+                avatar: 'images/agents/黑梦.png',
                 role: '先锋',
                 color: '#d63031',
                 tips: [
@@ -1446,7 +1467,7 @@
             },
             {
                 name: '钢锁',
-                emoji: '⛓️',
+                avatar: 'images/agents/钢锁.png',
                 role: '哨位',
                 color: '#b2bec3',
                 tips: [
@@ -1458,7 +1479,7 @@
             },
             {
                 name: '暮蝶',
-                emoji: '🦋',
+                avatar: 'images/agents/暮蝶.png',
                 role: '控场',
                 color: '#fd79a8',
                 tips: [
@@ -1470,7 +1491,7 @@
             },
             {
                 name: '壹决',
-                emoji: '🛡️',
+                avatar: 'images/agents/壹决.png',
                 role: '决斗',
                 color: '#0984e3',
                 tips: [
@@ -1481,8 +1502,8 @@
                 ]
             },
             {
-                name: 'ko',
-                emoji: '🤖',
+                name: 'K/O',
+                avatar: 'images/agents/K_O.png',
                 role: '先锋',
                 color: '#e17055',
                 tips: [
@@ -1494,7 +1515,7 @@
             },
             {
                 name: '火男',
-                emoji: '🔥',
+                avatar: 'images/agents/不死鸟.png',
                 role: '决斗',
                 color: '#e74c3c',
                 tips: [
@@ -1589,8 +1610,8 @@
                 
                 html += '<div class="agent-tip-card" style="animation: fadeIn 0.5s ease ' + (i * 0.05) + 's both;">' +
                     '<div class="agent-tip-header">' +
-                        '<div class="agent-tip-icon" style="background: linear-gradient(135deg, ' + agent.color + '33, ' + agent.color + '11);">' +
-                            agent.emoji +
+                        '<div class="agent-tip-avatar">' +
+                            '<img src="' + agent.avatar + '" alt="' + agent.name + '" onerror="this.style.display=\'none\';this.parentNode.innerHTML=\'<span style=font-size:1.5rem>\\u2605</span>\';">' +
                         '</div>' +
                         '<div>' +
                             '<div class="agent-tip-name">' + agent.name + '</div>' +
