@@ -1542,53 +1542,66 @@
         // 渲染地图非预瞄点
         function renderMapsUncommonAngles() {
             const container = document.getElementById('mapsUncommonAngles');
+            let html = '';
             
-            container.innerHTML = mapUncommonAnglesData.map((map, index) => `
-                <div class="map-angles-card" style="animation: fadeIn 0.5s ease ${index * 0.1}s both;">
-                    <div class="map-angles-header">
-                        <div class="map-angles-icon" style="background: linear-gradient(135deg, ${map.color}33, ${map.color}11);">
-                            ${map.emoji}
-                        </div>
-                        <div>
-                            <div class="map-angles-title">${map.map}</div>
-                            <div class="map-angles-desc">${map.description}</div>
-                        </div>
-                    </div>
-                    <div class="uncommon-spots-list">
-                        ${map.spots.map(spot => `
-                            <div class="uncommon-spot-item">
-                                <div class="spot-location">${spot.location}</div>
-                                <div class="spot-description">${spot.description}</div>
-                                <div class="spot-tip">💡 ${spot.tip}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
+            for (let i = 0; i < mapUncommonAnglesData.length; i++) {
+                const map = mapUncommonAnglesData[i];
+                let spotsHtml = '';
+                
+                for (let j = 0; j < map.spots.length; j++) {
+                    const spot = map.spots[j];
+                    spotsHtml += '<div class="uncommon-spot-item">' +
+                        '<div class="spot-location">' + spot.location + '</div>' +
+                        '<div class="spot-description">' + spot.description + '</div>' +
+                        '<div class="spot-tip">💡 ' + spot.tip + '</div>' +
+                    '</div>';
+                }
+                
+                html += '<div class="map-angles-card" style="animation: fadeIn 0.5s ease ' + (i * 0.1) + 's both;">' +
+                    '<div class="map-angles-header">' +
+                        '<div class="map-angles-icon" style="background: linear-gradient(135deg, ' + map.color + '33, ' + map.color + '11);">' +
+                            map.emoji +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="map-angles-title">' + map.map + '</div>' +
+                            '<div class="map-angles-desc">' + map.description + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="uncommon-spots-list">' + spotsHtml + '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
         }
 
         // 渲染特工小细节
         function renderAgentTips() {
             const container = document.getElementById('agentTipsGrid');
+            let html = '';
             
-            container.innerHTML = agentTipsData.map((agent, index) => `
-                <div class="agent-tip-card" style="animation: fadeIn 0.5s ease ${index * 0.05}s both;">
-                    <div class="agent-tip-header">
-                        <div class="agent-tip-icon" style="background: linear-gradient(135deg, ${agent.color}33, ${agent.color}11);">
-                            ${agent.emoji}
-                        </div>
-                        <div>
-                            <div class="agent-tip-name">${agent.name}</div>
-                            <div class="agent-tip-role">${agent.role}</div>
-                        </div>
-                    </div>
-                    <div class="agent-tip-list">
-                        ${agent.tips.map(tip => `
-                            <div class="agent-tip-item">${tip}</div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
+            for (let i = 0; i < agentTipsData.length; i++) {
+                const agent = agentTipsData[i];
+                let tipsHtml = '';
+                
+                for (let j = 0; j < agent.tips.length; j++) {
+                    tipsHtml += '<div class="agent-tip-item">' + agent.tips[j] + '</div>';
+                }
+                
+                html += '<div class="agent-tip-card" style="animation: fadeIn 0.5s ease ' + (i * 0.05) + 's both;">' +
+                    '<div class="agent-tip-header">' +
+                        '<div class="agent-tip-icon" style="background: linear-gradient(135deg, ' + agent.color + '33, ' + agent.color + '11);">' +
+                            agent.emoji +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="agent-tip-name">' + agent.name + '</div>' +
+                            '<div class="agent-tip-role">' + agent.role + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="agent-tip-list">' + tipsHtml + '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
         }
 
         // 点击弹窗背景关闭
