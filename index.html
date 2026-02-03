@@ -523,6 +523,106 @@
             font-weight: 500;
         }
         
+        /* 漂浮热点文字 */
+        .floating-text {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .floating-text.left {
+            left: 20px;
+            align-items: flex-start;
+        }
+        
+        .floating-text.right {
+            right: 20px;
+            align-items: flex-end;
+        }
+        
+        .hot-tag {
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--text-color);
+            white-space: nowrap;
+            opacity: 0.85;
+            animation: floatTag var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .hot-tag:hover {
+            opacity: 1;
+            transform: scale(1.05);
+            background: rgba(255,255,255,0.4);
+        }
+        
+        @keyframes floatTag {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-8px) translateX(3px); }
+            50% { transform: translateY(-15px) translateX(-2px); }
+            75% { transform: translateY(-6px) translateX(4px); }
+        }
+        
+        .floating-text.left .hot-tag {
+            animation-name: floatTagLeft;
+        }
+        
+        .floating-text.right .hot-tag {
+            animation-name: floatTagRight;
+        }
+        
+        @keyframes floatTagLeft {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(10px) translateY(-8px); }
+            50% { transform: translateX(-5px) translateY(-15px); }
+            75% { transform: translateX(8px) translateY(-6px); }
+        }
+        
+        @keyframes floatTagRight {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-10px) translateY(-8px); }
+            50% { transform: translateX(5px) translateY(-15px); }
+            75% { transform: translateX(-8px) translateY(-6px); }
+        }
+        
+        /* 不同主题下的热点标签 */
+        [data-theme="lain"] .hot-tag {
+            background: rgba(255,0,64,0.15);
+            border-color: rgba(255,0,64,0.3);
+            color: #ff0040;
+        }
+        
+        [data-theme="inception"] .hot-tag {
+            background: rgba(243,156,18,0.15);
+            border-color: rgba(243,156,18,0.3);
+            color: #f39c12;
+        }
+        
+        [data-theme="matrix"] .hot-tag {
+            background: rgba(0,255,0,0.15);
+            border-color: rgba(0,255,0,0.3);
+            color: #00ff00;
+        }
+        
+        /* 移动端隐藏热点文字 */
+        @media (max-width: 900px) {
+            .floating-text {
+                display: none;
+            }
+        }
+        
         /* 北京时间显示 */
         .beijing-time {
             margin-top: 12px;
@@ -836,6 +936,30 @@
             <div class="time-label">🕐 北京时间</div>
             <div class="time-display" id="bjTime">00:00:00 AM</div>
             <div class="time-date" id="bjDate">2025年1月1日</div>
+        </div>
+        
+        <!-- 漂浮热点文字 - 左侧 -->
+        <div class="floating-text left">
+            <span class="hot-tag" style="--delay:0s;--duration:8s;">🔥 AI突破</span>
+            <span class="hot-tag" style="--delay:1s;--duration:10s;">🌍 全球动态</span>
+            <span class="hot-tag" style="--delay:2s;--duration:9s;">📱 科技前沿</span>
+            <span class="hot-tag" style="--delay:0.5s;--duration:11s;">💡 创新趋势</span>
+            <span class="hot-tag" style="--delay:3s;--duration:8.5s;">🚀 太空探索</span>
+            <span class="hot-tag" style="--delay:1.5s;--duration:10.5s;">🌱 绿色能源</span>
+            <span class="hot-tag" style="--delay:2.5s;--duration:9.5s;">🎮 游戏资讯</span>
+            <span class="hot-tag" style="--delay:4s;--duration:8s;">📊 市场分析</span>
+        </div>
+        
+        <!-- 漂浮热点文字 - 右侧 -->
+        <div class="floating-text right">
+            <span class="hot-tag" style="--delay:0.3s;--duration:9s;">🌸 樱花盛开</span>
+            <span class="hot-tag" style="--delay:1.3s;--duration:10.5s;">⭐ 今日推荐</span>
+            <span class="hot-tag" style="--delay:2.3s;--duration:8.5s;">🎯 热门话题</span>
+            <span class="hot-tag" style="--delay:3.3s;--duration:11s;">💻 编程分享</span>
+            <span class="hot-tag" style="--delay:0.8s;--duration:9.5s;">🎨 创意设计</span>
+            <span class="hot-tag" style="--delay:1.8s;--duration:8s;">🎵 音乐推荐</span>
+            <span class="hot-tag" style="--delay:2.8s;--duration:10s;">📚 读书笔记</span>
+            <span class="hot-tag" style="--delay:3.8s;--duration:9s;">✨ 生活感悟</span>
         </div>
     </div>
     
