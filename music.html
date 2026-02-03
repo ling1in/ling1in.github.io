@@ -306,6 +306,19 @@
             background: rgba(0,0,0,0.5);
         }
 
+        .song-cover {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
         .song-number {
             width: 30px;
             height: 30px;
@@ -455,19 +468,16 @@
 
         /* 歌词显示 */
         .lyrics-box {
-            max-height: 200px;
+            max-height: 300px;
             overflow-y: auto;
             text-align: center;
-            padding: 15px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            margin-top: 15px;
         }
 
         .lyrics-box p {
-            margin: 8px 0;
+            margin: 10px 0;
             opacity: 0.7;
             transition: all 0.3s ease;
+            line-height: 1.8;
         }
 
         .lyrics-box p.active {
@@ -506,6 +516,9 @@
             .music-card { padding: 20px; }
             .album-art { width: 60px; height: 60px; font-size: 1.8rem; }
             .now-playing-info h3 { font-size: 1rem; }
+            .song-cover { width: 45px; height: 45px; font-size: 1.3rem; }
+            .song-title { font-size: 0.95rem; }
+            .song-artist { font-size: 0.8rem; }
         }
 
         @media (max-width: 380px) {
@@ -576,10 +589,10 @@
         <div class="music-card player-card">
             <h2>🎧 正在播放</h2>
             <div class="now-playing">
-                <div class="album-art">🎸</div>
+                <div class="album-art">🎹</div>
                 <div class="now-playing-info">
-                    <h3>晴天</h3>
-                    <p>周杰伦</p>
+                    <h3>底色</h3>
+                    <p>时空储蓄罐</p>
                 </div>
             </div>
             <div class="progress-bar">
@@ -592,144 +605,285 @@
                 <button class="control-btn">⏩</button>
                 <button class="control-btn">⏭</button>
             </div>
-            <div class="lyrics-box">
-                <p>故事的小黄花</p>
-                <p>从出生那年就飘着</p>
-                <p class="active">童年的荡秋千</p>
-                <p>随记忆一直晃到现在</p>
-                <p>吹着前奏望着天空</p>
+        </div>
+
+        <!-- 我的喜欢 (来自图片1和3) -->
+        <div class="music-card">
+            <h2>❤️ 我的喜欢 17首</h2>
+            <div class="song-list">
+                <div class="song-item">
+                    <div class="song-cover">👶</div>
+                    <div class="song-info">
+                        <div class="song-title">小孩</div>
+                        <div class="song-artist">罗森涛</div>
+                    </div>
+                    <span style="color: var(--accent-color);">♥</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">👥</div>
+                    <div class="song-info">
+                        <div class="song-title">咱们俩</div>
+                        <div class="song-artist">郭顶</div>
+                    </div>
+                    <span style="color: var(--accent-color);">♥</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">👆</div>
+                    <div class="song-info">
+                        <div class="song-title">指纹</div>
+                        <div class="song-artist">杜宣达</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">💕</div>
+                    <div class="song-info">
+                        <div class="song-title">爱你没差</div>
+                        <div class="song-artist">周杰伦</div>
+                    </div>
+                    <span style="color: var(--accent-color);">♥</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🎭</div>
+                    <div class="song-info">
+                        <div class="song-title">Soul Below</div>
+                        <div class="song-artist">LJones</div>
+                    </div>
+                    <span style="color: var(--accent-color);">♥</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">💔</div>
+                    <div class="song-info">
+                        <div class="song-title">爱情废柴</div>
+                        <div class="song-artist">周杰伦</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🏮</div>
+                    <div class="song-info">
+                        <div class="song-title">红尘客栈</div>
+                        <div class="song-artist">周杰伦</div>
+                    </div>
+                    <span style="color: var(--accent-color);">♥</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🗑️</div>
+                    <div class="song-info">
+                        <div class="song-title">废物集中营</div>
+                        <div class="song-artist">Snake</div>
+                    </div>
+                    <span style="color: var(--accent-color);">♥</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🌹</div>
+                    <div class="song-info">
+                        <div class="song-title">玫瑰花的葬礼</div>
+                        <div class="song-artist">许嵩</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">⏰</div>
+                    <div class="song-info">
+                        <div class="song-title">时间杀人事件</div>
+                        <div class="song-artist">安全着陆</div>
+                    </div>
+                    <span style="color: var(--accent-color);">♥</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🎌</div>
+                    <div class="song-info">
+                        <div class="song-title">Itadaki</div>
+                        <div class="song-artist">Slappy</div>
+                    </div>
+                    <span style="color: var(--accent-color);">♥</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">😢</div>
+                    <div class="song-info">
+                        <div class="song-title">爱哎唉</div>
+                        <div class="song-artist">炮炮马特、痛苦王子艾克斯</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🌊</div>
+                    <div class="song-info">
+                        <div class="song-title">江南</div>
+                        <div class="song-artist">林俊杰</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">💻</div>
+                    <div class="song-info">
+                        <div class="song-title">Always Online</div>
+                        <div class="song-artist">林俊杰</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🎹</div>
+                    <div class="song-info">
+                        <div class="song-title">Fukashigi no Carte</div>
+                        <div class="song-artist">HalcyonMusic</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🛏️</div>
+                    <div class="song-info">
+                        <div class="song-title">Duvet</div>
+                        <div class="song-artist">bôa</div>
+                    </div>
+                    <span style="color: var(--accent-color);">♥</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🔀</div>
+                    <div class="song-info">
+                        <div class="song-title">Differences</div>
+                        <div class="song-artist">XANSX</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
             </div>
         </div>
 
-        <!-- 我喜欢的歌 -->
+        <!-- 华语流行 (来自图片2) -->
         <div class="music-card">
-            <h2>❤️ 我喜欢的歌</h2>
+            <h2>🔥 点赞量高达999wの华语流行歌曲</h2>
             <div class="song-list">
                 <div class="song-item">
-                    <div class="song-number">1</div>
+                    <div class="song-cover">🚶</div>
                     <div class="song-info">
-                        <div class="song-title">晴天</div>
+                        <div class="song-title">走走</div>
+                        <div class="song-artist">李荣浩</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🏖️</div>
+                    <div class="song-info">
+                        <div class="song-title">搁浅</div>
                         <div class="song-artist">周杰伦</div>
                     </div>
-                    <div class="song-duration">4:29</div>
+                    <span style="color: var(--accent-color);">♥</span>
                     <button class="play-btn">▶</button>
                 </div>
                 <div class="song-item">
-                    <div class="song-number">2</div>
+                    <div class="song-cover">✨</div>
                     <div class="song-info">
-                        <div class="song-title">七里香</div>
-                        <div class="song-artist">周杰伦</div>
+                        <div class="song-title">属于你</div>
+                        <div class="song-artist">齐修远</div>
                     </div>
-                    <div class="song-duration">4:59</div>
+                    <span style="color: #ccc;">♡</span>
                     <button class="play-btn">▶</button>
                 </div>
                 <div class="song-item">
-                    <div class="song-number">3</div>
+                    <div class="song-cover">🌫️</div>
                     <div class="song-info">
-                        <div class="song-title">夜曲</div>
-                        <div class="song-artist">周杰伦</div>
+                        <div class="song-title">灰色想念</div>
+                        <div class="song-artist">黛艾萌</div>
                     </div>
-                    <div class="song-duration">3:46</div>
+                    <span style="color: #ccc;">♡</span>
                     <button class="play-btn">▶</button>
                 </div>
                 <div class="song-item">
-                    <div class="song-number">4</div>
+                    <div class="song-cover">🌙</div>
                     <div class="song-info">
-                        <div class="song-title">稻香</div>
-                        <div class="song-artist">周杰伦</div>
+                        <div class="song-title">风月如旧</div>
+                        <div class="song-artist">冰洁</div>
                     </div>
-                    <div class="song-duration">3:43</div>
+                    <span style="color: #ccc;">♡</span>
                     <button class="play-btn">▶</button>
                 </div>
                 <div class="song-item">
-                    <div class="song-number">5</div>
+                    <div class="song-cover">💑</div>
                     <div class="song-info">
-                        <div class="song-title">告白气球</div>
-                        <div class="song-artist">周杰伦</div>
+                        <div class="song-title">恋人</div>
+                        <div class="song-artist">李荣浩</div>
                     </div>
-                    <div class="song-duration">3:35</div>
+                    <span style="color: #ccc;">♡</span>
                     <button class="play-btn">▶</button>
                 </div>
-            </div>
-        </div>
-
-        <!-- 最近播放 -->
-        <div class="music-card">
-            <h2>🕐 最近播放</h2>
-            <div class="song-list">
                 <div class="song-item">
-                    <div class="song-number">1</div>
+                    <div class="song-cover">🚶</div>
                     <div class="song-info">
-                        <div class="song-title">起风了</div>
-                        <div class="song-artist">买辣椒也用券</div>
+                        <div class="song-title">孤身</div>
+                        <div class="song-artist">徐秉龙</div>
                     </div>
-                    <div class="song-duration">5:13</div>
+                    <span style="color: #ccc;">♡</span>
                     <button class="play-btn">▶</button>
                 </div>
                 <div class="song-item">
-                    <div class="song-number">2</div>
+                    <div class="song-cover">⏳</div>
                     <div class="song-info">
-                        <div class="song-title">体面</div>
-                        <div class="song-artist">于文文</div>
+                        <div class="song-title">迟来的承诺</div>
+                        <div class="song-artist">陈冠宇</div>
                     </div>
-                    <div class="song-duration">4:12</div>
+                    <span style="color: #ccc;">♡</span>
                     <button class="play-btn">▶</button>
                 </div>
                 <div class="song-item">
-                    <div class="song-number">3</div>
+                    <div class="song-cover">💭</div>
                     <div class="song-info">
-                        <div class="song-title">演员</div>
+                        <div class="song-title">其实</div>
                         <div class="song-artist">薛之谦</div>
                     </div>
-                    <div class="song-duration">4:20</div>
+                    <span style="color: #ccc;">♡</span>
+                    <button class="play-btn">▶</button>
+                </div>
+                <div class="song-item">
+                    <div class="song-cover">🌸</div>
+                    <div class="song-info">
+                        <div class="song-title">来时不逢春</div>
+                        <div class="song-artist">冰洁</div>
+                    </div>
+                    <span style="color: #ccc;">♡</span>
                     <button class="play-btn">▶</button>
                 </div>
             </div>
         </div>
 
-        <!-- 歌单推荐 -->
+        <!-- 歌词展示 -->
         <div class="music-card">
-            <h2>📀 歌单推荐</h2>
-            <div class="song-list">
-                <div class="song-item">
-                    <div class="song-number" style="background: #ff6b6b;">🌙</div>
-                    <div class="song-info">
-                        <div class="song-title">深夜emo专区</div>
-                        <div class="song-artist">适合失眠时听的治愈系音乐</div>
-                    </div>
-                    <button class="play-btn">▶</button>
-                </div>
-                <div class="song-item">
-                    <div class="song-number" style="background: #4ecdc4;">☕</div>
-                    <div class="song-info">
-                        <div class="song-title">咖啡厅BGM</div>
-                        <div class="song-artist">慵懒午后，享受慢时光</div>
-                    </div>
-                    <button class="play-btn">▶</button>
-                </div>
-                <div class="song-item">
-                    <div class="song-number" style="background: #ffe66d;">🏃</div>
-                    <div class="song-info">
-                        <div class="song-title">运动能量站</div>
-                        <div class="song-artist">高燃节奏，激发无限动力</div>
-                    </div>
-                    <button class="play-btn">▶</button>
-                </div>
-                <div class="song-item">
-                    <div class="song-number" style="background: #a8e6cf;">📚</div>
-                    <div class="song-info">
-                        <div class="song-title">学习专注模式</div>
-                        <div class="song-artist">轻音乐助你高效学习</div>
-                    </div>
-                    <button class="play-btn">▶</button>
-                </div>
+            <h2>📝 歌词</h2>
+            <div class="lyrics-box" style="max-height: 300px; text-align: center; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                <p>底色 - 时空储蓄罐</p>
+                <p style="margin: 15px 0; opacity: 0.5;">——</p>
+                <p>夜深了 灯熄了</p>
+                <p>世界安静得只剩下心跳</p>
+                <p class="active" style="color: var(--accent-color); font-size: 1.1rem;">那些说不出的情绪</p>
+                <p class="active" style="color: var(--accent-color); font-size: 1.1rem;">成了我生命的底色</p>
+                <p>风吹过的街道</p>
+                <p>雨淋湿的承诺</p>
+                <p>都在岁月里慢慢褪色</p>
             </div>
         </div>
     </div>
 
     <!-- 页脚 -->
     <div class="footer">
-        <div class="footer-kaomoji">🎵 (´▽`ʃ♡ƪ) 🎶</div>
+        <div class="footer-kaomoji">🎵 继续播放：Soul Below 🎶</div>
         <p>音乐是灵魂的避风港</p>
         <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">© 2025 ling1in</p>
     </div>
