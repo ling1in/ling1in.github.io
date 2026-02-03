@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 VCT CN 战队 | ling1in</title>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            --text-color: #ece8e1;
+            --text-secondary: #8b978f;
+            --accent-color: #ff4655;
+            --card-bg: rgba(255,255,255,0.05);
+            --card-border: rgba(255,255,255,0.1);
+            --shadow-color: rgba(255, 70, 85, 0.2);
+            --font-main: 'Nunito', 'ZCOOL KuaiLe', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 15px;
+            padding-top: 70px;
+        }
+        nav {
+            background: rgba(15, 25, 35, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255, 70, 85, 0.3);
+        }
+        nav ul {
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        nav a:hover { background: var(--accent-color); color: white; }
+        nav a.active { background: var(--accent-color); color: white; }
+        .theme-switcher {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            gap: 6px;
+            background: rgba(255,255,255,0.1);
+            padding: 6px;
+            border-radius: 25px;
+        }
+        .theme-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            background: rgba(255,255,255,0.9);
+        }
+        .theme-btn.active {
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+        .header {
+            text-align: center;
+            padding: 40px 15px;
+        }
+        .header h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            background: linear-gradient(135deg, #ff4655, #ff8a95);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ff4655, #ff8a95);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* VCT CN 战队专栏样式 */
+        .teams-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .teams-entry-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+            gap: 30px;
+        }
+        .teams-entry-btn {
+            position: relative;
+            width: 320px;
+            height: 200px;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            overflow: hidden;
+            background: transparent;
+            transition: all 0.4s;
+        }
+        .teams-btn-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,70,85,0.8), rgba(255,0,85,0.6));
+            border-radius: 24px;
+            transition: all 0.4s;
+        }
+        .teams-entry-btn:hover .teams-btn-bg {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, rgba(255,70,85,1), rgba(255,0,85,0.8));
+            box-shadow: 0 20px 60px rgba(255, 70, 85, 0.5);
+        }
+        .teams-btn-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: white;
+            gap: 8px;
+        }
+        .teams-btn-icon {
+            font-size: 3rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .teams-btn-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .teams-btn-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .teams-btn-hint {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 10px;
+            padding: 6px 16px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+        }
+        .teams-entry-btn.edg-btn .teams-btn-bg {
+            background: linear-gradient(135deg, rgba(255,215,0,0.8), rgba(255,140,0,0.6));
+        }
+        .teams-entry-btn.edg-btn:hover .teams-btn-bg {
+            background: linear-gradient(135deg, rgba(255,215,0,1), rgba(255,140,0,0.8));
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+        }
+        
+        /* 战队弹窗 */
+        .teams-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            overflow-y: auto;
+        }
+        .teams-modal.active {
+            display: block;
+        }
+        
+        /* 语录过场动画 */
+        .quotes-sequence {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            background: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+        }
+        .quotes-sequence.hidden {
+            display: none;
+        }
+        .quotes-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255,70,85,0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,70,85,0.3) 0%, transparent 50%);
+        }
+        .quote-text {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 700;
+            text-align: center;
+            color: var(--text-color);
+            max-width: 800px;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            text-shadow: 0 0 30px rgba(255,70,85,0.5);
+        }
+        .quote-text.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .quote-skip {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .quote-skip:hover {
+            background: rgba(255,70,85,0.3);
+            color: white;
+        }
+        
+        /* 战队展示区域 */
+        .teams-showcase {
+            opacity: 0;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            transition: opacity 1s ease;
+        }
+        .teams-showcase.visible {
+            opacity: 1;
+        }
+        .teams-showcase-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .teams-close-btn {
+            position: absolute;
+            top: 0;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,70,85,0.3);
+            background: rgba(255,255,255,0.05);
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .teams-close-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+        .teams-showcase-title {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ff4655, #ff8a95);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .teams-showcase-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (min-width: 640px) {
+            .teams-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .teams-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .team-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+        .team-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px rgba(255, 70, 85, 0.3);
+        }
+        .team-header {
+            background: linear-gradient(135deg, rgba(255,70,85,0.2), rgba(15,25,35,0.9));
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .team-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), #0f1923);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px;
+            border: 3px solid rgba(255,70,85,0.5);
+        }
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .team-achievement {
+            font-size: 0.8rem;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .team-content {
+            padding: 20px;
+        }
+        .team-players-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .team-players {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .team-player {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        .team-player:hover {
+            background: rgba(255,70,85,0.1);
+        }
+        .player-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), #0f1923);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .player-info {
+            flex: 1;
+        }
+        .player-name {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        .player-role {
+            font-size: 0.75rem;
+            color: var(--accent-color);
+        }
+        .player-highlight {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switcher">
+        <button class="theme-btn active" data-theme="default">🎮</button>
+        <button class="theme-btn" data-theme="lain">👁️</button>
+        <button class="theme-btn" data-theme="inception">🌀</button>
+        <button class="theme-btn" data-theme="matrix">💊</button>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">🏠 首页</a></li>
+            <li><a href="about.html">👤 关于我</a></li>
+            <li><a href="projects.html">🦞 龙虾学习日志</a></li>
+            <li><a href="openclaw-setup.html">🔧 折腾日记</a></li>
+            <li><a href="valorant.html">🎮 Valorant</a></li>
+            <li><a href="valorant-teams.html" class="active">🏆 战队</a></li>
+        </ul>
+    </nav>
+
+    <div class="header">
+        <h1>🏆 VCT CN 顶尖战队</h1>
+        <p style="color: var(--text-secondary);">探索CN VALORANT的荣耀与传奇</p>
+    </div>
+
+    <!-- VCT CN 战队入口按钮 -->
+    <div class="teams-section" id="teamsSection">
+        <h2 class="section-title">选择你的视角</h2>
+        <div class="teams-entry-container">
+            <button class="teams-entry-btn" onclick="openTeamsShowcase()">
+                <div class="teams-btn-bg"></div>
+                <div class="teams-btn-content">
+                    <div class="teams-btn-icon">🏆</div>
+                    <div class="teams-btn-title">查看 VCT CN 顶尖战队</div>
+                    <div class="teams-btn-subtitle">9支强队 · 45位明星选手</div>
+                    <div class="teams-btn-hint">点击进入</div>
+                </div>
+            </button>
+            <button class="teams-entry-btn edg-btn" onclick="openTeamsShowcase()">
+                <div class="teams-btn-bg"></div>
+                <div class="teams-btn-content">
+                    <div class="teams-btn-icon">👑</div>
+                    <div class="teams-btn-title">冠军赛区的荣耀</div>
+                    <div class="teams-btn-subtitle">EDG · 世界冠军之路</div>
+                    <div class="teams-btn-hint">传奇之路</div>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- VCT CN 战队展示弹窗 -->
+    <div class="teams-modal" id="teamsModal">
+        <!-- 语录过场动画 -->
+        <div class="quotes-sequence" id="quotesSequence">
+            <div class="quotes-bg"></div>
+            <div class="quote-text" id="quoteText"></div>
+            <div class="quote-skip" onclick="skipQuotes()">点击跳过 ⏭</div>
+        </div>
+        
+        <!-- 战队内容 -->
+        <div class="teams-showcase" id="teamsShowcase">
+            <div class="teams-showcase-header">
+                <button class="teams-close-btn" onclick="closeTeamsShowcase()">✕</button>
+                <h2 class="teams-showcase-title">🏆 VCT CN 顶尖战队</h2>
+                <p class="teams-showcase-subtitle">CN VALORANT 的荣耀与传奇</p>
+            </div>
+            <div class="teams-grid" id="teamsGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        // VCT CN 战队数据
+        const teamsData = [
+            {
+                id: 'EDG',
+                name: 'EDG',
+                fullName: 'EDward Gaming',
+                emoji: '🐼',
+                achievement: '🏆 2024首尔全球冠军赛冠军',
+                color: '#333333',
+                players: [
+                    { name: 'ZmjjKK', realName: '郑永康', role: '决斗', emoji: '🔥', highlight: 'FMVP' },
+                    { name: 'CHICHOO', realName: '万顺治', role: '哨位/控场', emoji: '🛡️', highlight: '残局大师' },
+                    { name: 'nobody', realName: '王森旭', role: '先锋', emoji: '🎯', highlight: '指挥核心' },
+                    { name: 'Smoggy', realName: '张钊', role: '自由人', emoji: '⚡', highlight: '英雄海' },
+                    { name: 'zjc', realName: '张峻程', role: '先锋', emoji: '📡', highlight: '' }
+                ]
+            },
+            {
+                id: 'BLG',
+                name: 'BLG',
+                fullName: 'Bilibili Gaming',
+                emoji: '🔷',
+                achievement: '🏆 2025第一赛段冠军',
+                color: '#00a1d6',
+                players: [
+                    { name: 'whzy', realName: '王昊哲', role: '决斗', emoji: '💥', highlight: '判官之神' },
+                    { name: 'Knight', realName: '刘宇翔', role: '先锋', emoji: '🎮', highlight: '' },
+                    { name: 'nephh', realName: '陈凯文', role: '先锋', emoji: '🌟', highlight: '' },
+                    { name: 'rushia', realName: '王晓杰', role: '控场', emoji: '🌸', highlight: '' },
+                    { name: 'Levius', realName: '卢胤中', role: '控场/哨位', emoji: '🔒', highlight: '' }
+                ]
+            },
+            {
+                id: 'FPX',
+                name: 'FPX',
+                fullName: 'FunPlus Phoenix',
+                emoji: '🔥',
+                achievement: '🥈 多次亚军',
+                color: '#ff6600',
+                players: [
+                    { name: 'Life', realName: '瞿东豪', role: '决斗', emoji: '⚔️', highlight: '顶尖决斗' },
+                    { name: 'BerLIN', realName: '张柏霖', role: '控场', emoji: '🎖️', highlight: '指挥鬼才' },
+                    { name: 'AAAAY', realName: '张杨', role: '先锋', emoji: '🎯', highlight: '爆头老祖' },
+                    { name: 'yosemite', realName: '王磊', role: '哨位', emoji: '🐱', highlight: '梦泪' },
+                    { name: 'autumn', realName: '凯尔', role: '决斗', emoji: '🍂', highlight: '' }
+                ]
+            },
+            {
+                id: 'TE',
+                name: 'TE',
+                fullName: 'Trace Esports',
+                emoji: '🌊',
+                achievement: '🥉 2024首尔全球冠军赛八强',
+                color: '#0066ff',
+                players: [
+                    { name: 'FengF', realName: '宋学锋', role: '决斗/哨位', emoji: '🚀', highlight: '雷兹王' },
+                    { name: 'LuoK1ng', realName: '张展鹏', role: '控场', emoji: '🌌', highlight: '国二烟' },
+                    { name: 'heybay', realName: '何洵熙', role: '先锋', emoji: '📞', highlight: '指挥' },
+                    { name: 'Biank', realName: '钟剑飞', role: '先锋', emoji: '🔫', highlight: '' },
+                    { name: 'Kai', realName: '卢智楠', role: '决斗/哨位', emoji: '💪', highlight: '104杀' }
+                ]
+            },
+            {
+                id: 'DRG',
+                name: 'DRG',
+                fullName: 'Dragon Ranger Gaming',
+                emoji: '🐉',
+                achievement: '⭐ 联赛劲旅',
+                color: '#00ff88',
+                players: [
+                    { name: 'vo0kashu', realName: '伊利亚', role: '哨位', emoji: '🎯', highlight: '瞄准怪物' },
+                    { name: 'Flex1n', realName: '罗瑞', role: '控场', emoji: '🛡️', highlight: '福乐星' },
+                    { name: 'TvirusLuke', realName: '陈振庆', role: '决斗', emoji: '🎲', highlight: '' },
+                    { name: 'Nicc', realName: '萧海涛', role: '控场', emoji: '🌫️', highlight: '' },
+                    { name: 'Cangshu', realName: '张展翔', role: '先锋', emoji: '📖', highlight: '' }
+                ]
+            },
+            {
+                id: 'XLG',
+                name: 'XLG',
+                fullName: 'XiLai Gaming',
+                emoji: '⚡',
+                achievement: '🏆 2025晋升赛冠军',
+                color: '#ff0055',
+                players: [
+                    { name: 'YOU', realName: '叶文灏', role: '先锋', emoji: '🇭🇰', highlight: '' },
+                    { name: 'Viva', realName: '冉立凡', role: '先锋/控场', emoji: '🎭', highlight: '' },
+                    { name: 'happywei', realName: '邓闵维', role: '哨位', emoji: '😊', highlight: '' },
+                    { name: 'coconut', realName: '钟弘祖', role: '先锋/控场', emoji: '🥥', highlight: '' },
+                    { name: 'Rarga', realName: '阿图尔', role: '决斗', emoji: '🇷🇺', highlight: '外援' }
+                ]
+            },
+            {
+                id: 'WOL',
+                name: '狼队',
+                fullName: 'Wolves Esports',
+                emoji: '🐺',
+                achievement: '🥉 2025多伦多大师赛季军',
+                color: '#ffcc00',
+                players: [
+                    { name: 'SiuFatBB', realName: '庞加曦', role: '先锋', emoji: '🎪', highlight: '指挥大师' },
+                    { name: 'Spring', realName: '刘俊霆', role: '决斗', emoji: '🌸', highlight: '' },
+                    { name: 'Yuicaw', realName: '黄湧傑', role: '先锋/哨位', emoji: '🔄', highlight: '' },
+                    { name: 'juicy', realName: '李峻豪', role: '控场', emoji: '🥤', highlight: '' },
+                    { name: 'Aluba', realName: '李冠贤', role: '哨位', emoji: '🛡️', highlight: '' }
+                ]
+            },
+            {
+                id: 'TEC',
+                name: 'TEC',
+                fullName: 'Titan Esports Club',
+                emoji: '🔱',
+                achievement: '⭐ 联赛劲旅',
+                color: '#9900ff',
+                players: [
+                    { name: 'Abo', realName: '韩博皓', role: '哨位', emoji: '🔫', highlight: 'AK之神' },
+                    { name: 'Haodong', realName: '郭浩东', role: '控场/哨位', emoji: '🎖️', highlight: '冠军助教' },
+                    { name: 'TvirusLuke', realName: '陈振庆', role: '决斗', emoji: '🎰', highlight: '' },
+                    { name: 'Rb', realName: '余佳鑫', role: '控场', emoji: '🌑', highlight: '' },
+                    { name: 'Dynamite', realName: '覃子聪', role: '先锋', emoji: '💣', highlight: '' }
+                ]
+            },
+            {
+                id: 'AG',
+                name: 'AG',
+                fullName: 'All Gamers',
+                emoji: '🔴',
+                achievement: '⭐ CF传奇战队',
+                color: '#cc0000',
+                players: [
+                    { name: 'Lsn', realName: '李思楠', role: '先锋', emoji: '👑', highlight: 'CF传奇' },
+                    { name: 'Spitfires', realName: '辛明阳', role: '决斗', emoji: '🔥', highlight: '小火龙' },
+                    { name: 'DeLb', realName: '刘佳', role: '先锋', emoji: '📞', highlight: '' },
+                    { name: 'monk', realName: '王可', role: '控场', emoji: '🧘', highlight: '' },
+                    { name: 'bunt', realName: '陈柏均', role: '哨位', emoji: '🛡️', highlight: '' }
+                ]
+            }
+        ];
+
+        // 主题切换
+        const themeBtns = document.querySelectorAll('.theme-btn');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('theme') || 'default';
+        body.setAttribute('data-theme', savedTheme);
+        updateActiveButton(savedTheme);
+        
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.getAttribute('data-theme');
+                body.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                updateActiveButton(theme);
+            });
+        });
+        
+        function updateActiveButton(theme) {
+            themeBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+            });
+        }
+
+        // VCT CN 经典语录
+        const vctQuotes = [
+            { text: '"我们要让世界知道，CN VALORANT 不是配角。"', author: '—— ZmjjKK' },
+            { text: '" EDG 的目标只有一个，那就是冠军。"', author: '—— CHICHOO' },
+            { text: '"判官不是武器，是我的信仰。"', author: '—— whzy' },
+            { text: '"从进化者到全球冠军赛，我们用了整整两年。"', author: '' },
+            { text: '"CN 瓦不只是游戏，这是我们的梦想。"', author: '' },
+            { text: '"特就完事了！"', author: '—— VCT CN 经典梗' },
+            { text: '"老九他没毛病！"', author: '' },
+            { text: '"记住，我们是冠军赛区。"', author: '' }
+        ];
+
+        let quotesAnimationId = null;
+        let currentQuoteIndex = 0;
+
+        function openTeamsShowcase() {
+            const modal = document.getElementById('teamsModal');
+            const quotesSeq = document.getElementById('quotesSequence');
+            const teamsShowcase = document.getElementById('teamsShowcase');
+            const quoteText = document.getElementById('quoteText');
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // 重置状态
+            quotesSeq.classList.remove('hidden');
+            teamsShowcase.classList.remove('visible');
+            currentQuoteIndex = 0;
+            
+            // 开始语录动画
+            showNextQuote();
+        }
+
+        function showNextQuote() {
+            if (currentQuoteIndex >= vctQuotes.length) {
+                // 语录播放完毕，显示战队
+                setTimeout(showTeamsContent, 500);
+                return;
+            }
+            
+            const quoteText = document.getElementById('quoteText');
+            const quote = vctQuotes[currentQuoteIndex];
+            
+            quoteText.classList.remove('show');
+            
+            setTimeout(() => {
+                quoteText.innerHTML = `${quote.text}<br><span style="font-size: 0.7em; opacity: 0.7; margin-top: 20px; display: inline-block;">${quote.author}</span>`;
+                quoteText.classList.add('show');
+                
+                currentQuoteIndex++;
+                quotesAnimationId = setTimeout(showNextQuote, 2500);
+            }, 300);
+        }
+
+        function skipQuotes() {
+            if (quotesAnimationId) {
+                clearTimeout(quotesAnimationId);
+            }
+            showTeamsContent();
+        }
+
+        function showTeamsContent() {
+            const quotesSeq = document.getElementById('quotesSequence');
+            const teamsShowcase = document.getElementById('teamsShowcase');
+            
+            quotesSeq.classList.add('hidden');
+            teamsShowcase.classList.add('visible');
+            
+            // 渲染战队
+            renderTeamsGrid();
+        }
+
+        function renderTeamsGrid() {
+            const grid = document.getElementById('teamsGrid');
+            
+            grid.innerHTML = teamsData.map((team, i) => `
+                <div class="team-card" onclick="showTeamDetail('${team.id}')" style="animation: fadeIn 0.5s ease ${i * 0.1}s both;">
+                    <div class="team-header">
+                        <div class="team-logo">${team.emoji}</div>
+                        <div class="team-name">${team.name}</div>
+                        <div class="team-achievement">${team.achievement}</div>
+                    </div>
+                    <div class="team-content">
+                        <div class="team-players-title">⭐ 明星选手</div>
+                        <div class="team-players">
+                            ${team.players.slice(0, 5).map(p => `
+                                <div class="team-player">
+                                    <div class="player-avatar">${p.emoji}</div>
+                                    <div class="player-info">
+                                        <div class="player-name">${p.name}</div>
+                                        <div class="player-role">${p.realName} · ${p.role}</div>
+                                    </div>
+                                    ${p.highlight ? `<span class="player-highlight">${p.highlight}</span>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showTeamDetail(teamId) {
+            const team = teamsData.find(t => t.id === teamId);
+            if (team) {
+                const playersInfo = team.players.map(p => 
+                    `${p.emoji} ${p.name} (${p.realName}) - ${p.role}${p.highlight ? ' [' + p.highlight + ']' : ''}`
+                ).join('\n');
+                
+                alert(`🏆 ${team.fullName} (${team.name})\n\n` +
+                      `${team.achievement}\n\n` +
+                      `👥 阵容:\n${playersInfo}\n\n` +
+                      `（点击确定关闭）`);
+            }
+        }
+
+        function closeTeamsShowcase() {
+            const modal = document.getElementById('teamsModal');
+            const quotesSeq = document.getElementById('quotesSequence');
+            const teamsShowcase = document.getElementById('teamsShowcase');
+            
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // 清理动画
+            if (quotesAnimationId) {
+                clearTimeout(quotesAnimationId);
+            }
+            
+            // 重置状态
+            setTimeout(() => {
+                quotesSeq.classList.remove('hidden');
+                teamsShowcase.classList.remove('visible');
+                document.getElementById('quoteText').classList.remove('show');
+            }, 300);
+        }
+
+        // 点击背景关闭
+        document.getElementById('teamsModal')?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeTeamsShowcase();
+            }
+        });
+
+        // ESC键关闭
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('teamsModal');
+                if (modal?.classList.contains('active')) {
+                    closeTeamsShowcase();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
