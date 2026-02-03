@@ -585,21 +585,23 @@
 
     <!-- 音乐内容 -->
     <div class="music-container">
-        <!-- 网易云音乐播放器 -->
-        <div class="music-card" style="padding: 0; overflow: hidden;">
-            <iframe id="netease-player" 
-                src="//music.163.com/outchain/player?type=2&id=2166584564&auto=0&height=86" 
-                width="100%" 
-                height="86" 
-                frameborder="0">
-            </iframe>
-        </div>
+        <!-- 播放器和歌词并排 -->
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <!-- 网易云音乐播放器 -->
+            <div class="music-card" style="padding: 0; overflow: hidden; flex: 1; min-width: 300px;">
+                <iframe id="netease-player" 
+                    src="//music.163.com/outchain/player?type=2&id=2166584564&auto=0&height=86" 
+                    width="100%" 
+                    height="86" 
+                    frameborder="0">
+                </iframe>
+            </div>
 
-        <!-- 歌词显示 -->
-        <div class="music-card" style="text-align: center;">
-            <h3 style="margin-bottom: 15px; color: var(--accent-color);">🎵 歌词</h3>
-            <div id="lyrics-display" style="line-height: 2; color: var(--text-color); height: 200px; overflow-y: auto; scroll-behavior: smooth; padding: 20px 0;">
-                <p style="opacity: 0.6;">点击歌曲开始播放...</p>
+            <!-- 歌词显示 -->
+            <div class="music-card" style="text-align: center; flex: 1; min-width: 300px; min-height: 86px; display: flex; flex-direction: column; justify-content: center;">
+                <div id="lyrics-display" style="line-height: 1.8; color: var(--text-color); max-height: 86px; overflow-y: auto; scroll-behavior: smooth;">
+                    <p style="opacity: 0.6; font-size: 0.9rem;">点击歌曲开始播放...</p>
+                </div>
             </div>
         </div>
 
@@ -917,7 +919,7 @@
             });
         });
 
-        // 歌词数据（带时间戳，单位：秒）
+        // 歌词数据（带时间戳，单位：秒）- 单行滚动模式
         const lyricsData = {
             '2166584564': [
                 { time: 0, text: '♪ 小孩 - 罗森涛 ♪' },
@@ -939,53 +941,38 @@
         let lyricsInterval = null;
         let startTime = 0;
 
-        // 更新歌词显示（初始化）
+        // 更新歌词显示（初始化）- 单行模式
         function initLyrics(neteaseId) {
             const lyricsBox = document.getElementById('lyrics-display');
             currentLyrics = lyricsData[neteaseId] || [];
             
             if (currentLyrics.length > 0) {
-                lyricsBox.innerHTML = currentLyrics.map((item, index) => 
-                    `<p class="lyric-line" data-index="${index}" style="margin: 10px 0; transition: all 0.3s ease; opacity: 0.5; transform: scale(0.95);">${item.text}</p>`
-                ).join('');
-                // 高亮第一行
-                highlightLyric(0);
+                // 只显示当前歌词，单行滚动
+                lyricsBox.innerHTML = `<p class="current-lyric" style="margin: 0; transition: all 0.4s ease; opacity: 1; color: var(--accent-color); font-size: 1.1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${currentLyrics[0].text}</p>`;
             } else {
-                lyricsBox.innerHTML = '<p style="opacity: 0.6;">暂无歌词...</p>';
+                lyricsBox.innerHTML = '<p style="opacity: 0.6; font-size: 0.9rem;">暂无歌词...</p>';
             }
         }
 
-        // 高亮当前歌词行
-        function highlightLyric(index) {
-            const lines = document.querySelectorAll('.lyric-line');
-            lines.forEach((line, i) => {
-                if (i === index) {
-                    line.style.opacity = '1';
-                    line.style.color = 'var(--accent-color)';
-                    line.style.fontSize = '1.15rem';
-                    line.style.fontWeight = '600';
-                    line.style.transform = 'scale(1)';
-                    // 滚动到中间
-                    line.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                } else if (Math.abs(i - index) === 1) {
-                    line.style.opacity = '0.7';
-                    line.style.color = 'var(--text-color)';
-                    line.style.fontSize = '1rem';
-                    line.style.fontWeight = '400';
-                    line.style.transform = 'scale(0.95)';
-                } else {
-                    line.style.opacity = '0.4';
-                    line.style.color = 'var(--text-color)';
-                    line.style.fontSize = '0.9rem';
-                    line.style.fontWeight = '400';
-                    line.style.transform = 'scale(0.9)';
-                }
-            });
+        // 更新当前歌词（单行模式）
+        function updateCurrentLyric(text) {
+            const lyricEl = document.querySelector('.current-lyric');
+            if (lyricEl) {
+                lyricEl.style.opacity = '0';
+                lyricEl.style.transform = 'translateY(10px)';
+                setTimeout(() => {
+                    lyricEl.textContent = text;
+                    lyricEl.style.opacity = '1';
+                    lyricEl.style.transform = 'translateY(0)';
+                }, 200);
+            }
         }
 
         // 开始歌词滚动
+        // 开始歌词同步 - 单行模式
         function startLyricsSync() {
             startTime = Date.now();
+            let lastIndex = -1;
             if (lyricsInterval) clearInterval(lyricsInterval);
             
             lyricsInterval = setInterval(() => {
@@ -1001,8 +988,12 @@
                     }
                 }
                 
-                highlightLyric(currentIndex);
-            }, 500); // 每500ms检查一次
+                // 只有歌词变化时才更新
+                if (currentIndex !== lastIndex) {
+                    lastIndex = currentIndex;
+                    updateCurrentLyric(currentLyrics[currentIndex].text);
+                }
+            }, 300); // 每300ms检查一次
         }
 
         // 歌曲项点击效果 - 切换到网易云播放器
