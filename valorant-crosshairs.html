@@ -244,8 +244,8 @@
     </nav>
 
     <div class="header">
-        <h1>🎯 2026最新准心合集</h1>
-        <p>点击准心代码即可复制，粘贴到游戏内使用</p>
+        <h1 id="pageTitle">🎯 2026最新准心合集</h1>
+        <p id="pageDesc">点击准心代码即可复制，粘贴到游戏内使用</p>
     </div>
 
     <div class="crosshair-container">
@@ -262,7 +262,8 @@
 
     <script>
         // 准心数据
-        const crosshairsData = [
+        // PC端准心数据
+        const pcCrosshairsData = [
             // 竞技向 - 经典点击
             {
                 name: '经典点击',
@@ -388,6 +389,27 @@
             }
         ];
 
+        // 手游端准心数据（来自游侠网）
+        const mobileCrosshairsData = [
+            { name: '花十字', category: 'mobile', desc: '花式十字准心，美观实用', code: '0;s;1;P;h;0;0l;4;0o;2;0a;1;0f;0;1t;8;1l;1;1o;1;1a;1;1m;0;1f;0', tags: ['十字', '花式'] },
+            { name: '红梅花准星', category: 'mobile', desc: '梅花形状，独特美观', code: '0;P;h;0;f;0;0t;1;0l;4;0o;1;0a;1;0f;0;1t;3;1o;2;1a;1;1m;0;1f;0', tags: ['梅花', '红色'] },
+            { name: '圈准星', category: 'mobile', desc: '简洁圆圈，聚焦目标', code: '0;s;1;P;c;1;h;0;0t;4;0l;1;0o;2;0a;1;0f;0;1b;0', tags: ['圆圈', '简洁'] },
+            { name: '十字架准星', category: 'mobile', desc: '标准十字，经典选择', code: '0;P;h;0;0l;5;0o;0;0a;1;0f;0;1b;0', tags: ['十字', '标准'] },
+            { name: '十字中空准星', category: 'mobile', desc: '中空十字，视野清晰', code: '0;s;1;P;o;1;f;0;0l;4;0o;2;0a;1;0f;0;1b;0', tags: ['十字', '中空'] },
+            { name: '十字准星(细)', category: 'mobile', desc: '细线十字，精准瞄准', code: '0;P;c;5;h;0;f;0;0t;1;0o;1;0a;1;0f;0;1b;0', tags: ['十字', '细线'] },
+            { name: '点准星', category: 'mobile', desc: '单点准心，极简风格', code: '0;P;c;8;u;FF0000FF;h;0;b;1;f;0;0l;2;0o;0;0a;1;0f;0;1b;0', tags: ['单点', '极简'] },
+            { name: '小樱花', category: 'mobile', desc: '粉色樱花，可爱风格', code: '0;P;c;8;u;F28D9FFF;h;0;d;1;b;1;a;0.254;0t;3;0l;5;0o;0;0a;0.755;0f;0;1t;5;1o;2;1a;1;1m;0;1f;0', tags: ['樱花', '粉色'] },
+            { name: '冰心', category: 'mobile', desc: '冰蓝色心，冷酷风格', code: '0;c;1;s;1;P;c;5;h;0;d;1;z;4;m;1;0l;4;0o;0;0a;0.622;0f;0;1t;4;1l;0;1o;2;1a;1;1m;0;1f;0;S;c;4;s;1.275;o;1', tags: ['冰心', '蓝色'] },
+            { name: '小雏菊', category: 'mobile', desc: '清新雏菊，自然风格', code: '0;P;c;4;o;1;d;1;0t;8;0l;3;0o;2;0a;0;0f;0;1l;3;1o;3;1a;0;1m;0;1f;0', tags: ['雏菊', '清新'] },
+            { name: '小猫咪', category: 'mobile', desc: '可爱猫咪，萌系风格', code: '0;P;c;8;u;FF69B4FF;h;0;d;1;b;1;z;3;0t;10;0l;0;0v;3;0g;1;0o;1;0a;1;0f;0;1t;9;1v;0;1g;1;1o;3;1a;1;1m;0;1f;0', tags: ['猫咪', '萌系'] },
+            { name: '小黑豆', category: 'mobile', desc: '黑色小点，低调实用', code: '0;P;o;1;d;1;z;1;a;0;f;0;s;0;0b;0;1t;1;1l;1;1o;0;1a;0;1m;0;1f;0', tags: ['黑点', '低调'] },
+            { name: '小风车', category: 'mobile', desc: '旋转风车，动感十足', code: '0;P;c;4;h;0;d;1;z;1;f;0;0l;5;0o;2;0a;1;0f;0;1t;3;1o;3;1a;1;1m;0;1f;0', tags: ['风车', '动感'] }
+        ];
+
+        // 检测是否为移动端模式
+        const isMobileMode = localStorage.getItem('gameMode') === 'mobile';
+        const crosshairsData = isMobileMode ? mobileCrosshairsData : pcCrosshairsData;
+
         // 渲染准心预览
         function drawCrosshair(canvas, code) {
             const ctx = canvas.getContext('2d');
@@ -510,6 +532,13 @@
 
         // 初始化
         renderCrosshairs('all');
+
+        // 移动端模式更新标题
+        if (isMobileMode) {
+            document.getElementById('pageTitle').textContent = '📱 手游准心合集';
+            document.getElementById('pageDesc').textContent = '13款手游精选准心，点击代码即可复制使用';
+            document.title = '📱 手游准心合集 | ling1in';
+        }
 
         // 主题切换
         const themeBtns = document.querySelectorAll('.theme-btn');
