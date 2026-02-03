@@ -547,25 +547,34 @@
         
         .hot-tag {
             font-size: 0.8rem;
-            padding: 6px 14px;
-            background: rgba(255,255,255,0.25);
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.3);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.4);
             color: var(--text-color);
             white-space: nowrap;
-            opacity: 0.85;
+            opacity: 0.9;
             animation: floatTag var(--duration) ease-in-out infinite;
             animation-delay: var(--delay);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
+            cursor: pointer;
+            pointer-events: auto;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .hot-tag:hover {
             opacity: 1;
-            transform: scale(1.05);
-            background: rgba(255,255,255,0.4);
+            transform: scale(1.08);
+            background: rgba(255,255,255,0.5);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .hot-tag:active {
+            transform: scale(0.98);
         }
         
         @keyframes floatTag {
@@ -620,6 +629,159 @@
         @media (max-width: 900px) {
             .floating-text {
                 display: none;
+            }
+        }
+        
+        /* 资讯弹窗 */
+        .news-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .news-modal.active {
+            display: flex;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .news-modal-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .news-modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .news-modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .news-modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--shadow-color);
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .news-modal-close:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: rotate(90deg);
+        }
+        
+        .news-list {
+            padding: 20px 24px;
+            overflow-y: auto;
+            max-height: calc(80vh - 80px);
+        }
+        
+        .news-item {
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            border-left: 3px solid var(--accent-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .news-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(5px);
+        }
+        
+        .news-item-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-color);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+        
+        .news-item-time {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        
+        .news-item:nth-child(1) { border-left-color: #e74c3c; }
+        .news-item:nth-child(2) { border-left-color: #e67e22; }
+        .news-item:nth-child(3) { border-left-color: #f1c40f; }
+        .news-item:nth-child(4) { border-left-color: #2ecc71; }
+        .news-item:nth-child(5) { border-left-color: #1abc9c; }
+        .news-item:nth-child(6) { border-left-color: #3498db; }
+        .news-item:nth-child(7) { border-left-color: #9b59b6; }
+        .news-item:nth-child(8) { border-left-color: #e91e63; }
+        .news-item:nth-child(9) { border-left-color: #ff5722; }
+        .news-item:nth-child(10) { border-left-color: #3f51b5; }
+        
+        [data-theme="lain"] .news-modal-content {
+            background: rgba(20, 0, 10, 0.95);
+        }
+        
+        [data-theme="matrix"] .news-modal-content {
+            background: rgba(0, 20, 0, 0.95);
+        }
+        
+        @media (max-width: 600px) {
+            .news-modal-content {
+                max-height: 90vh;
+                border-radius: 20px 20px 0 0;
+                margin-top: auto;
+            }
+            .news-modal {
+                align-items: flex-end;
+                padding: 0;
+            }
+            .news-list {
+                max-height: calc(90vh - 80px);
             }
         }
         
@@ -940,26 +1102,26 @@
         
         <!-- 漂浮热点文字 - 左侧 -->
         <div class="floating-text left">
-            <span class="hot-tag" style="--delay:0s;--duration:8s;">🔥 AI突破</span>
-            <span class="hot-tag" style="--delay:1s;--duration:10s;">🌍 全球动态</span>
-            <span class="hot-tag" style="--delay:2s;--duration:9s;">📱 科技前沿</span>
-            <span class="hot-tag" style="--delay:0.5s;--duration:11s;">💡 创新趋势</span>
-            <span class="hot-tag" style="--delay:3s;--duration:8.5s;">🚀 太空探索</span>
-            <span class="hot-tag" style="--delay:1.5s;--duration:10.5s;">🌱 绿色能源</span>
-            <span class="hot-tag" style="--delay:2.5s;--duration:9.5s;">🎮 游戏资讯</span>
-            <span class="hot-tag" style="--delay:4s;--duration:8s;">📊 市场分析</span>
+            <button class="hot-tag" style="--delay:0s;--duration:8s;" onclick="showNews('ai')">🔥 AI突破</button>
+            <button class="hot-tag" style="--delay:1s;--duration:10s;" onclick="showNews('global')">🌍 全球动态</button>
+            <button class="hot-tag" style="--delay:2s;--duration:9s;" onclick="showNews('tech')">📱 科技前沿</button>
+            <button class="hot-tag" style="--delay:0.5s;--duration:11s;" onclick="showNews('innovation')">💡 创新趋势</button>
+            <button class="hot-tag" style="--delay:3s;--duration:8.5s;" onclick="showNews('space')">🚀 太空探索</button>
+            <button class="hot-tag" style="--delay:1.5s;--duration:10.5s;" onclick="showNews('energy')">🌱 绿色能源</button>
+            <button class="hot-tag" style="--delay:2.5s;--duration:9.5s;" onclick="showNews('game')">🎮 游戏资讯</button>
+            <button class="hot-tag" style="--delay:4s;--duration:8s;" onclick="showNews('market')">📊 市场分析</button>
         </div>
         
         <!-- 漂浮热点文字 - 右侧 -->
         <div class="floating-text right">
-            <span class="hot-tag" style="--delay:0.3s;--duration:9s;">🌸 樱花盛开</span>
-            <span class="hot-tag" style="--delay:1.3s;--duration:10.5s;">⭐ 今日推荐</span>
-            <span class="hot-tag" style="--delay:2.3s;--duration:8.5s;">🎯 热门话题</span>
-            <span class="hot-tag" style="--delay:3.3s;--duration:11s;">💻 编程分享</span>
-            <span class="hot-tag" style="--delay:0.8s;--duration:9.5s;">🎨 创意设计</span>
-            <span class="hot-tag" style="--delay:1.8s;--duration:8s;">🎵 音乐推荐</span>
-            <span class="hot-tag" style="--delay:2.8s;--duration:10s;">📚 读书笔记</span>
-            <span class="hot-tag" style="--delay:3.8s;--duration:9s;">✨ 生活感悟</span>
+            <button class="hot-tag" style="--delay:0.3s;--duration:9s;" onclick="showNews('life')">🌸 樱花盛开</button>
+            <button class="hot-tag" style="--delay:1.3s;--duration:10.5s;" onclick="showNews('daily')">⭐ 今日推荐</button>
+            <button class="hot-tag" style="--delay:2.3s;--duration:8.5s;" onclick="showNews('topic')">🎯 热门话题</button>
+            <button class="hot-tag" style="--delay:3.3s;--duration:11s;" onclick="showNews('code')">💻 编程分享</button>
+            <button class="hot-tag" style="--delay:0.8s;--duration:9.5s;" onclick="showNews('design')">🎨 创意设计</button>
+            <button class="hot-tag" style="--delay:1.8s;--duration:8s;" onclick="showNews('music')">🎵 音乐推荐</button>
+            <button class="hot-tag" style="--delay:2.8s;--duration:10s;" onclick="showNews('book')">📚 读书笔记</button>
+            <button class="hot-tag" style="--delay:3.8s;--duration:9s;" onclick="showNews('thought')">✨ 生活感悟</button>
         </div>
     </div>
     
@@ -1046,6 +1208,19 @@
     <div class="footer-decoration">
         <p>💫 在代码与游戏之间，寻找属于自己的星光 💫</p>
         <p style="margin-top: 15px; font-size: 0.8em;">Made with ❤️ by ling1in | 2025</p>
+    </div>
+    
+    <!-- 资讯弹窗 -->
+    <div class="news-modal" id="newsModal">
+        <div class="news-modal-content">
+            <div class="news-modal-header">
+                <div class="news-modal-title" id="modalTitle">📰 资讯</div>
+                <button class="news-modal-close" onclick="closeNewsModal()">✕</button>
+            </div>
+            <div class="news-list" id="newsList">
+                <!-- 动态生成 -->
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1257,6 +1432,290 @@
             updateTime();
             setInterval(updateTime, 1000);
         })();
+        
+        // 资讯弹窗功能
+        const newsData = {
+            'ai': {
+                title: '🔥 AI突破',
+                items: [
+                    { title: 'GPT-5预计2025年底发布，能力将提升10倍', time: '2小时前' },
+                    { title: '谷歌Gemini多模态能力全面升级', time: '4小时前' },
+                    { title: 'AI编程助手已能完成80%基础代码', time: '6小时前' },
+                    { title: 'OpenAI推出新一代图像生成模型', time: '8小时前' },
+                    { title: '百度文心大模型4.0正式发布', time: '10小时前' },
+                    { title: 'AI医疗诊断准确率达到专家水平', time: '12小时前' },
+                    { title: '自动驾驶AI通过复杂城市路况测试', time: '14小时前' },
+                    { title: 'AI翻译实现实时同声传译突破', time: '16小时前' },
+                    { title: '教育AI个性化学习系统上线', time: '18小时前' },
+                    { title: 'AI艺术创作引发版权讨论热潮', time: '20小时前' }
+                ]
+            },
+            'global': {
+                title: '🌍 全球动态',
+                items: [
+                    { title: '全球气候峰会达成新共识，碳中和目标提前', time: '1小时前' },
+                    { title: '国际空间站迎来新一批宇航员', time: '3小时前' },
+                    { title: '全球数字货币监管框架初步形成', time: '5小时前' },
+                    { title: '多国联合开展深海探测计划', time: '7小时前' },
+                    { title: '世界人工智能大会在沪开幕', time: '9小时前' },
+                    { title: '全球5G网络覆盖率突破60%', time: '11小时前' },
+                    { title: '国际奥委会宣布新赛事项目', time: '13小时前' },
+                    { title: '全球疫苗研发合作机制建立', time: '15小时前' },
+                    { title: '世界教育改革峰会达成共识', time: '17小时前' },
+                    { title: '全球文化遗产数字化保护启动', time: '19小时前' }
+                ]
+            },
+            'tech': {
+                title: '📱 科技前沿',
+                items: [
+                    { title: '折叠屏手机价格跌破5000元', time: '2小时前' },
+                    { title: '量子计算机实现新的计算里程碑', time: '4小时前' },
+                    { title: '6G通信技术首次实现太赫兹传输', time: '6小时前' },
+                    { title: '脑机接口帮助瘫痪患者重新行走', time: '8小时前' },
+                    { title: '固态电池能量密度突破500Wh/kg', time: '10小时前' },
+                    { title: '全息投影技术实现裸眼3D通话', time: '12小时前' },
+                    { title: '智能家居生态系统全面互联互通', time: '14小时前' },
+                    { title: '可穿戴设备实现无创血糖监测', time: '16小时前' },
+                    { title: '无线充电技术实现房间级覆盖', time: '18小时前' },
+                    { title: '新型芯片材料大幅提升计算效率', time: '20小时前' }
+                ]
+            },
+            'innovation': {
+                title: '💡 创新趋势',
+                items: [
+                    { title: '元宇宙办公场景用户突破千万', time: '1小时前' },
+                    { title: '数字孪生技术应用于城市规划', time: '3小时前' },
+                    { title: 'Web3.0社交网络开始内测', time: '5小时前' },
+                    { title: '垂直农业解决城市蔬菜供应', time: '7小时前' },
+                    { title: '共享办公进入3.0时代', time: '9小时前' },
+                    { title: '无人机配送服务覆盖更多城市', time: '11小时前' },
+                    { title: '虚拟主播成为电商平台标配', time: '13小时前' },
+                    { title: '智能家居AI管家全面普及', time: '15小时前' },
+                    { title: '新型教育模式改变传统课堂', time: '17小时前' },
+                    { title: '创新材料让建筑更环保节能', time: '19小时前' }
+                ]
+            },
+            'space': {
+                title: '🚀 太空探索',
+                items: [
+                    { title: '中国空间站完成新一轮科学实验', time: '2小时前' },
+                    { title: '火星样本返回任务计划公布', time: '4小时前' },
+                    { title: 'SpaceX星舰第五次试飞成功', time: '6小时前' },
+                    { title: '月球南极水冰探测取得突破', time: '8小时前' },
+                    { title: '私人太空旅行票价降至10万美元', time: '10小时前' },
+                    { title: '新型太空望远镜发现宜居星球', time: '12小时前' },
+                    { title: '小行星采矿计划进入实质阶段', time: '14小时前' },
+                    { title: '太空太阳能发电站开始建设', time: '16小时前' },
+                    { title: '木星探测器发回高清图像', time: '18小时前' },
+                    { title: '国际月球科研站合作协议签署', time: '20小时前' }
+                ]
+            },
+            'energy': {
+                title: '🌱 绿色能源',
+                items: [
+                    { title: '钙钛矿太阳能电池效率突破30%', time: '1小时前' },
+                    { title: '海上风电装机容量创新高', time: '3小时前' },
+                    { title: '氢燃料电池汽车成本大幅下降', time: '5小时前' },
+                    { title: '新型储能技术解决电网波动', time: '7小时前' },
+                    { title: '核聚变实验实现能量净输出', time: '9小时前' },
+                    { title: '电动汽车充电桩覆盖所有县城', time: '11小时前' },
+                    { title: '生物燃料航空发动机试飞成功', time: '13小时前' },
+                    { title: '智能电网实现百分百清洁能源', time: '15小时前' },
+                    { title: '碳捕集技术成本降低50%', time: '17小时前' },
+                    { title: '地热能开发进入新阶段', time: '19小时前' }
+                ]
+            },
+            'game': {
+                title: '🎮 游戏资讯',
+                items: [
+                    { title: '《黑神话：悟空》销量破千万', time: '2小时前' },
+                    { title: '国产3A大作新作预告发布', time: '4小时前' },
+                    { title: '云游戏画质达到本地游戏水平', time: '6小时前' },
+                    { title: 'VR一体机价格跌破2000元', time: '8小时前' },
+                    { title: '电竞入选亚运会正式比赛项目', time: '10小时前' },
+                    { title: 'AI NPC让游戏世界更真实', time: '12小时前' },
+                    { title: '经典游戏重制版引发怀旧热潮', time: '14小时前' },
+                    { title: '独立游戏开发者收入创新高', time: '16小时前' },
+                    { title: '游戏引擎免费版功能全面开放', time: '18小时前' },
+                    { title: '跨平台联机成为游戏标配', time: '20小时前' }
+                ]
+            },
+            'market': {
+                title: '📊 市场分析',
+                items: [
+                    { title: '科技股领涨，纳斯达克创新高', time: '1小时前' },
+                    { title: '新能源汽车销量同比增长50%', time: '3小时前' },
+                    { title: '跨境电商成为外贸新增长点', time: '5小时前' },
+                    { title: '数字货币市场迎来新一轮牛市', time: '7小时前' },
+                    { title: '房地产政策调整刺激市场回暖', time: '9小时前' },
+                    { title: '消费升级趋势下的新品牌崛起', time: '11小时前' },
+                    { title: '半导体产业链国产替代加速', time: '13小时前' },
+                    { title: '直播电商规模突破万亿', time: '15小时前' },
+                    { title: '生物医药板块投资价值凸显', time: '17小时前' },
+                    { title: '人工智能企业融资创新高', time: '19小时前' }
+                ]
+            },
+            'life': {
+                title: '🌸 樱花盛开',
+                items: [
+                    { title: '武汉大学樱花季预约开启', time: '2小时前' },
+                    { title: '日本樱花前线预测发布', time: '4小时前' },
+                    { title: '樱花主题限定商品热卖', time: '6小时前' },
+                    { title: '春日踏青最佳路线推荐', time: '8小时前' },
+                    { title: '樱花摄影技巧分享会', time: '10小时前' },
+                    { title: '新品种樱花培育成功', time: '12小时前' },
+                    { title: '樱花文化节活动安排出炉', time: '14小时前' },
+                    { title: '樱花美食创意料理走红', time: '16小时前' },
+                    { title: '樱花护肤品成为春季爆款', time: '18小时前' },
+                    { title: '全球最美樱花景点排行', time: '20小时前' }
+                ]
+            },
+            'daily': {
+                title: '⭐ 今日推荐',
+                items: [
+                    { title: '今日必看：10个提升效率的工具', time: '1小时前' },
+                    { title: '本周热门电影票房排行', time: '3小时前' },
+                    { title: '美食探店：城市隐藏的美味', time: '5小时前' },
+                    { title: '周末出游好去处推荐', time: '7小时前' },
+                    { title: '今日幸运色和运势分析', time: '9小时前' },
+                    { title: '热门综艺精彩看点回顾', time: '11小时前' },
+                    { title: '今日最佳购物优惠信息', time: '13小时前' },
+                    { title: '健身达人分享减脂秘籍', time: '15小时前' },
+                    { title: '今日必听播客节目推荐', time: '17小时前' },
+                    { title: '城市夜景最佳拍摄地点', time: '19小时前' }
+                ]
+            },
+            'topic': {
+                title: '🎯 热门话题',
+                items: [
+                    { title: '#春节档电影# 讨论热度破百亿', time: '2小时前' },
+                    { title: '#职场新人# 生存指南走红', time: '4小时前' },
+                    { title: '#数字游民# 生活方式引热议', time: '6小时前' },
+                    { title: '#情绪价值# 成为新消费热点', time: '8小时前' },
+                    { title: '#AI绘画# 作品版权归属讨论', time: '10小时前' },
+                    { title: '#慢生活# 年轻人新追求', time: '12小时前' },
+                    { title: '#宠物经济# 市场规模扩大', time: '14小时前' },
+                    { title: '#知识付费# 进入下半场', time: '16小时前' },
+                    { title: '#国潮崛起# 本土品牌受追捧', time: '18小时前' },
+                    { title: '#宅经济# 持续影响消费习惯', time: '20小时前' }
+                ]
+            },
+            'code': {
+                title: '💻 编程分享',
+                items: [
+                    { title: '2025年最值得学的编程语言', time: '1小时前' },
+                    { title: '前端框架性能对比测试报告', time: '3小时前' },
+                    { title: 'AI编程助手最佳实践指南', time: '5小时前' },
+                    { title: '开源项目贡献入门教程', time: '7小时前' },
+                    { title: '云原生架构设计模式分享', time: '9小时前' },
+                    { title: '代码审查 checklist 整理', time: '11小时前' },
+                    { title: '数据库优化技巧大合集', time: '13小时前' },
+                    { title: '微服务拆分最佳实践', time: '15小时前' },
+                    { title: '安全防护常见漏洞解析', time: '17小时前' },
+                    { title: 'DevOps流水线搭建教程', time: '19小时前' }
+                ]
+            },
+            'design': {
+                title: '🎨 创意设计',
+                items: [
+                    { title: '2025设计趋势报告发布', time: '2小时前' },
+                    { title: 'AI辅助设计工具推荐', time: '4小时前' },
+                    { title: '极简主义设计案例分析', time: '6小时前' },
+                    { title: '品牌视觉升级成功范例', time: '8小时前' },
+                    { title: '3D设计软件新功能介绍', time: '10小时前' },
+                    { title: '配色方案生成工具推荐', time: '12小时前' },
+                    { title: '动效设计最佳实践分享', time: '14小时前' },
+                    { title: '字体设计基础知识科普', time: '16小时前' },
+                    { title: '插画风格流行趋势分析', time: '18小时前' },
+                    { title: '设计系统搭建完整指南', time: '20小时前' }
+                ]
+            },
+            'music': {
+                title: '🎵 音乐推荐',
+                items: [
+                    { title: '本周新歌榜单TOP10', time: '1小时前' },
+                    { title: '独立音乐人专访：创作故事', time: '3小时前' },
+                    { title: '经典老歌翻唱版本推荐', time: '5小时前' },
+                    { title: '音乐节的夏日狂欢指南', time: '7小时前' },
+                    { title: '学习工作专注音乐推荐', time: '9小时前' },
+                    { title: '全球音乐风格探索之旅', time: '11小时前' },
+                    { title: '音乐制作入门教程分享', time: '13小时前' },
+                    { title: '耳机选购指南2025版', time: '15小时前' },
+                    { title: 'KTV必点歌曲排行榜', time: '17小时前' },
+                    { title: '睡眠音乐推荐合集', time: '19小时前' }
+                ]
+            },
+            'book': {
+                title: '📚 读书笔记',
+                items: [
+                    { title: '《原则》：达利欧的人生智慧', time: '2小时前' },
+                    { title: '科幻小说推荐：三体之后', time: '4小时前' },
+                    { title: '心理学入门必读书单', time: '6小时前' },
+                    { title: '历史类好书推荐Top10', time: '8小时前' },
+                    { title: '读书笔记方法分享', time: '10小时前' },
+                    { title: '电子书vs纸质书对比', time: '12小时前' },
+                    { title: '本周畅销书排行榜', time: '14小时前' },
+                    { title: '投资理财经典书籍推荐', time: '16小时前' },
+                    { title: '推理悬疑小说精选', time: '18小时前' },
+                    { title: '诗歌散文治愈系推荐', time: '20小时前' }
+                ]
+            },
+            'thought': {
+                title: '✨ 生活感悟',
+                items: [
+                    { title: '写给25岁的自己：成长心得', time: '1小时前' },
+                    { title: '如何培养一个好习惯', time: '3小时前' },
+                    { title: '独处时光的正确打开方式', time: '5小时前' },
+                    { title: '断舍离：从整理物品到整理人生', time: '7小时前' },
+                    { title: '时间管理的终极秘诀', time: '9小时前' },
+                    { title: '如何建立深度人际关系', time: '11小时前' },
+                    { title: '克服拖延症的有效方法', time: '13小时前' },
+                    { title: '生活中的小确幸收集', time: '15小时前' },
+                    { title: '正念冥想入门指南', time: '17小时前' },
+                    { title: '感恩日记改变我的生活', time: '19小时前' }
+                ]
+            }
+        };
+        
+        function showNews(category) {
+            const modal = document.getElementById('newsModal');
+            const title = document.getElementById('modalTitle');
+            const list = document.getElementById('newsList');
+            const data = newsData[category];
+            
+            if (!data) return;
+            
+            title.textContent = data.title;
+            list.innerHTML = data.items.map((item, index) => `
+                <div class="news-item" style="animation: slideUp 0.3s ease ${index * 0.05}s both;">
+                    <div class="news-item-title">${item.title}</div>
+                    <div class="news-item-time">${item.time}</div>
+                </div>
+            `).join('');
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeNewsModal() {
+            const modal = document.getElementById('newsModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // 点击遮罩关闭弹窗
+        document.getElementById('newsModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeNewsModal();
+            }
+        });
+        
+        // ESC键关闭弹窗
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNewsModal();
+            }
+        });
     </script>
 </body>
 </html>
