@@ -430,6 +430,125 @@
             color: var(--text-secondary);
             line-height: 1.6;
         }
+        /* VCT CN 战队专栏样式 */
+        .teams-section {
+            max-width: 1400px;
+            margin: 60px auto 0;
+            padding: 20px;
+        }
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+        @media (min-width: 640px) {
+            .teams-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .teams-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .team-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+        .team-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px rgba(255, 70, 85, 0.3);
+        }
+        .team-header {
+            background: linear-gradient(135deg, rgba(255,70,85,0.2), rgba(15,25,35,0.9));
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .team-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), #0f1923);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 15px;
+            border: 3px solid rgba(255,70,85,0.5);
+        }
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .team-achievement {
+            font-size: 0.8rem;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        .team-content {
+            padding: 20px;
+        }
+        .team-players-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .team-players {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .team-player {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        .team-player:hover {
+            background: rgba(255,70,85,0.1);
+        }
+        .player-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), #0f1923);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .player-info {
+            flex: 1;
+        }
+        .player-name {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 2px;
+        }
+        .player-role {
+            font-size: 0.75rem;
+            color: var(--accent-color);
+        }
+        .player-highlight {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            border-radius: 10px;
+            margin-left: auto;
+        }
         /* 资讯专栏样式 */
         .news-section {
             max-width: 1400px;
@@ -652,6 +771,13 @@
                 <div id="modalSkills"></div>
             </div>
         </div>
+    </div>
+
+    <!-- VCT CN 战队专栏 -->
+    <div class="teams-section" id="teamsSection">
+        <h2 class="section-title">🏆 VCT CN 顶尖战队</h2>
+        
+        <div class="teams-grid" id="teamsGrid"></div>
     </div>
 
     <!-- 枪械档案 -->
@@ -1182,6 +1308,146 @@
                 },
             ],
         };
+
+        // VCT CN 战队数据
+        const teamsData = [
+            {
+                id: 'EDG',
+                name: 'EDG',
+                fullName: 'EDward Gaming',
+                emoji: '🐼',
+                achievement: '🏆 2024首尔全球冠军赛冠军',
+                color: '#333333',
+                players: [
+                    { name: 'ZmjjKK', realName: '郑永康', role: '决斗', emoji: '🔥', highlight: 'FMVP' },
+                    { name: 'CHICHOO', realName: '万顺治', role: '哨位/控场', emoji: '🛡️', highlight: '残局大师' },
+                    { name: 'nobody', realName: '王森旭', role: '先锋', emoji: '🎯', highlight: '指挥核心' },
+                    { name: 'Smoggy', realName: '张钊', role: '自由人', emoji: '⚡', highlight: '英雄海' },
+                    { name: 'zjc', realName: '张峻程', role: '先锋', emoji: '📡', highlight: '' }
+                ]
+            },
+            {
+                id: 'BLG',
+                name: 'BLG',
+                fullName: 'Bilibili Gaming',
+                emoji: '🔷',
+                achievement: '🏆 2025第一赛段冠军',
+                color: '#00a1d6',
+                players: [
+                    { name: 'whzy', realName: '王昊哲', role: '决斗', emoji: '💥', highlight: '判官之神' },
+                    { name: 'Knight', realName: '刘宇翔', role: '先锋', emoji: '🎮', highlight: '' },
+                    { name: 'nephh', realName: '陈凯文', role: '先锋', emoji: '🌟', highlight: '' },
+                    { name: 'rushia', realName: '王晓杰', role: '控场', emoji: '🌸', highlight: '' },
+                    { name: 'Levius', realName: '卢胤中', role: '控场/哨位', emoji: '🔒', highlight: '' }
+                ]
+            },
+            {
+                id: 'FPX',
+                name: 'FPX',
+                fullName: 'FunPlus Phoenix',
+                emoji: '🔥',
+                achievement: '🥈 多次亚军',
+                color: '#ff6600',
+                players: [
+                    { name: 'Life', realName: '瞿东豪', role: '决斗', emoji: '⚔️', highlight: '顶尖决斗' },
+                    { name: 'BerLIN', realName: '张柏霖', role: '控场', emoji: '🎖️', highlight: '指挥鬼才' },
+                    { name: 'AAAAY', realName: '张杨', role: '先锋', emoji: '🎯', highlight: '爆头老祖' },
+                    { name: 'yosemite', realName: '王磊', role: '哨位', emoji: '🐱', highlight: '梦泪' },
+                    { name: 'autumn', realName: '凯尔', role: '决斗', emoji: '🍂', highlight: '' }
+                ]
+            },
+            {
+                id: 'TE',
+                name: 'TE',
+                fullName: 'Trace Esports',
+                emoji: '🌊',
+                achievement: '🥉 2024首尔全球冠军赛八强',
+                color: '#0066ff',
+                players: [
+                    { name: 'FengF', realName: '宋学锋', role: '决斗/哨位', emoji: '🚀', highlight: '雷兹王' },
+                    { name: 'LuoK1ng', realName: '张展鹏', role: '控场', emoji: '🌌', highlight: '国二烟' },
+                    { name: 'heybay', realName: '何洵熙', role: '先锋', emoji: '📞', highlight: '指挥' },
+                    { name: 'Biank', realName: '钟剑飞', role: '先锋', emoji: '🔫', highlight: '' },
+                    { name: 'Kai', realName: '卢智楠', role: '决斗/哨位', emoji: '💪', highlight: '104杀' }
+                ]
+            },
+            {
+                id: 'DRG',
+                name: 'DRG',
+                fullName: 'Dragon Ranger Gaming',
+                emoji: '🐉',
+                achievement: '⭐ 联赛劲旅',
+                color: '#00ff88',
+                players: [
+                    { name: 'vo0kashu', realName: '伊利亚', role: '哨位', emoji: '🎯', highlight: '瞄准怪物' },
+                    { name: 'Flex1n', realName: '罗瑞', role: '控场', emoji: '🛡️', highlight: '福乐星' },
+                    { name: 'TvirusLuke', realName: '陈振庆', role: '决斗', emoji: '🎲', highlight: '' },
+                    { name: 'Nicc', realName: '萧海涛', role: '控场', emoji: '🌫️', highlight: '' },
+                    { name: 'Cangshu', realName: '张展翔', role: '先锋', emoji: '📖', highlight: '' }
+                ]
+            },
+            {
+                id: 'XLG',
+                name: 'XLG',
+                fullName: 'XiLai Gaming',
+                emoji: '⚡',
+                achievement: '🏆 2025晋升赛冠军',
+                color: '#ff0055',
+                players: [
+                    { name: 'YOU', realName: '叶文灏', role: '先锋', emoji: '🇭🇰', highlight: '' },
+                    { name: 'Viva', realName: '冉立凡', role: '先锋/控场', emoji: '🎭', highlight: '' },
+                    { name: 'happywei', realName: '邓闵维', role: '哨位', emoji: '😊', highlight: '' },
+                    { name: 'coconut', realName: '钟弘祖', role: '先锋/控场', emoji: '🥥', highlight: '' },
+                    { name: 'Rarga', realName: '阿图尔', role: '决斗', emoji: '🇷🇺', highlight: '外援' }
+                ]
+            },
+            {
+                id: 'WOL',
+                name: '狼队',
+                fullName: 'Wolves Esports',
+                emoji: '🐺',
+                achievement: '🥉 2025多伦多大师赛季军',
+                color: '#ffcc00',
+                players: [
+                    { name: 'SiuFatBB', realName: '庞加曦', role: '先锋', emoji: '🎪', highlight: '指挥大师' },
+                    { name: 'Spring', realName: '刘俊霆', role: '决斗', emoji: '🌸', highlight: '' },
+                    { name: 'Yuicaw', realName: '黄湧傑', role: '先锋/哨位', emoji: '🔄', highlight: '' },
+                    { name: 'juicy', realName: '李峻豪', role: '控场', emoji: '🥤', highlight: '' },
+                    { name: 'Aluba', realName: '李冠贤', role: '哨位', emoji: '🛡️', highlight: '' }
+                ]
+            },
+            {
+                id: 'TEC',
+                name: 'TEC',
+                fullName: 'Titan Esports Club',
+                emoji: '🔱',
+                achievement: '⭐ 联赛劲旅',
+                color: '#9900ff',
+                players: [
+                    { name: 'Abo', realName: '韩博皓', role: '哨位', emoji: '🔫', highlight: 'AK之神' },
+                    { name: 'Haodong', realName: '郭浩东', role: '控场/哨位', emoji: '🎖️', highlight: '冠军助教' },
+                    { name: 'TvirusLuke', realName: '陈振庆', role: '决斗', emoji: '🎰', highlight: '' },
+                    { name: 'Rb', realName: '余佳鑫', role: '控场', emoji: '🌑', highlight: '' },
+                    { name: 'Dynamite', realName: '覃子聪', role: '先锋', emoji: '💣', highlight: '' }
+                ]
+            },
+            {
+                id: 'AG',
+                name: 'AG',
+                fullName: 'All Gamers',
+                emoji: '🔴',
+                achievement: '⭐ CF传奇战队',
+                color: '#cc0000',
+                players: [
+                    { name: 'Lsn', realName: '李思楠', role: '先锋', emoji: '👑', highlight: 'CF传奇' },
+                    { name: 'Spitfires', realName: '辛明阳', role: '决斗', emoji: '🔥', highlight: '小火龙' },
+                    { name: 'DeLb', realName: '刘佳', role: '先锋', emoji: '📞', highlight: '' },
+                    { name: 'monk', realName: '王可', role: '控场', emoji: '🧘', highlight: '' },
+                    { name: 'bunt', realName: '陈柏均', role: '哨位', emoji: '🛡️', highlight: '' }
+                ]
+            }
+        ];
+
         // 资讯数据
         const newsData = [
             {
@@ -1402,6 +1668,53 @@
                 alert(`📰 ${news.title}\n\n${news.excerpt}\n\n📅 发布时间：${news.date}\n🏷️ 分类：${news.tagName}\n\n（点击确定关闭）`);
             }
         }
+
+        // 渲染战队
+        function renderTeams() {
+            const grid = document.getElementById('teamsGrid');
+            
+            grid.innerHTML = teamsData.map((team, i) => `
+                <div class="team-card" onclick="showTeamDetail('${team.id}')" style="animation: fadeIn 0.4s ease ${i * 0.1}s both;">
+                    <div class="team-header">
+                        <div class="team-logo">${team.emoji}</div>
+                        <div class="team-name">${team.name}</div>
+                        <div class="team-achievement">${team.achievement}</div>
+                    </div>
+                    <div class="team-content">
+                        <div class="team-players-title">⭐ 明星选手</div>
+                        <div class="team-players">
+                            ${team.players.slice(0, 5).map(p => `
+                                <div class="team-player">
+                                    <div class="player-avatar">${p.emoji}</div>
+                                    <div class="player-info">
+                                        <div class="player-name">${p.name}</div>
+                                        <div class="player-role">${p.realName} · ${p.role}</div>
+                                    </div>
+                                    ${p.highlight ? `<span class="player-highlight">${p.highlight}</span>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showTeamDetail(teamId) {
+            const team = teamsData.find(t => t.id === teamId);
+            if (team) {
+                const playersInfo = team.players.map(p => 
+                    `${p.emoji} ${p.name} (${p.realName}) - ${p.role}${p.highlight ? ' [' + p.highlight + ']' : ''}`
+                ).join('\n');
+                
+                alert(`🏆 ${team.fullName} (${team.name})\n\n` +
+                      `${team.achievement}\n\n` +
+                      `👥 阵容:\n${playersInfo}\n\n` +
+                      `（点击确定关闭）`);
+            }
+        }
+
+        // 初始化渲染战队
+        renderTeams();
 
         // 初始化渲染资讯
         renderNews();
