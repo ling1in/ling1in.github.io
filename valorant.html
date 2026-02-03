@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Valorant 特工档案 | ling1in</title>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            --text-color: #ece8e1;
+            --text-secondary: #8b978f;
+            --accent-color: #ff4655;
+            --card-bg: rgba(255,255,255,0.05);
+            --card-border: rgba(255,255,255,0.1);
+            --shadow-color: rgba(255, 70, 85, 0.2);
+            --font-main: 'Nunito', 'ZCOOL KuaiLe', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 15px;
+            padding-top: 70px;
+        }
+        nav {
+            background: rgba(15, 25, 35, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255, 70, 85, 0.3);
+        }
+        nav ul {
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        nav a:hover { background: var(--accent-color); color: white; }
+        .theme-switcher {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            gap: 6px;
+            background: rgba(255,255,255,0.1);
+            padding: 6px;
+            border-radius: 25px;
+        }
+        .theme-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            background: rgba(255,255,255,0.9);
+        }
+        .theme-btn.active {
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+        .header {
+            text-align: center;
+            padding: 40px 15px;
+        }
+        .header h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            background: linear-gradient(135deg, #ff4655, #ff8a95);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .role-selection {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        @media (min-width: 768px) {
+            .role-selection { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        }
+        .role-card {
+            background: linear-gradient(135deg, rgba(255,70,85,0.15), rgba(15,25,35,0.8));
+            border: 2px solid rgba(255,70,85,0.3);
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+        }
+        .role-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px rgba(255,70,85,0.3);
+        }
+        .role-count {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent-color);
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 10px;
+        }
+        .role-icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .role-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 5px; }
+        .role-desc { font-size: 0.8rem; color: var(--text-secondary); }
+        .agents-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: none;
+        }
+        .agents-section.active { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255,70,85,0.3);
+        }
+        .back-btn {
+            padding: 8px 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .back-btn:hover { background: var(--accent-color); color: white; }
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        @media (min-width: 768px) {
+            .agents-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+        }
+        .agent-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .agent-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        .agent-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), #0f1923);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        .agent-name { font-weight: 700; margin-bottom: 3px; }
+        .agent-role { font-size: 0.75rem; color: var(--accent-color); }
+        .agent-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .agent-modal.active { display: flex; }
+        .agent-modal-content {
+            background: linear-gradient(135deg, #1a2332, #0f1419);
+            border: 2px solid rgba(255,70,85,0.3);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .agent-modal-header {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255,70,85,0.2), transparent);
+            border-bottom: 1px solid rgba(255,70,85,0.2);
+            position: relative;
+        }
+        .agent-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .agent-modal-close:hover { background: var(--accent-color); transform: rotate(90deg); }
+        .agent-modal-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), #0f1923);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .agent-modal-name { font-size: 2rem; font-weight: 700; margin-bottom: 5px; }
+        .agent-modal-role { color: var(--accent-color); text-transform: uppercase; }
+        .agent-modal-body { padding: 30px; }
+        .agent-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border-left: 3px solid var(--accent-color);
+        }
+        .skills-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .skill-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid var(--card-border);
+        }
+        .skill-item:hover { border-color: var(--accent-color); }
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        .skill-key {
+            margin-left: auto;
+            padding: 4px 12px;
+            background: rgba(255,70,85,0.2);
+            border-radius: 6px;
+            font-family: monospace;
+            color: var(--accent-color);
+        }
+        .skill-desc { font-size: 0.9rem; color: var(--text-secondary); }
+        .ultimate-skill {
+            background: linear-gradient(135deg, rgba(255,70,85,0.15), rgba(255,70,85,0.05));
+            border: 1px solid rgba(255,70,85,0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switcher">
+        <button class="theme-btn active" data-theme="default">🎮</button>
+        <button class="theme-btn" data-theme="lain">👁️</button>
+        <button class="theme-btn" data-theme="inception">🌀</button>
+        <button class="theme-btn" data-theme="matrix">💊</button>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">🏠 首页</a></li>
+            <li><a href="about.html">👤 关于我</a></li>
+            <li><a href="projects.html">🦞 学习日志</a></li>
+            <li><a href="valorant.html">🎮 Valorant</a></li>
+        </ul>
+    </nav>
+
+    <div class="header">
+        <h1>🎮 Valorant 特工档案</h1>
+        <p style="color: var(--text-secondary);">选择职业查看特工详细信息</p>
+    </div>
+
+    <div class="role-selection" id="roleSelection">
+        <div class="role-card" onclick="showRole('duelist')">
+            <span class="role-count">7</span>
+            <div class="role-icon">⚔️</div>
+            <div class="role-name">决斗</div>
+            <div class="role-desc">独立击破 高机动输出</div>
+        </div>
+        <div class="role-card" onclick="showRole('sentinel')">
+            <span class="role-count">7</span>
+            <div class="role-icon">🛡️</div>
+            <div class="role-name">哨位</div>
+            <div class="role-desc">防守控场 保护队友</div>
+        </div>
+        <div class="role-card" onclick="showRole('controller')">
+            <span class="role-count">6</span>
+            <div class="role-icon">☁️</div>
+            <div class="role-name">控场</div>
+            <div class="role-desc">烟雾封锁 区域控制</div>
+        </div>
+        <div class="role-card" onclick="showRole('initiator')">
+            <span class="role-count">8</span>
+            <div class="role-icon">📡</div>
+            <div class="role-name">先锋</div>
+            <div class="role-desc">侦查信息 团队推进</div>
+        </div>
+    </div>
+
+    <div class="agents-section" id="duelist">
+        <div class="section-header">
+            <h2>⚔️ 决斗 Duelist</h2>
+            <button class="back-btn" onclick="showRoleSelection()">← 返回</button>
+        </div>
+        <div class="agents-grid" id="duelistGrid"></div>
+    </div>
+
+    <div class="agents-section" id="sentinel">
+        <div class="section-header">
+            <h2>🛡️ 哨位 Sentinel</h2>
+            <button class="back-btn" onclick="showRoleSelection()">← 返回</button>
+        </div>
+        <div class="agents-grid" id="sentinelGrid"></div>
+    </div>
+
+    <div class="agents-section" id="controller">
+        <div class="section-header">
+            <h2>☁️ 控场 Controller</h2>
+            <button class="back-btn" onclick="showRoleSelection()">← 返回</button>
+        </div>
+        <div class="agents-grid" id="controllerGrid"></div>
+    </div>
+
+    <div class="agents-section" id="initiator">
+        <div class="section-header">
+            <h2>📡 先锋 Initiator</h2>
+            <button class="back-btn" onclick="showRoleSelection()">← 返回</button>
+        </div>
+        <div class="agents-grid" id="initiatorGrid"></div>
+    </div>
+
+    <div class="agent-modal" id="agentModal">
+        <div class="agent-modal-content">
+            <div class="agent-modal-header">
+                <button class="agent-modal-close" onclick="closeAgentModal()">✕</button>
+                <div class="agent-modal-avatar" id="modalAvatar">🎮</div>
+                <div class="agent-modal-name" id="modalName">特工</div>
+                <div class="agent-modal-role" id="modalRole">职业</div>
+            </div>
+            <div class="agent-modal-body">
+                <div class="agent-description" id="modalDesc">介绍</div>
+                <div class="skills-title">🎯 技能</div>
+                <div id="modalSkills"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 特工数据
+        const agentsData = {
+            duelist: [
+                {
+                    name: 'Jett 捷风',
+                    emoji: '💨',
+                    desc: '来自韩国的风一样的决斗者，拥有极高的机动性和灵活性，擅长快速突入和脱离战斗。',
+                    skills: [
+                        { name: '飘移', key: 'C', desc: '扔出一团云雾，短暂阻挡视线。' },
+                        { name: '上升气流', key: 'Q', desc: '立即向上推进，可到达高处位置。' },
+                        { name: '冲刺', key: 'E', desc: '快速向移动方向冲刺，击杀后可重置。' },
+                        { name: '风暴之眼', key: 'X', desc: '投掷飞刀，命中头部可立即击杀，击杀后技能延续。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Phoenix 不死鸟',
+                    emoji: '🔥',
+                    desc: '来自英国的自信决斗者，使用火焰技能造成伤害和治疗自己。',
+                    skills: [
+                        { name: '烈焰', key: 'C', desc: '投掷火球，落地后形成持续燃烧区域。' },
+                        { name: '曲光火球', key: 'Q', desc: '投掷闪光火球，短暂致盲敌人。' },
+                        { name: '热手', key: 'E', desc: '向前推进的火墙，阻挡视线并造成伤害，站在其中可治疗自己。' },
+                        { name: '再来一局', key: 'X', desc: '标记当前位置，死亡或时间结束时在该位置重生。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Raze 芮兹',
+                    emoji: '💣',
+                    desc: '来自巴西的爆破专家，使用各种爆炸物清除敌人和区域。',
+                    skills: [
+                        { name: '爆破包', key: 'C', desc: '投掷可粘附的炸药包，引爆可造成伤害和击退。' },
+                        { name: '油漆榴弹', key: 'Q', desc: '投掷集束手雷，造成范围伤害。' },
+                        { name: '漆彩轰炸', key: 'E', desc: '部署机器人自动寻找敌人并爆炸。' },
+                        { name: '扫兴火炮', key: 'X', desc: '装备火箭发射器，发射后造成大范围毁灭性伤害。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Reyna 芮娜',
+                    emoji: '👁️',
+                    desc: '来自墨西哥的吸血鬼般决斗者，通过击杀敌人来获得强化和治疗。',
+                    skills: [
+                        { name: '邪媚凝视', key: 'C', desc: '投掷一颗可破坏的虚灵之眼，视野内的敌人视野受限。' },
+                        { name: '噬尽', key: 'Q', desc: '吞噬附近的灵魂球快速治疗自己。' },
+                        { name: '逐散', key: 'E', desc: '吞噬灵魂球后短时间内无敌且隐形。' },
+                        { name: '女皇旨令', key: 'X', desc: '进入狂暴状态，大幅提高射速，击杀自动刷新技能。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Yoru 夜露',
+                    emoji: '🌀',
+                    desc: '来自日本的神秘决斗者，使用维度的力量欺骗敌人。',
+                    skills: [
+                        { name: '不协之音', key: 'C', desc: '放置一个假脚步声诱饵。' },
+                        { name: '攻其不备', key: 'Q', desc: '投掷一个从维度弹出的不稳定碎片，可致盲敌人。' },
+                        { name: '次元漂移', key: 'E', desc: '在维度中放置一个传送锚点，可再次激活传送。' },
+                        { name: '次元漂移', key: 'X', desc: '装备一个可在地图上放置的裂缝面具，再次激活可传送到该位置。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Neon 霓虹',
+                    emoji: '⚡',
+                    desc: '来自菲律宾的速度型决斗者，利用生物电能量高速移动。',
+                    skills: [
+                        { name: '继电器信标', key: 'C', desc: '放置一个可弹跳的能量信标，击中地面时震荡并致盲。' },
+                        { name: '闪电弹球', key: 'Q', desc: '投掷一个反弹的能量弹球，击中敌人时眩晕。' },
+                        { name: '高速通道', key: 'E', desc: '消耗能量快速奔跑，可滑铲，右键释放电能光束。' },
+                        { name: '超限暴走', key: 'X', desc: '释放全部电力，大幅提高移动速度并发射致命闪电。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Iso 壹决',
+                    emoji: '🛡️',
+                    desc: '来自中国的决斗者，专注于个人防护和单挑。他可以将敌人拉入一对一的决斗空间。',
+                    skills: [
+                        { name: '碎片迸发', key: 'C', desc: '投掷一个分子碎片，可穿透墙壁并施加易损效果。' },
+                        { name: '裂解屏障', key: 'Q', desc: '放置一个可阻挡子弹的固定能量屏障。' },
+                        { name: '战斗心流', key: 'E', desc: '进入专注状态，击杀敌人后生成护盾。' },
+                        { name: '绝对领域', key: 'X', desc: '将首个命中的敌人拉入1v1决斗空间，胜者生还。', ultimate: true }
+                    ]
+                }
+            ],
+            sentinel: [
+                {
+                    name: 'Sage 贤者',
+                    emoji: '💚',
+                    desc: '来自中国的守护者，是团队的治疗者和复活者。',
+                    skills: [
+                        { name: '缓速灵球', key: 'C', desc: '投掷一个灵球，落地后形成减速区域。' },
+                        { name: '屏障灵球', key: 'Q', desc: '召唤一面坚实的冰墙阻挡敌人。' },
+                        { name: '治愈灵球', key: 'E', desc: '治疗一名队友或自己。' },
+                        { name: '复活', key: 'X', desc: '满蓄力后复活一名倒下的队友，恢复满血。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Cypher 零',
+                    emoji: '🕸️',
+                    desc: '来自摩洛哥的信息收集专家，使用各种监控设备掌控战场信息。',
+                    skills: [
+                        { name: '陷阱绊索', key: 'C', desc: '放置一条隐形的绊索，触发后束缚并暴露敌人。' },
+                        { name: '赛博囚笼', key: 'Q', desc: '投掷一个烟雾装置，敌人经过时会发出声音。' },
+                        { name: '战术监控', key: 'E', desc: '放置一个可远程控制的摄像头，可发射追踪飞镖。' },
+                        { name: '神经取析', key: 'X', desc: '对倒下的敌人使用，立即暴露所有存活的敌人位置。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Killjoy 恺宙',
+                    emoji: '🔧',
+                    desc: '来自德国的天才发明家，使用各种机器人防守区域。',
+                    skills: [
+                        { name: '纳米蜂群', key: 'C', desc: '部署一群纳米机器人，激活后造成持续伤害。' },
+                        { name: '自动哨兵', key: 'Q', desc: '部署一个会自动攻击范围内敌人的机器人。' },
+                        { name: '哨戒炮台', key: 'E', desc: '部署一个炮台，自动攻击180度范围内的敌人。' },
+                        { name: '封锁', key: 'X', desc: '部署一个大型设备，长时间蓄力后禁锢范围内所有敌人。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Chamber 钱博尔',
+                    emoji: '🎯',
+                    desc: '来自法国的武器设计师，使用自己设计的精密武器。',
+                    skills: [
+                        { name: ' trademark', key: 'C', desc: '放置一个可召回的自动哨兵，攻击范围内敌人。' },
+                        { name: '猎头者', key: 'Q', desc: '装备一把重型手枪，可开镜精确射击。' },
+                        { name: '传送锚点', key: 'E', desc: '放置一对传送锚点，可在其间快速移动。' },
+                        { name: 'X-武器', key: 'X', desc: '装备一把定制的狙击步枪，击杀敌人后生成阻挡子弹的力场。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Deadlock 蒂罗',
+                    emoji: '📎',
+                    desc: '来自挪威的哨位，使用先进的纳米线技术控制战场。',
+                    skills: [
+                        { name: '声波传感器', key: 'C', desc: '放置一个感应器，检测到声音后震荡该区域。' },
+                        { name: '屏障网', key: 'Q', desc: '投掷一个纳米线球，落地后形成阻挡敌人的网。' },
+                        { name: '坚甲巨兽', key: 'E', desc: '放置一个自动追踪最近敌人的纳米线兽，命中后束缚敌人。' },
+                        { name: '终极牢笼', key: 'X', desc: '投掷一个纳米线牢笼，敌人被困其中并受到减速和伤害。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Vyse 维斯',
+                    emoji: '🌹',
+                    desc: '来自大西洋彼岸的哨位，使用液态金属技术操控战场。',
+                    skills: [
+                        { name: '剃刀荆棘', key: 'C', desc: '布置隐形的液态金属荆棘，触发后展开并造成伤害。' },
+                        { name: '弧光玫瑰', key: 'Q', desc: '投掷一个可粘附的探测器，发现敌人时致盲。' },
+                        { name: '铁墙', key: 'E', desc: '放置一堵可升降的液态金属墙，升起时阻挡视线和子弹。' },
+                        { name: '钢铁花园', key: 'X', desc: '激活后，范围内的所有敌人主武器被暂时缴械。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Waylay 夜澜',
+                    emoji: '🌙',
+                    desc: '来自泰国的光影哨位，利用光和影的力量保护队友。',
+                    skills: [
+                        { name: '光之绊', key: 'C', desc: '投掷一个光能装置，命中后减速敌人。' },
+                        { name: '影之息', key: 'Q', desc: '释放一片暗影云雾，阻挡视线且敌人进入后会发出声音。' },
+                        { name: '光之径', key: 'E', desc: '放置一个光源信标，可传送到该位置并为附近队友提供治疗。' },
+                        { name: '日蚀', key: 'X', desc: '释放强大的光芒，范围内的敌人致盲并受到伤害，队友获得护盾。', ultimate: true }
+                    ]
+                }
+            ],
+            controller: [
+                {
+                    name: 'Brimstone 炼狱',
+                    emoji: '🎯',
+                    desc: '来自美国的指挥官型控场者，使用卫星定位投放烟雾和打击。',
+                    skills: [
+                        { name: '振奋信标', key: 'C', desc: '放置一个信标，范围内友军获得快速射击效果。' },
+                        { name: '燃烧榴弹', key: 'Q', desc: '投放一个燃烧弹，造成持续范围伤害。' },
+                        { name: '天空之烟', key: 'E', desc: '在地图上选择多个位置投放烟雾弹。' },
+                        { name: '轨道打击', key: 'X', desc: '在选定区域投放持续的轨道激光打击。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Viper 蝰蛇',
+                    emoji: '🐍',
+                    desc: '来自美国的化学专家，使用有毒气体控制战场。',
+                    skills: [
+                        { name: '蛇吻', key: 'C', desc: '投掷一个化学发射器，落地后破碎造成腐蚀性伤害。' },
+                        { name: '毒云', key: 'Q', desc: '投掷一个气雾喷射器，消耗燃料产生毒云。' },
+                        { name: '毒幕', key: 'E', desc: '部署一排可消耗的毒气发射器，形成长距离毒墙。' },
+                        { name: '蝰腹', key: 'X', desc: '释放大范围毒气云，大幅降低敌人视野和最大生命值。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Omen 欧门',
+                    emoji: '👤',
+                    desc: '来自暗影的神秘控场者，使用暗影力量传送和致盲敌人。',
+                    skills: [
+                        { name: '影步', key: 'C', desc: '短距离传送，可穿越地形。' },
+                        { name: '迷影', key: 'Q', desc: '投掷一个暗影球，命中后致盲敌人。' },
+                        { name: '黑瘴', key: 'E', desc: '在地图上选择位置投放长持续时间烟雾。' },
+                        { name: '来自暗影', key: 'X', desc: '在地图上选择位置进行全图传送，到达时致盲附近敌人。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Astra 亚星卓',
+                    emoji: '⭐',
+                    desc: '来自加纳的宇宙控场者，使用星体能量控制战场。',
+                    skills: [
+                        { name: '引力黑洞', key: 'C', desc: '部署一个星体，激活后形成引力场将敌人拉向中心并震荡。' },
+                        { name: '新星震荡', key: 'Q', desc: '部署一个星体，激活后震荡该区域的敌人。' },
+                        { name: '迷蒙星云', key: 'E', desc: '部署一个星体，激活后形成烟雾。' },
+                        { name: '星体形态', key: 'X', desc: '进入星体形态，可在空中自由放置星体。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Harbor 哈泊',
+                    emoji: '🌊',
+                    desc: '来自印度的控场者，使用古代技术操控水幕。',
+                    skills: [
+                        { name: '瀑流', key: 'C', desc: '投掷一个水球，落地后形成减速水潭。' },
+                        { name: '灵泽水幕', key: 'Q', desc: '放置一堵可弯曲子弹的水幕墙。' },
+                        { name: '上古水墙', key: 'E', desc: '召唤一堵长距离的水墙阻挡视线。' },
+                        { name: '黄泉幽涧', key: 'X', desc: '释放大范围水潭，范围内友军获得加速和护甲。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Clove 克洛芙',
+                    emoji: '🌸',
+                    desc: '来自苏格兰的永生控场者，即使死亡也能继续使用技能。',
+                    skills: [
+                        { name: ' pickups', key: 'C', desc: '投掷一个碎片，短暂延迟后爆炸造成伤害。' },
+                        { name: ' nothin', key: 'Q', desc: '投掷一个烟雾弹，死亡后仍可使用。' },
+                        { name: 'life', key: 'E', desc: '自我复活，获得临时生命值。' },
+                        { name: '死亡', key: 'X', desc: '释放大范围烟雾云，范围内所有敌人受到易损效果。', ultimate: true }
+                    ]
+                }
+            ],
+            initiator: [
+                {
+                    name: 'Sova 夜枭',
+                    emoji: '🦉',
+                    desc: '来自俄罗斯的情报专家，使用侦察箭和无人机收集信息。',
+                    skills: [
+                        { name: '枭型无人机', key: 'C', desc: '部署一架可遥控的侦察无人机，可发射标记飞镖。' },
+                        { name: '震撼箭矢', key: 'Q', desc: '发射一支可反弹的震荡箭。' },
+                        { name: '侦察箭矢', key: 'E', desc: '发射一支可反弹的侦察箭，暴露命中敌人的位置。' },
+                        { name: '猎者之怒', key: 'X', desc: '发射三支可穿透墙壁的高伤害能量箭。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Breach 叛奇',
+                    emoji: '💥',
+                    desc: '来自瑞典的生化改造人，使用强力震荡波突破敌人防线。',
+                    skills: [
+                        { name: '爆点信标', key: 'C', desc: '放置一个可穿墙的爆炸装置。' },
+                        { name: '致盲闪光', key: 'Q', desc: '装备一个可穿墙的闪光弹。' },
+                        { name: '震颤余波', key: 'E', desc: '发射一道可穿墙的长距离震荡波。' },
+                        { name: '裂地猛击', key: 'X', desc: '释放大范围地震波，眩晕并击退所有命中的敌人。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Skye 丝凯',
+                    emoji: '🦘',
+                    desc: '来自澳大利亚的自然使者，使用野生动物侦查和治疗。',
+                    skills: [
+                        { name: '辟径之虎', key: 'C', desc: '部署一只可控制的猛虎，扑向敌人时震荡并伤害。' },
+                        { name: '引路之隼', key: 'Q', desc: '发射一只可控制的鹰隼，可致盲命中的敌人。' },
+                        { name: '回春之息', key: 'E', desc: '治疗范围内所有友军。' },
+                        { name: '追猎之灵', key: 'X', desc: '部署三只会追踪最近敌人的灵体，命中后致盲敌人。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'KAY/O 凯宙',
+                    emoji: '🤖',
+                    desc: '来自未来的战斗机器人，专门猎杀辐能者。',
+                    skills: [
+                        { name: '碎片/驱离', key: 'C', desc: '投掷一个爆炸碎片。' },
+                        { name: '闪光/驱动', key: 'Q', desc: '投掷一个可反弹的闪光手雷。' },
+                        { name: '归零/零点', key: 'E', desc: '投掷一把抑制刀，命中区域的所有敌人无法使用技能。' },
+                        { name: '无效/命令', key: 'X', desc: '释放大范围脉冲，压制所有敌人的技能。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Fade 黑梦',
+                    emoji: '🌑',
+                    desc: '来自土耳其的噩梦使者，使用恐惧力量追踪敌人。',
+                    skills: [
+                        { name: '梦魔之攫', key: 'C', desc: '投掷一个噩梦球，命中后束缚并致聋敌人。' },
+                        { name: '诡眼', key: 'Q', desc: '投掷一个可控制的噩梦之眼，发现敌人后标记。' },
+                        { name: '黑烟', key: 'E', desc: '投掷一个噩梦迷雾球，敌人进入后会留下追踪轨迹。' },
+                        { name: '夜深人静', key: 'X', desc: '释放大范围噩梦波，标记所有命中的敌人。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Gekko 盖可',
+                    emoji: '🦎',
+                    desc: '来自洛杉矶的年轻先锋，使用一群可爱的生物伙伴作战。',
+                    skills: [
+                        { name: '小 Wingman', key: 'C', desc: '派出 Wingman 寻找敌人，发现后震荡并可以拆除或安放炸弹。' },
+                        { name: '小 Dizzy', key: 'Q', desc: '投掷 Dizzy，飞出后致盲视线内的敌人。' },
+                        { name: '小 Mosh', key: 'E', desc: '投掷 Mosh，落地后复制自身并爆炸。' },
+                        { name: '小 Thrash', key: 'X', desc: '控制 Thrash 冲刺并震荡路径上的敌人。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Tejo 钛狐',
+                    emoji: '🎯',
+                    desc: '来自哥伦比亚的军械专家，使用制导武器精确打击。',
+                    skills: [
+                        { name: '声呐手雷', key: 'C', desc: '投掷一个粘附的声呐装置，暴露范围内敌人。' },
+                        { name: '烟雾弹', key: 'Q', desc: '发射一枚远程烟雾弹。' },
+                        { name: '集束导弹', key: 'E', desc: '发射一枚集束导弹，命中后分裂成多枚小导弹。' },
+                        { name: '轨道打击', key: 'X', desc: '在地图上选择两个点，发射导弹沿路径打击。', ultimate: true }
+                    ]
+                },
+                {
+                    name: 'Waylay 幻棱',
+                    emoji: '💠',
+                    desc: '来自印度的光之先锋，利用棱镜折射光线侦查敌人。',
+                    skills: [
+                        { name: '光之绊', key: 'C', desc: '投掷一个光能装置，命中后减速敌人。' },
+                        { name: '影之息', key: 'Q', desc: '释放一片暗影云雾，阻挡视线。' },
+                        { name: '光之径', key: 'E', desc: '放置一个光源信标，可传送到该位置。' },
+                        { name: '日蚀', key: 'X', desc: '释放强大的光芒，敌人致盲，队友获得护盾。', ultimate: true }
+                    ]
+                }
+            ]
+        };
+
+        // 主题切换
+        const themeBtns = document.querySelectorAll('.theme-btn');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('theme') || 'default';
+        body.setAttribute('data-theme', savedTheme);
+        updateActiveButton(savedTheme);
+        
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.getAttribute('data-theme');
+                body.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                updateActiveButton(theme);
+            });
+        });
+        
+        function updateActiveButton(theme) {
+            themeBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+            });
+        }
+
+        // 显示职位选择
+        function showRoleSelection() {
+            document.getElementById('roleSelection').style.display = 'grid';
+            document.querySelectorAll('.agents-section').forEach(s => s.classList.remove('active'));
+        }
+
+        // 显示职位
+        function showRole(role) {
+            document.getElementById('roleSelection').style.display = 'none';
+            document.querySelectorAll('.agents-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(role).classList.add('active');
+            renderAgents(role);
+        }
+
+        // 渲染特工
+        function renderAgents(role) {
+            const grid = document.getElementById(role + 'Grid');
+            const agents = agentsData[role];
+            
+            grid.innerHTML = agents.map((agent, i) => `
+                <div class="agent-card" onclick="showAgentDetail('${role}', ${i})" style="animation: fadeIn 0.3s ease ${i * 0.1}s both;">
+                    <div class="agent-avatar">${agent.emoji}</div>
+                    <div class="agent-name">${agent.name.split(' ')[0]}</div>
+                    <div class="agent-role">${agent.name.split(' ')[1] || ''}</div>
+                </div>
+            `).join('');
+        }
+
+        // 显示特工详情
+        function showAgentDetail(role, index) {
+            const agent = agentsData[role][index];
+            const modal = document.getElementById('agentModal');
+            
+            document.getElementById('modalAvatar').textContent = agent.emoji;
+            document.getElementById('modalName').textContent = agent.name;
+            document.getElementById('modalRole').textContent = getRoleName(role);
+            document.getElementById('modalDesc').textContent = agent.desc;
+            
+            const skillsHtml = agent.skills.map(skill => `
+                <div class="skill-item ${skill.ultimate ? 'ultimate-skill' : ''}">
+                    <div class="skill-header">
+                        <span style="font-size:1.2rem;">${skill.ultimate ? '⚡' : '◆'}</span>
+                        <span style="font-weight:700;">${skill.name}</span>
+                        <span class="skill-key">${skill.key}</span>
+                    </div>
+                    <div class="skill-desc">${skill.desc}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('modalSkills').innerHTML = skillsHtml;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function getRoleName(role) {
+            const names = {
+                'duelist': '决斗 Duelist',
+                'sentinel': '哨位 Sentinel',
+                'controller': '控场 Controller',
+                'initiator': '先锋 Initiator'
+            };
+            return names[role];
+        }
+
+        function closeAgentModal() {
+            document.getElementById('agentModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.getElementById('agentModal').addEventListener('click', function(e) {
+            if (e.target === this) closeAgentModal();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeAgentModal();
+        });
+    </script>
+</body>
+</html>
