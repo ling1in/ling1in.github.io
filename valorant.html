@@ -239,30 +239,54 @@
                 font-size: 0.75rem;
             }
             .theme-switcher {
-                top: 5px;
-                right: 5px;
+                position: fixed;
+                top: auto;
+                bottom: 20px;
+                right: 20px;
                 padding: 4px;
+                z-index: 9999;
+                background: rgba(0,0,0,0.8);
+                border-radius: 25px;
             }
             .theme-btn {
-                width: 28px;
-                height: 28px;
-                font-size: 0.9rem;
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
             }
             .game-mode-switcher {
-                top: 45px;
-                right: 5px;
+                position: fixed;
+                top: auto;
+                bottom: 20px;
+                left: 20px;
+                right: auto;
+                z-index: 9999;
             }
             .game-mode-btn {
-                padding: 8px 12px;
-                font-size: 0.75rem;
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                background: rgba(0,150,255,0.3);
+                border-color: rgba(0,150,255,0.5);
+            }
+            nav {
+                padding: 8px 0;
             }
             nav ul {
-                gap: 5px;
-                padding: 0 10px;
+                gap: 4px;
+                padding: 0 5px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                justify-content: flex-start;
+            }
+            nav ul::-webkit-scrollbar {
+                display: none;
             }
             nav a {
-                padding: 6px 10px;
-                font-size: 0.8rem;
+                padding: 5px 8px;
+                font-size: 0.75rem;
+                white-space: nowrap;
+                flex-shrink: 0;
             }
             .footer {
                 padding: 30px 10px;
