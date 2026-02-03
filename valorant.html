@@ -68,6 +68,41 @@
             padding: 6px;
             border-radius: 25px;
         }
+        .game-mode-switcher {
+            position: fixed;
+            top: 55px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .game-mode-btn {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.1));
+            border: 2px solid rgba(255,215,0,0.4);
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: #ffd700;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .game-mode-btn:hover {
+            transform: scale(1.05);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        .game-mode-btn.mobile {
+            background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,150,255,0.1));
+            border-color: rgba(0,200,255,0.4);
+            color: #00c8ff;
+        }
+        .game-mode-btn.mobile:hover {
+            border-color: #00c8ff;
+            box-shadow: 0 0 20px rgba(0,200,255,0.3);
+        }
         .theme-btn {
             width: 32px;
             height: 32px;
@@ -701,6 +736,12 @@
         <button class="theme-btn" data-theme="matrix">💊</button>
     </div>
 
+    <div class="game-mode-switcher">
+        <button class="game-mode-btn" id="gameModeBtn" onclick="toggleGameMode()">
+            📱 如果你来自《无畏契约：源能行动》
+        </button>
+    </div>
+
     <nav>
         <ul>
             <li><a href="index.html">🏠 首页</a></li>
@@ -716,11 +757,11 @@
     </nav>
 
     <div class="header">
-        <a href="valorant-crosshairs.html" class="crosshair-btn">🎯 来看看2026最新的准心合集？</a>
-        <button class="pro-players-btn" onclick="openProPlayersModal()">🏆 快来学习职业选手的操作思路！</button>
-        <button class="secrets-btn" onclick="openSecretsModal()">🔍 更多你不知道的细节！</button>
-        <h1>Valorant 档案中心 <img src="images/valorant-logo.svg" alt="Valorant" style="height: 0.8em; width: auto; vertical-align: middle; margin-left: 10px; filter: drop-shadow(0 0 10px rgba(255,70,85,0.5));"></h1>
-        <p>探索无畏契约的完整世界：28位特工、19种武器、11张地图、9支VCT CN战队、EDG传奇故事与最新资讯</p>
+        <a href="valorant-crosshairs.html" class="crosshair-btn" id="crosshairBtn">🎯 来看看2026最新的准心合集？</a>
+        <button class="pro-players-btn" onclick="openProPlayersModal()" id="proPlayersBtn">🏆 快来学习职业选手的操作思路！</button>
+        <button class="secrets-btn" onclick="openSecretsModal()" id="secretsBtn">🔍 更多你不知道的细节！</button>
+        <h1 id="mainTitle">Valorant 档案中心 <img src="images/valorant-logo.svg" alt="Valorant" style="height: 0.8em; width: auto; vertical-align: middle; margin-left: 10px; filter: drop-shadow(0 0 10px rgba(255,70,85,0.5));"></h1>
+        <p id="mainDesc">探索无畏契约的完整世界：28位特工、19种武器、11张地图、9支VCT CN战队、EDG传奇故事与最新资讯</p>
     </div>
 
     <!-- 职业选手操作思路弹窗 -->
@@ -757,35 +798,35 @@
     </div>
 
     <div class="menu-grid">
-        <a href="valorant-agents.html" class="menu-card">
+        <a href="valorant-agents.html" class="menu-card" id="card1">
             <span class="menu-icon">🎯</span>
-            <div class="menu-title">特工档案</div>
-            <div class="menu-desc">28位特工完整资料<br>4大职业分类</div>
+            <div class="menu-title" id="title1">特工档案</div>
+            <div class="menu-desc" id="desc1">28位特工完整资料<br>4大职业分类</div>
         </a>
-        <a href="valorant-weapons.html" class="menu-card">
+        <a href="valorant-weapons.html" class="menu-card" id="card2">
             <span class="menu-icon">🔫</span>
-            <div class="menu-title">枪械档案</div>
-            <div class="menu-desc">19种武器详细数据<br>6大枪械分类</div>
+            <div class="menu-title" id="title2">枪械档案</div>
+            <div class="menu-desc" id="desc2">19种武器详细数据<br>6大枪械分类</div>
         </a>
-        <a href="valorant-teams.html" class="menu-card">
+        <a href="valorant-teams.html" class="menu-card" id="card3">
             <span class="menu-icon">🏆</span>
-            <div class="menu-title">VCT CN 战队</div>
-            <div class="menu-desc">9支顶尖战队<br>45位明星选手</div>
+            <div class="menu-title" id="title3">VCT CN 战队</div>
+            <div class="menu-desc" id="desc3">9支顶尖战队<br>45位明星选手</div>
         </a>
-        <a href="valorant-maps.html" class="menu-card">
+        <a href="valorant-maps.html" class="menu-card" id="card4">
             <span class="menu-icon">🗺️</span>
-            <div class="menu-title">地图档案</div>
-            <div class="menu-desc">11张中文地图<br>全职位战术指南</div>
+            <div class="menu-title" id="title4">地图档案</div>
+            <div class="menu-desc" id="desc4">11张中文地图<br>全职位战术指南</div>
         </a>
-        <a href="valorant-edg.html" class="menu-card">
+        <a href="valorant-edg.html" class="menu-card" id="card5">
             <span class="menu-icon">👑</span>
-            <div class="menu-title">EDG 传奇</div>
-            <div class="menu-desc">世界冠军之路<br>从磨难到辉煌</div>
+            <div class="menu-title" id="title5">EDG 传奇</div>
+            <div class="menu-desc" id="desc5">世界冠军之路<br>从磨难到辉煌</div>
         </a>
-        <a href="valorant-news.html" class="menu-card">
+        <a href="valorant-news.html" class="menu-card" id="card6">
             <span class="menu-icon">📰</span>
-            <div class="menu-title">最新资讯</div>
-            <div class="menu-desc">游戏更新动态<br>电竞赛事资讯</div>
+            <div class="menu-title" id="title6">手游攻略</div>
+            <div class="menu-desc" id="desc6">源能行动最新动态<br>手游专属资讯</div>
         </a>
     </div>
 
@@ -1644,6 +1685,117 @@
                 closeSecretsModal();
             }
         });
+
+        // ==================== 游戏模式切换功能 ====================
+        
+        let isMobileMode = localStorage.getItem('gameMode') === 'mobile';
+        
+        // PC版和手游版内容数据
+        const pcContent = {
+            title: 'Valorant 档案中心 <img src="images/valorant-logo.svg" alt="Valorant" style="height: 0.8em; width: auto; vertical-align: middle; margin-left: 10px; filter: drop-shadow(0 0 10px rgba(255,70,85,0.5));">',
+            desc: '探索无畏契约的完整世界：28位特工、19种武器、11张地图、9支VCT CN战队、EDG传奇故事与最新资讯',
+            crosshairBtn: '🎯 来看看2026最新的准心合集？',
+            proPlayersBtn: '🏆 快来学习职业选手的操作思路！',
+            secretsBtn: '🔍 更多你不知道的细节！',
+            cards: [
+                { title: '特工档案', desc: '28位特工完整资料<br>4大职业分类' },
+                { title: '枪械档案', desc: '19种武器详细数据<br>6大枪械分类' },
+                { title: 'VCT CN 战队', desc: '9支顶尖战队<br>45位明星选手' },
+                { title: '地图档案', desc: '11张中文地图<br>全职位战术指南' },
+                { title: 'EDG 传奇', desc: '世界冠军之路<br>从磨难到辉煌' },
+                { title: '最新资讯', desc: '游戏更新动态<br>电竞赛事资讯' }
+            ],
+            proPlayersTitle: '🏆 职业选手操作思路解析',
+            proPlayersSubtitle: '学习顶尖选手的打法风格，提升你的游戏理解',
+            secretsTitle: '🔍 更多你不知道的细节！',
+            secretsSubtitle: '地图非预瞄点 & 特工隐藏技巧，让你出其不意',
+            mapsTab: '🗺️ 地图非预瞄点',
+            agentsTab: '🎯 特工小细节',
+            footer: 'Valorant 档案中心 | Made with ❤️ by <a href="about.html">ling1in</a>',
+            switchBtnText: '📱 如果你来自《无畏契约：源能行动》'
+        };
+        
+        const mobileContent = {
+            title: '📱 无畏契约：源能行动',
+            desc: '随时随地，掌上竞技！体验专为移动端优化的快节奏5v5战术射击',
+            crosshairBtn: '🎯 手游专属准心推荐',
+            proPlayersBtn: '🎮 手游大神操作教学',
+            secretsBtn: '💡 手游独家技巧',
+            cards: [
+                { title: '手游特工', desc: '专为手机优化的特工技能<br>简化操作，爽快战斗' },
+                { title: '手游枪械', desc: '自动开火辅助瞄准<br>移动端射击体验升级' },
+                { title: '源能行动战队', desc: '手游职业联赛<br>移动端电竞新星' },
+                { title: '手游地图', desc: '精简版经典地图<br>快节奏对战设计' },
+                { title: '新手攻略', desc: '从零开始的手游教程<br>快速上手源能行动' },
+                { title: '手游资讯', desc: '源能行动更新动态<br>手游专属活动' }
+            ],
+            proPlayersTitle: '🎮 手游大神操作教学',
+            proPlayersSubtitle: '学习移动端顶尖玩家的触控技巧与走位',
+            secretsTitle: '💡 手游独家技巧',
+            secretsSubtitle: '自动瞄准优化 & 触控操作秘诀',
+            mapsTab: '🗺️ 手游地图点位',
+            agentsTab: '🎯 手游特工技巧',
+            footer: '无畏契约：源能行动 | Made with ❤️ by <a href="about.html">ling1in</a>',
+            switchBtnText: '🎮 返回《Valorant》PC版'
+        };
+        
+        // 切换游戏模式
+        function toggleGameMode() {
+            isMobileMode = !isMobileMode;
+            localStorage.setItem('gameMode', isMobileMode ? 'mobile' : 'pc');
+            applyGameMode();
+        }
+        
+        // 应用游戏模式
+        function applyGameMode() {
+            const content = isMobileMode ? mobileContent : pcContent;
+            const btn = document.getElementById('gameModeBtn');
+            
+            // 更新按钮样式和文字
+            btn.innerHTML = content.switchBtnText;
+            if (isMobileMode) {
+                btn.classList.add('mobile');
+            } else {
+                btn.classList.remove('mobile');
+            }
+            
+            // 更新标题和描述
+            document.getElementById('mainTitle').innerHTML = content.title;
+            document.getElementById('mainDesc').textContent = content.desc;
+            
+            // 更新按钮文字
+            document.getElementById('crosshairBtn').innerHTML = content.crosshairBtn;
+            document.getElementById('proPlayersBtn').innerHTML = content.proPlayersBtn;
+            document.getElementById('secretsBtn').innerHTML = content.secretsBtn;
+            
+            // 更新卡片内容
+            for (let i = 0; i < 6; i++) {
+                document.getElementById('title' + (i + 1)).textContent = content.cards[i].title;
+                document.getElementById('desc' + (i + 1)).innerHTML = content.cards[i].desc;
+            }
+            
+            // 更新弹窗标题
+            document.querySelector('.pro-players-title').innerHTML = content.proPlayersTitle;
+            document.querySelector('.pro-players-subtitle').textContent = content.proPlayersSubtitle;
+            document.querySelector('.secrets-title').innerHTML = content.secretsTitle;
+            document.querySelector('.secrets-subtitle').textContent = content.secretsSubtitle;
+            
+            // 更新标签页文字
+            const tabs = document.querySelectorAll('.secrets-tab');
+            tabs[0].innerHTML = content.mapsTab;
+            tabs[1].innerHTML = content.agentsTab;
+            
+            // 更新页脚
+            document.querySelector('.footer p').innerHTML = content.footer;
+            
+            // 更新页面标题
+            document.title = isMobileMode ? '无畏契约：源能行动 | ling1in' : 'Valorant 档案中心 | ling1in';
+        }
+        
+        // 页面加载时应用保存的模式
+        if (isMobileMode) {
+            applyGameMode();
+        }
     </script>
 </body>
 </html>
