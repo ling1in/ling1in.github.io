@@ -595,6 +595,14 @@
             </iframe>
         </div>
 
+        <!-- 歌词显示 -->
+        <div class="music-card" style="text-align: center;">
+            <h3 style="margin-bottom: 15px; color: var(--accent-color);">🎵 歌词</h3>
+            <div id="lyrics-display" style="line-height: 2; color: var(--text-color); min-height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <p style="opacity: 0.6;">点击歌曲开始播放...</p>
+            </div>
+        </div>
+
         <!-- 我的喜欢 (来自图片1和3) -->
         <div class="music-card">
             <h2>❤️ 我的喜欢 17首</h2>
@@ -909,6 +917,35 @@
             });
         });
 
+        // 歌词数据
+        const lyricsData = {
+            '2166584564': [
+                '亲爱的 你睡了么',
+                '我有个秘密 想对你说',
+                '这些年 我把爱 藏在心底',
+                '不敢让你 知道 我有多在意',
+                '',
+                '小孩 小孩 快长大',
+                '别让孤单 陪你过夜',
+                '小孩 小孩 别怕黑',
+                '我会在你 梦里守护你'
+            ]
+        };
+
+        // 更新歌词显示
+        function updateLyrics(neteaseId) {
+            const lyricsBox = document.getElementById('lyrics-display');
+            const lyrics = lyricsData[neteaseId];
+            
+            if (lyrics && lyrics.length > 0) {
+                lyricsBox.innerHTML = lyrics.map((line, index) => 
+                    `<p style="margin: 8px 0; ${index === 2 ? 'color: var(--accent-color); font-size: 1.1rem; font-weight: 600;' : 'opacity: 0.8;'}">${line || ' '}</p>`
+                ).join('');
+            } else {
+                lyricsBox.innerHTML = '<p style="opacity: 0.6;">暂无歌词...</p>';
+            }
+        }
+
         // 歌曲项点击效果 - 切换到网易云播放器
         document.querySelectorAll('.song-item').forEach(item => {
             item.addEventListener('click', function(e) {
@@ -923,6 +960,9 @@
                     // 切换到网易云播放器
                     const player = document.getElementById('netease-player');
                     player.src = `//music.163.com/outchain/player?type=2&id=${neteaseId}&auto=1&height=86`;
+                    
+                    // 更新歌词
+                    updateLyrics(neteaseId);
                     
                     // 滚动到播放器
                     player.scrollIntoView({ behavior: 'smooth', block: 'center' });
