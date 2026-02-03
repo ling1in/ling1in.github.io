@@ -111,12 +111,222 @@
             box-shadow: 0 0 30px rgba(255,215,0,0.3);
             color: white;
         }
+        .pro-players-btn {
+            position: absolute;
+            top: 75px;
+            left: 20px;
+            background: linear-gradient(135deg, rgba(0,150,255,0.2), rgba(138,43,226,0.1));
+            border: 2px solid rgba(0,150,255,0.4);
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: #00bfff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+        .pro-players-btn:hover {
+            transform: scale(1.05);
+            border-color: #00bfff;
+            box-shadow: 0 0 30px rgba(0,150,255,0.3);
+            color: white;
+        }
         @media (max-width: 640px) {
             .crosshair-btn {
+                position: static;
+                margin-bottom: 10px;
+                display: inline-flex;
+            }
+            .pro-players-btn {
                 position: static;
                 margin-bottom: 20px;
                 display: inline-flex;
             }
+        }
+        /* 职业选手弹窗样式 */
+        .pro-players-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .pro-players-modal.active {
+            display: block;
+        }
+        .pro-players-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .pro-players-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .pro-players-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,70,85,0.2);
+            border: 2px solid rgba(255,70,85,0.5);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pro-players-close:hover {
+            background: var(--accent-color);
+            transform: rotate(90deg);
+        }
+        .pro-players-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: linear-gradient(135deg, #00bfff, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .pro-players-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .playstyle-categories {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 25px;
+        }
+        @media (min-width: 768px) {
+            .playstyle-categories { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1200px) {
+            .playstyle-categories { grid-template-columns: repeat(3, 1fr); }
+        }
+        .playstyle-category {
+            background: linear-gradient(135deg, rgba(0,150,255,0.1), rgba(138,43,226,0.05));
+            border: 2px solid rgba(0,150,255,0.2);
+            border-radius: 24px;
+            padding: 25px;
+            transition: all 0.4s;
+        }
+        .playstyle-category:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0,150,255,0.5);
+            box-shadow: 0 15px 40px rgba(0,150,255,0.2);
+        }
+        .playstyle-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,150,255,0.2);
+        }
+        .playstyle-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        .playstyle-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .playstyle-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+        .pro-player-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .pro-player-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 18px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .pro-player-card:hover {
+            background: rgba(255,255,255,0.06);
+            transform: translateX(5px);
+        }
+        .pro-player-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        .pro-player-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0,150,255,0.3), rgba(138,43,226,0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .pro-player-meta {
+            flex: 1;
+        }
+        .pro-player-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 3px;
+        }
+        .pro-player-team {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+        .pro-player-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .pro-player-tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            background: rgba(0,150,255,0.15);
+            color: #00bfff;
+            border-radius: 12px;
+            border: 1px solid rgba(0,150,255,0.2);
+        }
+        .pro-player-thoughts {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+        .pro-player-thoughts strong {
+            color: #ffd700;
         }
         .header h1 {
             font-size: clamp(2.5rem, 6vw, 4rem);
@@ -214,8 +424,21 @@
 
     <div class="header">
         <a href="valorant-crosshairs.html" class="crosshair-btn">🎯 来看看2026最新的准心合集？</a>
+        <button class="pro-players-btn" onclick="openProPlayersModal()">🏆 快来学习职业选手的操作思路！</button>
         <h1>🎮 Valorant 档案中心</h1>
         <p>探索无畏契约的完整世界：28位特工、19种武器、11张地图、9支VCT CN战队、EDG传奇故事与最新资讯</p>
+    </div>
+
+    <!-- 职业选手操作思路弹窗 -->
+    <div class="pro-players-modal" id="proPlayersModal">
+        <div class="pro-players-container">
+            <div class="pro-players-header">
+                <button class="pro-players-close" onclick="closeProPlayersModal()">×</button>
+                <h2 class="pro-players-title">🏆 职业选手操作思路解析</h2>
+                <p class="pro-players-subtitle">学习顶尖选手的打法风格，提升你的游戏理解</p>
+            </div>
+            <div class="playstyle-categories" id="playstyleCategories"></div>
+        </div>
     </div>
 
     <div class="menu-grid">
@@ -278,6 +501,245 @@
                 btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
             });
         }
+
+        // 职业选手操作思路数据
+        const proPlayersData = [
+            {
+                category: '激进突破型',
+                icon: '⚔️',
+                color: '#ff4655',
+                description: '敢于第一个拉出去，为团队打开局面',
+                players: [
+                    {
+                        name: 'ZmjjKK',
+                        team: 'EDG',
+                        emoji: '🔥',
+                        tags: ['决斗专精', '狙击之王', '大心脏'],
+                        thoughts: '<strong>核心思路：</strong>永远相信自己能赢。无论是大狙还是步枪，都要敢于主动对枪。利用预瞄优势，在敌人反应之前完成击杀。关键时刻绝不手软，FMVP的气质就是敢打敢拼。'
+                    },
+                    {
+                        name: 'Life',
+                        team: 'FPX',
+                        emoji: '⚔️',
+                        tags: ['顶级决斗', '多面手', '稳定Carry'],
+                        thoughts: '<strong>核心思路：</strong>根据地图和团队需求灵活选择特工。进点时与队友道具完美配合，不盲目冲第一个，而是等道具到位后瞬间爆发。残局时保持冷静，利用地形优势逐个击破。'
+                    },
+                    {
+                        name: 'whzy',
+                        team: 'BLG',
+                        emoji: '💥',
+                        tags: ['判官之神', '激进派', '神经刀'],
+                        thoughts: '<strong>核心思路：</strong>让对手永远猜不到你的位置。利用非常规位和快节奏打法打乱敌人部署。判官（霰弹枪）不是娱乐，是战术武器——在合适的地图点位，它就是最恐怖的存在。'
+                    }
+                ]
+            },
+            {
+                category: '全能自由人',
+                icon: '🎭',
+                color: '#9b59b6',
+                description: '根据局势灵活切换角色，哪里需要去哪里',
+                players: [
+                    {
+                        name: 'Smoggy',
+                        team: 'EDG',
+                        emoji: '⚡',
+                        tags: ['英雄海', '自由人', '补位王'],
+                        thoughts: '<strong>核心思路：</strong>团队需要什么，我就玩什么。精通所有特工意味着可以随时根据战术需求切换角色。自由人不是乱跑，是在队友需要时出现，在敌人松懈时致命。'
+                    },
+                    {
+                        name: 'CHICHOO',
+                        team: 'EDG',
+                        emoji: '🛡️',
+                        tags: ['哨位/控场', '残局大师', '智商型'],
+                        thoughts: '<strong>核心思路：</strong>信息就是一切。作为哨位要读懂敌人的意图，提前设防；转控场时要精准切割战场。残局不拼枪法拼脑子，每一次走位、每一颗子弹都要有意义。'
+                    },
+                    {
+                        name: 'Kai',
+                        team: 'TE',
+                        emoji: '💪',
+                        tags: ['决斗/哨位', '104杀纪录', '耐力型'],
+                        thoughts: '<strong>核心思路：</strong>持久稳定的输出比爆发更重要。拥有VCT单场104杀纪录的背后，是始终如一的状态保持。无论打什么位置，都要做到"我可以不是最秀的，但一定是最稳的"。'
+                    }
+                ]
+            },
+            {
+                category: '指挥核心型',
+                icon: '🧠',
+                color: '#3498db',
+                description: '掌控全局节奏，用战术碾压对手',
+                players: [
+                    {
+                        name: 'nobody',
+                        team: 'EDG',
+                        emoji: '🎯',
+                        tags: ['IGL', '先锋', '战术大师'],
+                        thoughts: '<strong>核心思路：</strong> valorant是信息游戏。作为指挥，要同时关注小地图、队友状态、敌人习惯、经济情况。每一个决策都是计算后的最优解，让队友只需要专注瞄准，其他交给我。'
+                    },
+                    {
+                        name: 'SiuFatBB',
+                        team: 'WOL',
+                        emoji: '🎪',
+                        tags: ['指挥大师', '套路王', '心理战'],
+                        thoughts: '<strong>核心思路：</strong>让对手跟着你的节奏走。通过假打、转点、非常规战术打乱敌方部署。好的指挥不是让队友去适应战术，而是根据队友特点设计适合他们的战术体系。'
+                    },
+                    {
+                        name: 'BerLIN',
+                        team: 'FPX',
+                        emoji: '🎖️',
+                        tags: ['控场指挥', '鬼才', '地图理解'],
+                        thoughts: '<strong>核心思路：</strong>控场不只是放技能，是控制整个地图的流动。烟墙、毒幕、冰墙都是分割战场的工具。让敌人在我想让他们在的位置出现，然后一举歼灭。'
+                    }
+                ]
+            },
+            {
+                category: '狙击专精型',
+                icon: '🎯',
+                color: '#e74c3c',
+                description: '大狙在手，一夫当关',
+                players: [
+                    {
+                        name: 'ZmjjKK',
+                        team: 'EDG',
+                        emoji: '🏆',
+                        tags: ['大狙皇帝', '双服第一', '明星选手'],
+                        thoughts: '<strong>核心思路：</strong>大狙不是武器，是威慑力。让敌人不敢走这条路，让队友敢做更多事情。空枪不可怕，可怕的是不敢再开第二枪。相信自己，每一发都是决胜弹。'
+                    },
+                    {
+                        name: 'vo0kashu',
+                        team: 'DRG',
+                        emoji: '🎯',
+                        tags: ['瞄准怪物', '俄罗斯外援', '激进狙'],
+                        thoughts: '<strong>核心思路：</strong>狙击手要敢于主动出击，不只是架点等敌人送。利用身法和预判，在敌人想不到的角度开镜。被针对说明你有威胁，换个位置继续狙。'
+                    },
+                    {
+                        name: 'AAAAY',
+                        team: 'FPX',
+                        emoji: '🔫',
+                        tags: ['爆头老祖', '精准派', '步枪狙双绝'],
+                        thoughts: '<strong>核心思路：</strong>不管是大狙还是步枪，第一发子弹都要追求爆头。精准度来自日复一日的练习，形成肌肉记忆后，瞄准就是本能反应。'
+                    }
+                ]
+            },
+            {
+                category: '残局大师型',
+                icon: '🔐',
+                color: '#f39c12',
+                description: '1vX？那是表演时间',
+                players: [
+                    {
+                        name: 'CHICHOO',
+                        team: 'EDG',
+                        emoji: '🏅',
+                        tags: ['残局第一', '冷静派', '抓Timing'],
+                        thoughts: '<strong>核心思路：</strong>残局不是拼枪法，是拼心理素质。首先要冷静分析信息，判断敌人位置；其次要有耐心，等敌人犯错；最后要果断，机会出现时绝不犹豫。'
+                    },
+                    {
+                        name: 'FengF',
+                        team: 'TE',
+                        emoji: '🚀',
+                        tags: ['雷兹王', '空间创造', '灵活多变'],
+                        thoughts: '<strong>核心思路：</strong>利用特工技能创造不公平的对枪环境。雷兹的炸弹跳让你能出现在敌人想不到的位置，在敌人还在找你在哪时就已经死了。残局要敢想敢做。'
+                    },
+                    {
+                        name: 'Abo',
+                        team: 'TEC',
+                        emoji: '🔫',
+                        tags: ['AK之神', '枪男', '机械瞄准'],
+                        thoughts: '<strong>核心思路：</strong>当枪法够硬时，很多局面会变得简单。但不是无脑对枪，是利用地图理解找到1v1的机会，而不是1v多。每一次peek都要有收获。'
+                    }
+                ]
+            },
+            {
+                category: '辅助支援型',
+                icon: '🤝',
+                color: '#2ecc71',
+                description: '为队友创造机会，团队的隐形核心',
+                players: [
+                    {
+                        name: 'zjc',
+                        team: 'EDG',
+                        emoji: '📡',
+                        tags: ['信息先锋', '道具手', '团队型'],
+                        thoughts: '<strong>核心思路：</strong>先锋的任务不是杀人，是帮助队友更好地杀人。闪光、探测、信息——每次释放技能都要考虑队友的位置和需求。为明星选手创造表演舞台。'
+                    },
+                    {
+                        name: 'LuoK1ng',
+                        team: 'TE',
+                        emoji: '🌌',
+                        tags: ['国二烟', '控场专家', '稳定输出'],
+                        thoughts: '<strong>核心思路：</strong>好烟不是遮住视线，是创造战术空间。要学会"单向烟"、"切割烟"、"进攻烟"的不同用法。控场的同时保持输出，做团队的定海神针。'
+                    },
+                    {
+                        name: 'yosemite',
+                        team: 'FPX',
+                        emoji: '🐱',
+                        tags: ['哨位', '梦泪', '单摸大师'],
+                        thoughts: '<strong>核心思路：</strong>哨位不是守点的工具人，是单摸和绕后的威胁。利用摄像头、绊线收集信息，在敌人专注于正面时，从背后给予致命一击。'
+                    }
+                ]
+            }
+        ];
+
+        function openProPlayersModal() {
+            const modal = document.getElementById('proPlayersModal');
+            const container = document.getElementById('playstyleCategories');
+            
+            // 渲染职业选手分类
+            container.innerHTML = proPlayersData.map((category, index) => `
+                <div class="playstyle-category" style="animation: fadeIn 0.5s ease ${index * 0.1}s both;">
+                    <div class="playstyle-header">
+                        <div class="playstyle-icon" style="background: linear-gradient(135deg, ${category.color}33, ${category.color}11);">
+                            ${category.icon}
+                        </div>
+                        <div>
+                            <div class="playstyle-title">${category.category}</div>
+                            <div class="playstyle-desc">${category.description}</div>
+                        </div>
+                    </div>
+                    <div class="pro-player-list">
+                        ${category.players.map(player => `
+                            <div class="pro-player-card">
+                                <div class="pro-player-info">
+                                    <div class="pro-player-avatar">${player.emoji}</div>
+                                    <div class="pro-player-meta">
+                                        <div class="pro-player-name">${player.name}</div>
+                                        <div class="pro-player-team">${player.team}</div>
+                                    </div>
+                                </div>
+                                <div class="pro-player-tags">
+                                    ${player.tags.map(tag => `<span class="pro-player-tag">${tag}</span>`).join('')}
+                                </div>
+                                <div class="pro-player-thoughts">${player.thoughts}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProPlayersModal() {
+            const modal = document.getElementById('proPlayersModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 点击弹窗背景关闭
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('proPlayersModal');
+            if (e.target === modal) {
+                closeProPlayersModal();
+            }
+        });
+
+        // ESC键关闭弹窗
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProPlayersModal();
+            }
+        });
     </script>
 </body>
 </html>
