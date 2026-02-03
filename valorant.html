@@ -84,6 +84,39 @@
         .header {
             text-align: center;
             padding: 60px 20px 40px;
+            position: relative;
+        }
+        .crosshair-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, rgba(255,70,85,0.2), rgba(255,215,0,0.1));
+            border: 2px solid rgba(255,215,0,0.4);
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: #ffd700;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .crosshair-btn:hover {
+            transform: scale(1.05);
+            border-color: #ffd700;
+            box-shadow: 0 0 30px rgba(255,215,0,0.3);
+            color: white;
+        }
+        @media (max-width: 640px) {
+            .crosshair-btn {
+                position: static;
+                margin-bottom: 20px;
+                display: inline-flex;
+            }
         }
         .header h1 {
             font-size: clamp(2.5rem, 6vw, 4rem);
@@ -180,6 +213,7 @@
     </nav>
 
     <div class="header">
+        <a href="valorant-crosshairs.html" class="crosshair-btn">🎯 来看看2026最新的准心合集？</a>
         <h1>🎮 Valorant 档案中心</h1>
         <p>探索无畏契约的完整世界：28位特工、19种武器、11张地图、9支VCT CN战队、EDG传奇故事与最新资讯</p>
     </div>

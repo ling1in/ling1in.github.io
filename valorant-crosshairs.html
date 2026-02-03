@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Valorant 准心合集2026 | ling1in</title>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            --text-color: #ece8e1;
+            --text-secondary: #8b978f;
+            --accent-color: #ff4655;
+            --card-bg: rgba(255,255,255,0.05);
+            --card-border: rgba(255,255,255,0.1);
+            --shadow-color: rgba(255, 70, 85, 0.2);
+            --font-main: 'Nunito', 'ZCOOL KuaiLe', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 15px;
+            padding-top: 70px;
+        }
+        nav {
+            background: rgba(15, 25, 35, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255, 70, 85, 0.3);
+        }
+        nav ul {
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        nav a:hover, nav a.active { background: var(--accent-color); color: white; }
+        .theme-switcher {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            gap: 6px;
+            background: rgba(255,255,255,0.1);
+            padding: 6px;
+            border-radius: 25px;
+        }
+        .theme-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            background: rgba(255,255,255,0.9);
+        }
+        .theme-btn.active {
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+        .header {
+            text-align: center;
+            padding: 40px 15px;
+        }
+        .header h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            background: linear-gradient(135deg, #ffd700, #ff8a95);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .header p { color: var(--text-secondary); font-size: 1.1rem; }
+        
+        .crosshair-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .category-tab {
+            padding: 12px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        .category-tab:hover, .category-tab.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        .crosshair-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .crosshair-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+        .crosshair-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        .crosshair-preview {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: #1a1a2e;
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .crosshair-preview canvas {
+            image-rendering: pixelated;
+        }
+        .crosshair-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        .crosshair-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .crosshair-code {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: #00ff88;
+            word-break: break-all;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .crosshair-code:hover {
+            background: rgba(0,255,136,0.1);
+            border-color: #00ff88;
+        }
+        .crosshair-code.copied::after {
+            content: '已复制!';
+            position: absolute;
+            top: -25px;
+            right: 10px;
+            background: #00ff88;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .crosshair-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .crosshair-tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            background: rgba(255,70,85,0.2);
+            border-radius: 20px;
+            color: var(--accent-color);
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: #ffd700;
+            margin: 40px 0 20px;
+            text-align: center;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .crosshair-card { animation: fadeIn 0.5s ease; }
+    </style>
+</head>
+<body>
+    <div class="theme-switcher">
+        <button class="theme-btn active" data-theme="default">🎮</button>
+        <button class="theme-btn" data-theme="lain">👁️</button>
+        <button class="theme-btn" data-theme="inception">🐀</button>
+        <button class="theme-btn" data-theme="matrix">💊</button>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">🏠 首页</a></li>
+            <li><a href="valorant.html">🎮 总览</a></li>
+            <li><a href="valorant-agents.html">🎯 特工</a></li>
+            <li><a href="valorant-weapons.html">🔫 枪械</a></li>
+            <li><a href="valorant-maps.html">🗺️ 地图</a></li>
+            <li><a href="valorant-teams.html">🏆 战队</a></li>
+            <li><a href="valorant-edg.html">👑 EDG</a></li>
+            <li><a href="valorant-news.html">📰 资讯</a></li>
+            <li><a href="valorant-skins.html">💎 皮肤</a></li>
+        </ul>
+    </nav>
+
+    <div class="header">
+        <h1>🎯 2026最新准心合集</h1>
+        <p>点击准心代码即可复制，粘贴到游戏内使用</p>
+    </div>
+
+    <div class="crosshair-container">
+        <div class="category-tabs">
+            <div class="category-tab active" onclick="showCategory('all')">全部</div>
+            <div class="category-tab" onclick="showCategory('competitive')">竞技向</div>
+            <div class="category-tab" onclick="showCategory('casual')">娱乐向</div>
+            <div class="category-tab" onclick="showCategory('pro')">职业选手</div>
+            <div class="category-tab" onclick="showCategory('special')">特殊效果</div>
+        </div>
+
+        <div id="crosshairGrid" class="crosshair-grid"></div>
+    </div>
+
+    <script>
+        // 准心数据
+        const crosshairsData = [
+            // 竞技向 - 经典点击
+            {
+                name: '经典点击',
+                category: 'competitive',
+                desc: '最经典的竞技准心，适合精确点射',
+                code: '0;P;c;5;u;000000FF;h;0;b;1;f;0;0l;3;0v;3;0o;0;0a;1;0f;0;1b;0',
+                tags: ['点击', '精准']
+            },
+            {
+                name: '迷你点',
+                category: 'competitive',
+                desc: '超小点，适合爆头线训练',
+                code: '0;P;c;5;h;0;b;1;f;0;0l;2;0v;2;0o;0;0a;1;0f;0;1b;0',
+                tags: ['爆头', '训练']
+            },
+            {
+                name: '十字缓冲',
+                category: 'competitive',
+                desc: '带有缓冲区的十字，帮助控制射击节奏',
+                code: '0;P;c;5;u;FF0000FF;h;0;b;1;f;0;0l;4;0v;4;0o;2;0a;1;0f;0;1b;0',
+                tags: ['十字', '缓冲']
+            },
+            {
+                name: '绿色标准',
+                category: 'competitive',
+                desc: '高对比度绿色，大多数地图可见',
+                code: '0;P;c;1;u;00FF00FF;h;0;b;1;f;0;0l;3;0v;3;0o;0;0a;1;0f;0;1b;0',
+                tags: ['高对比', '绿色']
+            },
+            // 娱乐向
+            {
+                name: '彩虹圆圈',
+                category: 'casual',
+                desc: '五彩斑斓的圆圈准心，娱乐必备',
+                code: '0;P;c;5;u;FF00FFFF;h;0;b;1;f;0;0t;1;0l;5;0v;5;0o;1;0a;1;0f;0;1t;1;1l;5;1v;5;1o;0;1a;1;1f;0;1b;0',
+                tags: ['彩虹', '花哨']
+            },
+            {
+                name: '火焰特效',
+                category: 'casual',
+                desc: '带有动态效果的火焰准心',
+                code: '0;P;c;5;u;FF4500FF;h;0;b;1;f;0;0t;3;0l;6;0v;6;0o;2;0a;1;0f;0;1t;3;1l;6;1v;6;1o;0;1a;1;1f;0;1b;0',
+                tags: ['动态', '特效']
+            },
+            {
+                name: '心形爱心',
+                category: 'casual',
+                desc: '用爱发电，带给你力量',
+                code: '0;P;c;5;u;FF69B4FF;h;0;b;1;f;0;0t;2;0l;5;0v;5;0o;1;0a;1;0f;0;1t;2;1l;5;1v;5;1o;0;1a;1;1f;0;1b;0',
+                tags: ['可爱', '心形']
+            },
+            {
+                name: '冰冻蓝色',
+                category: 'casual',
+                desc: '冷静的冰蓝色，适合喜欢冷色调的玩家',
+                code: '0;P;c;5;u;00BFFFFF;h;0;b;1;f;0;0l;4;0v;4;0o;1;0a;1;0f;0;1b;0',
+                tags: ['冰蓝', '冷色']
+            },
+            // 职业选手
+            {
+                name: 'ZmjjKK 专用',
+                category: 'pro',
+                desc: 'EDG大明星ZmjjKK的个人准心',
+                code: '0;P;c;5;u;FFFF00FF;h;0;b;1;f;0;0l;2;0v;2;0o;0;0a;1;0f;0;1b;0',
+                tags: ['EDG', '职业', 'ZmjjKK']
+            },
+            {
+                name: 'CHICHOO 残局',
+                category: 'pro',
+                desc: 'CHICHOO的经典残局准心',
+                code: '0;P;c;5;u;FFFFFF;h;0;b;1;f;0;0l;3;0v;3;0o;1;0a;1;0f;0;1b;0',
+                tags: ['EDG', '职业', 'CHICHOO']
+            },
+            {
+                name: 'TenZ 魔法',
+                category: 'pro',
+                desc: 'Sentinels明星TenZ的神秘准心',
+                code: '0;s;1;P;c;5;u;FF00FFFF;h;0;b;1;f;0;0l;4;0v;4;0o;0;0a;1;0f;0;1b;0',
+                tags: ['欧美', '职业', 'TenZ']
+            },
+            {
+                name: '无敌大点',
+                category: 'pro',
+                desc: '多位职业选手偏爱的大点准心',
+                code: '0;P;c;5;u;FF0000FF;h;0;b;1;f;0;0l;4;0v;4;0o;0;0a;1;0f;0;1b;0',
+                tags: ['通用', '职业']
+            },
+            // 特殊效果
+            {
+                name: '狂徒专用',
+                category: 'special',
+                desc: '适合狂徒爆头的稳定准心',
+                code: '0;P;c;5;u;FF8C00FF;h;0;b;1;f;0;0l;3;0v;3;0o;0;0a;1;0f;0;1b;0',
+                tags: ['爆头', '狂徒']
+            },
+            {
+                name: '冥驹犹豫',
+                category: 'special',
+                desc: '犹豫不决选这个',
+                code: '0;P;c;5;u;9400D3FF;h;0;b;1;f;0;0l;5;0v;5;0o;1;0a;1;0f;0;1b;0',
+                tags: ['犹豫', '大拓']
+            },
+            {
+                name: '幻影幻灭',
+                category: 'special',
+                desc: '幻影玩家推荐，帮助控制后坐力',
+                code: '0;P;c;5;u;00CED1FF;h;0;b;1;f;0;0l;3;0v;3;0o;0;0a;1;0f;0;1b;0',
+                tags: ['消音', '幻影']
+            },
+            {
+                name: '雷兹爆破',
+                category: 'special',
+                desc: '雷兹专用，跟着感觉走',
+                code: '0;P;c;5;u;FF1493FF;h;0;b;1;f;0;0l;4;0v;4;0o;1;0a;1;0f;0;1b;0',
+                tags: ['爆破', '雷兹']
+            },
+            {
+                name: '完美准心',
+                category: 'special',
+                desc: '不好意思这个准心让你无敌',
+                code: '0;P;c;5;u;FFD700FF;h;0;b;1;f;0;0l;2;0v;2;0o;0;0a;1;0f;0;1b;0',
+                tags: ['无敌', '神器']
+            }
+        ];
+
+        // 渲染准心预览
+        function drawCrosshair(canvas, code) {
+            const ctx = canvas.getContext('2d');
+            const size = 120;
+            const center = size / 2;
+            
+            ctx.clearRect(0, 0, size, size);
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(0, 0, size, size);
+            
+            // 解析准心代码并绘制
+            // 简化版本：根据代码特征绘制基本形状
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            
+            if (code.includes('0l;2')) {
+                // 小点
+                ctx.beginPath();
+                ctx.arc(center, center, 2, 0, Math.PI * 2);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+            } else if (code.includes('0t;1') || code.includes('0t;2') || code.includes('0t;3')) {
+                // 圆圈准心
+                ctx.beginPath();
+                ctx.arc(center, center, 15, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(center - 20, center);
+                ctx.lineTo(center + 20, center);
+                ctx.moveTo(center, center - 20);
+                ctx.lineTo(center, center + 20);
+                ctx.stroke();
+            } else {
+                // 十字准心
+                const len = code.includes('0l;4') ? 15 : 12;
+                const offset = code.includes('0o;1') ? 5 : (code.includes('0o;2') ? 8 : 3);
+                
+                ctx.beginPath();
+                // 横线
+                ctx.moveTo(center - len - offset, center);
+                ctx.lineTo(center - offset, center);
+                ctx.moveTo(center + offset, center);
+                ctx.lineTo(center + len + offset, center);
+                // 竖线
+                ctx.moveTo(center, center - len - offset);
+                ctx.lineTo(center, center - offset);
+                ctx.moveTo(center, center + offset);
+                ctx.lineTo(center, center + len + offset);
+                ctx.stroke();
+                
+                // 中心点
+                if (!code.includes('0o;0')) {
+                    ctx.beginPath();
+                    ctx.arc(center, center, 1.5, 0, Math.PI * 2);
+                    ctx.fillStyle = '#fff';
+                    ctx.fill();
+                }
+            }
+        }
+
+        // 渲染准心卡片
+        function renderCrosshairs(category = 'all') {
+            const grid = document.getElementById('crosshairGrid');
+            const filtered = category === 'all' 
+                ? crosshairsData 
+                : crosshairsData.filter(c => c.category === category);
+            
+            grid.innerHTML = filtered.map((c, i) => `
+                <div class="crosshair-card" style="animation-delay: ${i * 0.05}s">
+                    <div class="crosshair-preview">
+                        <canvas id="crosshair-${i}" width="120" height="120"></canvas>
+                    </div>
+                    <div class="crosshair-name">${c.name}</div>
+                    <div class="crosshair-desc">${c.desc}</div>
+                    <div class="crosshair-code" onclick="copyCode(this, '${c.code}')">${c.code}</div>
+                    <div class="crosshair-tags">
+                        ${c.tags.map(t => `<span class="crosshair-tag">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            // 绘制准心
+            setTimeout(() => {
+                filtered.forEach((c, i) => {
+                    const canvas = document.getElementById(`crosshair-${i}`);
+                    if (canvas) drawCrosshair(canvas, c.code);
+                });
+            }, 50);
+        }
+
+        // 复制代码
+        function copyCode(element, code) {
+            navigator.clipboard.writeText(code).then(() => {
+                element.classList.add('copied');
+                setTimeout(() => element.classList.remove('copied'), 2000);
+            });
+        }
+
+        // 切换分类
+        function showCategory(category) {
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.textContent.includes(getCategoryName(category))) {
+                    tab.classList.add('active');
+                }
+            });
+            renderCrosshairs(category);
+        }
+
+        function getCategoryName(cat) {
+            const names = {
+                'all': '全部',
+                'competitive': '竞技',
+                'casual': '娱乐',
+                'pro': '职业',
+                'special': '特殊'
+            };
+            return names[cat] || '';
+        }
+
+        // 初始化
+        renderCrosshairs('all');
+
+        // 主题切换
+        const themeBtns = document.querySelectorAll('.theme-btn');
+        const body = document.body;
+        const savedTheme = localStorage.getItem('theme') || 'default';
+        body.setAttribute('data-theme', savedTheme);
+        updateActiveButton(savedTheme);
+        
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.getAttribute('data-theme');
+                body.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                updateActiveButton(theme);
+            });
+        });
+        
+        function updateActiveButton(theme) {
+            themeBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+            });
+        }
+    </script>
+</body>
+</html>
