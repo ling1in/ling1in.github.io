@@ -2872,34 +2872,53 @@
             applyGameMode();
         }
 
-        // 后台音乐播放
+        // 后台音乐播放 - 使用固定位置的迷你播放器
         let bgMusicPlayer = null;
         function playBackgroundMusic(event) {
-            // 不阻止默认跳转行为，让页面正常跳转
-            // 创建隐藏的音乐播放器
-            if (!bgMusicPlayer) {
-                bgMusicPlayer = document.createElement('iframe');
-                bgMusicPlayer.style.display = 'none';
-                bgMusicPlayer.src = '//music.163.com/outchain/player?type=2&id=2068401809&auto=1&height=0';
-                document.body.appendChild(bgMusicPlayer);
+            // 如果已经有播放器在播放，先移除
+            if (bgMusicPlayer) {
+                bgMusicPlayer.remove();
             }
-            // 保存播放状态到 sessionStorage，跳转到新页面后继续播放
+            
+            // 创建一个固定位置的迷你播放器（可见但很小，绕过自动播放限制）
+            bgMusicPlayer = document.createElement('div');
+            bgMusicPlayer.id = 'mini-music-player';
+            bgMusicPlayer.style.cssText = 'position: fixed; bottom: 10px; right: 10px; width: 66px; height: 86px; z-index: 9999; opacity: 0.3; transition: opacity 0.3s;';
+            bgMusicPlayer.innerHTML = '<iframe src="//music.163.com/outchain/player?type=2&id=2068401809&auto=1&height=86" width="100%" height="86" frameborder="0"></iframe>';
+            document.body.appendChild(bgMusicPlayer);
+            
+            // 鼠标悬停时显示，移开时淡化
+            bgMusicPlayer.addEventListener('mouseenter', () => bgMusicPlayer.style.opacity = '1');
+            bgMusicPlayer.addEventListener('mouseleave', () => bgMusicPlayer.style.opacity = '0.3');
+            
+            // 保存播放状态
             sessionStorage.setItem('playingMusic', '2068401809');
+            sessionStorage.setItem('musicPlayingTime', Date.now().toString());
         }
 
-        // 页面加载时检查是否需要继续播放音乐
+        // 页面加载时检查是否需要恢复播放
         window.addEventListener('load', function() {
             const playingId = sessionStorage.getItem('playingMusic');
-            if (playingId && !bgMusicPlayer) {
-                bgMusicPlayer = document.createElement('iframe');
-                bgMusicPlayer.style.display = 'none';
-                bgMusicPlayer.src = '//music.163.com/outchain/player?type=2&id=' + playingId + '&auto=1&height=0';
-                document.body.appendChild(bgMusicPlayer);
+            const playingTime = sessionStorage.getItem('musicPlayingTime');
+            
+            // 如果在5分钟内点击过播放，则恢复播放器
+            if (playingId && playingTime && (Date.now() - parseInt(playingTime)) < 300000) {
+                if (!document.getElementById('mini-music-player')) {
+                    bgMusicPlayer = document.createElement('div');
+                    bgMusicPlayer.id = 'mini-music-player';
+                    bgMusicPlayer.style.cssText = 'position: fixed; bottom: 10px; right: 10px; width: 66px; height: 86px; z-index: 9999; opacity: 0.3; transition: opacity 0.3s;';
+                    bgMusicPlayer.innerHTML = '<iframe src="//music.163.com/outchain/player?type=2&id=' + playingId + '&auto=1&height=86" width="100%" height="86" frameborder="0"></iframe>';
+                    document.body.appendChild(bgMusicPlayer);
+                    
+                    bgMusicPlayer.addEventListener('mouseenter', () => bgMusicPlayer.style.opacity = '1');
+                    bgMusicPlayer.addEventListener('mouseleave', () => bgMusicPlayer.style.opacity = '0.3');
+                }
+            } else {
+                // 超过5分钟，清除播放状态
+                sessionStorage.removeItem('playingMusic');
+                sessionStorage.removeItem('musicPlayingTime');
             }
         });
     </script>
-    
-    <!-- 隐藏的音乐播放器容器 -->
-    <div id="hidden-music-player" style="display: none;"></div>
 </body>
 </html>
