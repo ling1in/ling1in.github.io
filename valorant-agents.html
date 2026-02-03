@@ -195,6 +195,27 @@
             transition: all 0.3s;
         }
         .back-btn:hover { background: var(--accent-color); color: white; }
+        @media (max-width: 640px) {
+            body { padding: 10px; padding-top: 60px; }
+            .header { padding: 30px 10px; }
+            .header h1 { font-size: 1.6rem; }
+            .role-selection { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+            .role-card { padding: 20px 10px; }
+            .role-icon { font-size: 2rem; }
+            .role-name { font-size: 1.1rem; }
+            .agents-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; }
+            .agent-card { padding: 15px 10px; }
+            .agent-avatar { width: 60px; height: 60px; }
+            .agent-name { font-size: 0.9rem; }
+            .theme-switcher { top: 5px; right: 5px; padding: 4px; }
+            .theme-btn { width: 28px; height: 28px; font-size: 0.9rem; }
+            .game-mode-switcher { top: 45px; right: 5px; }
+            .game-mode-btn { padding: 8px 12px; font-size: 0.75rem; }
+        }
+        @media (max-width: 380px) {
+            .role-selection { grid-template-columns: 1fr; }
+            .agents-grid { grid-template-columns: repeat(3, 1fr); }
+        }
         .agents-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));

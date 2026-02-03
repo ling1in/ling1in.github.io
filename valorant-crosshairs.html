@@ -137,6 +137,22 @@
             border-color: var(--accent-color);
             box-shadow: 0 10px 30px var(--shadow-color);
         }
+        @media (max-width: 640px) {
+            body { padding: 10px; padding-top: 60px; }
+            .header { padding: 30px 10px; }
+            .header h1 { font-size: 1.5rem; }
+            .header p { font-size: 0.9rem; }
+            .category-tabs { gap: 8px; margin-bottom: 20px; }
+            .category-tab { padding: 10px 16px; font-size: 0.85rem; }
+            .crosshair-grid { grid-template-columns: 1fr; gap: 15px; }
+            .crosshair-card { padding: 20px 15px; }
+            .crosshair-canvas { width: 100px !important; height: 100px !important; }
+            .crosshair-name { font-size: 1.1rem; }
+            .crosshair-desc { font-size: 0.85rem; }
+            .code-box { padding: 12px; font-size: 0.8rem; }
+            .theme-switcher { top: 5px; right: 5px; padding: 4px; }
+            .theme-btn { width: 28px; height: 28px; font-size: 0.9rem; }
+        }
         .crosshair-preview {
             width: 120px;
             height: 120px;
