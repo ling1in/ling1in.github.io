@@ -297,6 +297,139 @@
             background: rgba(255,70,85,0.2);
             border-radius: 6px;
             font-family: monospace;
+        }
+        /* 枪械部分样式 */
+        .weapons-section {
+            max-width: 1400px;
+            margin: 60px auto 0;
+            padding: 20px;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ff4655, #ff8a95);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .weapon-categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        @media (min-width: 768px) {
+            .weapon-categories { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        }
+        @media (min-width: 1024px) {
+            .weapon-categories { grid-template-columns: repeat(6, 1fr); }
+        }
+        .weapon-category-card {
+            background: linear-gradient(135deg, rgba(255,70,85,0.15), rgba(15,25,35,0.8));
+            border: 2px solid rgba(255,70,85,0.3);
+            border-radius: 16px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        .weapon-category-card:hover, .weapon-category-card.active {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(255,70,85,0.3);
+        }
+        .weapon-category-card.active {
+            background: linear-gradient(135deg, rgba(255,70,85,0.3), rgba(15,25,35,0.9));
+        }
+        .category-icon { font-size: 2rem; margin-bottom: 8px; }
+        .category-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 3px; }
+        .category-count { font-size: 0.75rem; color: var(--text-secondary); }
+        .weapons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .weapon-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .weapon-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        .weapon-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .weapon-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-color), #0f1923);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .weapon-info { flex: 1; }
+        .weapon-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 3px; }
+        .weapon-price {
+            font-size: 0.85rem;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .weapon-stats { display: grid; gap: 8px; }
+        .stat-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+        .stat-label {
+            color: var(--text-secondary);
+            width: 60px;
+            flex-shrink: 0;
+        }
+        .stat-bar {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .stat-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        .stat-fill.high { background: linear-gradient(90deg, #4ade80, #22c55e); }
+        .stat-fill.medium { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+        .stat-fill.low { background: linear-gradient(90deg, #f87171, #ef4444); }
+        .stat-value {
+            width: 30px;
+            text-align: right;
+            font-family: monospace;
+            font-size: 0.8rem;
+        }
+        .weapon-desc {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
             color: var(--accent-color);
         }
         .skill-desc { font-size: 0.9rem; color: var(--text-secondary); }
@@ -402,6 +535,46 @@
                 <div id="modalSkills"></div>
             </div>
         </div>
+    </div>
+
+    <!-- 枪械档案 -->
+    <div class="weapons-section" id="weaponsSection">
+        <h2 class="section-title">🔫 枪械档案</h2>
+        
+        <div class="weapon-categories" id="weaponCategories">
+            <div class="weapon-category-card active" data-category="rifles" onclick="showWeaponCategory('rifles')">
+                <div class="category-icon">🔫</div>
+                <div class="category-name">步枪</div>
+                <div class="category-count">5种</div>
+            </div>
+            <div class="weapon-category-card" data-category="pistols" onclick="showWeaponCategory('pistols')">
+                <div class="category-icon">🔫</div>
+                <div class="category-name">手枪</div>
+                <div class="category-count">5种</div>
+            </div>
+            <div class="weapon-category-card" data-category="smgs" onclick="showWeaponCategory('smgs')">
+                <div class="category-icon">🔫</div>
+                <div class="category-name">冲锋枪</div>
+                <div class="category-count">3种</div>
+            </div>
+            <div class="weapon-category-card" data-category="lmgs" onclick="showWeaponCategory('lmgs')">
+                <div class="category-icon">🔫</div>
+                <div class="category-name">机枪</div>
+                <div class="category-count">2种</div>
+            </div>
+            <div class="weapon-category-card" data-category="snipers" onclick="showWeaponCategory('snipers')">
+                <div class="category-icon">🎯</div>
+                <div class="category-name">狙击枪</div>
+                <div class="category-count">3种</div>
+            </div>
+            <div class="weapon-category-card" data-category="shotguns" onclick="showWeaponCategory('shotguns')">
+                <div class="category-icon">🔫</div>
+                <div class="category-name">霰弹枪</div>
+                <div class="category-count">2种</div>
+            </div>
+        </div>
+        
+        <div class="weapons-grid" id="weaponsGrid"></div>
     </div>
 
     <script>
@@ -725,6 +898,162 @@
             ]
         };
 
+        // 枪械数据
+        const weaponsData = {
+            rifles: [
+                {
+                    name: 'Vandal 狂徒',
+                    emoji: '🔫',
+                    price: 2900,
+                    desc: '高伤害全自动步枪，一击爆头可击杀无甲敌人，适合精准射击的玩家。',
+                    stats: { damage: 90, fireRate: 60, accuracy: 70, range: 85 }
+                },
+                {
+                    name: 'Phantom 幻影',
+                    emoji: '🔫',
+                    price: 2900,
+                    desc: '装备消音器的全自动步枪，后坐力更小，适合中距离交火和隐蔽作战。',
+                    stats: { damage: 75, fireRate: 75, accuracy: 80, range: 75 }
+                },
+                {
+                    name: 'Bulldog 斗牛犬',
+                    emoji: '🔫',
+                    price: 2050,
+                    desc: '三连发 burst 步枪，价格亲民，是经济局中的可靠选择。',
+                    stats: { damage: 70, fireRate: 50, accuracy: 75, range: 70 }
+                },
+                {
+                    name: 'Guardian 守护',
+                    emoji: '🔫',
+                    price: 2250,
+                    desc: '半自动精确步枪，高伤害、高精准度，适合中远距离点射。',
+                    stats: { damage: 95, fireRate: 35, accuracy: 90, range: 95 }
+                },
+                {
+                    name: 'Marshal 警长',
+                    emoji: '🔫',
+                    price: 950,
+                    desc: '杠杆式步枪，移动射击精准，是经济局中的狙击利器。',
+                    stats: { damage: 85, fireRate: 40, accuracy: 85, range: 90 }
+                }
+            ],
+            pistols: [
+                {
+                    name: 'Classic 经典',
+                    emoji: '🔫',
+                    price: 0,
+                    desc: '免费起始手枪，右键可三连发，是每回合开始的基础武器。',
+                    stats: { damage: 45, fireRate: 50, accuracy: 60, range: 40 }
+                },
+                {
+                    name: 'Shorty 短管',
+                    emoji: '🔫',
+                    price: 150,
+                    desc: '双管霰弹手枪，近距离毁灭性伤害，适合埋伏和转角遭遇。',
+                    stats: { damage: 80, fireRate: 25, accuracy: 30, range: 20 }
+                },
+                {
+                    name: 'Frenzy 狂怒',
+                    emoji: '🔫',
+                    price: 450,
+                    desc: '全自动手枪，高射速但后坐力大，适合近距离泼水。',
+                    stats: { damage: 50, fireRate: 85, accuracy: 45, range: 35 }
+                },
+                {
+                    name: 'Ghost 幽魂',
+                    emoji: '🔫',
+                    price: 500,
+                    desc: '装备消音器的手枪，精准度高，适合无声击杀和远距离点射。',
+                    stats: { damage: 60, fireRate: 45, accuracy: 75, range: 60 }
+                },
+                {
+                    name: 'Sheriff 神射',
+                    emoji: '🔫',
+                    price: 800,
+                    desc: '重型左轮手枪，高伤害可一击爆头，是手枪局中的大杀器。',
+                    stats: { damage: 95, fireRate: 30, accuracy: 70, range: 65 }
+                }
+            ],
+            smgs: [
+                {
+                    name: 'Stinger 刺针',
+                    emoji: '🔫',
+                    price: 950,
+                    desc: '高射速冲锋枪，可切换四连发模式，适合近距离快速击杀。',
+                    stats: { damage: 55, fireRate: 80, accuracy: 55, range: 45 }
+                },
+                {
+                    name: 'Spectre 幻象',
+                    emoji: '🔫',
+                    price: 1600,
+                    desc: '装备消音器的冲锋枪，后坐力小，适合中距离持续输出。',
+                    stats: { damage: 60, fireRate: 75, accuracy: 70, range: 55 }
+                },
+                {
+                    name: 'Bucky 雄鹿',
+                    emoji: '🔫',
+                    price: 850,
+                    desc: '泵动式霰弹枪，右键可集中弹丸，近距离一枪必杀。',
+                    stats: { damage: 90, fireRate: 35, accuracy: 35, range: 25 }
+                }
+            ],
+            lmgs: [
+                {
+                    name: 'Ares 战神',
+                    emoji: '🔫',
+                    price: 1550,
+                    desc: '轻型机枪，高射速大弹夹，适合压制和穿透薄墙。',
+                    stats: { damage: 50, fireRate: 70, accuracy: 60, range: 60 }
+                },
+                {
+                    name: 'Odin 奥丁',
+                    emoji: '🔫',
+                    price: 3200,
+                    desc: '重型机枪，超大弹夹和高射速，是防守方堵点的噩梦武器。',
+                    stats: { damage: 55, fireRate: 85, accuracy: 55, range: 70 }
+                }
+            ],
+            snipers: [
+                {
+                    name: 'Marshal 警长',
+                    emoji: '🎯',
+                    price: 950,
+                    desc: '杠杆式狙击枪，移动射击精准，是经济局的狙击首选。',
+                    stats: { damage: 95, fireRate: 35, accuracy: 90, range: 95 }
+                },
+                {
+                    name: 'Operator 间谍',
+                    emoji: '🎯',
+                    price: 4700,
+                    desc: '重型狙击枪，一击必杀（命中上半身），是游戏中最昂贵的武器。',
+                    stats: { damage: 100, fireRate: 20, accuracy: 95, range: 100 }
+                },
+                {
+                    name: 'Outlaw 亡命之徒',
+                    emoji: '🎯',
+                    price: 2400,
+                    desc: '双管狙击枪，可快速连发两枪，介于 Marshal 和 Operator 之间的选择。',
+                    stats: { damage: 90, fireRate: 45, accuracy: 85, range: 90 }
+                }
+            ],
+            shotguns: [
+                {
+                    name: 'Bucky 雄鹿',
+                    emoji: '🔫',
+                    price: 850,
+                    desc: '泵动式霰弹枪，右键可集中弹丸形成更紧密的弹着点。',
+                    stats: { damage: 95, fireRate: 30, accuracy: 30, range: 20 }
+                },
+                {
+                    name: 'Judge 判官',
+                    emoji: '🔫',
+                    price: 1850,
+                    desc: '全自动霰弹枪，高射速可连续喷射，近距离统治力极强。',
+                    stats: { damage: 90, fireRate: 60, accuracy: 25, range: 18 }
+                }
+            ]
+        };
+
         // 主题切换
         const themeBtns = document.querySelectorAll('.theme-btn');
         const body = document.body;
@@ -747,6 +1076,61 @@
                 btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
             });
         }
+
+        // 枪械相关函数
+        let currentWeaponCategory = 'rifles';
+
+        function showWeaponCategory(category) {
+            currentWeaponCategory = category;
+            
+            // 更新分类卡片状态
+            document.querySelectorAll('.weapon-category-card').forEach(card => {
+                card.classList.toggle('active', card.dataset.category === category);
+            });
+            
+            // 渲染枪械
+            renderWeapons(category);
+        }
+
+        function renderWeapons(category) {
+            const grid = document.getElementById('weaponsGrid');
+            const weapons = weaponsData[category];
+            
+            grid.innerHTML = weapons.map((weapon, i) => `
+                <div class="weapon-card" style="animation: fadeIn 0.3s ease ${i * 0.1}s both;">
+                    <div class="weapon-header">
+                        <div class="weapon-icon">${weapon.emoji}</div>
+                        <div class="weapon-info">
+                            <div class="weapon-name">${weapon.name}</div>
+                            <div class="weapon-price">${weapon.price === 0 ? '🆓 免费' : '💰 ' + weapon.price}</div>
+                        </div>
+                    </div>
+                    <div class="weapon-stats">
+                        ${renderStatBar('伤害', weapon.stats.damage)}
+                        ${renderStatBar('射速', weapon.stats.fireRate)}
+                        ${renderStatBar('精准', weapon.stats.accuracy)}
+                        ${renderStatBar('射程', weapon.stats.range)}
+                    </div>
+                    <div class="weapon-desc">${weapon.desc}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderStatBar(label, value) {
+            const fillClass = value >= 80 ? 'high' : value >= 50 ? 'medium' : 'low';
+            return `
+                <div class="stat-row">
+                    <span class="stat-label">${label}</span>
+                    <div class="stat-bar">
+                        <div class="stat-fill ${fillClass}" style="width: ${value}%"></div>
+                    </div>
+                    <span class="stat-value">${value}</span>
+                </div>
+            `;
+        }
+
+        // 初始化显示步枪
+        renderWeapons('rifles');
 
         // 显示职位选择
         function showRoleSelection() {
