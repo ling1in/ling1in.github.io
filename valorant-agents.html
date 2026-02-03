@@ -81,6 +81,41 @@
             border: 2px solid var(--accent-color);
             box-shadow: 0 0 10px var(--accent-color);
         }
+        .game-mode-switcher {
+            position: fixed;
+            top: 55px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .game-mode-btn {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.1));
+            border: 2px solid rgba(255,215,0,0.4);
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: #ffd700;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .game-mode-btn:hover {
+            transform: scale(1.05);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+        }
+        .game-mode-btn.mobile {
+            background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,150,255,0.1));
+            border-color: rgba(0,200,255,0.4);
+            color: #00c8ff;
+        }
+        .game-mode-btn.mobile:hover {
+            border-color: #00c8ff;
+            box-shadow: 0 0 20px rgba(0,200,255,0.3);
+        }
         .header {
             text-align: center;
             padding: 40px 15px;
@@ -313,6 +348,12 @@
         <button class="theme-btn" data-theme="matrix">💊</button>
     </div>
 
+    <div class="game-mode-switcher">
+        <button class="game-mode-btn" id="gameModeBtn" onclick="toggleGameMode()">
+            📱 如果你来自《无畏契约：源能行动》
+        </button>
+    </div>
+
     <nav>
         <ul>
             <li><a href="index.html">🏠 首页</a></li>
@@ -333,26 +374,26 @@
     </div>
 
     <div class="role-selection" id="roleSelection">
-        <div class="role-card" onclick="showRole('duelist')">
-            <span class="role-count">8</span>
+        <div class="role-card" data-role="duelist" onclick="showRole('duelist')">
+            <span class="role-count" id="duelistCount">8</span>
             <div class="role-icon">⚔️</div>
             <div class="role-name">决斗</div>
             <div class="role-desc">独立击破 高机动输出</div>
         </div>
-        <div class="role-card" onclick="showRole('sentinel')">
-            <span class="role-count">7</span>
+        <div class="role-card" data-role="sentinel" onclick="showRole('sentinel')">
+            <span class="role-count" id="sentinelCount">7</span>
             <div class="role-icon">🛡️</div>
             <div class="role-name">哨卫</div>
             <div class="role-desc">防守控场 保护队友</div>
         </div>
-        <div class="role-card" onclick="showRole('controller')">
-            <span class="role-count">6</span>
+        <div class="role-card" data-role="controller" onclick="showRole('controller')">
+            <span class="role-count" id="controllerCount">6</span>
             <div class="role-icon">☁️</div>
             <div class="role-name">控场</div>
             <div class="role-desc">烟雾封锁 区域控制</div>
         </div>
-        <div class="role-card" onclick="showRole('initiator')">
-            <span class="role-count">7</span>
+        <div class="role-card" data-role="initiator" onclick="showRole('initiator')">
+            <span class="role-count" id="initiatorCount">7</span>
             <div class="role-icon">📡</div>
             <div class="role-name">先锋</div>
             <div class="role-desc">侦查信息 团队推进</div>
@@ -408,8 +449,8 @@
     </div>
 
     <script>
-        // 特工数据
-        const agentsData = {
+        // PC版特工数据（28位）
+        const pcAgentsData = {
             duelist: [
                 { name: '雷兹', img: '', desc: '来自亚马逊平原的爆破专家，性格火爆，作战风格简单粗暴、爆发力十足。', skills: [{name:'惊喜翻腾',key:'Q',desc:'投掷可粘在物体表面的炸药包，引爆后造成伤害和击飞。'},{name:'彩雷飞溅',key:'E',desc:'装备集束手雷，爆炸后生成子榴弹。'},{name:'花车巡游',key:'C',desc:'部署爆弹机器人，锁定并追逐敌人。'},{name:'晚安焰火',key:'X',desc:'发射火箭发射器，造成大范围伤害。',ultimate:true}]},
                 { name: '不死鸟', img: '', desc: '来自不列颠群岛的明星选手，像烈焰一样耀眼，冲锋陷阵时派头最重要。', skills: [{name:'火冒三丈',key:'C',desc:'生成火墙阻挡视野，对敌人造成伤害，自己获得治疗。'},{name:'火热手感',key:'Q',desc:'投掷火球，落地后形成燃烧区域。'},{name:'闪光曲球',key:'E',desc:'投掷闪光球，爆炸时致盲敌人。'},{name:'再火一回',key:'X',desc:'标记位置，死亡或时间结束时在该位置满血重生。',ultimate:true}]},
@@ -447,6 +488,39 @@
                 { name: '猎枭', img: '', desc: '生长于北方冻原，精准高效追踪、锁定和歼灭敌人。', skills: [{name:'雷击箭',key:'Q',desc:'射出雷击箭，爆炸造成伤害。'},{name:'寻敌箭',key:'E',desc:'射出寻敌箭，激活声纳揭露敌人位置。'},{name:'枭型无人机',key:'C',desc:'部署无人机，发射定位镖揭露目标位置。'},{name:'狂猎之怒',key:'X',desc:'发射能量冲击波，造成伤害并揭露位置。',ultimate:true}]}
             ]
         };
+
+        // 手游版《源能行动》特工数据（17位首发）
+        const mobileAgentsData = {
+            duelist: [
+                { name: '捷风', img: '', desc: '新罗人后代，灵活机动的战斗风格使她能够采取激进和冒险的策略。', skills: [{name:'凌空',key:'Q',desc:'立即腾空直上。'},{name:'逐风',key:'E',desc:'朝移动方向突进。'},{name:'瞬云',key:'C',desc:'投掷阻挡视线的云雾。'},{name:'飓刃',key:'X',desc:'装备飞刀，击败敌人可重新充能。',ultimate:true}]},
+                { name: '雷兹', img: '', desc: '来自亚马逊平原的爆破专家，性格火爆，作战风格简单粗暴、爆发力十足。', skills: [{name:'惊喜翻腾',key:'Q',desc:'投掷可粘在物体表面的炸药包，引爆后造成伤害和击飞。'},{name:'彩雷飞溅',key:'E',desc:'装备集束手雷，爆炸后生成子榴弹。'},{name:'花车巡游',key:'C',desc:'部署爆弹机器人，锁定并追逐敌人。'},{name:'晚安焰火',key:'X',desc:'发射火箭发射器，造成大范围伤害。',ultimate:true}]},
+                { name: '不死鸟', img: '', desc: '来自不列颠群岛的明星选手，像烈焰一样耀眼，冲锋陷阵时派头最重要。', skills: [{name:'火冒三丈',key:'C',desc:'生成火墙阻挡视野，对敌人造成伤害，自己获得治疗。'},{name:'火热手感',key:'Q',desc:'投掷火球，落地后形成燃烧区域。'},{name:'闪光曲球',key:'E',desc:'投掷闪光球，爆炸时致盲敌人。'},{name:'再火一回',key:'X',desc:'标记位置，死亡或时间结束时在该位置满血重生。',ultimate:true}]},
+                { name: '霓虹', img: '', desc: '来自西太平洋群岛的速度型选手，能产生和释放生物电能量。', skills: [{name:'充能疾驰',key:'E',desc:'提升移动速度，可发动闪电滑行。'},{name:'闪电弹球',key:'Q',desc:'掷出可反弹的能量箭，造成震荡冲击。'},{name:'高速通道',key:'C',desc:'发射两道静电墙阻挡视线。'},{name:'超限暴走',key:'X',desc:'释放全部电力，发射致命闪电光束。',ultimate:true}]},
+                { name: '夜露', img: '', desc: '来自东亚的神秘选手，能撕裂现实空间，无声无息渗透敌人防线。', skills: [{name:'出其不意',key:'C',desc:'放置回声镜像，被摧毁时放出致盲闪光。'},{name:'攻其不备',key:'Q',desc:'掷出空间碎片，碰撞后变成闪光弹。'},{name:'不请自来',key:'E',desc:'放置裂隙锚索，可传送至该位置。'},{name:'神鬼不觉',key:'X',desc:'进入另一位面，不会被敌人看见或影响。',ultimate:true}]},
+                { name: '芮娜', img: '', desc: '来自马德雷山脉的决斗者，能在狭路相逢的战斗中变得越来越强。', skills: [{name:'噬尽',key:'Q',desc:'吞噬魂珠获得治疗。'},{name:'逐散',key:'E',desc:'吞噬魂珠变得无形。'},{name:'睥睨',key:'C',desc:'投掷虚灵之眼，使看见者视野收缩。'},{name:'女皇旨令',key:'X',desc:'进入狂暴状态，大幅提升射速。',ultimate:true}]}
+            ],
+            sentinel: [
+                { name: '零', img: '', desc: '情报贩子，堪比人形情报网络，紧密监视敌人一举一动。', skills: [{name:'赛博囚笼',key:'Q',desc:'投掷阻碍视野的囚笼，敌人通过时发出提示音。'},{name:'战术监控',key:'E',desc:'部署摄像头，可发射追踪飞镖。'},{name:'震慑绊线',key:'C',desc:'放置绊线，触发后束缚并暴露敌人。'},{name:'神经取析',key:'X',desc:'对击败敌人使用，揭露所有存活敌人位置。',ultimate:true}]},
+                { name: '奇乐', img: '', desc: '莱茵河畔天才发明家，擅长使用陷阱、炮台控制战场。', skills: [{name:'纳米蜂群',key:'C',desc:'投掷纳米手雷，部署纳米机器人造成伤害。'},{name:'自动哨兵',key:'Q',desc:'部署追踪机器人，接触敌人后爆炸施加易伤。'},{name:'哨戒炮台',key:'E',desc:'部署炮台向范围内敌人开火。'},{name:'全面封锁',key:'X',desc:'束缚有效半径内所有敌人。',ultimate:true}]},
+                { name: '贤者', img: '', desc: '华夏文明后代，能阻滞敌方攻势、为队友提供保护和治疗，甚至复活队友。', skills: [{name:'薄冰',key:'Q',desc:'投掷减速法球，降低范围内玩家移动速度。'},{name:'逢春',key:'E',desc:'治疗队友或自己。'},{name:'玉城',key:'C',desc:'布置冰墙阻挡敌人。'},{name:'再起',key:'X',desc:'满蓄力后复活倒下队友，恢复满血。',ultimate:true}]},
+                { name: '尚勃勒', img: '', desc: '西欧武器设计师，擅长使用自制武器从远处逼退敌人。', skills: [{name:'闪转自如',key:'E',desc:'放置传送锚点，可快速传送。'},{name:'贵宾限行',key:'C',desc:'放置扫描陷阱，使范围内玩家减速。'},{name:'金牌猎头',key:'Q',desc:'装备重型手枪。'},{name:'孤高火力',key:'X',desc:'召唤定制狙击枪，命中上半身直接击败。',ultimate:true}]}
+            ],
+            controller: [
+                { name: '炼狱', img: '', desc: '来自美洲大陆，使用轨道武器为团队提供精确支援。', skills: [{name:'振奋信标',key:'C',desc:'投掷信标，给予作战强化和加速效果。'},{name:'燃烧榴弹',key:'Q',desc:'发射燃烧榴弹，生成持续燃烧区域。'},{name:'空投烟幕',key:'E',desc:'呼叫烟幕阻碍视野。'},{name:'天基光束',key:'X',desc:'发射轨道激光炮，造成高额持续伤害。',ultimate:true}]},
+                { name: '幽影', img: '', desc: '暗影中的狩猎者，能传送到战场任意位置，剥夺敌人视野与理智。', skills: [{name:'暗魇',key:'Q',desc:'投掷致盲法球，使玩家致聋和视野收缩。'},{name:'黑瘴',key:'E',desc:'投掷暗影球遮挡视线。'},{name:'践影',key:'C',desc:'传送至标记位置。'},{name:'离魂',key:'X',desc:'在地图上选择位置传送。',ultimate:true}]},
+                { name: '蝰蛇', img: '', desc: '来自美洲大陆的化学家，擅长部署毒性化学装置控制战场。', skills: [{name:'瘴云',key:'Q',desc:'投掷气雾喷射器，生成化学烟雾。'},{name:'毒幕',key:'E',desc:'部署气雾喷射器阵列，生成毒幕墙。'},{name:'蛇吻',key:'C',desc:'射出化学容器，碎裂后造成持续伤害并施加易伤。'},{name:'蝰腹',key:'X',desc:'喷射化学气雾，使范围内玩家视野收缩。',ultimate:true}]}
+            ],
+            initiator: [
+                { name: '斯凯', img: '', desc: '来自大洋洲，带着宠物风风火火穿越敌人领地。', skills: [{name:'辟林之虎',key:'Q',desc:'放出袋狼，扑向敌人造成震荡和伤害。'},{name:'引路之隼',key:'E',desc:'放出飞鹰，化作闪光弹致盲敌人。'},{name:'愈生之息',key:'C',desc:'治疗范围内队友。'},{name:'追猎之灵',key:'X',desc:'派出三个追猎之灵追踪敌人，使其视野收缩。',ultimate:true}]},
+                { name: '猎枭', img: '', desc: '生长于北方冻原，精准高效追踪、锁定和歼灭敌人。', skills: [{name:'雷击箭',key:'Q',desc:'射出雷击箭，爆炸造成伤害。'},{name:'寻敌箭',key:'E',desc:'射出寻敌箭，激活声纳揭露敌人位置。'},{name:'枭型无人机',key:'C',desc:'部署无人机，发射定位镖揭露目标位置。'},{name:'狂猎之怒',key:'X',desc:'发射能量冲击波，造成伤害并揭露位置。',ultimate:true}]},
+                { name: '铁臂', img: '', desc: '生化改造人，使用定向爆破和动能冲击强行打开通道。', skills: [{name:'闪点爆破',key:'Q',desc:'在墙壁另一侧引发爆破，致盲目击玩家。'},{name:'山崩地陷',key:'E',desc:'引发震荡，使直线范围内玩家震荡。'},{name:'剧震余波',key:'C',desc:'引发延时爆破，造成严重伤害。'},{name:'惊雷卷地',key:'X',desc:'发出地震波，击飞并震晕受波及玩家。',ultimate:true}]},
+                { name: '盖可', img: '', desc: '西海岸小伙，带着一群调皮捣蛋的小怪兽作战。', skills: [{name:'顽皮搭档',key:'Q',desc:'派出皮蛋搜寻敌人，可部署或拆除爆能器。'},{name:'炫晕光波',key:'E',desc:'派出丢丢致盲视线内敌人。'},{name:'嗨爆全场',key:'C',desc:'投掷嗨宝，复制自身并爆炸。'},{name:'无敌超鲨',key:'X',desc:'控制鲨鲨冲刺并束缚敌人。',ultimate:true}]}
+            ]
+        };
+
+        // 当前使用的数据源
+        let agentsData = pcAgentsData;
+        let isMobileMode = localStorage.getItem('gameMode') === 'mobile';
 
         // 显示职业选择
         function showRoleSelection() {
@@ -515,6 +589,52 @@
             return names[role];
         }
 
+        // 切换游戏模式
+        function toggleGameMode() {
+            isMobileMode = !isMobileMode;
+            localStorage.setItem('gameMode', isMobileMode ? 'mobile' : 'pc');
+            applyGameMode();
+        }
+
+        // 应用游戏模式
+        function applyGameMode() {
+            const btn = document.getElementById('gameModeBtn');
+            const title = document.querySelector('.header h1');
+            
+            // 切换数据源
+            agentsData = isMobileMode ? mobileAgentsData : pcAgentsData;
+            
+            if (isMobileMode) {
+                btn.innerHTML = '🎮 返回《Valorant》PC版';
+                btn.classList.add('mobile');
+                title.innerHTML = '📱 源能行动特工档案';
+                document.title = '📱 源能行动特工档案 | ling1in';
+            } else {
+                btn.innerHTML = '📱 如果你来自《无畏契约：源能行动》';
+                btn.classList.remove('mobile');
+                title.innerHTML = '🎮 Valorant 特工档案';
+                document.title = '🎮 Valorant 特工档案 | ling1in';
+            }
+            
+            // 更新职业卡片数量显示
+            updateRoleCounts();
+            
+            // 如果当前正在显示某个职业的特工，重新渲染
+            const activeSection = document.querySelector('.agents-section.active');
+            if (activeSection) {
+                const role = activeSection.id;
+                renderAgents(role);
+            }
+        }
+
+        // 更新职业卡片上的特工数量
+        function updateRoleCounts() {
+            document.getElementById('duelistCount').textContent = agentsData.duelist.length;
+            document.getElementById('sentinelCount').textContent = agentsData.sentinel.length;
+            document.getElementById('controllerCount').textContent = agentsData.controller.length;
+            document.getElementById('initiatorCount').textContent = agentsData.initiator.length;
+        }
+
         function closeAgentModal() {
             document.getElementById('agentModal').classList.remove('active');
             document.body.style.overflow = '';
@@ -549,6 +669,11 @@
             themeBtns.forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
             });
+        }
+
+        // 页面加载时应用保存的游戏模式
+        if (isMobileMode) {
+            applyGameMode();
         }
     </script>
 </body>
