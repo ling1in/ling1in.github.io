@@ -486,7 +486,7 @@
             ],
         };
 
-        // 手游版《源能行动》枪械数据（15种核心武器）
+        // 手游版《源能行动》枪械数据（18种武器，仅缺少追猎）
         const mobileWeaponsData = {
             rifles: [
                 {
@@ -495,6 +495,13 @@
                     price: 2900,
                     desc: '高伤害全自动步枪，手游中自动开火辅助让爆头更容易。',
                     stats: { damage: 90, fireRate: 60, accuracy: 75, range: 85 }
+                },
+                {
+                    name: '獠犬',
+                    img: '',
+                    price: 2050,
+                    desc: '三连发burst步枪，手游中三连发稳定性更好。',
+                    stats: { damage: 70, fireRate: 50, accuracy: 80, range: 70 }
                 },
                 {
                     name: '幻影',
@@ -513,20 +520,6 @@
             ],
             pistols: [
                 {
-                    name: '标配',
-                    img: '',
-                    price: 0,
-                    desc: '免费起始手枪，手游中自动开火让新手也能轻松上手。',
-                    stats: { damage: 45, fireRate: 50, accuracy: 65, range: 40 }
-                },
-                {
-                    name: '短炮',
-                    img: '',
-                    price: 300,
-                    desc: '双管霰弹手枪，手游近距离自动瞄准一击必杀。',
-                    stats: { damage: 80, fireRate: 25, accuracy: 35, range: 20 }
-                },
-                {
                     name: '狂怒',
                     img: '',
                     price: 450,
@@ -534,10 +527,17 @@
                     stats: { damage: 50, fireRate: 85, accuracy: 50, range: 35 }
                 },
                 {
+                    name: '标配',
+                    img: '',
+                    price: 0,
+                    desc: '免费起始手枪，手游中自动开火让新手也能轻松上手。',
+                    stats: { damage: 45, fireRate: 50, accuracy: 65, range: 40 }
+                },
+                {
                     name: '鬼魅',
                     img: '',
                     price: 500,
-                    desc: '装备消音器的手枪，手游中精准度高，eco局首选。',
+                    desc: '装备消音器的手枪，精准度高，适合无声击杀和远距离点射。',
                     stats: { damage: 60, fireRate: 45, accuracy: 80, range: 60 }
                 },
                 {
@@ -547,15 +547,15 @@
                     desc: '重型左轮手枪，手游中瞄准辅助让爆头更容易。',
                     stats: { damage: 95, fireRate: 30, accuracy: 75, range: 65 }
                 },
+                {
+                    name: '短炮',
+                    img: '',
+                    price: 300,
+                    desc: '双管霰弹手枪，手游近距离自动瞄准一击必杀。',
+                    stats: { damage: 80, fireRate: 25, accuracy: 35, range: 20 }
+                },
             ],
             smgs: [
-                {
-                    name: '蜂刺',
-                    img: '',
-                    price: 1100,
-                    desc: '高射速冲锋枪，手游跑打很准，经济局神器。',
-                    stats: { damage: 55, fireRate: 80, accuracy: 60, range: 45 }
-                },
                 {
                     name: '骇灵',
                     img: '',
@@ -563,21 +563,28 @@
                     desc: '装备消音器的冲锋枪，手游中稳定性极佳。',
                     stats: { damage: 60, fireRate: 75, accuracy: 75, range: 55 }
                 },
+                {
+                    name: '蜂刺',
+                    img: '',
+                    price: 1100,
+                    desc: '高射速冲锋枪，手游跑打很准，经济局神器。',
+                    stats: { damage: 55, fireRate: 80, accuracy: 60, range: 45 }
+                },
             ],
             lmgs: [
-                {
-                    name: '战神',
-                    img: '',
-                    price: 1600,
-                    desc: '轻型机枪，手游中自动开火配合大弹夹压制力极强。',
-                    stats: { damage: 50, fireRate: 70, accuracy: 65, range: 60 }
-                },
                 {
                     name: '奥丁',
                     img: '',
                     price: 3200,
                     desc: '重型机枪，手游中穿透薄墙自动开火很适合架点。',
                     stats: { damage: 55, fireRate: 85, accuracy: 60, range: 70 }
+                },
+                {
+                    name: '战神',
+                    img: '',
+                    price: 1600,
+                    desc: '轻型机枪，手游中自动开火配合大弹夹压制力极强。',
+                    stats: { damage: 50, fireRate: 70, accuracy: 65, range: 60 }
                 },
             ],
             snipers: [
@@ -587,6 +594,13 @@
                     price: 4700,
                     desc: '重型狙击枪，手游中开镜更稳，一击必杀。',
                     stats: { damage: 100, fireRate: 20, accuracy: 98, range: 100 }
+                },
+                {
+                    name: '莽侠',
+                    img: '',
+                    price: 2400,
+                    desc: '双管狙击枪，手游中可快速连发，容错率高。',
+                    stats: { damage: 90, fireRate: 45, accuracy: 88, range: 90 }
                 },
                 {
                     name: '飞将',
@@ -673,6 +687,11 @@
             
             // 重新渲染当前分类
             renderWeapons(currentWeaponCategory);
+            
+            // 更新手枪分类显示（手游缺少追猎，5种）
+            document.getElementById('pistolsCount').textContent = isMobileMode ? '5种' : '6种';
+            // 狙击枪分类显示（手游3种，和PC一样）
+            document.getElementById('snipersCount').textContent = '3种';
         }
 
         // 更新武器分类数量

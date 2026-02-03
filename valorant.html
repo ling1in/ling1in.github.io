@@ -1719,12 +1719,12 @@
         const mobileContent = {
             title: '📱 无畏契约：源能行动',
             desc: '随时随地，掌上竞技！体验专为移动端优化的快节奏5v5战术射击',
-            crosshairBtn: '🎯 手游专属准心推荐',
-            proPlayersBtn: '🎮 手游大神操作教学',
-            secretsBtn: '💡 手游独家技巧',
+            crosshairBtn: '🎯 来看看手游专属准心代码？',
+            proPlayersBtn: '', // 移动端隐藏
+            secretsBtn: '', // 移动端隐藏
             cards: [
                 { title: '源能特工', desc: '17位首发特工<br>专为移动端优化' },
-                { title: '手游枪械', desc: '15种核心武器<br>自动开火辅助瞄准' },
+                { title: '手游枪械', desc: '18种武器<br>仅缺少追猎' },
                 { title: '手游电竞', desc: '源能行动职业联赛<br>移动端电竞新纪元' },
                 { title: '源能地图', desc: '6张经典地图<br>适配手游快节奏' },
                 { title: '新手攻略', desc: '三指/四指操作教程<br>快速上手移动端' },
@@ -2061,10 +2061,27 @@
             document.getElementById('mainTitle').innerHTML = content.title;
             document.getElementById('mainDesc').textContent = content.desc;
             
-            // 更新按钮文字
-            document.getElementById('crosshairBtn').innerHTML = content.crosshairBtn;
-            document.getElementById('proPlayersBtn').innerHTML = content.proPlayersBtn;
-            document.getElementById('secretsBtn').innerHTML = content.secretsBtn;
+            // 更新准心合集按钮文字和链接
+            const crosshairBtn = document.getElementById('crosshairBtn');
+            crosshairBtn.innerHTML = content.crosshairBtn;
+            if (isMobileMode) {
+                crosshairBtn.href = 'valorant-crosshairs.html?mobile=1';
+            } else {
+                crosshairBtn.href = 'valorant-crosshairs.html';
+            }
+            
+            // 显示/隐藏职业选手和细节按钮
+            const proPlayersBtn = document.getElementById('proPlayersBtn');
+            const secretsBtn = document.getElementById('secretsBtn');
+            if (isMobileMode) {
+                proPlayersBtn.style.display = 'none';
+                secretsBtn.style.display = 'none';
+            } else {
+                proPlayersBtn.style.display = 'inline-flex';
+                secretsBtn.style.display = 'inline-flex';
+                proPlayersBtn.innerHTML = content.proPlayersBtn;
+                secretsBtn.innerHTML = content.secretsBtn;
+            }
             
             // 更新卡片内容
             for (let i = 0; i < 6; i++) {
