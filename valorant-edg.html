@@ -252,6 +252,7 @@
             justify-content: center;
             z-index: 10;
             background: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            overflow: hidden;
         }
         .quotes-sequence.hidden {
             display: none;
@@ -259,10 +260,21 @@
         .quotes-bg {
             position: absolute;
             inset: 0;
-            opacity: 0.1;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(255,215,0,0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,215,0,0.3) 0%, transparent 50%);
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.8s ease, transform 1.2s ease;
+            opacity: 0;
+            transform: scale(1.1);
+        }
+        .quotes-bg.active {
+            opacity: 0.35;
+            transform: scale(1);
+        }
+        .quotes-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(15,20,25,0.6) 0%, rgba(15,20,25,0.3) 50%, rgba(15,20,25,0.7) 100%);
         }
         .quote-text {
             font-size: clamp(1.5rem, 4vw, 2.5rem);
@@ -275,6 +287,8 @@
             transform: translateY(30px);
             transition: all 0.8s ease;
             text-shadow: 0 0 30px rgba(255,215,0,0.5);
+            z-index: 2;
+            position: relative;
         }
         .quote-text.show {
             opacity: 1;
@@ -334,7 +348,11 @@
 
     <!-- 语录过场动画 -->
     <div class="quotes-sequence" id="edgQuotesSequence">
-        <div class="quotes-bg"></div>
+        <div class="quotes-bg" id="quoteBg1" style="background-image: url('images/edg/quote1.jpg')"></div>
+        <div class="quotes-bg" id="quoteBg2" style="background-image: url('images/edg/quote2.jpg')"></div>
+        <div class="quotes-bg" id="quoteBg3" style="background-image: url('images/edg/quote3.jpg')"></div>
+        <div class="quotes-bg" id="quoteBg4" style="background-image: url('images/edg/quote4.jpg')"></div>
+        <div class="quotes-bg" id="quoteBg5" style="background-image: url('images/edg/quote5.jpg')"></div>
         <div class="quote-text" id="edgQuoteText"></div>
         <div class="quote-skip" onclick="skipEDGQuotes()">点击跳过 ⏭</div>
     </div>
@@ -343,13 +361,13 @@
     <div class="edg-content" id="edgContent" style="display: none;"></div>
 
     <script>
-        // EDG 语录数据
+        // EDG 语录数据 - 每条配一张背景图片
         const edgQuotes = [
-            { text: '"我们要让世界知道，CN VALORANT 不是配角。"', author: '—— ZmjjKK' },
-            { text: '"EDG 的目标只有一个，那就是冠军。"', author: '—— CHICHOO' },
-            { text: '"从东京六强到首尔总冠军，这条路我们走了整整一年。"', author: '' },
-            { text: '"每一次失败，都是为了更好地站起来。"', author: '' },
-            { text: '"我们是冠军，我们是大明星！"', author: '—— ZmjjKK' }
+            { text: '"我们要让世界知道，CN VALORANT 不是配角。"', author: '—— ZmjjKK', bg: 1 },
+            { text: '"EDG 的目标只有一个，那就是冠军。"', author: '—— CHICHOO', bg: 2 },
+            { text: '"从东京六强到首尔总冠军，这条路我们走了整整一年。"', author: '', bg: 3 },
+            { text: '"每一次失败，都是为了更好地站起来。"', author: '', bg: 4 },
+            { text: '"我们是冠军，我们是大明星！"', author: '—— ZmjjKK', bg: 5 }
         ];
 
         // EDG 内容数据
@@ -498,6 +516,11 @@
             const quoteText = document.getElementById('edgQuoteText');
             const quote = edgQuotes[currentEDGQuoteIndex];
             
+            // 切换背景图片
+            document.querySelectorAll('.quotes-bg').forEach((bg, index) => {
+                bg.classList.toggle('active', index === quote.bg - 1);
+            });
+            
             quoteText.classList.remove('show');
             
             setTimeout(() => {
@@ -505,7 +528,7 @@
                 quoteText.classList.add('show');
                 
                 currentEDGQuoteIndex++;
-                edgQuotesAnimationId = setTimeout(showNextEDGQuote, 3000);
+                edgQuotesAnimationId = setTimeout(showNextEDGQuote, 4000);
             }, 300);
         }
 
@@ -513,6 +536,8 @@
             if (edgQuotesAnimationId) {
                 clearTimeout(edgQuotesAnimationId);
             }
+            // 清除所有背景图片
+            document.querySelectorAll('.quotes-bg').forEach(bg => bg.classList.remove('active'));
             showEDGContent();
         }
 
