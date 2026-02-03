@@ -136,6 +136,31 @@
             box-shadow: 0 0 30px rgba(0,150,255,0.3);
             color: white;
         }
+        .secrets-btn {
+            position: absolute;
+            top: 130px;
+            left: 20px;
+            background: linear-gradient(135deg, rgba(46,204,113,0.2), rgba(39,174,96,0.1));
+            border: 2px solid rgba(46,204,113,0.4);
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: #2ecc71;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
+        }
+        .secrets-btn:hover {
+            transform: scale(1.05);
+            border-color: #2ecc71;
+            box-shadow: 0 0 30px rgba(46,204,113,0.3);
+            color: white;
+        }
         @media (max-width: 640px) {
             .crosshair-btn {
                 position: static;
@@ -144,9 +169,256 @@
             }
             .pro-players-btn {
                 position: static;
+                margin-bottom: 10px;
+                display: inline-flex;
+            }
+            .secrets-btn {
+                position: static;
                 margin-bottom: 20px;
                 display: inline-flex;
             }
+        }
+        /* 游戏细节弹窗样式 */
+        .secrets-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .secrets-modal.active {
+            display: block;
+        }
+        .secrets-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .secrets-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .secrets-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(46,204,113,0.2);
+            border: 2px solid rgba(46,204,113,0.5);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .secrets-close:hover {
+            background: #2ecc71;
+            transform: rotate(90deg);
+        }
+        .secrets-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .secrets-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .secrets-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .secrets-tab {
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(46,204,113,0.3);
+            border-radius: 30px;
+            color: var(--text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .secrets-tab:hover, .secrets-tab.active {
+            background: rgba(46,204,113,0.2);
+            border-color: #2ecc71;
+        }
+        .secrets-content {
+            display: none;
+        }
+        .secrets-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        .maps-uncommon-angles {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 25px;
+        }
+        @media (min-width: 768px) {
+            .maps-uncommon-angles { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1200px) {
+            .maps-uncommon-angles { grid-template-columns: repeat(3, 1fr); }
+        }
+        .map-angles-card {
+            background: linear-gradient(135deg, rgba(46,204,113,0.1), rgba(39,174,96,0.05));
+            border: 2px solid rgba(46,204,113,0.2);
+            border-radius: 24px;
+            padding: 25px;
+            transition: all 0.4s;
+        }
+        .map-angles-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(46,204,113,0.5);
+            box-shadow: 0 15px 40px rgba(46,204,113,0.2);
+        }
+        .map-angles-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(46,204,113,0.2);
+        }
+        .map-angles-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(46,204,113,0.3), rgba(39,174,96,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        .map-angles-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .map-angles-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .uncommon-spots-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .uncommon-spot-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        .uncommon-spot-item:hover {
+            background: rgba(46,204,113,0.08);
+            transform: translateX(5px);
+        }
+        .spot-location {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2ecc71;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .spot-location::before {
+            content: '📍';
+        }
+        .spot-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .spot-tip {
+            font-size: 0.8rem;
+            color: #f39c12;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: rgba(243,156,18,0.1);
+            border-radius: 10px;
+            border-left: 3px solid #f39c12;
+        }
+        .agent-tips-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+        @media (min-width: 640px) {
+            .agent-tips-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .agent-tips-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (min-width: 1400px) {
+            .agent-tips-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .agent-tip-card {
+            background: linear-gradient(135deg, rgba(255,70,85,0.1), rgba(255,70,85,0.03));
+            border: 2px solid rgba(255,70,85,0.2);
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.4s;
+        }
+        .agent-tip-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,70,85,0.4);
+            box-shadow: 0 15px 40px rgba(255,70,85,0.15);
+        }
+        .agent-tip-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .agent-tip-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(255,70,85,0.3), rgba(255,70,85,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .agent-tip-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+        .agent-tip-role {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .agent-tip-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .agent-tip-item {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding: 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            border-left: 3px solid rgba(255,70,85,0.3);
         }
         /* 职业选手弹窗样式 */
         .pro-players-modal {
@@ -425,6 +697,7 @@
     <div class="header">
         <a href="valorant-crosshairs.html" class="crosshair-btn">🎯 来看看2026最新的准心合集？</a>
         <button class="pro-players-btn" onclick="openProPlayersModal()">🏆 快来学习职业选手的操作思路！</button>
+        <button class="secrets-btn" onclick="openSecretsModal()">🔍 更多你不知道的细节！</button>
         <h1>Valorant 档案中心 <img src="images/valorant-logo.svg" alt="Valorant" style="height: 0.8em; width: auto; vertical-align: middle; margin-left: 10px; filter: drop-shadow(0 0 10px rgba(255,70,85,0.5));"></h1>
         <p>探索无畏契约的完整世界：28位特工、19种武器、11张地图、9支VCT CN战队、EDG传奇故事与最新资讯</p>
     </div>
@@ -438,6 +711,27 @@
                 <p class="pro-players-subtitle">学习顶尖选手的打法风格，提升你的游戏理解</p>
             </div>
             <div class="playstyle-categories" id="playstyleCategories"></div>
+        </div>
+    </div>
+
+    <!-- 游戏细节弹窗 -->
+    <div class="secrets-modal" id="secretsModal">
+        <div class="secrets-container">
+            <div class="secrets-header">
+                <button class="secrets-close" onclick="closeSecretsModal()">×</button>
+                <h2 class="secrets-title">🔍 更多你不知道的细节！</h2>
+                <p class="secrets-subtitle">地图非预瞄点 & 特工隐藏技巧，让你出其不意</p>
+            </div>
+            <div class="secrets-tabs">
+                <button class="secrets-tab active" onclick="switchSecretsTab('maps')">🗺️ 地图非预瞄点</button>
+                <button class="secrets-tab" onclick="switchSecretsTab('agents')">🎯 特工小细节</button>
+            </div>
+            <div class="secrets-content active" id="mapsContent">
+                <div class="maps-uncommon-angles" id="mapsUncommonAngles"></div>
+            </div>
+            <div class="secrets-content" id="agentsContent">
+                <div class="agent-tips-grid" id="agentTipsGrid"></div>
+            </div>
         </div>
     </div>
 
@@ -729,8 +1023,12 @@
         // 点击弹窗背景关闭
         document.addEventListener('click', function(e) {
             const modal = document.getElementById('proPlayersModal');
+            const secretsModal = document.getElementById('secretsModal');
             if (e.target === modal) {
                 closeProPlayersModal();
+            }
+            if (e.target === secretsModal) {
+                closeSecretsModal();
             }
         });
 
@@ -738,6 +1036,578 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeProPlayersModal();
+                closeSecretsModal();
+            }
+        });
+
+        // ==================== 游戏细节数据 ====================
+        
+        // 地图非预瞄点数据
+        const mapUncommonAnglesData = [
+            {
+                map: '亚海悬城',
+                emoji: '🌊',
+                color: '#3498db',
+                description: '传统控图地图，隐藏点位丰富',
+                spots: [
+                    { location: 'A大单向箱', description: '从A大进攻时，可以跳上箱子边缘获得非常规高度，能看到包点内却不会被常规预瞄位发现。', tip: '适合捷风/雷兹快速上箱' },
+                    { location: 'B通暗角', description: 'B通入口右侧有个凹陷角落，站进去几乎完全隐身，敌人rush时很难第一时间发现。', tip: '配合奇乐的炮塔效果更佳' },
+                    { location: '中门头顶', description: '利用队友搭人梯或技能可以跳上中门上方横梁，获得俯视整个中路的视野。', tip: '欧门的传送也可以上去' },
+                    { location: 'A包死角', description: 'A包点最深处角落蹲下可以完全避开从A大进来的第一条枪线，适合残局反打。', tip: '等敌人下包时再起立偷袭' }
+                ]
+            },
+            {
+                map: '隐世修所',
+                emoji: '🏛️',
+                color: '#9b59b6',
+                description: '三路地图，非常规位可打乱节奏',
+                spots: [
+                    { location: 'C大书架上', description: 'C大尽头的书架可以通过连续跳跃上去，获得俯视C大的视角，防守方很少会检查这个头顶。', tip: '需要练习跳点，捷风E技能更容易' },
+                    { location: 'A小悬崖', description: 'A小楼梯旁有个悬崖边缘可以站立，能看到A包却不在常规预瞄范围内。', tip: '站稳后不要移动，很容易掉下去' },
+                    { location: '中道箱子堆', description: '中路箱子可以通过特定角度跳上去三层，获得非常规peek点。', tip: '上去后可以看到隧道出口' },
+                    { location: 'B点二楼夹层', description: 'B点二楼有个视觉盲区，蹲在角落里从一楼很难发现。', tip: '适合老六等待时机' }
+                ]
+            },
+            {
+                map: '霓虹町',
+                emoji: '🌃',
+                color: '#e74c3c',
+                description: '纵向双层地图，垂直点位多',
+                spots: [
+                    { location: 'A大通风管', description: 'A大入口的通风管道可以跳上去，获得平视二楼的高度，进攻方很少预瞄这里。', tip: '捷风直接E技能飞上去' },
+                    { location: 'B点双层箱', description: 'B包点的箱子可以通过连续跳跃上到最顶层，配合烟雾可以形成单向视野。', tip: '需要烟雾掩护，否则容易被发现' },
+                    { location: '中街雨棚', description: '中路两侧有雨棚可以跳上去，获得非常规角度偷袭中路对枪的敌人。', tip: '雨棚边缘走动会发出声音' },
+                    { location: 'A二楼夹缝', description: 'A二楼栏杆外有个很窄的平台可以站立，从外面很难发现这里有人。', tip: '风险较高，掉下去就是A大' }
+                ]
+            },
+            {
+                map: '源工重镇',
+                emoji: '🏭',
+                color: '#f39c12',
+                description: '传送门地图，传送点有奇效',
+                spots: [
+                    { location: 'A大管道内', description: 'A大管道内壁有个凸起可以站人，获得俯视A大的高度，敌人进来时视角受限很难发现。', tip: '霓虹可以利用滑铲快速进入' },
+                    { location: 'B包传送门后', description: '防守时躲在B包传送门正后方，敌人从传送门出来有短暂硬直时间可以偷袭。', tip: '注意听传送门启动音效' },
+                    { location: '中门吊桥', description: '中路吊桥下方有横梁可以站人，从地面完全看不到上面有人。', tip: '需要队友配合或特定技能上去' },
+                    { location: 'A小高台边缘', description: 'A小高台外侧边缘可以侧身站人，获得非常规peek角度。', tip: '站得太外会被发现，需要把控距离' }
+                ]
+            },
+            {
+                map: '莲华古城',
+                emoji: '🏯',
+                color: '#e91e63',
+                description: '旋转门机制，点位变化多端',
+                spots: [
+                    { location: 'A大瀑布后', description: 'A大的瀑布水流后可以藏人，从外面看几乎完全遮蔽，近距离才能发现。', tip: '适合配合Cypher的绊线' },
+                    { location: 'C大雕像头', description: 'C大尽头的巨大雕像头部可以站人，获得俯视整个C大的上帝视角。', tip: '捷风直接飞上去最简单' },
+                    { location: 'B点旋转门后', description: 'B点旋转门关闭后躲在门后，开门瞬间有 timing 优势。', tip: '注意听旋转门启动的声音' },
+                    { location: '中庭树顶', description: '地图中央的大树可以通过特定跳跃上到树冠，获得非常规视野。', tip: '树冠上视野极佳但容易被发现' }
+                ]
+            },
+            {
+                map: '裂变峡谷',
+                emoji: '⚛️',
+                color: '#00bcd4',
+                description: '绳索地图，垂直机动性强',
+                spots: [
+                    { location: 'A大绳索顶端', description: 'A大绳索上到顶端后，可以跳到旁边的平台上，获得俯视A包的视角。', tip: '平台很小，掉下去就白给' },
+                    { location: 'B点悬空梁', description: 'B包点上方有悬空梁可以通过绳索上去，蹲在梁上从下方很难发现。', tip: '需要利用绳索或技能上去' },
+                    { location: '中路塔楼夹层', description: '中路塔楼内部有夹层可以藏身，敌人上楼时不会检查这个位置。', tip: '适合防守方老六' },
+                    { location: 'A小断崖边', description: 'A小尽头有个断崖边缘可以站立，能看到A包却不在常规预瞄位。', tip: '站得很极限，稍有不慎就掉下去' }
+                ]
+            },
+            {
+                map: '深海明珠',
+                emoji: '🦪',
+                color: '#3f51b5',
+                description: '滑索地图，快速转移位置',
+                spots: [
+                    { location: 'A大珊瑚礁', description: 'A大入口的珊瑚礁后可以藏人，配合烟雾可以形成单向视野。', tip: '需要烟雾配合才能发挥效果' },
+                    { location: 'B点滑索尽头', description: 'B点滑索滑到尽头后有个小平台，可以转身架住追来的敌人。', tip: '很多人会追着滑索过来，正好反打' },
+                    { location: '中庭水池', description: '地图中央的水池可以蹲进去，只露出头部，非常规高度难以被击中。', tip: '移动速度会变慢，需要注意' },
+                    { location: 'A二楼外沿', description: 'A二楼外侧有个很窄的平台可以侧身站立，获得非常规角度。', tip: '位置很极限，容易被发现' }
+                ]
+            },
+            {
+                map: '森寒冬港',
+                emoji: '❄️',
+                color: '#00acc1',
+                description: 'B点多层结构，垂直对战多',
+                spots: [
+                    { location: 'B点管道上方', description: 'B点管道可以通过箱子跳上去，获得俯视整个B包的上帝视角。', tip: '上去后可以覆盖整个包点' },
+                    { location: 'A大冰柱后', description: 'A大入口的冰柱后可以藏人，配合蓝色色调很难被发现。', tip: '不动的话很难被发现' },
+                    { location: '中路边箱', description: '中路有个箱子可以跳上去获得非常规peek点，进攻方很少会预瞄这里。', tip: '上去后可以看到两边' },
+                    { location: 'B二楼夹层', description: 'B二楼有个视觉盲区，蹲在角落里从一楼和楼梯都看不到。', tip: '适合残局1v多' }
+                ]
+            },
+            {
+                map: '日落之城',
+                emoji: '🌅',
+                color: '#ff5722',
+                description: '中路开阔，市场区域复杂',
+                spots: [
+                    { location: '中路车顶', description: '中路废弃车辆可以跳上车顶，获得非常规高度和视野。', tip: '车顶视野好但掩体少' },
+                    { location: '市场摊位后', description: '市场区域的摊位后可以藏人，非常规位置rush时容易被忽略。', tip: '配合绊线或摄像头预警' },
+                    { location: 'B点二楼外沿', description: 'B点二楼外侧有窄边可以站立，能看到包点却不在常规预瞄位。', tip: '容易掉下去，需要谨慎' },
+                    { location: 'A大沙袋堆', description: 'A大入口沙袋堆可以跳上去获得非常规角度，防守方很少检查这个高度。', tip: '上去后可以架住A大' }
+                ]
+            },
+            {
+                map: '微风岛屿',
+                emoji: '🏝️',
+                color: '#4caf50',
+                description: '开阔地图，远距离对枪多',
+                spots: [
+                    { location: 'B大棕榈树', description: 'B大的棕榈树可以爬上去，获得俯视B大的视野，非常规高度难以被发现。', tip: '树上的视野极佳' },
+                    { location: 'A点塔楼顶层', description: 'A点塔楼可以上到最顶层，获得上帝视角俯瞰整个A区。', tip: '上去需要一定时间，适合防守' },
+                    { location: '中路岩石缝', description: '中路巨大的岩石间有缝隙可以藏身，进攻方rush时很难发现。', tip: '缝隙很窄，需要精准站位' },
+                    { location: 'B点悬崖边', description: 'B包点外侧悬崖边缘可以站立，获得非常规peek角度。', tip: '位置很极限，容易被发现' }
+                ]
+            },
+            {
+                map: '极地寒港',
+                emoji: '🧊',
+                color: '#2196f3',
+                description: '绳索+传送门，机动性极高',
+                spots: [
+                    { location: 'A点塔楼尖', description: 'A点塔楼可以通过绳索上到最顶端，获得全图最高视野。', tip: '顶端视野最好但也最危险' },
+                    { location: 'B大冰墙后', description: 'B大的冰墙后可以藏人，蓝色背景掩护效果很好。', tip: '冰墙可以挡住部分视线' },
+                    { location: '中路索道顶', description: '中路索道滑到尽头后可以继续往上，到达非常规高度。', tip: '需要练习跳点' },
+                    { location: 'A包雪堆后', description: 'A包点雪堆后可以完全蹲下隐藏，敌人搜点不仔细很难发现。', tip: '白色背景掩护效果极佳' }
+                ]
+            }
+        ];
+
+        // 特工小细节数据
+        const agentTipsData = [
+            {
+                name: '捷风',
+                emoji: '🌪️',
+                role: '决斗',
+                color: '#3498db',
+                tips: [
+                    'E技能可以取消换弹后摇，换弹动画进行到一半时按E可以立刻滑行并保留换弹进度',
+                    '大招的飞刀爆头可以秒杀满血敌人，且击杀后刷新所有飞刀',
+                    'Q技能烟雾可以在空中释放，配合E技能可以做出超远距离的空中烟雾',
+                    '终极技能的飞刀可以穿墙，在知道敌人位置时可以预判穿射'
+                ]
+            },
+            {
+                name: '雷兹',
+                emoji: '💥',
+                role: '决斗',
+                color: '#e74c3c',
+                tips: [
+                    'C技能手雷可以弹射，利用墙面可以扔到拐角后',
+                    'Q技能炸弹跳可以叠加，连续使用可以获得超高高度',
+                    'E技能小车可以当眼使用，推出去后切换视角可以看到敌人',
+                    '终极火箭筒可以对自己造成伤害，近距离使用时要小心'
+                ]
+            },
+            {
+                name: '不死鸟',
+                emoji: '🔥',
+                role: '决斗',
+                color: '#e67e22',
+                tips: [
+                    'C技能火墙可以对自己回血，残血时往脚下扔可以回血',
+                    'Q技能闪光可以在拐角处弹墙闪，敌人很难躲避',
+                    'E技能火球持续时间内可以无限回血，站在火里对枪有优势',
+                    '大招复活期间可以移动视角观察敌人位置，复活后可以报点'
+                ]
+            },
+            {
+                name: '霓虹',
+                emoji: '⚡',
+                role: '决斗',
+                color: '#00bcd4',
+                tips: [
+                    'E技能滑铲可以在空中使用，配合跳跃可以滑更远距离',
+                    'Q技能震可以穿墙，可以震到墙后的敌人',
+                    'C技能墙可以在移动中释放，不影响奔跑速度',
+                    '大招击杀会延长时间，连续击杀可以一直保持大招状态'
+                ]
+            },
+            {
+                name: '夜戮',
+                emoji: '🎭',
+                role: '决斗',
+                color: '#9b59b6',
+                tips: [
+                    'C技能假脚步可以控制方向，按住方向键可以让假脚步往指定方向走',
+                    'Q技能闪光可以在传送过程中释放，落地瞬间敌人被闪',
+                    'E技能传送可以取消，在传送过程中按装备键可以取消传送',
+                    '大招期间是无敌的，可以用来躲避敌人技能或获取信息'
+                ]
+            },
+            {
+                name: '芮娜',
+                emoji: '👁️',
+                role: '决斗',
+                color: '#8e44ad',
+                tips: [
+                    'C技能眼睛可以被队友打爆，和队友沟通好可以让队友帮忙打掉',
+                    'Q技能吸血可以在击杀后立即使用，无视距离吸取灵魂',
+                    'E技能无敌期间不能开枪，但可以换弹和移动',
+                    '大招击杀刷新技能，可以连续吸血或无敌'
+                ]
+            },
+            {
+                name: '斯凯',
+                emoji: '🦘',
+                role: '先锋',
+                color: '#2ecc71',
+                tips: [
+                    'C技能狼可以控制方向，按住鼠标可以转向',
+                    'Q技能鸟闪可以控制爆炸时机，按住左键越久飞得越远',
+                    'E技能治疗可以同时治疗多个队友，站在一起的队友都能吃到',
+                    '大招的狼可以穿墙，可以隔着墙追踪敌人'
+                ]
+            },
+            {
+                name: '猎枭',
+                emoji: '🏹',
+                role: '先锋',
+                color: '#f39c12',
+                tips: [
+                    'C技能无人机可以标记敌人，标记后队友也能看到',
+                    'Q技能箭可以弹射，利用天花板可以射到掩体后的敌人',
+                    'E技能探测箭可以被打掉，注意 placement 位置',
+                    '大招可以穿墙，知道敌人位置时可以预判穿射'
+                ]
+            },
+            {
+                name: '铁臂',
+                emoji: '🦾',
+                role: '先锋',
+                color: '#795548',
+                tips: [
+                    'C技能震可以穿墙，是清点神器',
+                    'Q技能闪光是延迟引爆，需要预判敌人位置',
+                    'E技能破坏可以破坏奇乐的道具和保安的摄像头',
+                    '大招范围极大，可以覆盖整个包点'
+                ]
+            },
+            {
+                name: '盖可',
+                emoji: '🦎',
+                role: '先锋',
+                color: '#8bc34a',
+                tips: [
+                    'C技能皮蛋可以下包和拆包，下包时盖可可以架枪',
+                    'Q技能丢丢可以捡起重复使用，敌人打掉会进入冷却',
+                    'E技能盖可可以控制飞行方向，按住方向键可以转向',
+                    '大招的鲨鱼可以控制追击方向，追着最近的敌人'
+                ]
+            },
+            {
+                name: '零',
+                emoji: '🕸️',
+                role: '哨位',
+                color: '#607d8b',
+                tips: [
+                    'C技能摄像头可以标记敌人，标记后持续显示敌人位置',
+                    'Q技能绊线可以放在不寻常的高度，比如箱子顶部',
+                    'E技能烟雾是单向的，防守方可以看到外面但外面看不到里面',
+                    '大招需要尸体，大招范围内所有敌人的位置都会暴露'
+                ]
+            },
+            {
+                name: '奇乐',
+                emoji: '🤖',
+                role: '哨位',
+                color: '#ff9800',
+                tips: [
+                    'C技能炮塔可以放在高台，获得更好的视野',
+                    'Q技能雷可以藏在烟雾里，敌人看不到',
+                    'E技能纳米蜂群可以对自己造成伤害，注意站位',
+                    '大招范围极大且无视地形，可以封锁整个区域'
+                ]
+            },
+            {
+                name: '贤者',
+                emoji: '❄️',
+                role: '哨位',
+                color: '#00bcd4',
+                tips: [
+                    'C技能冰墙可以斜着放，覆盖更大的范围',
+                    'Q技能减速球可以弹跳，利用角度可以扔到远处',
+                    'E技能治疗可以给自己或队友，按住右键可以给队友',
+                    '大招需要站定施法，拉人时注意周围环境'
+                ]
+            },
+            {
+                name: '尚勃勒',
+                emoji: '🎩',
+                role: '哨位',
+                color: '#ffd700',
+                tips: [
+                    'C技能锚点可以传送到视线外，利用拐角可以安全传送',
+                    'Q技能手枪是免费的，经济局也可以用',
+                    'E技能狙击枪可以开镜后瞬间射击，没有开镜延迟',
+                    '大招击杀会留下大招武器，队友可以捡起来继续使用'
+                ]
+            },
+            {
+                name: '炼狱',
+                emoji: '🌋',
+                role: '控场',
+                color: '#e67e22',
+                tips: [
+                    'C技能烟幕可以远程放置，不需要视野',
+                    'Q技能燃烧弹可以对自己造成伤害，注意站位',
+                    'E技能强化可以给自己和范围内队友加射速',
+                    '大招是直线投放，可以用来清点和封锁区域'
+                ]
+            },
+            {
+                name: '欧门',
+                emoji: '👻',
+                role: '控场',
+                color: '#6c5ce7',
+                tips: [
+                    'C技能烟是球形，可以放在空中',
+                    'Q技能致盲可以穿墙，可以在安全位置使用',
+                    'E技能传送可以传送到视线外，配合烟可以无声传送',
+                    '大招可以全图传送，可以用来绕后或回防'
+                ]
+            },
+            {
+                name: '蝰蛇',
+                emoji: '🐍',
+                role: '控场',
+                color: '#27ae60',
+                tips: [
+                    'C技能烟墙可以持续很久，但要注意燃料消耗',
+                    'Q技能烟球可以扔很远，可以用来封远处的视线',
+                    'E技能毒池站在里面可以减伤，对枪时站在毒里有优势',
+                    '大招范围会随时间扩大，持续时间极长'
+                ]
+            },
+            {
+                name: '海神',
+                emoji: '🌊',
+                role: '控场',
+                color: '#2980b9',
+                tips: [
+                    'C技能水墙可以弯曲，按住鼠标可以控制弯曲方向',
+                    'Q技能波浪可以用来快速进点，也可以用来撤退',
+                    'E技能水球可以遮挡视线，同时给敌人减速',
+                    '大招可以穿墙，范围内所有敌人都会被拉扯'
+                ]
+            },
+            {
+                name: '星礈',
+                emoji: '⭐',
+                role: '控场',
+                color: '#9b59b6',
+                tips: [
+                    '进入星界状态时可以放技能，但需要队友保护',
+                    'C技能重力井可以吸附敌人，打断敌人技能',
+                    'Q技能新星脉冲可以眩晕敌人，配合队友击杀',
+                    'E技能星云可以回收重复使用，节约技能'
+                ]
+            },
+            {
+                name: '维斯',
+                emoji: '🕷️',
+                role: '哨位',
+                color: '#8e44ad',
+                tips: [
+                    'C技能荆棘可以穿墙放置，敌人踩到会暴露位置',
+                    'Q技能墙可以封锁入口，但可以被敌人打破',
+                    'E技能荆棘丛可以造成伤害和减速，区域控制强',
+                    '大招可以全图释放，所有敌人都会被荆棘束缚'
+                ]
+            },
+            {
+                name: '幻棱',
+                emoji: '💎',
+                role: '决斗',
+                color: '#00cec9',
+                tips: [
+                    'C技能传送可以储存两次，连续使用可以快速位移',
+                    'Q技能闪光可以在传送过程中释放',
+                    'E技能可以让自己免疫伤害，但无法攻击',
+                    '大招可以重置所有技能冷却，连续释放技能'
+                ]
+            },
+            {
+                name: '黑梦',
+                emoji: '🦇',
+                role: '先锋',
+                color: '#d63031',
+                tips: [
+                    'C技能眼球可以被队友打掉，沟通好配合更佳',
+                    'Q技能黑雾可以遮挡视线，同时暴露敌人位置',
+                    'E技能恐惧可以让敌人失去控制乱跑',
+                    '大招可以穿透墙壁，范围内所有敌人都会受影响'
+                ]
+            },
+            {
+                name: '钢锁',
+                emoji: '⛓️',
+                role: '哨位',
+                color: '#b2bec3',
+                tips: [
+                    'C技能声波可以探测敌人，同时造成轻微伤害',
+                    'Q技能绊锁可以拉倒敌人，敌人需要时间挣脱',
+                    'E技能墙可以阻挡敌人，但可以被打破',
+                    '大招可以困住敌人，被困住的敌人无法移动'
+                ]
+            },
+            {
+                name: '暮蝶',
+                emoji: '🦋',
+                role: '控场',
+                color: '#fd79a8',
+                tips: [
+                    'C技能烟可以死后使用，死后仍然可以帮助团队',
+                    'Q技能吸血可以给自己回血，同时也可以给队友',
+                    'E技能位移可以穿墙，可以用来快速转移',
+                    '大招可以在濒死时使用，变成幽灵状态继续战斗'
+                ]
+            },
+            {
+                name: '壹决',
+                emoji: '🛡️',
+                role: '决斗',
+                color: '#0984e3',
+                tips: [
+                    'C技能护盾可以抵挡一次伤害，适合peek时使用',
+                    'Q技能陷阱可以放置在地上，敌人踩到会暴露',
+                    'E技能冲刺可以快速位移，同时刷新护盾',
+                    '大招可以拉敌人单挑，1v1环境下优势明显'
+                ]
+            },
+            {
+                name: 'ko',
+                emoji: '🤖',
+                role: '先锋',
+                color: '#e17055',
+                tips: [
+                    'C技能闪光是瞬间引爆，不需要预判',
+                    'Q技能碎片可以造成高额伤害，配合闪光使用',
+                    'E技能匕首可以沉默敌人，打断敌人技能',
+                    '大招可以复活队友，被复活的队友有短暂无敌'
+                ]
+            },
+            {
+                name: '火男',
+                emoji: '🔥',
+                role: '决斗',
+                color: '#e74c3c',
+                tips: [
+                    'C技能火墙可以给自己回血，残血时救命神器',
+                    'Q技能闪光弹可以在拐角处弹墙闪',
+                    'E技能火球可以在移动中释放，不影响速度',
+                    '大招复活期间可以移动视角观察，复活后立即报点'
+                ]
+            }
+        ];
+
+        // 打开游戏细节弹窗
+        function openSecretsModal() {
+            const modal = document.getElementById('secretsModal');
+            renderMapsUncommonAngles();
+            renderAgentTips();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭游戏细节弹窗
+        function closeSecretsModal() {
+            const modal = document.getElementById('secretsModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 切换标签页
+        function switchSecretsTab(tab) {
+            const tabs = document.querySelectorAll('.secrets-tab');
+            const contents = document.querySelectorAll('.secrets-content');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'maps') {
+                tabs[0].classList.add('active');
+                document.getElementById('mapsContent').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('agentsContent').classList.add('active');
+            }
+        }
+
+        // 渲染地图非预瞄点
+        function renderMapsUncommonAngles() {
+            const container = document.getElementById('mapsUncommonAngles');
+            
+            container.innerHTML = mapUncommonAnglesData.map((map, index) => `
+                <div class="map-angles-card" style="animation: fadeIn 0.5s ease ${index * 0.1}s both;">
+                    <div class="map-angles-header">
+                        <div class="map-angles-icon" style="background: linear-gradient(135deg, ${map.color}33, ${map.color}11);">
+                            ${map.emoji}
+                        </div>
+                        <div>
+                            <div class="map-angles-title">${map.map}</div>
+                            <div class="map-angles-desc">${map.description}</div>
+                        </div>
+                    </div>
+                    <div class="uncommon-spots-list">
+                        ${map.spots.map(spot => `
+                            <div class="uncommon-spot-item">
+                                <div class="spot-location">${spot.location}</div>
+                                <div class="spot-description">${spot.description}</div>
+                                <div class="spot-tip">💡 ${spot.tip}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 渲染特工小细节
+        function renderAgentTips() {
+            const container = document.getElementById('agentTipsGrid');
+            
+            container.innerHTML = agentTipsData.map((agent, index) => `
+                <div class="agent-tip-card" style="animation: fadeIn 0.5s ease ${index * 0.05}s both;">
+                    <div class="agent-tip-header">
+                        <div class="agent-tip-icon" style="background: linear-gradient(135deg, ${agent.color}33, ${agent.color}11);">
+                            ${agent.emoji}
+                        </div>
+                        <div>
+                            <div class="agent-tip-name">${agent.name}</div>
+                            <div class="agent-tip-role">${agent.role}</div>
+                        </div>
+                    </div>
+                    <div class="agent-tip-list">
+                        ${agent.tips.map(tip => `
+                            <div class="agent-tip-item">${tip}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 点击弹窗背景关闭
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('proPlayersModal');
+            const secretsModal = document.getElementById('secretsModal');
+            if (e.target === modal) {
+                closeProPlayersModal();
+            }
+            if (e.target === secretsModal) {
+                closeSecretsModal();
+            }
+        });
+
+        // ESC键关闭弹窗
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProPlayersModal();
+                closeSecretsModal();
             }
         });
     </script>
