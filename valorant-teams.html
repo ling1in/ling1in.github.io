@@ -202,13 +202,16 @@
         
         /* 语录过场动画 */
         .quotes-sequence {
-            position: absolute;
-            inset: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 10;
+            z-index: 1000;
             background: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
         }
         .quotes-sequence.hidden {
@@ -259,38 +262,19 @@
         /* 战队展示区域 */
         .teams-showcase {
             opacity: 0;
-            padding: 40px 20px;
+            padding: 20px;
             max-width: 1400px;
             margin: 0 auto;
-            min-height: 100vh;
             transition: opacity 1s ease;
+            pointer-events: none;
         }
         .teams-showcase.visible {
             opacity: 1;
+            pointer-events: auto;
         }
         .teams-showcase-header {
             text-align: center;
             margin-bottom: 40px;
-            position: relative;
-        }
-        .teams-close-btn {
-            position: absolute;
-            top: 0;
-            right: 20px;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,70,85,0.3);
-            background: rgba(255,255,255,0.05);
-            color: var(--text-color);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .teams-close-btn:hover {
-            background: var(--accent-color);
-            color: white;
-            transform: rotate(90deg);
         }
         .teams-showcase-title {
             font-size: 2.5rem;
@@ -451,39 +435,16 @@
         <p style="color: var(--text-secondary);">探索CN VALORANT的荣耀与传奇</p>
     </div>
 
-    <!-- VCT CN 战队入口按钮 -->
-    <div class="teams-section" id="teamsSection">
-        <div class="teams-entry-container">
-            <button class="teams-entry-btn" onclick="openTeamsShowcase()">
-                <div class="teams-btn-bg"></div>
-                <div class="teams-btn-content">
-                    <div class="teams-btn-icon">🏆</div>
-                    <div class="teams-btn-title">查看 VCT CN 顶尖战队</div>
-                    <div class="teams-btn-subtitle">9支强队 · 45位明星选手</div>
-                    <div class="teams-btn-hint">点击进入</div>
-                </div>
-            </button>
-        </div>
+    <!-- 语录过场动画 -->
+    <div class="quotes-sequence" id="quotesSequence">
+        <div class="quotes-bg"></div>
+        <div class="quote-text" id="quoteText"></div>
+        <div class="quote-skip" onclick="skipQuotes()">点击跳过 ⏭</div>
     </div>
-
-    <!-- VCT CN 战队展示弹窗 -->
-    <div class="teams-modal" id="teamsModal">
-        <!-- 语录过场动画 -->
-        <div class="quotes-sequence" id="quotesSequence">
-            <div class="quotes-bg"></div>
-            <div class="quote-text" id="quoteText"></div>
-            <div class="quote-skip" onclick="skipQuotes()">点击跳过 ⏭</div>
-        </div>
-        
-        <!-- 战队内容 -->
-        <div class="teams-showcase" id="teamsShowcase">
-            <div class="teams-showcase-header">
-                <button class="teams-close-btn" onclick="closeTeamsShowcase()">✕</button>
-                <h2 class="teams-showcase-title">🏆 VCT CN 顶尖战队</h2>
-                <p class="teams-showcase-subtitle">CN VALORANT 的荣耀与传奇</p>
-            </div>
-            <div class="teams-grid" id="teamsGrid"></div>
-        </div>
+    
+    <!-- 战队内容 -->
+    <div class="teams-showcase" id="teamsShowcase">
+        <div class="teams-grid" id="teamsGrid"></div>
     </div>
 
     <script>
@@ -664,21 +625,9 @@
         let quotesAnimationId = null;
         let currentQuoteIndex = 0;
 
-        function openTeamsShowcase() {
-            const modal = document.getElementById('teamsModal');
-            const quotesSeq = document.getElementById('quotesSequence');
-            const teamsShowcase = document.getElementById('teamsShowcase');
-            const quoteText = document.getElementById('quoteText');
-            
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            
-            // 重置状态
-            quotesSeq.classList.remove('hidden');
-            teamsShowcase.classList.remove('visible');
+        // 页面加载时自动开始语录动画
+        function startQuotesAnimation() {
             currentQuoteIndex = 0;
-            
-            // 开始语录动画
             showNextQuote();
         }
 
@@ -764,43 +713,8 @@
             }
         }
 
-        function closeTeamsShowcase() {
-            const modal = document.getElementById('teamsModal');
-            const quotesSeq = document.getElementById('quotesSequence');
-            const teamsShowcase = document.getElementById('teamsShowcase');
-            
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-            
-            // 清理动画
-            if (quotesAnimationId) {
-                clearTimeout(quotesAnimationId);
-            }
-            
-            // 重置状态
-            setTimeout(() => {
-                quotesSeq.classList.remove('hidden');
-                teamsShowcase.classList.remove('visible');
-                document.getElementById('quoteText').classList.remove('show');
-            }, 300);
-        }
-
-        // 点击背景关闭
-        document.getElementById('teamsModal')?.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeTeamsShowcase();
-            }
-        });
-
-        // ESC键关闭
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const modal = document.getElementById('teamsModal');
-                if (modal?.classList.contains('active')) {
-                    closeTeamsShowcase();
-                }
-            }
-        });
+        // 页面加载时自动开始
+        window.addEventListener('DOMContentLoaded', startQuotesAnimation);
     </script>
 </body>
 </html>
