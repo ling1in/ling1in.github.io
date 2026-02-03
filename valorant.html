@@ -1173,7 +1173,7 @@
             <div class="menu-title" id="title2">枪械档案</div>
             <div class="menu-desc" id="desc2">19种武器详细数据<br>6大枪械分类</div>
         </a>
-        <a href="valorant-teams.html" class="menu-card" id="card3">
+        <a href="valorant-teams.html" class="menu-card" id="card3" onclick="playBackgroundMusic(event)">
             <span class="menu-icon" id="icon3">🏆</span>
             <div class="menu-title" id="title3">VCT CN 战队</div>
             <div class="menu-desc" id="desc3">9支顶尖战队<br>45位明星选手</div>
@@ -2871,6 +2871,35 @@
         if (isMobileMode) {
             applyGameMode();
         }
+
+        // 后台音乐播放
+        let bgMusicPlayer = null;
+        function playBackgroundMusic(event) {
+            // 不阻止默认跳转行为，让页面正常跳转
+            // 创建隐藏的音乐播放器
+            if (!bgMusicPlayer) {
+                bgMusicPlayer = document.createElement('iframe');
+                bgMusicPlayer.style.display = 'none';
+                bgMusicPlayer.src = '//music.163.com/outchain/player?type=2&id=2068401809&auto=1&height=0';
+                document.body.appendChild(bgMusicPlayer);
+            }
+            // 保存播放状态到 sessionStorage，跳转到新页面后继续播放
+            sessionStorage.setItem('playingMusic', '2068401809');
+        }
+
+        // 页面加载时检查是否需要继续播放音乐
+        window.addEventListener('load', function() {
+            const playingId = sessionStorage.getItem('playingMusic');
+            if (playingId && !bgMusicPlayer) {
+                bgMusicPlayer = document.createElement('iframe');
+                bgMusicPlayer.style.display = 'none';
+                bgMusicPlayer.src = '//music.163.com/outchain/player?type=2&id=' + playingId + '&auto=1&height=0';
+                document.body.appendChild(bgMusicPlayer);
+            }
+        });
     </script>
+    
+    <!-- 隐藏的音乐播放器容器 -->
+    <div id="hidden-music-player" style="display: none;"></div>
 </body>
 </html>
