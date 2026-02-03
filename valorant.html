@@ -1690,7 +1690,7 @@
         
         let isMobileMode = localStorage.getItem('gameMode') === 'mobile';
         
-        // PC版和手游版内容数据
+        // PC版内容数据
         const pcContent = {
             title: 'Valorant 档案中心 <img src="images/valorant-logo.svg" alt="Valorant" style="height: 0.8em; width: auto; vertical-align: middle; margin-left: 10px; filter: drop-shadow(0 0 10px rgba(255,70,85,0.5));">',
             desc: '探索无畏契约的完整世界：28位特工、19种武器、11张地图、9支VCT CN战队、EDG传奇故事与最新资讯',
@@ -1715,6 +1715,7 @@
             switchBtnText: '📱 如果你来自《无畏契约：源能行动》'
         };
         
+        // 手游版《源能行动》内容数据（真实准确的特工/地图/枪械列表）
         const mobileContent = {
             title: '📱 无畏契约：源能行动',
             desc: '随时随地，掌上竞技！体验专为移动端优化的快节奏5v5战术射击',
@@ -1722,22 +1723,319 @@
             proPlayersBtn: '🎮 手游大神操作教学',
             secretsBtn: '💡 手游独家技巧',
             cards: [
-                { title: '手游特工', desc: '专为手机优化的特工技能<br>简化操作，爽快战斗' },
-                { title: '手游枪械', desc: '自动开火辅助瞄准<br>移动端射击体验升级' },
-                { title: '源能行动战队', desc: '手游职业联赛<br>移动端电竞新星' },
-                { title: '手游地图', desc: '精简版经典地图<br>快节奏对战设计' },
-                { title: '新手攻略', desc: '从零开始的手游教程<br>快速上手源能行动' },
+                { title: '源能特工', desc: '17位首发特工<br>专为移动端优化' },
+                { title: '手游枪械', desc: '15种核心武器<br>自动开火辅助瞄准' },
+                { title: '手游电竞', desc: '源能行动职业联赛<br>移动端电竞新纪元' },
+                { title: '源能地图', desc: '6张经典地图<br>适配手游快节奏' },
+                { title: '新手攻略', desc: '三指/四指操作教程<br>快速上手移动端' },
                 { title: '手游资讯', desc: '源能行动更新动态<br>手游专属活动' }
             ],
             proPlayersTitle: '🎮 手游大神操作教学',
-            proPlayersSubtitle: '学习移动端顶尖玩家的触控技巧与走位',
+            proPlayersSubtitle: '学习移动端顶尖玩家的三指/四指操作与走位',
             secretsTitle: '💡 手游独家技巧',
-            secretsSubtitle: '自动瞄准优化 & 触控操作秘诀',
-            mapsTab: '🗺️ 手游地图点位',
-            agentsTab: '🎯 手游特工技巧',
+            secretsSubtitle: '自动瞄准优化 & 陀螺仪使用秘诀',
+            mapsTab: '🗺️ 源能地图点位',
+            agentsTab: '🎯 源能特工技巧',
             footer: '无畏契约：源能行动 | Made with ❤️ by <a href="about.html">ling1in</a>',
             switchBtnText: '🎮 返回《Valorant》PC版'
         };
+        
+        // 源能行动手游特工数据（17位首发特工）
+        const mobileAgentsData = [
+            {
+                name: '捷风',
+                avatar: 'images/agents/捷风.png',
+                role: '决斗',
+                color: '#3498db',
+                tips: [
+                    '手游中E技能滑行有自动瞄准辅助，更容易命中移动目标',
+                    '大招飞刀在手游中可以通过陀螺仪微调瞄准',
+                    '跳跃射击在手游中稳定性更好，可以多用跳peek',
+                    '手游捷风的烟雾释放速度更快，适合快速突进'
+                ]
+            },
+            {
+                name: '雷兹',
+                avatar: 'images/agents/雷兹.png',
+                role: '决斗',
+                color: '#e74c3c',
+                tips: [
+                    '手游中炸弹跳可以通过一键连招实现，操作更简便',
+                    'C技能手雷在手游中有投掷辅助线，更容易精准投掷',
+                    'E技能小车在手游中会自动标记敌人位置',
+                    '大招火箭筒在手游中有轻微的锁定辅助'
+                ]
+            },
+            {
+                name: '不死鸟',
+                avatar: 'images/agents/不死鸟.png',
+                role: '决斗',
+                color: '#e67e22',
+                tips: [
+                    '手游中火墙释放有辅助瞄准，更容易放在理想位置',
+                    'Q技能闪光在手游中引爆时间更短，需要更快反应',
+                    'E技能火球在手游中可以边移动边释放',
+                    '大招复活期间手游中可以自由转动视角观察'
+                ]
+            },
+            {
+                name: '霓虹',
+                avatar: 'images/agents/霓虹.png',
+                role: '决斗',
+                color: '#00bcd4',
+                tips: [
+                    '手游中霓虹的滑铲可以通过滑动按钮快速触发',
+                    '大招在手游中可以边跑边射击，操作更流畅',
+                    'E技能滑铲在手游中可以轻松实现连续滑铲',
+                    '手游霓虹的震可以穿墙，是清点的好帮手'
+                ]
+            },
+            {
+                name: '夜戮',
+                avatar: 'images/agents/夜露.png',
+                role: '决斗',
+                color: '#9b59b6',
+                tips: [
+                    '手游中假脚步可以通过快捷按钮一键释放',
+                    '传送在手游中有距离指示，更容易掌握范围',
+                    '大招在手游中是无敌状态，可以用来探点',
+                    'Q技能闪光在手游中可以穿墙释放'
+                ]
+            },
+            {
+                name: '芮娜',
+                avatar: 'images/agents/芮娜.png',
+                role: '决斗',
+                color: '#8e44ad',
+                tips: [
+                    '手游中C技能眼睛有自动追踪功能',
+                    '吸血和位移在手游中可以通过快捷按钮快速选择',
+                    '大招在手游中有视觉增强效果，更容易发现敌人',
+                    '击杀刷新在手游中有明显的UI提示'
+                ]
+            },
+            {
+                name: '斯凯',
+                avatar: 'images/agents/斯凯.png',
+                role: '先锋',
+                color: '#2ecc71',
+                tips: [
+                    '手游中C技能狼可以通过陀螺仪控制方向',
+                    'Q技能鸟闪在手游中爆炸范围有视觉提示',
+                    'E技能治疗在手游中可以自动锁定范围内队友',
+                    '大招在手游中追踪速度更快'
+                ]
+            },
+            {
+                name: '猎枭',
+                avatar: 'images/agents/猎枭.png',
+                role: '先锋',
+                color: '#f39c12',
+                tips: [
+                    '手游中无人机控制有虚拟摇杆，操作更直观',
+                    'Q技能箭在手游中有抛物线辅助，更容易命中',
+                    'E技能探测箭在手游中探测范围有UI显示',
+                    '大招在手游中可以穿墙，配合信息使用'
+                ]
+            },
+            {
+                name: '铁臂',
+                avatar: 'images/agents/铁臂.png',
+                role: '先锋',
+                color: '#795548',
+                tips: [
+                    '手游中震可以穿墙，是清点利器',
+                    '闪光在手游中延迟时间有倒计时提示',
+                    'E技能在手游中可以破坏敌方道具',
+                    '大招在手游中范围有红色区域提示'
+                ]
+            },
+            {
+                name: '盖可',
+                avatar: 'images/agents/盖可.png',
+                role: '先锋',
+                color: '#8bc34a',
+                tips: [
+                    '手游中皮蛋下包/拆包可以一键操作',
+                '丢丢在手游中会自动追踪附近敌人',
+                    '技能在手游中可以通过快捷按钮召回',
+                    '大招在手游中控制更灵活'
+                ]
+            },
+            {
+                name: '零',
+                avatar: 'images/agents/零.png',
+                role: '哨位',
+                color: '#607d8b',
+                tips: [
+                    '手游中摄像头可以通过快捷按钮快速切换视角',
+                    '绊线在手游中可以放在各种高度',
+                    'E技能烟雾在手游中是单向视野',
+                    '大招在手游中需要靠近尸体使用'
+                ]
+            },
+            {
+                name: '奇乐',
+                avatar: 'images/agents/奇乐.png',
+                role: '哨位',
+                color: '#ff9800',
+                tips: [
+                    '手游中炮塔可以放在各种高台位置',
+                    '雷可以藏在各种角落，手游中更难发现',
+                    '纳米蜂群在手游中范围有清晰显示',
+                    '大招在手游中封锁范围很大'
+                ]
+            },
+            {
+                name: '贤者',
+                avatar: 'images/agents/贤者.png',
+                role: '哨位',
+                color: '#00bcd4',
+                tips: [
+                    '手游中冰墙可以通过快捷按钮快速放置',
+                    '减速球在手游中有抛物线辅助',
+                    '治疗在手游中可以自动锁定队友',
+                    '大招在手游中拉人时间更短'
+                ]
+            },
+            {
+                name: '尚勃勒',
+                avatar: 'images/agents/尚勃勒.png',
+                role: '哨位',
+                color: '#ffd700',
+                tips: [
+                    '手游中锚点传送可以通过快捷按钮一键完成',
+                    '免费手枪在经济局中很有用',
+                    'E技能在手游中开镜更快',
+                    '大招在手游中击杀会掉落武器'
+                ]
+            },
+            {
+                name: '炼狱',
+                avatar: 'images/agents/炼狱.png',
+                role: '控场',
+                color: '#e67e22',
+                tips: [
+                    '手游中烟雾可以通过小地图快速放置',
+                    '燃烧弹在手游中有抛物线辅助',
+                    'E技能强化在手游中有明显的UI提示',
+                    '大招是直线投放，可以清点和封锁'
+                ]
+            },
+            {
+                name: '欧门',
+                avatar: 'images/agents/幽影.png',
+                role: '控场',
+                color: '#6c5ce7',
+                tips: [
+                    '手游中烟可以放在空中各种位置',
+                    '致盲在手游中可以穿墙释放',
+                    '传送在手游中有距离限制提示',
+                    '大招在手游中可以全图传送'
+                ]
+            },
+            {
+                name: '蝰蛇',
+                avatar: 'images/agents/蝰蛇.png',
+                role: '控场',
+                color: '#27ae60',
+                tips: [
+                    '手游中烟墙有燃料条显示，更容易管理',
+                    '烟球在手游中可以扔很远',
+                    '毒池在手游中站在里面会减伤',
+                    '大招在手游中范围会随时间扩大'
+                ]
+            }
+        ];
+        
+        // 源能行动手游地图数据（6张首发地图）
+        const mobileMapsData = [
+            {
+                map: '亚海悬城',
+                emoji: '🌊',
+                color: '#3498db',
+                description: '经典控图地图，手游版节奏更快',
+                spots: [
+                    { location: 'A大快速上箱', description: '手游中可以通过跳跃辅助一键上箱', tip: '捷风/雷兹可以快速占领高点' },
+                    { location: 'B通老六位', description: '手游版B通角落蹲伏更难被发现', tip: '适合零/奇乐设伏' },
+                    { location: '中路架点', description: '手游中中路对枪距离适中', tip: '狙击手 favorite' }
+                ]
+            },
+            {
+                map: '隐世修所',
+                emoji: '🏛️',
+                color: '#9b59b6',
+                description: '三路地图，手游版B点更容易攻下',
+                spots: [
+                    { location: 'C大书架', description: '手游中可以轻松跳上书架', tip: '获得俯视视角' },
+                    { location: 'A小悬崖', description: '手游版跌落保护更友好', tip: '可以大胆站位' },
+                    { location: '中路箱顶', description: '手游跳跃机制优化，更容易跳上', tip: '非常规peek点' }
+                ]
+            },
+            {
+                map: '霓虹町',
+                emoji: '🌃',
+                color: '#e74c3c',
+                description: '双层地图，手游版垂直机动性增强',
+                spots: [
+                    { location: 'A大通风管', description: '手游中可以轻松跳上通风管', tip: '捷风E技能可直接上' },
+                    { location: 'B点双层箱', description: '手游版箱子更容易跳上去', tip: '配合烟雾单向视野' },
+                    { location: '中街雨棚', description: '手游中雨棚可以跳上去偷袭', tip: '适合老六玩家' }
+                ]
+            },
+            {
+                map: '源工重镇',
+                emoji: '🏭',
+                color: '#f39c12',
+                description: '传送门地图，手游版传送更快',
+                spots: [
+                    { location: '传送门后', description: '手游中传送后有短暂无敌', tip: '可以快速反打' },
+                    { location: 'A大管道', description: '手游版管道内可以站立', tip: '非常规架点' },
+                    { location: '中门吊桥', description: '手游中可以跳上横梁', tip: '敌人很难发现' }
+                ]
+            },
+            {
+                map: '莲华古城',
+                emoji: '🏯',
+                color: '#e91e63',
+                description: '旋转门地图，手游版节奏更快',
+                spots: [
+                    { location: '旋转门后', description: '手游中旋转门关闭更快', tip: '可以利用timing偷袭' },
+                    { location: 'C大雕像', description: '手游中可以跳上雕像头', tip: '上帝视角' },
+                    { location: 'A大瀑布', description: '手游中瀑布后可以完全隐藏', tip: '配合绊线使用' }
+                ]
+            },
+            {
+                map: '森寒冬港',
+                emoji: '❄️',
+                color: '#00acc1',
+                description: 'B点多层，手游版B点简化',
+                spots: [
+                    { location: 'B管道上', description: '手游版管道更容易跳上去', tip: '俯视B包' },
+                    { location: 'A大冰柱', description: '手游中冰柱后可以躲藏', tip: '蓝色背景掩护' },
+                    { location: '中路箱顶', description: '手游中更容易跳上箱子', tip: '非常规peek' }
+                ]
+            }
+        ];
+        
+        // 源能行动手游枪械数据（15种核心武器）
+        const mobileWeaponsData = [
+            { name: '制式手枪', type: '手枪', desc: '免费开局武器，手游中自动开火模式很实用' },
+            { name: '短管', type: '手枪', desc: '经济局选择，近距离伤害爆炸' },
+            { name: '狂弑', type: '手枪', desc: '全自动手枪，跑打神器' },
+            { name: '鬼魅', type: '手枪', desc: '带消音，精准度高，eco局首选' },
+            { name: '蜂刺', type: '冲锋枪', desc: '跑打准，适合冲锋' },
+            { name: '恶灵', type: '冲锋枪', desc: '稳定性好，中距离也能打' },
+            { name: '判官', type: '霰弹枪', desc: '近距离一枪秒，手游中更易瞄准' },
+            { name: '雄鹿', type: '霰弹枪', desc: '便宜好用，经济局选择' },
+            { name: '戍卫', type: '步枪', desc: '半自动步枪，点头神器' },
+            { name: '狂徒', type: '步枪', desc: 'AK，一枪头，最受欢迎的主战' },
+            { name: '幻象', type: '步枪', desc: 'M4，稳定性好，带消音' },
+            { name: '战神', type: '重型武器', desc: '轻机枪，穿墙能力强' },
+            { name: '奥丁', type: '重型武器', desc: '重机枪，架点神器' },
+            { name: '间谍', type: '狙击枪', desc: '大狙，手游中开镜更稳' },
+            { name: '飞将', type: '狙击枪', desc: '连狙，容错率高' }
+        ];
         
         // 切换游戏模式
         function toggleGameMode() {
@@ -1790,6 +2088,80 @@
             
             // 更新页面标题
             document.title = isMobileMode ? '无畏契约：源能行动 | ling1in' : 'Valorant 档案中心 | ling1in';
+            
+            // 重新渲染特工和地图内容（切换数据源）
+            if (isMobileMode) {
+                renderMobileAgents();
+                renderMobileMaps();
+            } else {
+                renderMapsUncommonAngles();
+                renderAgentTips();
+            }
+        }
+        
+        // 渲染源能行动手游特工
+        function renderMobileAgents() {
+            const container = document.getElementById('agentTipsGrid');
+            let html = '';
+            
+            for (let i = 0; i < mobileAgentsData.length; i++) {
+                const agent = mobileAgentsData[i];
+                let tipsHtml = '';
+                
+                for (let j = 0; j < agent.tips.length; j++) {
+                    tipsHtml += '<div class="agent-tip-item">' + agent.tips[j] + '</div>';
+                }
+                
+                html += '<div class="agent-tip-card" style="animation: fadeIn 0.5s ease ' + (i * 0.05) + 's both;">' +
+                    '<div class="agent-tip-header">' +
+                        '<div class="agent-tip-avatar">' +
+                            '<img src="' + agent.avatar + '" alt="' + agent.name + '" onerror="this.style.display=\'none\';this.parentNode.innerHTML=\'<span style=font-size:1.5rem>★</span>\';">' +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="agent-tip-name">' + agent.name + '</div>' +
+                            '<div class="agent-tip-role">' + agent.role + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="agent-tip-list">' + tipsHtml + '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        // 渲染源能行动手游地图
+        function renderMobileMaps() {
+            const container = document.getElementById('mapsUncommonAngles');
+            let html = '';
+            
+            for (let i = 0; i < mobileMapsData.length; i++) {
+                const map = mobileMapsData[i];
+                let spotsHtml = '';
+                
+                for (let j = 0; j < map.spots.length; j++) {
+                    const spot = map.spots[j];
+                    spotsHtml += '<div class="uncommon-spot-item">' +
+                        '<div class="spot-location">' + spot.location + '</div>' +
+                        '<div class="spot-description">' + spot.description + '</div>' +
+                        '<div class="spot-tip">💡 ' + spot.tip + '</div>' +
+                    '</div>';
+                }
+                
+                html += '<div class="map-angles-card" style="animation: fadeIn 0.5s ease ' + (i * 0.1) + 's both;">' +
+                    '<div class="map-angles-header">' +
+                        '<div class="map-angles-icon" style="background: linear-gradient(135deg, ' + map.color + '33, ' + map.color + '11);">' +
+                            map.emoji +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="map-angles-title">' + map.map + '</div>' +
+                            '<div class="map-angles-desc">' + map.description + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="uncommon-spots-list">' + spotsHtml + '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
         }
         
         // 页面加载时应用保存的模式
