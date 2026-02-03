@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🗺️ Valorant 地图档案 | ling1in</title>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            --text-color: #ece8e1;
+            --text-secondary: #8b978f;
+            --accent-color: #ff4655;
+            --card-bg: rgba(255,255,255,0.05);
+            --card-border: rgba(255,255,255,0.1);
+            --shadow-color: rgba(255, 70, 85, 0.2);
+            --font-main: 'Nunito', 'ZCOOL KuaiLe', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-main);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 15px;
+            padding-top: 70px;
+        }
+        nav {
+            background: rgba(15, 25, 35, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255, 70, 85, 0.3);
+        }
+        nav ul {
+            list-style: none;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 0 15px;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+        nav a:hover, nav a.active { background: var(--accent-color); color: white; }
+        .theme-switcher {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            gap: 6px;
+            background: rgba(255,255,255,0.1);
+            padding: 6px;
+            border-radius: 25px;
+        }
+        .theme-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            background: rgba(255,255,255,0.9);
+        }
+        .theme-btn.active {
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+        .header {
+            text-align: center;
+            padding: 40px 15px;
+        }
+        .header h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            background: linear-gradient(135deg, #4ade80, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* 地图网格 */
+        .maps-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 25px;
+        }
+        @media (min-width: 768px) {
+            .maps-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* 地图卡片 */
+        .map-card {
+            background: linear-gradient(135deg, rgba(74,222,128,0.1), rgba(15,25,35,0.9));
+            border: 2px solid rgba(74,222,128,0.2);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+        .map-card:hover {
+            transform: translateY(-5px);
+            border-color: #4ade80;
+            box-shadow: 0 15px 40px rgba(74, 222, 128, 0.2);
+        }
+        .map-header {
+            background: linear-gradient(135deg, rgba(74,222,128,0.2), transparent);
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(74,222,128,0.2);
+        }
+        .map-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        .map-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .map-sites {
+            font-size: 0.85rem;
+            color: #4ade80;
+            padding: 4px 12px;
+            background: rgba(74,222,128,0.1);
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* 职位战术区域 */
+        .map-roles {
+            padding: 20px;
+        }
+        .role-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border-left: 3px solid;
+        }
+        .role-section:last-child {
+            margin-bottom: 0;
+        }
+        .role-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .role-icon {
+            font-size: 1.3rem;
+        }
+        .role-tips {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+        .role-tips ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .role-tips li {
+            margin-bottom: 5px;
+        }
+
+        /* 职位颜色 */
+        .role-duelist { border-left-color: #ff4655; }
+        .role-duelist .role-header { color: #ff4655; }
+        .role-sentinel { border-left-color: #3b82f6; }
+        .role-sentinel .role-header { color: #3b82f6; }
+        .role-controller { border-left-color: #a855f7; }
+        .role-controller .role-header { color: #a855f7; }
+        .role-initiator { border-left-color: #f59e0b; }
+        .role-initiator .role-header { color: #f59e0b; }
+
+        /* 地图特色标签 */
+        .map-features {
+            display: flex;
+            gap: 8px;
+            padding: 0 20px 20px;
+            flex-wrap: wrap;
+        }
+        .map-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: rgba(74,222,128,0.1);
+            color: #4ade80;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switcher">
+        <button class="theme-btn active" data-theme="default">🎮</button>
+        <button class="theme-btn" data-theme="lain">👁️</button>
+        <button class="theme-btn" data-theme="inception">🌀</button>
+        <button class="theme-btn" data-theme="matrix">💊</button>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">🏠 首页</a></li>
+            <li><a href="valorant.html">🎮 总览</a></li>
+            <li><a href="valorant-agents.html">🎯 特工</a></li>
+            <li><a href="valorant-weapons.html">🔫 枪械</a></li>
+            <li><a href="valorant-maps.html" class="active">🗺️ 地图</a></li>
+            <li><a href="valorant-teams.html">🏆 战队</a></li>
+            <li><a href="valorant-edg.html">👑 EDG</a></li>
+            <li><a href="valorant-news.html">📰 资讯</a></li>
+            <li><a href="valorant-skins.html">💎 皮肤</a></li>
+        </ul>
+    </nav>
+
+    <div class="header">
+        <h1>🗺️ Valorant 地图档案</h1>
+        <p>全地图战术指南 · 各职位注意事项</p>
+    </div>
+
+    <div class="maps-grid" id="mapsGrid"></div>
+
+    <script>
+        // 地图数据
+        const mapsData = [
+            {
+                name: '亚海悬城',
+                emoji: '🏛️',
+                sites: 'A/B 双包点',
+                features: ['高低差', '中路控制', '垂直攻防'],
+                roles: {
+                    duelist: '利用捷风/雷兹快速占领A大或B大，进点后快速搜点，优先清理 heaven（高处）位置。霓虹可以利用中路快速转点。',
+                    sentinel: '奇乐在B点布置纳米蜂群+炮台组合，零在A大布置绊线。注意防守时不要轻易前压，利用信息收集拖延敌人。',
+                    controller: '欧门/幽影控制A大烟，蝰蛇可以封B通烟。注意保留一颗烟用于回防，亚海悬城的回防非常关键。',
+                    initiator: '猎枭用侦察箭探A大或B大，铁臂的震可以配合队友快速进点。斯凯的狗可以用来清理死角。'
+                }
+            },
+            {
+                name: '霓虹町',
+                emoji: '🌃',
+                sites: 'A/B 双包点',
+                features: ['复杂巷道', '多层结构', '近战多'],
+                roles: {
+                    duelist: '适合不死鸟/芮娜等单挑强的特工。A点的U型巷道适合绕后，B点的狭窄通道适合霰弹枪。注意利用传送门快速转点。',
+                    sentinel: '奇乐在B点的小房间布置陷阱，贤者在A点的冰墙可以分割战场。钢锁可以利用传送门快速回防。',
+                    controller: '蝰蛇在B点的长走廊非常强势，欧门可以利用传送门做假动作。注意控制中路的视野。',
+                    initiator: '盖可的皮蛋在狭窄巷道特别好用，铁臂可以穿透墙壁震人。K/O的抑制刀在转点时非常关键。'
+                }
+            },
+            {
+                name: '源工重镇',
+                emoji: '🏭',
+                sites: 'A/B 双包点',
+                features: ['传送门', '开阔区域', '高低差'],
+                roles: {
+                    duelist: '雷兹的爆破包可以轻松上下高低台，霓虹的高速通道可以快速转点。利用传送门可以打出意想不到的绕后。',
+                    sentinel: '奇乐在A点高台布置炮台控制包点，零的摄像头可以监控传送门。注意防守传送门不要被绕后。',
+                    controller: '炼狱的烟在开阔区域非常好用，星礈可以利用传送门快速布置星体。注意控制A点的高台视野。',
+                    initiator: '猎枭的侦察箭可以探高台，铁臂的震可以配合传送门突袭。钛狐的导弹在开阔区域威力巨大。'
+                }
+            },
+            {
+                name: '隐世修所',
+                emoji: '🏯',
+                sites: 'A/B/C 三包点',
+                features: ['三包点', '开阔', '转点快'],
+                roles: {
+                    duelist: '地图开阔适合长枪对枪，捷风的冲刺可以快速转点。注意C点的防守相对薄弱，可以作为突破口。',
+                    sentinel: '贤者在C点的冰墙很关键，奇乐可以在A/B布置陷阱。维斯在开阔区域的液态金属很有优势。',
+                    controller: '炼狱的三颗烟在三个包点都很重要，幽影可以传送快速回防。注意控制车库的中转。',
+                    initiator: '斯凯在开阔区域的狗视野很好，猎枭的侦察箭可以探多个方向。铁臂在狭窄区域的震很有效。'
+                }
+            },
+            {
+                name: '莲华古城',
+                emoji: '🪷',
+                sites: 'A/B/C 三包点',
+                features: ['旋转门', '机关', '复杂地形'],
+                roles: {
+                    duelist: '旋转门可以快速转点，夜露在这里如鱼得水。壹决的屏障可以控制旋转门，雷兹的炸弹可以清理角落。',
+                    sentinel: '钢锁在旋转门附近的声感陷阱非常有效，奇乐可以利用机关快速转移炮台。注意防守旋转门。',
+                    controller: '海神的水幕可以配合地形，蝰蛇在C点的长走廊很有优势。星礈的星体布置在复杂地形威力巨大。',
+                    initiator: '黑梦在复杂地形的诡眼很难被发现，钛狐的导弹可以覆盖多个包点。盖可的宠物可以探角落。'
+                }
+            },
+            {
+                name: '森寒冬港',
+                emoji: '❄️',
+                sites: 'A/B 双包点',
+                features: ['冰雪', '高低差', '垂直高度'],
+                roles: {
+                    duelist: '垂直高度差很大，捷风可以利用上升气流占领高处。雷兹的炸弹包可以轻松上下平台。',
+                    sentinel: '贤者的冰墙在雪地特别显眼，零在A点的摄像头可以监控多个入口。奇乐在B点的防守很强。',
+                    controller: '蝰蛇在B点的毒幕可以分割整个包点，欧门可以传送到高处。注意控制A点的管道。',
+                    initiator: '猎枭的侦察箭可以探高处，铁臂可以利用垂直高度打出意想不到的震。斯凯的狗在雪地很显眼。'
+                }
+            },
+            {
+                name: '微风岛屿',
+                emoji: '🏝️',
+                sites: 'A/B 双包点',
+                features: ['开阔', '长距离', '狙击优势'],
+                roles: {
+                    duelist: '地图开阔适合狙击，但决斗位需要利用烟雾或闪光快速进点。霓虹的高速通道可以快速穿越开阔地。',
+                    sentinel: '地图开阔适合零的摄像头监控，奇乐的炮台在A点的小房间很有效。贤者的冰墙可以创造掩体。',
+                    controller: '这是控场位最重要的地图！蝰蛇/欧门的烟可以掩护队伍穿越开阔地。至少需要两个控场位。',
+                    initiator: '猎枭在此地图的侦察箭非常关键，斯凯的狗可以探草丛。钛狐的导弹在开阔区域威力巨大。'
+                }
+            },
+            {
+                name: '日落之城',
+                emoji: '🌅',
+                sites: 'A/B 双包点',
+                features: ['中路控制', ' Market转点', '双塔'],
+                roles: {
+                    duelist: '中路的双塔可以快速转点，捷风的上升气流可以占领塔顶。雷兹的炸弹包可以炸开Market的墙壁。',
+                    sentinel: 'Market是防守的核心，钢锁在这里如鱼得水。奇乐在B点的防守很强，注意控制中路的绊线。',
+                    controller: '炼狱的烟在双塔区域非常关键，蝰蛇可以利用毒幕控制Market。星礈的星体布置在高点威力巨大。',
+                    initiator: '铁臂可以震双塔的敌人，猎枭的侦察箭可以探Market。盖可的皮蛋可以清理Market的角落。'
+                }
+            },
+            {
+                name: '深海明珠',
+                emoji: '🌊',
+                sites: 'A/B 双包点',
+                features: ['圆形', '回廊', '中心控制'],
+                roles: {
+                    duelist: '地图呈圆形，可以从多个方向进攻。夜露的传送在这里如鱼得水，霓虹可以绕后。',
+                    sentinel: '地图复杂适合陷阱，钢锁和奇乐在这里很有优势。注意防守时不要分散太开。',
+                    controller: '欧门的传送在圆形地图特别有用，蝰蛇的毒幕可以分割回廊。海神的水幕可以控制中心。',
+                    initiator: '黑梦的诡眼在回廊很难被发现，斯凯的狗可以探多个入口。钛狐的导弹可以覆盖整个中心区域。'
+                }
+            },
+            {
+                name: '裂变峡谷',
+                emoji: '☢️',
+                sites: 'A/B 双包点',
+                features: ['高台', '滑索', '垂直机动'],
+                roles: {
+                    duelist: '滑索可以快速转点，捷风的上升气流可以占领高台。雷兹的炸弹包可以轻松上下高台。',
+                    sentinel: '奇乐在高台布置炮台视野很好，零的摄像头可以监控滑索。贤者的冰墙可以封锁滑索。',
+                    controller: '炼狱的烟在高台区域非常关键，蝰蛇可以利用毒幕控制滑索。注意控制A点的中央高台。',
+                    initiator: '猎枭的侦察箭可以探高台，铁臂可以震滑索上的敌人。斯凯的狗在垂直区域很有用。'
+                }
+            },
+            {
+                name: '幽邃地窟',
+                emoji: '🕳️',
+                sites: 'A/B 双包点',
+                features: ['地下', '狭窄', '近战多'],
+                roles: {
+                    duelist: '地图狭窄适合近战，霓虹在这里如鱼得水。雷兹的炸弹包在封闭空间威力巨大。',
+                    sentinel: '地图狭窄适合陷阱，钢锁的绊线在狭窄通道很难被发现。奇乐的纳米蜂群在封闭空间很有效。',
+                    controller: '地图狭窄烟雾效果减弱，但仍然重要。欧门的传送可以快速转点。',
+                    initiator: '铁臂在狭窄空间的震非常致命，盖可的皮蛋在封闭空间很难躲避。K/O的抑制刀在狭窄区域覆盖范围广。'
+                }
+            }
+        ];
+
+        // 职位图标和名称
+        const roleInfo = {
+            duelist: { icon: '⚔️', name: '决斗 Duelist', class: 'role-duelist' },
+            sentinel: { icon: '🛡️', name: '哨卫 Sentinel', class: 'role-sentinel' },
+            controller: { icon: '☁️', name: '控场 Controller', class: 'role-controller' },
+            initiator: { icon: '📡', name: '先锋 Initiator', class: 'role-initiator' }
+        };
+
+        // 渲染地图卡片
+        function renderMaps() {
+            const grid = document.getElementById('mapsGrid');
+            
+            grid.innerHTML = mapsData.map((map, i) => `
+                <div class="map-card" style="animation: fadeIn 0.5s ease ${i * 0.1}s both;">
+                    <div class="map-header">
+                        <div class="map-icon">${map.emoji}</div>
+                        <div class="map-name">${map.name}</div>
+                        <div class="map-sites">${map.sites}</div>
+                    </div>
+                    
+                    <div class="map-roles">
+                        ${Object.entries(map.roles).map(([role, tips]) => `
+                            <div class="role-section ${roleInfo[role].class}">
+                                <div class="role-header">
+                                    <span class="role-icon">${roleInfo[role].icon}</span>
+                                    <span>${roleInfo[role].name}</span>
+                                </div>
+                                <div class="role-tips">${tips}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="map-features">
+                        ${map.features.map(f => `<span class="map-tag">${f}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 添加淡入动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // 主题切换
+        const themeBtns = document.querySelectorAll('.theme-btn');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('theme') || 'default';
+        body.setAttribute('data-theme', savedTheme);
+        updateActiveButton(savedTheme);
+        
+        themeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.getAttribute('data-theme');
+                body.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                updateActiveButton(theme);
+            });
+        });
+        
+        function updateActiveButton(theme) {
+            themeBtns.forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
+            });
+        }
+
+        // 渲染地图
+        renderMaps();
+    </script>
+</body>
+</html>
