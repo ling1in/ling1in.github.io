@@ -598,7 +598,7 @@
         <!-- 歌词显示 -->
         <div class="music-card" style="text-align: center;">
             <h3 style="margin-bottom: 15px; color: var(--accent-color);">🎵 歌词</h3>
-            <div id="lyrics-display" style="line-height: 2; color: var(--text-color); min-height: 150px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div id="lyrics-display" style="line-height: 2; color: var(--text-color); height: 200px; overflow-y: auto; scroll-behavior: smooth; padding: 20px 0;">
                 <p style="opacity: 0.6;">点击歌曲开始播放...</p>
             </div>
         </div>
@@ -917,33 +917,92 @@
             });
         });
 
-        // 歌词数据
+        // 歌词数据（带时间戳，单位：秒）
         const lyricsData = {
             '2166584564': [
-                '听了几遍苦情歌',
-                '歌词比我们快乐',
-                '不敢放的手干脆就这样耗着',
-                '分分合合 重蹈覆辙',
-                '',
-                '爱让人像小孩',
-                '怕一个人孤单',
-                '明知道有的人走不到最后却还是太依赖',
-                '不愿说bye'
+                { time: 0, text: '♪ 小孩 - 罗森涛 ♪' },
+                { time: 5, text: '听了几遍苦情歌' },
+                { time: 8, text: '歌词比我们快乐' },
+                { time: 11, text: '不敢放的手干脆就这样耗着' },
+                { time: 15, text: '分分合合 重蹈覆辙' },
+                { time: 19, text: '热情褪去只剩下不舍' },
+                { time: 23, text: '那些惹人哭的承诺' },
+                { time: 26, text: '让两个人沉默' },
+                { time: 30, text: '爱让人像小孩' },
+                { time: 33, text: '怕一个人孤单' },
+                { time: 37, text: '明知道有的人走不到最后却还是太依赖' },
+                { time: 42, text: '不愿说bye' }
             ]
         };
 
-        // 更新歌词显示
-        function updateLyrics(neteaseId) {
+        let currentLyrics = [];
+        let lyricsInterval = null;
+        let startTime = 0;
+
+        // 更新歌词显示（初始化）
+        function initLyrics(neteaseId) {
             const lyricsBox = document.getElementById('lyrics-display');
-            const lyrics = lyricsData[neteaseId];
+            currentLyrics = lyricsData[neteaseId] || [];
             
-            if (lyrics && lyrics.length > 0) {
-                lyricsBox.innerHTML = lyrics.map((line, index) => 
-                    `<p style="margin: 8px 0; ${index === 2 ? 'color: var(--accent-color); font-size: 1.1rem; font-weight: 600;' : 'opacity: 0.8;'}">${line || ' '}</p>`
+            if (currentLyrics.length > 0) {
+                lyricsBox.innerHTML = currentLyrics.map((item, index) => 
+                    `<p class="lyric-line" data-index="${index}" style="margin: 10px 0; transition: all 0.3s ease; opacity: 0.5; transform: scale(0.95);">${item.text}</p>`
                 ).join('');
+                // 高亮第一行
+                highlightLyric(0);
             } else {
                 lyricsBox.innerHTML = '<p style="opacity: 0.6;">暂无歌词...</p>';
             }
+        }
+
+        // 高亮当前歌词行
+        function highlightLyric(index) {
+            const lines = document.querySelectorAll('.lyric-line');
+            lines.forEach((line, i) => {
+                if (i === index) {
+                    line.style.opacity = '1';
+                    line.style.color = 'var(--accent-color)';
+                    line.style.fontSize = '1.15rem';
+                    line.style.fontWeight = '600';
+                    line.style.transform = 'scale(1)';
+                    // 滚动到中间
+                    line.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else if (Math.abs(i - index) === 1) {
+                    line.style.opacity = '0.7';
+                    line.style.color = 'var(--text-color)';
+                    line.style.fontSize = '1rem';
+                    line.style.fontWeight = '400';
+                    line.style.transform = 'scale(0.95)';
+                } else {
+                    line.style.opacity = '0.4';
+                    line.style.color = 'var(--text-color)';
+                    line.style.fontSize = '0.9rem';
+                    line.style.fontWeight = '400';
+                    line.style.transform = 'scale(0.9)';
+                }
+            });
+        }
+
+        // 开始歌词滚动
+        function startLyricsSync() {
+            startTime = Date.now();
+            if (lyricsInterval) clearInterval(lyricsInterval);
+            
+            lyricsInterval = setInterval(() => {
+                const elapsed = (Date.now() - startTime) / 1000;
+                
+                // 找到当前应该显示的歌词
+                let currentIndex = 0;
+                for (let i = 0; i < currentLyrics.length; i++) {
+                    if (elapsed >= currentLyrics[i].time) {
+                        currentIndex = i;
+                    } else {
+                        break;
+                    }
+                }
+                
+                highlightLyric(currentIndex);
+            }, 500); // 每500ms检查一次
         }
 
         // 歌曲项点击效果 - 切换到网易云播放器
@@ -961,8 +1020,11 @@
                     const player = document.getElementById('netease-player');
                     player.src = `//music.163.com/outchain/player?type=2&id=${neteaseId}&auto=1&height=86`;
                     
-                    // 更新歌词
-                    updateLyrics(neteaseId);
+                    // 初始化歌词
+                    initLyrics(neteaseId);
+                    
+                    // 开始歌词同步（延迟一点等播放器加载）
+                    setTimeout(startLyricsSync, 1000);
                     
                     // 滚动到播放器
                     player.scrollIntoView({ behavior: 'smooth', block: 'center' });
