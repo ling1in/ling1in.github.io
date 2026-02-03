@@ -214,6 +214,114 @@
             }
         }
         /* 游戏细节弹窗样式 */
+        .config-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .config-modal.active {
+            display: block;
+        }
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 25px;
+        }
+        @media (min-width: 768px) {
+            .config-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1200px) {
+            .config-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .config-card {
+            background: linear-gradient(135deg, rgba(255,193,7,0.1), rgba(255,152,0,0.05));
+            border: 2px solid rgba(255,193,7,0.2);
+            border-radius: 24px;
+            padding: 25px;
+            transition: all 0.4s;
+        }
+        .config-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,193,7,0.5);
+            box-shadow: 0 15px 40px rgba(255,193,7,0.2);
+        }
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,193,7,0.2);
+        }
+        .config-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255,193,7,0.3), rgba(255,152,0,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        .config-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .config-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .config-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .config-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .config-item-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffc107;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .config-item-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .sensitivity-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .sensitivity-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            min-width: 60px;
+        }
+        .sensitivity-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #ffc107;
+            min-width: 50px;
+            text-align: right;
+        }
         .secrets-modal {
             display: none;
             position: fixed;
@@ -797,6 +905,27 @@
         </div>
     </div>
 
+    <!-- 新手配置弹窗 -->
+    <div class="config-modal" id="configModal">
+        <div class="secrets-container">
+            <div class="secrets-header">
+                <button class="secrets-close" onclick="closeConfigModal()">×</button>
+                <h2 class="secrets-title">⚙️ 新手配置推荐</h2>
+                <p class="secrets-subtitle">键位布局 & 灵敏度设置，助你快速上手移动端</p>
+            </div>
+            <div class="secrets-tabs">
+                <button class="secrets-tab active" onclick="switchConfigTab('fingers')">👆 指法键位</button>
+                <button class="secrets-tab" onclick="switchConfigTab('sensitivity')">🎯 灵敏度设置</button>
+            </div>
+            <div class="secrets-content active" id="fingersContent">
+                <div class="config-grid" id="fingersGrid"></div>
+            </div>
+            <div class="secrets-content" id="sensitivityContent">
+                <div class="config-grid" id="sensitivityGrid"></div>
+            </div>
+        </div>
+    </div>
+
     <div class="menu-grid">
         <a href="valorant-agents.html" class="menu-card" id="card1">
             <span class="menu-icon" id="icon1">🎯</span>
@@ -818,7 +947,7 @@
             <div class="menu-title" id="title4">地图档案</div>
             <div class="menu-desc" id="desc4">11张中文地图<br>全职位战术指南</div>
         </a>
-        <a href="valorant-edg.html" class="menu-card" id="card5">
+        <a href="valorant-edg.html" class="menu-card" id="card5" onclick="if(document.getElementById('gameModeBtn').classList.contains('mobile')){event.preventDefault();openConfigModal();}">
             <span class="menu-icon" id="icon5">👑</span>
             <div class="menu-title" id="title5">EDG 传奇</div>
             <div class="menu-desc" id="desc5">世界冠军之路<br>从磨难到辉煌</div>
@@ -1086,11 +1215,15 @@
         document.addEventListener('click', function(e) {
             const modal = document.getElementById('proPlayersModal');
             const secretsModal = document.getElementById('secretsModal');
+            const configModal = document.getElementById('configModal');
             if (e.target === modal) {
                 closeProPlayersModal();
             }
             if (e.target === secretsModal) {
                 closeSecretsModal();
+            }
+            if (e.target === configModal) {
+                closeConfigModal();
             }
         });
 
@@ -1099,6 +1232,7 @@
             if (e.key === 'Escape') {
                 closeProPlayersModal();
                 closeSecretsModal();
+                closeConfigModal();
             }
         });
 
@@ -1727,7 +1861,7 @@
                 { icon: '🔫', title: '手游枪械', desc: '18种武器<br>仅缺少追猎' },
                 { icon: '🏆', title: '手游电竞', desc: '源能行动职业联赛<br>移动端电竞新纪元' },
                 { icon: '🗺️', title: '源能地图', desc: '6张经典地图<br>适配手游快节奏' },
-                { icon: '👑', title: '新手攻略', desc: '三指/四指操作教程<br>快速上手移动端' },
+                { icon: '⚙️', title: '新手配置', desc: '二指/三指/四指键位分享<br>高/中/低敏灵敏度设置' },
                 { icon: '📰', title: '手游资讯', desc: '源能行动更新动态<br>手游专属活动' }
             ],
             proPlayersTitle: '🎮 手游大神操作教学',
@@ -1948,6 +2082,92 @@
             }
         ];
         
+        // 新手配置数据 - 键位设置
+        const fingerConfigData = [
+            {
+                name: '二指操作',
+                icon: '✌️',
+                color: '#ff6b6b',
+                desc: '最基础的入门操作方式，适合新手玩家',
+                settings: [
+                    { label: '左手拇指', value: '移动摇杆' },
+                    { label: '右手拇指', value: '视角+开火+技能' },
+                    { label: '开火模式', value: '自动开火或混合' },
+                    { label: '适合人群', value: '刚入门的纯新手' }
+                ],
+                tips: '建议开启自动开火辅助，降低操作门槛'
+            },
+            {
+                name: '三指操作',
+                icon: '👌',
+                color: '#4ecdc4',
+                desc: '进阶操作，左手食指负责开火，提升对枪能力',
+                settings: [
+                    { label: '左手拇指', value: '移动摇杆' },
+                    { label: '左手食指', value: '开火键（左上）' },
+                    { label: '右手拇指', value: '视角+技能' },
+                    { label: '适合人群', value: '有一定基础的玩家' }
+                ],
+                tips: '推荐开启陀螺仪辅助瞄准，提升精准度'
+            },
+            {
+                name: '四指操作',
+                icon: '🖐️',
+                color: '#45b7d1',
+                desc: '高阶操作，双手食指负责开火和瞄准，身法更灵活',
+                settings: [
+                    { label: '左手拇指', value: '移动摇杆' },
+                    { label: '左手食指', value: '开火键（左上）' },
+                    { label: '右手拇指', value: '视角滑动' },
+                    { label: '右手食指', value: '瞄准/开镜（右上）' }
+                ],
+                tips: '需要较长时间练习，但上限最高，推荐陀螺仪全开'
+            }
+        ];
+
+        // 新手配置数据 - 灵敏度设置
+        const sensitivityConfigData = [
+            {
+                name: '低敏流派',
+                icon: '🐢',
+                color: '#95a5a6',
+                desc: '稳定精准，适合狙击和点射玩家',
+                settings: [
+                    { label: '自由视角', value: '3-5' },
+                    { label: '开火灵敏度', value: '2-4' },
+                    { label: '开镜灵敏度', value: '1-3' },
+                    { label: '陀螺仪', value: '建议开启' }
+                ],
+                tips: '优点是压枪稳、精准度高，缺点是转身慢，需要练习快速滑屏转身'
+            },
+            {
+                name: '中敏流派',
+                icon: '⚖️',
+                color: '#f39c12',
+                desc: '平衡稳定，适合大多数玩家',
+                settings: [
+                    { label: '自由视角', value: '6-8' },
+                    { label: '开火灵敏度', value: '4-6' },
+                    { label: '开镜灵敏度', value: '3-5' },
+                    { label: '陀螺仪', value: '建议开启' }
+                ],
+                tips: '推荐大多数玩家使用，兼顾精准度和灵活性，容易上手'
+            },
+            {
+                name: '高敏流派',
+                icon: '🚀',
+                color: '#e74c3c',
+                desc: '灵活快速，适合近战和突击玩家',
+                settings: [
+                    { label: '自由视角', value: '9-12' },
+                    { label: '开火灵敏度', value: '7-9' },
+                    { label: '开镜灵敏度', value: '5-7' },
+                    { label: '陀螺仪', value: '必须开启' }
+                ],
+                tips: '转身快、跟枪灵活，但需要很强的肌肉记忆，压枪难度较高'
+            }
+        ];
+
         // 源能行动手游地图数据（6张首发地图）
         const mobileMapsData = [
             {
@@ -2090,6 +2310,16 @@
                 document.getElementById('desc' + (i + 1)).innerHTML = content.cards[i].desc;
             }
             
+            // 更新第5个卡片（新手配置/EDG传奇）的点击行为
+            const card5 = document.getElementById('card5');
+            if (isMobileMode) {
+                card5.href = 'javascript:void(0);';
+                card5.onclick = function() { openConfigModal(); return false; };
+            } else {
+                card5.href = 'valorant-edg.html';
+                card5.onclick = null;
+            }
+            
             // 更新弹窗标题
             document.querySelector('.pro-players-title').innerHTML = content.proPlayersTitle;
             document.querySelector('.pro-players-subtitle').textContent = content.proPlayersSubtitle;
@@ -2176,6 +2406,117 @@
                         '</div>' +
                     '</div>' +
                     '<div class="uncommon-spots-list">' + spotsHtml + '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // ==================== 新手配置弹窗功能 ====================
+        
+        // 打开新手配置弹窗
+        function openConfigModal() {
+            const modal = document.getElementById('configModal');
+            renderFingerConfigs();
+            renderSensitivityConfigs();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭新手配置弹窗
+        function closeConfigModal() {
+            const modal = document.getElementById('configModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 切换配置标签页
+        function switchConfigTab(tab) {
+            const tabs = document.querySelectorAll('#configModal .secrets-tab');
+            const contents = document.querySelectorAll('#configModal .secrets-content');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'fingers') {
+                tabs[0].classList.add('active');
+                document.getElementById('fingersContent').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('sensitivityContent').classList.add('active');
+            }
+        }
+
+        // 渲染键位配置
+        function renderFingerConfigs() {
+            const container = document.getElementById('fingersGrid');
+            let html = '';
+            
+            for (let i = 0; i < fingerConfigData.length; i++) {
+                const config = fingerConfigData[i];
+                let settingsHtml = '';
+                
+                for (let j = 0; j < config.settings.length; j++) {
+                    const setting = config.settings[j];
+                    settingsHtml += '<div class="config-item">' +
+                        '<div class="config-item-title">' + setting.label + '</div>' +
+                        '<div class="config-item-desc">' + setting.value + '</div>' +
+                    '</div>';
+                }
+                
+                html += '<div class="config-card" style="animation: fadeIn 0.5s ease ' + (i * 0.1) + 's both;">' +
+                    '<div class="config-header">' +
+                        '<div class="config-icon" style="background: linear-gradient(135deg, ' + config.color + '33, ' + config.color + '11);">' +
+                            config.icon +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="config-title">' + config.name + '</div>' +
+                            '<div class="config-desc">' + config.desc + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="config-list">' + settingsHtml + '</div>' +
+                    '<div style="margin-top:15px;padding:12px;background:rgba(255,193,7,0.1);border-radius:10px;border-left:3px solid #ffc107;">' +
+                        '<div style="font-size:0.8rem;color:#ffc107;">💡 ' + config.tips + '</div>' +
+                    '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // 渲染灵敏度配置
+        function renderSensitivityConfigs() {
+            const container = document.getElementById('sensitivityGrid');
+            let html = '';
+            
+            for (let i = 0; i < sensitivityConfigData.length; i++) {
+                const config = sensitivityConfigData[i];
+                let settingsHtml = '';
+                
+                for (let j = 0; j < config.settings.length; j++) {
+                    const setting = config.settings[j];
+                    settingsHtml += '<div class="config-item">' +
+                        '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+                            '<span style="font-size:0.85rem;color:var(--text-secondary);">' + setting.label + '</span>' +
+                            '<span style="font-size:1rem;font-weight:700;color:' + config.color + ';">' + setting.value + '</span>' +
+                        '</div>' +
+                    '</div>';
+                }
+                
+                html += '<div class="config-card" style="animation: fadeIn 0.5s ease ' + (i * 0.1) + 's both;">' +
+                    '<div class="config-header">' +
+                        '<div class="config-icon" style="background: linear-gradient(135deg, ' + config.color + '33, ' + config.color + '11);">' +
+                            config.icon +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="config-title">' + config.name + '</div>' +
+                            '<div class="config-desc">' + config.desc + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="config-list">' + settingsHtml + '</div>' +
+                    '<div style="margin-top:15px;padding:12px;background:rgba(255,193,7,0.1);border-radius:10px;border-left:3px solid #ffc107;">' +
+                        '<div style="font-size:0.8rem;color:#ffc107;">💡 ' + config.tips + '</div>' +
+                    '</div>' +
                 '</div>';
             }
             
