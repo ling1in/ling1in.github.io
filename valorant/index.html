@@ -1210,46 +1210,50 @@
             top: 0;
             bottom: 0;
             width: 4px;
-            background: linear-gradient(180deg, #8b4513, #cd853f, #8b4513);
+            background: linear-gradient(180deg, #ff4655, #ffd700, #00c8ff, #ff4655);
             transform: translateX(-50%);
             border-radius: 2px;
+            z-index: 1;
         }
         .rank-level {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             position: relative;
+            z-index: 2;
         }
-        .rank-level:nth-child(odd) {
+        /* 左侧段位（偶数索引，因为spine是第1个） */
+        .rank-level:nth-child(even) {
             flex-direction: row-reverse;
-        }
-        .rank-level:nth-child(odd) .rank-info {
-            text-align: right;
-            padding-right: 40px;
+            padding-right: calc(50% + 40px);
             padding-left: 0;
         }
-        .rank-level:nth-child(odd) .rank-bone {
-            right: 50%;
-            left: auto;
-            border-radius: 0 10px 10px 0;
+        .rank-level:nth-child(even) .rank-info {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+        /* 右侧段位 */
+        .rank-level:nth-child(odd):not(.rank-spine) {
+            padding-left: calc(50% + 40px);
+            padding-right: 0;
         }
         .rank-bone {
             position: absolute;
             left: 50%;
-            width: 80px;
+            width: 40px;
             height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.5), transparent);
+            background: rgba(255,255,255,0.3);
+            transform: translateX(-50%);
         }
         .rank-info {
-            flex: 1;
-            padding-left: 40px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
+            flex: 1;
         }
         .rank-icon {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1259,7 +1263,7 @@
             flex-shrink: 0;
             object-fit: cover;
             background: rgba(0,0,0,0.3);
-            padding: 5px;
+            padding: 3px;
         }
         .rank-text h3 {
             font-size: 1.3rem;
@@ -1324,10 +1328,16 @@
             font-weight: bold;
         }
         @media (max-width: 768px) {
-            .rank-level { flex-direction: column !important; }
-            .rank-level:nth-child(odd) { flex-direction: column !important; }
-            .rank-info { padding: 20px 0 0 0 !important; text-align: center !important; flex-direction: column; }
-            .rank-level:nth-child(odd) .rank-info { padding: 20px 0 0 0 !important; text-align: center !important; }
+            .rank-level:nth-child(even),
+            .rank-level:nth-child(odd):not(.rank-spine) {
+                padding-left: 60px !important;
+                padding-right: 0 !important;
+            }
+            .rank-level:nth-child(even) .rank-info {
+                flex-direction: row !important;
+                text-align: left !important;
+            }
+            .rank-info { flex-direction: row; text-align: left; }
             .rank-bone { display: none; }
             .rank-spine { left: 30px; }
         }
