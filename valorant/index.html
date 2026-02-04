@@ -1458,6 +1458,15 @@
         @media (min-width: 1024px) {
             .menu-grid { grid-template-columns: repeat(3, 1fr); }
         }
+        /* 5个卡片时的布局：第一行3个，第二行2个居中 */
+        @media (min-width: 1024px) {
+            .menu-grid {
+                grid-template-areas: ". . ." ". c5 .";
+            }
+            .menu-grid > a:nth-child(5) {
+                grid-area: c5;
+            }
+        }
         .menu-card {
             background: linear-gradient(135deg, rgba(255,70,85,0.15), rgba(15,25,35,0.8));
             border: 2px solid rgba(255,70,85,0.3);
@@ -1489,6 +1498,36 @@
             font-size: 0.9rem;
             color: var(--text-secondary);
             line-height: 1.5;
+        }
+        .edg-history-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.1));
+            border: 2px solid rgba(255,215,0,0.4);
+            border-radius: 25px;
+            color: #ffd700;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            font-family: inherit;
+        }
+        .edg-history-btn:hover {
+            background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,140,0,0.2));
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 640px) {
+            .edg-history-btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+                margin-top: 12px;
+            }
         }
         .footer {
             text-align: center;
@@ -1910,21 +1949,20 @@
             <span class="menu-icon" id="icon3">🏆</span>
             <div class="menu-title" id="title3">VCT CN 战队</div>
             <div class="menu-desc" id="desc3">9支顶尖战队<br>45位明星选手</div>
+            <button class="edg-history-btn" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='./valorant-edg.html';" title="EDG传奇">
+                👑 来看看2024 VCT CN冠军战队的历史
+            </button>
         </a>
         <a href="./valorant-maps.html" class="menu-card" id="card4">
             <span class="menu-icon" id="icon4">🗺️</span>
             <div class="menu-title" id="title4">地图档案</div>
             <div class="menu-desc" id="desc4">11张中文地图<br>全职位战术指南</div>
         </a>
-        <a href="./valorant-edg.html" class="menu-card" id="card5" onclick="if(document.getElementById('gameModeBtn').classList.contains('mobile')){event.preventDefault();openConfigModal();}">
-            <span class="menu-icon" id="icon5">👑</span>
-            <div class="menu-title" id="title5">EDG 传奇</div>
-            <div class="menu-desc" id="desc5">世界冠军之路<br>从磨难到辉煌</div>
-        </a>
-        <a href="./valorant-news.html" class="menu-card" id="card6">
-            <span class="menu-icon" id="icon6">📰</span>
-            <div class="menu-title" id="title6">最新资讯</div>
-            <div class="menu-desc" id="desc6">游戏更新动态<br>电竞赛事资讯</div>
+
+        <a href="./valorant-news.html" class="menu-card" id="card5">
+            <span class="menu-icon" id="icon5">📰</span>
+            <div class="menu-title" id="title5">最新资讯</div>
+            <div class="menu-desc" id="desc5">游戏更新动态<br>电竞赛事资讯</div>
         </a>
     </div>
 
@@ -2944,7 +2982,6 @@
                 { icon: '🔫', title: '枪械档案', desc: '19种武器详细数据<br>6大枪械分类' },
                 { icon: '🏆', title: 'VCT CN 战队', desc: '9支顶尖战队<br>45位明星选手' },
                 { icon: '🗺️', title: '地图档案', desc: '11张中文地图<br>全职位战术指南' },
-                { icon: '👑', title: 'EDG 传奇', desc: '世界冠军之路<br>从磨难到辉煌' },
                 { icon: '📰', title: '最新资讯', desc: '游戏更新动态<br>电竞赛事资讯' }
             ],
             proPlayersTitle: '🏆 职业选手操作思路解析',
