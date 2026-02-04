@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valorant 档案中心 | 无畏契约资料站</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f1419;
+            --bg-secondary: #1a2332;
+            --bg-card: #1e293b;
+            --bg-card-hover: #2d3748;
+            --text-primary: #ece8e1;
+            --text-secondary: #a0a0a0;
+            --accent: #ff4655;
+            --accent-dark: #cc3644;
+            --border: rgba(255, 70, 85, 0.2);
+            --shadow: rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 0 2rem;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Header */
+        .header {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(255, 70, 85, 0.1) 0%, transparent 100%);
+        }
+
+        .header h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+            will-change: transform;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Weapons Category */
+        .weapon-category {
+            margin-bottom: 3rem;
+        }
+
+        .weapon-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .weapons-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .weapon-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .weapon-card:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
+        }
+
+        .weapon-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .weapon-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .weapon-price {
+            color: #ffd700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .weapon-damage {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* Maps */
+        .maps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .map-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .map-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .map-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--bg-card-hover) 0%, var(--bg-card) 100%);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .map-emoji {
+            font-size: 2.5rem;
+        }
+
+        .map-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .map-info span {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .map-body {
+            padding: 1.25rem;
+        }
+
+        .map-body p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Teams */
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .team-logo {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .team-players {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .player-tag {
+            background: var(--bg-secondary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+        }
+
+        /* Crosshairs */
+        .crosshairs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .crosshair-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .crosshair-card:hover {
+            border-color: var(--accent);
+        }
+
+        .crosshair-preview {
+            background: #000;
+            border-radius: 8px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crosshair-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .crosshair-display {
+            position: relative;
+            z-index: 1;
+        }
+
+        .crosshair-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .crosshair-code {
+            background: var(--bg-secondary);
+            padding: 0.75rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            word-break: break-all;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .copy-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-family: inherit;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        .copy-btn.copied {
+            background: #22c55e;
+        }
+
+        /* Crosshair Styles */
+        .ch-dot {
+            width: 4px;
+            height: 4px;
+            background: #00ff00;
+            border-radius: 50%;
+            box-shadow: 0 0 2px #00ff00;
+        }
+
+        .ch-cross {
+            width: 20px;
+            height: 20px;
+            position: relative;
+        }
+
+        .ch-cross::before,
+        .ch-cross::after {
+            content: '';
+            position: absolute;
+            background: #ff0000;
+        }
+
+        .ch-cross::before {
+            width: 2px;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .ch-cross::after {
+            width: 100%;
+            height: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .ch-circle {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #00ffff;
+            border-radius: 50%;
+        }
+
+        .ch-t {
+            width: 20px;
+            height: 16px;
+            position: relative;
+        }
+
+        .ch-t::before,
+        .ch-t::after {
+            content: '';
+            position: absolute;
+            background: #ffff00;
+        }
+
+        .ch-t::before {
+            width: 2px;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .ch-t::after {
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: rgba(15, 20, 25, 0.98);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem;
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .header {
+                padding-top: 100px;
+                padding-bottom: 40px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 50px 1rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .maps-grid,
+            .crosshairs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .weapons-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .teams-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .weapons-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">VALORANT</a>
+            <ul class="nav-links">
+                <li><a href="./index.html">🏠 首页</a></li>
+                <li><a href="#agents">🎯 特工</a></li>
+                <li><a href="#weapons">🔫 枪械</a></li>
+                <li><a href="#maps">🗺️ 地图</a></li>
+                <li><a href="#teams">🏆 战队</a></li>
+                <li><a href="#crosshairs">🎯 准心</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="./index.html">🏠 首页</a>
+        <a href="#agents" onclick="closeMobileMenu()">🎯 特工</a>
+        <a href="#weapons" onclick="closeMobileMenu()">🔫 枪械</a>
+        <a href="#maps" onclick="closeMobileMenu()">🗺️ 地图</a>
+        <a href="#teams" onclick="closeMobileMenu()">🏆 战队</a>
+        <a href="#crosshairs" onclick="closeMobileMenu()">🎯 准心</a>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>VALORANT 档案中心</h1>
+        <p>探索无畏契约的完整世界 — 特工、武器、地图、战队与准心配置</p>
+    </header>
+
+    <!-- Agents Section -->
+    <section class="section" id="agents">
+        <h2 class="section-title">特工档案</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <span class="tag">决斗者</span>
+                <h3>Jett 捷风</h3>
+                <p>来自韩国的决斗者，拥有卓越的机动性。技能包括冲刺、上升气流和烟雾弹，终极技能是强大的飞刀风暴。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔥</div>
+                <span class="tag">决斗者</span>
+                <h3>Phoenix 不死鸟</h3>
+                <p>来自英国的决斗者，能操控火焰。可以投掷火球、创造火墙，终极技能让他以火凤凰形态重生。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🌿</div>
+                <span class="tag">守卫</span>
+                <h3>Sage 贤者</h3>
+                <p>来自中国的守卫，拥有强大的治疗能力。可以放置减速球、复活队友，是团队中不可或缺的后勤支援。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🕸️</div>
+                <span class="tag">守卫</span>
+                <h3>Cypher 零</h3>
+                <p>来自摩洛哥的守卫，擅长情报收集。使用绊线、摄像头和牢笼来监控敌人动向，掌控全局。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">👁️</div>
+                <span class="tag">决斗者</span>
+                <h3>Reyna 芮娜</h3>
+                <p>来自墨西哥的决斗者，击败敌人后获得强化。可以吞噬灵魂恢复生命，或进入无形状态。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <span class="tag">守卫</span>
+                <h3>Killjoy 奇乐</h3>
+                <p>来自德国的守卫，使用高科技装置。放置炮塔、警报机器人和纳米蜂群来守护据点。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏹</div>
+                <span class="tag">先锋</span>
+                <h3>Sova 猎枭</h3>
+                <p>来自俄罗斯的先锋，精通追踪。使用侦察箭和无人机来暴露敌人位置，终极技能是穿墙能量箭。</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">👤</div>
+                <span class="tag">控场者</span>
+                <h3>Omen 幽影</h3>
+                <p>神秘的控场者，操控阴影力量。可以传送、放置烟雾，终极技能让他传送到地图任意位置。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weapons Section -->
+    <section class="section" id="weapons">
+        <h2 class="section-title">枪械档案</h2>
+        
+        <div class="weapon-category">
+            <h3>🔪 近战武器</h3>
+            <div class="weapons-row">
+                <div class="weapon-card">
+                    <div class="weapon-icon">🗡️</div>
+                    <div class="weapon-name">战术小刀</div>
+                    <div class="weapon-price">免费</div>
+                    <div class="weapon-damage">左键50 / 右键75</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weapon-category">
+            <h3>🔫 手枪</h3>
+            <div class="weapons-row">
+                <div class="weapon-card">
+                    <div class="weapon-icon">🔫</div>
+                    <div class="weapon-name">Classic 经典</div>
+                    <div class="weapon-price">免费</div>
+                    <div class="weapon-damage">头部78 / 身体26</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">🎯</div>
+                    <div class="weapon-name">Shorty 短喷</div>
+                    <div class="weapon-price">150</div>
+                    <div class="weapon-damage">近距离秒杀</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">💥</div>
+                    <div class="weapon-name">Frenzy 狂怒</div>
+                    <div class="weapon-price">450</div>
+                    <div class="weapon-damage">头部78 / 身体26</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">🔥</div>
+                    <div class="weapon-name">Ghost 幽魂</div>
+                    <div class="weapon-price">500</div>
+                    <div class="weapon-damage">头部105 / 身体30</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">💀</div>
+                    <div class="weapon-name">Sheriff 神射</div>
+                    <div class="weapon-price">800</div>
+                    <div class="weapon-damage">头部160 / 身体55</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weapon-category">
+            <h3>🔫 冲锋枪</h3>
+            <div class="weapons-row">
+                <div class="weapon-card">
+                    <div class="weapon-icon">⚡</div>
+                    <div class="weapon-name">Stinger 刺针</div>
+                    <div class="weapon-price">950</div>
+                    <div class="weapon-damage">头部67 / 身体27</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">🌪️</div>
+                    <div class="weapon-name">Spectre 幽灵</div>
+                    <div class="weapon-price">1600</div>
+                    <div class="weapon-damage">头部80 / 身体26</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weapon-category">
+            <h3>🔫 步枪</h3>
+            <div class="weapons-row">
+                <div class="weapon-card">
+                    <div class="weapon-icon">⚔️</div>
+                    <div class="weapon-name">Bulldog 斗牛犬</div>
+                    <div class="weapon-price">2050</div>
+                    <div class="weapon-damage">头部115 / 身体35</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">🦅</div>
+                    <div class="weapon-name">Guardian 捍卫者</div>
+                    <div class="weapon-price">2250</div>
+                    <div class="weapon-damage">头部195 / 身体65</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">👑</div>
+                    <div class="weapon-name">Phantom 幻影</div>
+                    <div class="weapon-price">2900</div>
+                    <div class="weapon-damage">头部140 / 身体35</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">🔱</div>
+                    <div class="weapon-name">Vandal 狂徒</div>
+                    <div class="weapon-price">2900</div>
+                    <div class="weapon-damage">头部160 / 身体40</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weapon-category">
+            <h3>🎯 狙击枪</h3>
+            <div class="weapons-row">
+                <div class="weapon-card">
+                    <div class="weapon-icon">🎯</div>
+                    <div class="weapon-name">Marshal 警长</div>
+                    <div class="weapon-price">950</div>
+                    <div class="weapon-damage">头部202 / 身体101</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">☠️</div>
+                    <div class="weapon-name">Operator 间谍</div>
+                    <div class="weapon-price">4700</div>
+                                       <div class="weapon-damage">头部255 / 身体150</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weapon-category">
+            <h3>🔥 机枪</h3>
+            <div class="weapons-row">
+                <div class="weapon-card">
+                    <div class="weapon-icon">🌀</div>
+                    <div class="weapon-name">Ares 战神</div>
+                    <div class="weapon-price">1600</div>
+                    <div class="weapon-damage">头部72 / 身体30</div>
+                </div>
+                <div class="weapon-card">
+                    <div class="weapon-icon">🌋</div>
+                    <div class="weapon-name">Odin 奥丁</div>
+                    <div class="weapon-price">3200</div>
+                    <div class="weapon-damage">头部95 / 身体38</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maps Section -->
+    <section class="section" id="maps">
+        <h2 class="section-title">地图介绍</h2>
+        <div class="maps-grid">
+            <div class="map-card">
+                <div class="map-header">
+                    <div class="map-emoji">🏛️</div>
+                    <div class="map-info">
+                        <h3>Ascent 亚海悬城</h3>
+                        <span>意大利威尼斯风格</span>
+                    </div>
+                </div>
+                <div class="map-body">
+                    <p>开放式中路的经典地图，A点和B点都有可关闭的门。适合狙击手，中路控制权决定比赛走势。</p>
+                </div>
+            </div>
+            <div class="map-card">
+                <div class="map-header">
+                    <div class="map-emoji">🌅</div>
+                    <div class="map-info">
+                        <h3>Bind 源工重镇</h3>
+                        <span>中东沙漠风格</span>
+                    </div>
+                </div>
+                <div class="map-body">
+                    <p>独特的单向传送带地图，没有中路。A点和B点通过传送门连接，快速转点出其不意。</p>
+                </div>
+            </div>
+            <div class="map-card">
+                <div class="map-header">
+                    <div class="map-emoji">🌲</div>
+                    <div class="map-info">
+                        <h3>Haven 隐世修所</h3>
+                        <span>亚洲寺庙风格</span>
+                    </div>
+                </div>
+                <div class="map-body">
+                    <p>独特的三炸弹点地图。防守方需要分散注意力，进攻方有更多进攻选择。</p>
+                </div>
+            </div>
+            <div class="map-card">
+                <div class="map-header">
+                    <div class="map-emoji">🏗️</div>
+                    <div class="map-info">
+                        <h3>Split 霓虹町</h3>
+                        <span>日本赛博朋克</span>
+                    </div>
+                </div>
+                <div class="map-body">
+                    <p>垂直元素丰富的地图，拥有上升绳索。A点和B点都有高低差，适合立体攻防。</p>
+                </div>
+            </div>
+            <div class="map-card">
+                <div class="map-header">
+                    <div class="map-emoji">❄️</div>
+                    <div class="map-info">
+                        <h3>Icebox 森寒冬港</h3>
+                        <span>北极研究基地</span>
+                    </div>
+                </div>
+                <div class="map-body">
+                    <p>垂直高度最复杂的地图，大量滑索和高低差。对特工技能配合要求极高。</p>
+                </div>
+            </div>
+            <div class="map-card">
+                <div class="map-header">
+                    <div class="map-emoji">🏖️</div>
+                    <div class="map-info">
+                        <h3>Breeze 微风岛屿</h3>
+                        <span>加勒比海滩</span>
+                    </div>
+                </div>
+                <div class="map-body">
+                    <p>最开阔的地图，超长距离交火。A点和B点都很大，适合长枪对枪。</p>
+                </div>
+            </div>
+            <div class="map-card">
+                <div class="map-header">
+                    <div class="map-emoji">⚡</div>
+                    <div class="map-info">
+                        <h3>Fracture 裂变峡谷</h3>
+                        <span>美国沙漠实验室</span>
+                    </div>
+                </div>
+                <div class="map-body">
+                    <p>创新的H型布局，进攻方从中间出生，可以选择进攻任一端。防守方需要快速回防。</p>
+                </div>
+            </div>
+            <div class="map-card">
+                <div class="map-header">
+                    <div class="map-emoji">🐚</div>
+                    <div class="map-info">
+                        <h3>Pearl 深海明珠</h3>
+                        <span>葡萄牙水下城市</span>
+                    </div>
+                </div>
+                <div class="map-body">
+                    <p>紧凑的传统布局地图，没有特殊机制。强调基础枪法和团队配合。</p>
+                </div>
+            </div>
+            <div class="map-card">
+                <div class="map-header">
+                    <div class="map-emoji">🪷</div>
+                    <div class="map-info">
+                        <h3>Lotus 莲华古城</h3>
+                        <span>印度古城风格</span>
+                    </div>
+                </div>
+                <div class="map-body">
+                    <p>三炸弹点地图，拥有可旋转的墙壁门和无声下落区域。战术多样性极高。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teams Section -->
+    <section class="section" id="teams">
+        <h2 class="section-title">VCT CN 战队</h2>
+        <div class="teams-grid">
+            <div class="team-card">
+                <div class="team-logo">🟥</div>
+                <div class="team-name">EDG</div>
+                <div class="team-players">
+                    <span class="player-tag">ZmjjKK</span>
+                    <span class="player-tag">CHICHOO</span>
+                    <span class="player-tag">nobody</span>
+                    <span class="player-tag">Smoggy</span>
+                    <span class="player-tag">S1Mon</span>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-logo">⬛</div>
+                <div class="team-name">BLG</div>
+                <div class="team-players">
+                    <span class="player-tag">whz</span>
+                    <span class="player-tag">Knight</span>
+                    <span class="player-tag">rushia</span>
+                    <span class="player-tag">Levius</span>
+                    <span class="player-tag">nephh</span>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-logo">🟧</div>
+                <div class="team-name">FPX</div>
+                <div class="team-players">
+                    <span class="player-tag">AAAAY</span>
+                    <span class="player-tag">Lysoar</span>
+                    <span class="player-tag">autumn</span>
+                    <span class="player-tag">Life</span>
+                    <span class="player-tag">BerLIN</span>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-logo">🟦</div>
+                <div class="team-name">TE</div>
+                <div class="team-players">
+                    <span class="player-tag">Kai</span>
+                    <span class="player-tag">LuoK1ng</span>
+                    <span class="player-tag">heybay</span>
+                    <span class="player-tag">Biank</span>
+                    <span class="player-tag">Ff0w0</span>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-logo">🟨</div>
+                <div class="team-name">DRG</div>
+                <div class="team-players">
+                    <span class="player-tag">TvirusLuke</span>
+                    <span class="player-tag">Nicole</span>
+                    <span class="player-tag">Shion7</span>
+                    <span class="player-tag">Kraken</span>
+                    <span class="player-tag">vo0kashu</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crosshairs Section -->
+    <section class="section" id="crosshairs">
+        <h2 class="section-title">准心合集</h2>
+        <div class="crosshairs-grid">
+            <div class="crosshair-card">
+                <div class="crosshair-preview">
+                    <div class="crosshair-display ch-dot"></div>
+                </div>
+                <div class="crosshair-name">经典小点</div>
+                <div class="crosshair-code">0;s;1;P;c;5;o;1;d;1;z;1;f;0;s;0;0t;1;0l;2;0o;0;0a;1;0f;0;1t;3;1o;2;1a;1;1m;0;1f;0</div>
+                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
+            </div>
+            <div class="crosshair-card">
+                <div class="crosshair-preview">
+                    <div class="crosshair-display ch-cross"></div>
+                </div>
+                <div class="crosshair-name">十字准心</div>
+                <div class="crosshair-code">0;P;c;5;o;1;d;1;z;3;f;0;0t;6;0l;1;0o;1;0a;0.5;0f;0;1b;0</div>
+                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
+            </div>
+            <div class="crosshair-card">
+                <div class="crosshair-preview">
+                    <div class="crosshair-display ch-circle"></div>
+                </div>
+                <div class="crosshair-name">圆圈准心</div>
+                <div class="crosshair-code">0;P;c;5;o;1;f;0;0t;4;0l;1;0o;2;0a;1;0f;0;1b;0</div>
+                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
+            </div>
+            <div class="crosshair-card">
+                <div class="crosshair-preview">
+                    <div class="crosshair-display ch-t"></div>
+                </div>
+                <div class="crosshair-name">T型准心</div>
+                <div class="crosshair-code">0;P;c;5;o;1;d;1;f;0;0t;6;0l;1;0o;0;0a;1;0f;0;1t;0;1l;0;1o;0;1a;0;1m;0;1f;0</div>
+                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
+            </div>
+            <div class="crosshair-card">
+                <div class="crosshair-preview">
+                    <div class="crosshair-display" style="width: 2px; height: 20px; background: #ff00ff; box-shadow: 0 0 3px #ff00ff;"></div>
+                </div>
+                <div class="crosshair-name">单线准心</div>
+                <div class="crosshair-code">0;P;c;5;o;1;d;1;z;1;f;0;0t;1;0l;8;0o;0;0a;1;0f;0;1t;0;1l;0;1o;0;1a;0;1m;0;1f;0</div>
+                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
+            </div>
+            <div class="crosshair-card">
+                <div class="crosshair-preview">
+                    <div style="display: grid; grid-template-columns: repeat(3, 8px); gap: 2px;">
+                        <div style="width: 8px; height: 2px; background: #fff;"></div>
+                        <div></div>
+                        <div style="width: 8px; height: 2px; background: #fff;"></div>
+                        <div></div>
+                        <div style="width: 4px; height: 4px; background: #ff4655; border-radius: 50%;"></div>
+                        <div></div>
+                        <div style="width: 8px; height: 2px; background: #fff;"></div>
+                        <div></div>
+                        <div style="width: 8px; height: 2px; background: #fff;"></div>
+                    </div>
+                </div>
+                <div class="crosshair-name">四点准心</div>
+                <div class="crosshair-code">0;P;c;1;o;1;f;0;0t;4;0l;2;0o;2;0a;1;0f;0;1b;0</div>
+                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Valorant 档案中心 | 无畏契约资料站</p>
+        <p>本页面为粉丝制作，与 Riot Games 无关 | <a href="./index.html">返回首页</a></p>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.remove('active');
+        }
+
+        // Copy Crosshair Code
+        function copyCrosshair(btn) {
+            const code = btn.previousElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '已复制 ✓';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('复制失败:', err);
+                btn.textContent = '复制失败';
+                setTimeout(() => {
+                    btn.textContent = '复制准心代码';
+                }, 2000);
+            });
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const navbar = document.querySelector('.navbar');
+            
+            if (!navbar.contains(e.target) && mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const navHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
