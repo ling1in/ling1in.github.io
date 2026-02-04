@@ -63,6 +63,32 @@
             right: 10px;
             z-index: 1000;
         }
+        .rank-showcase-button {
+            position: fixed;
+            top: 55px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .rank-btn {
+            background: linear-gradient(135deg, rgba(147, 112, 219, 0.2), rgba(138, 43, 226, 0.1));
+            border: 2px solid rgba(147, 112, 219, 0.4);
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: #9370db;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .rank-btn:hover {
+            transform: scale(1.05);
+            border-color: #9370db;
+            box-shadow: 0 0 20px rgba(147, 112, 219, 0.3);
+        }
         .game-mode-btn {
             background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.1));
             border: 2px solid rgba(255,215,0,0.4);
@@ -242,7 +268,7 @@
             .game-mode-switcher {
                 position: fixed;
                 top: auto;
-                bottom: 20px;
+                bottom: 70px;
                 right: 20px;
                 z-index: 9999;
             }
@@ -251,6 +277,19 @@
                 font-size: 0.8rem;
                 background: rgba(0,150,255,0.3);
                 border-color: rgba(0,150,255,0.5);
+            }
+            .rank-showcase-button {
+                position: fixed;
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                z-index: 9999;
+            }
+            .rank-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                background: rgba(147, 112, 219, 0.3);
+                border-color: rgba(147, 112, 219, 0.5);
             }
             nav {
                 padding: 8px 0;
@@ -1100,6 +1139,195 @@
             .combat-tips-grid { grid-template-columns: 1fr; }
             .combat-tips-category { padding: 15px; }
         }
+        
+        /* 段位展示模态框 */
+        .rank-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .rank-modal.active {
+            display: block;
+        }
+        .rank-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .rank-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .rank-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,70,85,0.2);
+            border: 2px solid rgba(255,70,85,0.5);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .rank-close:hover {
+            background: var(--accent-color);
+            transform: rotate(90deg);
+        }
+        .rank-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: linear-gradient(135deg, #9370db, #ff4655);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .rank-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        /* 鱼骨图样式 */
+        .rank-fishbone {
+            position: relative;
+            padding: 40px 0;
+        }
+        .rank-spine {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #8b4513, #cd853f, #8b4513);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .rank-level {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .rank-level:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+        .rank-level:nth-child(odd) .rank-info {
+            text-align: right;
+            padding-right: 40px;
+            padding-left: 0;
+        }
+        .rank-level:nth-child(odd) .rank-bone {
+            right: 50%;
+            left: auto;
+            border-radius: 0 10px 10px 0;
+        }
+        .rank-bone {
+            position: absolute;
+            left: 50%;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.5), transparent);
+        }
+        .rank-info {
+            flex: 1;
+            padding-left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .rank-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            border: 3px solid;
+            flex-shrink: 0;
+        }
+        .rank-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        .rank-text p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .rank-tiers {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+        }
+        .rank-tier {
+            width: 20px;
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.2);
+        }
+        .rank-tier.filled {
+            background: currentColor;
+        }
+        /* 各段位颜色 */
+        .rank-iron { color: #8b7d6b; border-color: #8b7d6b; }
+        .rank-bronze { color: #cd7f32; border-color: #cd7f32; }
+        .rank-silver { color: #c0c0c0; border-color: #c0c0c0; }
+        .rank-gold { color: #ffd700; border-color: #ffd700; }
+        .rank-platinum { color: #00ced1; border-color: #00ced1; }
+        .rank-diamond { color: #b9f2ff; border-color: #b9f2ff; }
+        .rank-ascendant { color: #32cd32; border-color: #32cd32; }
+        .rank-immortal { color: #ff4500; border-color: #ff4500; }
+        .rank-radiant { color: #ff4655; border-color: #ff4655; }
+        
+        .rank-description {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .rank-description h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .rank-description ul {
+            list-style: none;
+            padding: 0;
+        }
+        .rank-description li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .rank-description li:last-child {
+            border-bottom: none;
+        }
+        .rank-description li::before {
+            content: "▸ ";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .rank-level { flex-direction: column !important; }
+            .rank-level:nth-child(odd) { flex-direction: column !important; }
+            .rank-info { padding: 20px 0 0 0 !important; text-align: center !important; flex-direction: column; }
+            .rank-level:nth-child(odd) .rank-info { padding: 20px 0 0 0 !important; text-align: center !important; }
+            .rank-bone { display: none; }
+            .rank-spine { left: 30px; }
+        }
         .header h1 {
             font-size: clamp(2.5rem, 6vw, 4rem);
             background: linear-gradient(135deg, #ff4655, #ff8a95);
@@ -1176,6 +1404,12 @@
     <div class="game-mode-switcher">
         <button class="game-mode-btn" id="gameModeBtn" onclick="toggleGameMode()">
             📱 如果你来自《无畏契约：源能行动》
+        </button>
+    </div>
+
+    <div class="rank-showcase-button">
+        <button class="rank-btn" onclick="openRankModal()">
+            🏆 来看看valorant的所有段位
         </button>
     </div>
 
@@ -1354,6 +1588,182 @@
                         <span class="combat-tip-tag combat-tag-advanced">策略</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 段位展示弹窗 -->
+    <div class="rank-modal" id="rankModal">
+        <div class="rank-container">
+            <div class="rank-header">
+                <button class="rank-close" onclick="closeRankModal()">×</button>
+                <h2 class="rank-title">🏆 Valorant 段位系统</h2>
+                <p class="rank-subtitle">了解所有段位，向着辐能战魂迈进</p>
+            </div>
+            
+            <div class="rank-fishbone">
+                <div class="rank-spine"></div>
+                
+                <!-- 辐能战魂 -->
+                <div class="rank-level">
+                    <div class="rank-bone"></div>
+                    <div class="rank-info">
+                        <div class="rank-icon rank-radiant">👑</div>
+                        <div class="rank-text">
+                            <h3 class="rank-radiant">Radiant · 辐能战魂</h3>
+                            <p>最高荣誉，服务器前500名</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 不朽 -->
+                <div class="rank-level">
+                    <div class="rank-bone"></div>
+                    <div class="rank-info">
+                        <div class="rank-icon rank-immortal">🔥</div>
+                        <div class="rank-text">
+                            <h3 class="rank-immortal">Immortal · 不朽</h3>
+                            <p>顶尖玩家，每个服务器500名之外的前0.1%</p>
+                            <div class="rank-tiers">
+                                <div class="rank-tier filled rank-immortal"></div>
+                                <div class="rank-tier filled rank-immortal"></div>
+                                <div class="rank-tier filled rank-immortal"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 神话 -->
+                <div class="rank-level">
+                    <div class="rank-bone"></div>
+                    <div class="rank-info">
+                        <div class="rank-icon rank-ascendant">⭐</div>
+                        <div class="rank-text">
+                            <h3 class="rank-ascendant">Ascendant · 神话</h3>
+                            <p>高阶竞技，进入此段位表示你已进入精英行列</p>
+                            <div class="rank-tiers">
+                                <div class="rank-tier filled rank-ascendant"></div>
+                                <div class="rank-tier filled rank-ascendant"></div>
+                                <div class="rank-tier filled rank-ascendant"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 钻石 -->
+                <div class="rank-level">
+                    <div class="rank-bone"></div>
+                    <div class="rank-info">
+                        <div class="rank-icon rank-diamond">💎</div>
+                        <div class="rank-text">
+                            <h3 class="rank-diamond">Diamond · 钻石</h3>
+                            <p>钻石玩家拥有扎实的基本功和游戏理解</p>
+                            <div class="rank-tiers">
+                                <div class="rank-tier filled rank-diamond"></div>
+                                <div class="rank-tier filled rank-diamond"></div>
+                                <div class="rank-tier filled rank-diamond"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 铂金 -->
+                <div class="rank-level">
+                    <div class="rank-bone"></div>
+                    <div class="rank-info">
+                        <div class="rank-icon rank-platinum">🌊</div>
+                        <div class="rank-text">
+                            <h3 class="rank-platinum">Platinum · 铂金</h3>
+                            <p>中高端玩家，开始掌握进阶技巧和团队配合</p>
+                            <div class="rank-tiers">
+                                <div class="rank-tier filled rank-platinum"></div>
+                                <div class="rank-tier filled rank-platinum"></div>
+                                <div class="rank-tier filled rank-platinum"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 黄金 -->
+                <div class="rank-level">
+                    <div class="rank-bone"></div>
+                    <div class="rank-info">
+                        <div class="rank-icon rank-gold">🥇</div>
+                        <div class="rank-text">
+                            <h3 class="rank-gold">Gold · 黄金</h3>
+                            <p>中等水平，大多数玩家的目标段位</p>
+                            <div class="rank-tiers">
+                                <div class="rank-tier filled rank-gold"></div>
+                                <div class="rank-tier filled rank-gold"></div>
+                                <div class="rank-tier filled rank-gold"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 白银 -->
+                <div class="rank-level">
+                    <div class="rank-bone"></div>
+                    <div class="rank-info">
+                        <div class="rank-icon rank-silver">🥈</div>
+                        <div class="rank-text">
+                            <h3 class="rank-silver">Silver · 白银</h3>
+                            <p>入门进阶，正在学习游戏基础</p>
+                            <div class="rank-tiers">
+                                <div class="rank-tier filled rank-silver"></div>
+                                <div class="rank-tier filled rank-silver"></div>
+                                <div class="rank-tier filled rank-silver"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 青铜 -->
+                <div class="rank-level">
+                    <div class="rank-bone"></div>
+                    <div class="rank-info">
+                        <div class="rank-icon rank-bronze">🥉</div>
+                        <div class="rank-text">
+                            <h3 class="rank-bronze">Bronze · 青铜</h3>
+                            <p>新手阶段，熟悉游戏机制中</p>
+                            <div class="rank-tiers">
+                                <div class="rank-tier filled rank-bronze"></div>
+                                <div class="rank-tier filled rank-bronze"></div>
+                                <div class="rank-tier filled rank-bronze"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 铁牌 -->
+                <div class="rank-level">
+                    <div class="rank-bone"></div>
+                    <div class="rank-info">
+                        <div class="rank-icon rank-iron">🛡️</div>
+                        <div class="rank-text">
+                            <h3 class="rank-iron">Iron · 铁牌</h3>
+                            <p>起步段位，刚开始竞技之旅</p>
+                            <div class="rank-tiers">
+                                <div class="rank-tier filled rank-iron"></div>
+                                <div class="rank-tier filled rank-iron"></div>
+                                <div class="rank-tier filled rank-iron"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rank-description">
+                <h3>📋 段位系统说明</h3>
+                <ul>
+                    <li><strong>段位分布：</strong>除了最高段位「辐能战魂」外，其他每个段位分为3个小段（如黄金1、黄金2、黄金3）</li>
+                    <li><strong>排位解锁：</strong>需要完成20场非排位对战才能解锁竞技模式</li>
+                    <li><strong>段位衰减：</strong>14天未进行竞技对战，段位会被隐藏但不会降级，再玩一局即可恢复显示</li>
+                    <li><strong>组队限制：</strong>队友之间段位差距不能超过2个大段（6个小段）</li>
+                    <li><strong>赛季重置：</strong>每个新赛季段位会重置，需要根据定位赛重新定级</li>
+                    <li><strong>分数机制：</strong>输赢影响排名分数，个人表现也会影响分数增减幅度</li>
+                    <li><strong>辐能战魂：</strong>每个服务器前500名玩家可获得，没有小段之分</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -1668,6 +2078,7 @@
                 closeSecretsModal();
                 closeConfigModal();
                 closeCombatTipsModal();
+                closeRankModal();
             }
         });
 
@@ -2167,6 +2578,20 @@
             document.body.style.overflow = '';
         }
 
+        // 打开段位展示弹窗
+        function openRankModal() {
+            const modal = document.getElementById('rankModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭段位展示弹窗
+        function closeRankModal() {
+            const modal = document.getElementById('rankModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // 切换标签页
         function switchSecretsTab(tab) {
             const tabs = document.querySelectorAll('.secrets-tab');
@@ -2267,6 +2692,7 @@
                 closeProPlayersModal();
                 closeSecretsModal();
                 closeCombatTipsModal();
+                closeRankModal();
             }
         });
 
