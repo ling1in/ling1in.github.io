@@ -292,6 +292,14 @@
             border-color: var(--accent-color);
             box-shadow: 0 15px 40px rgba(255, 70, 85, 0.3);
         }
+        .team-card.edg-legend-card {
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        .team-card.edg-legend-card:hover {
+            border-color: #ffd700;
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
+            transform: translateY(-8px) scale(1.02);
+        }
         .team-header {
             background: linear-gradient(135deg, rgba(255,70,85,0.2), rgba(15,25,35,0.9));
             padding: 25px 20px;
@@ -417,6 +425,18 @@
     </div>
 
     <script>
+        // EDG 传奇卡片数据
+        const edgLegendData = {
+            id: 'EDG-LEGEND',
+            name: 'EDG 传奇',
+            fullName: '来看看CN VALORANT最强的一支队伍',
+            emoji: '👑',
+            achievement: '🏆 世界冠军战队',
+            color: '#ffd700',
+            isLegendButton: true,
+            link: 'valorant-edg.html'
+        };
+
         // VCT CN 战队数据
         const teamsData = [
             {
@@ -619,8 +639,28 @@
         function renderTeamsGrid() {
             const grid = document.getElementById('teamsGrid');
             
-            grid.innerHTML = teamsData.map((team, i) => `
-                <div class="team-card" onclick="showTeamDetail('${team.id}')" style="animation: fadeIn 0.5s ease ${i * 0.1}s both;">
+            // 先渲染 EDG 传奇按钮
+            const edgLegendCard = `
+                <a href="${edgLegendData.link}" class="team-card edg-legend-card" style="animation: fadeIn 0.5s ease 0s both; text-decoration: none;">
+                    <div class="team-header" style="background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,140,0,0.2));">
+                        <div class="team-logo" style="background: linear-gradient(135deg, #ffd700, #ff8c00); border-color: rgba(255,215,0,0.8);">${edgLegendData.emoji}</div>
+                        <div class="team-name" style="color: #ffd700;">${edgLegendData.name}</div>
+                        <div class="team-achievement">${edgLegendData.achievement}</div>
+                    </div>
+                    <div class="team-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 200px;">
+                        <div style="font-size: 1.2rem; color: #ffd700; font-weight: 700; text-align: center; line-height: 1.6;">
+                            ${edgLegendData.fullName}
+                        </div>
+                        <div style="margin-top: 20px; padding: 10px 24px; background: linear-gradient(135deg, #ffd700, #ff8c00); color: #0f1419; border-radius: 24px; font-weight: 700; font-size: 0.95rem;">
+                            点击查看 →
+                        </div>
+                    </div>
+                </a>
+            `;
+            
+            // 渲染其他战队卡片
+            const teamCards = teamsData.map((team, i) => `
+                <div class="team-card" onclick="showTeamDetail('${team.id}')" style="animation: fadeIn 0.5s ease ${(i + 1) * 0.1}s both;">
                     <div class="team-header">
                         <div class="team-logo">${team.emoji}</div>
                         <div class="team-name">${team.name}</div>
@@ -643,6 +683,8 @@
                     </div>
                 </div>
             `).join('');
+            
+            grid.innerHTML = edgLegendCard + teamCards;
         }
 
         function showTeamDetail(teamId) {
