@@ -3,1145 +3,2865 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valorant 档案中心 | 无畏契约资料站</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Valorant 档案中心 | ling1in</title>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0f1419;
-            --bg-secondary: #1a2332;
-            --bg-card: #1e293b;
-            --bg-card-hover: #2d3748;
-            --text-primary: #ece8e1;
-            --text-secondary: #a0a0a0;
-            --accent: #ff4655;
-            --accent-dark: #cc3644;
-            --border: rgba(255, 70, 85, 0.2);
-            --shadow: rgba(0, 0, 0, 0.4);
+            --bg-gradient: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            --text-color: #ece8e1;
+            --text-secondary: #8b978f;
+            --accent-color: #ff4655;
+            --card-bg: rgba(255,255,255,0.05);
+            --card-border: rgba(255,255,255,0.1);
+            --shadow-color: rgba(255, 70, 85, 0.2);
+            --font-main: 'Nunito', 'ZCOOL KuaiLe', sans-serif;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Noto Sans SC', 'Rajdhani', sans-serif;
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            color: var(--text-primary);
+            font-family: var(--font-main);
+            background: var(--bg-gradient);
             min-height: 100vh;
-            line-height: 1.6;
+            color: var(--text-color);
+            padding: 15px;
+            padding-top: 70px;
         }
-
-        /* Navigation */
-        .navbar {
+        nav {
+            background: rgba(15, 25, 35, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(15, 20, 25, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            padding: 0 2rem;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255, 70, 85, 0.3);
         }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-
-        .nav-logo {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
+        nav ul {
             list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Header */
-        .header {
-            padding-top: 120px;
-            padding-bottom: 60px;
-            text-align: center;
-            background: linear-gradient(180deg, rgba(255, 70, 85, 0.1) 0%, transparent 100%);
-        }
-
-        .header h1 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 900px;
             margin: 0 auto;
-        }
-
-        /* Sections */
-        .section {
-            padding: 80px 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background: var(--accent);
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
-            will-change: transform;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            background: var(--bg-card-hover);
-            border-color: var(--accent);
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .card .tag {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* Weapons Category */
-        .weapon-category {
-            margin-bottom: 3rem;
-        }
-
-        .weapon-category h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
             display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .weapons-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .weapon-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1.25rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .weapon-card:hover {
-            border-color: var(--accent);
-            transform: scale(1.02);
-        }
-
-        .weapon-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .weapon-name {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .weapon-price {
-            color: #ffd700;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .weapon-damage {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        /* Maps */
-        .maps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .map-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .map-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .map-header {
-            padding: 1.5rem;
-            background: linear-gradient(135deg, var(--bg-card-hover) 0%, var(--bg-card) 100%);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .map-emoji {
-            font-size: 2.5rem;
-        }
-
-        .map-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .map-info span {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .map-body {
-            padding: 1.25rem;
-        }
-
-        .map-body p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* Teams */
-        .teams-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .team-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .team-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .team-logo {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .team-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-
-        .team-players {
-            display: flex;
+            justify-content: center;
+            gap: 10px;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
+            padding: 0 20px;
         }
-
-        .player-tag {
-            background: var(--bg-secondary);
-            padding: 0.35rem 0.75rem;
-            border-radius: 6px;
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        nav a:hover, nav a.active { background: var(--accent-color); color: white; }
+        .game-mode-switcher {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .game-mode-btn {
+            background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.1));
+            border: 2px solid rgba(255,215,0,0.4);
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: #ffd700;
+            font-weight: 700;
             font-size: 0.85rem;
-            border: 1px solid var(--border);
-        }
-
-        /* Crosshairs */
-        .crosshairs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .crosshair-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .crosshair-card:hover {
-            border-color: var(--accent);
-        }
-
-        .crosshair-preview {
-            background: #000;
-            border-radius: 8px;
-            height: 150px;
+            cursor: pointer;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            position: relative;
-            overflow: hidden;
+            gap: 8px;
+            backdrop-filter: blur(10px);
         }
-
-        .crosshair-preview::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
+        .game-mode-btn:hover {
+            transform: scale(1.05);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
         }
-
-        .crosshair-display {
-            position: relative;
-            z-index: 1;
+        .game-mode-btn.mobile {
+            background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(0,150,255,0.1));
+            border-color: rgba(0,200,255,0.4);
+            color: #00c8ff;
         }
-
-        .crosshair-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
+        .game-mode-btn.mobile:hover {
+            border-color: #00c8ff;
+            box-shadow: 0 0 20px rgba(0,200,255,0.3);
         }
-
-        .crosshair-code {
-            background: var(--bg-secondary);
-            padding: 0.75rem;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            word-break: break-all;
-            margin-bottom: 1rem;
-            border: 1px solid var(--border);
-        }
-
-        .copy-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            font-family: inherit;
-        }
-
-        .copy-btn:hover {
-            background: var(--accent-dark);
-        }
-
-        .copy-btn.copied {
-            background: #22c55e;
-        }
-
-        /* Crosshair Styles */
-        .ch-dot {
-            width: 4px;
-            height: 4px;
-            background: #00ff00;
-            border-radius: 50%;
-            box-shadow: 0 0 2px #00ff00;
-        }
-
-        .ch-cross {
-            width: 20px;
-            height: 20px;
-            position: relative;
-        }
-
-        .ch-cross::before,
-        .ch-cross::after {
-            content: '';
-            position: absolute;
-            background: #ff0000;
-        }
-
-        .ch-cross::before {
-            width: 2px;
-            height: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .ch-cross::after {
-            width: 100%;
-            height: 2px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .ch-circle {
-            width: 16px;
-            height: 16px;
-            border: 2px solid #00ffff;
-            border-radius: 50%;
-        }
-
-        .ch-t {
-            width: 20px;
-            height: 16px;
-            position: relative;
-        }
-
-        .ch-t::before,
-        .ch-t::after {
-            content: '';
-            position: absolute;
-            background: #ffff00;
-        }
-
-        .ch-t::before {
-            width: 2px;
-            height: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .ch-t::after {
-            width: 100%;
-            height: 2px;
-            bottom: 0;
-        }
-
-        /* Footer */
-        .footer {
+        .header {
             text-align: center;
-            padding: 3rem 2rem;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
+            padding: 60px 20px 40px;
+            position: relative;
         }
-
-        .footer a {
-            color: var(--accent);
+        .crosshair-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, rgba(255,70,85,0.2), rgba(255,215,0,0.1));
+            border: 2px solid rgba(255,215,0,0.4);
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: #ffd700;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
         }
-
-        /* Mobile Navigation */
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background: rgba(15, 20, 25, 0.98);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem;
-            z-index: 999;
+        .crosshair-btn:hover {
+            transform: scale(1.05);
+            border-color: #ffd700;
+            box-shadow: 0 0 30px rgba(255,215,0,0.3);
+            color: white;
         }
-
-        .mobile-nav.active {
-            display: block;
+        .pro-players-btn {
+            position: absolute;
+            top: 75px;
+            left: 20px;
+            background: linear-gradient(135deg, rgba(0,150,255,0.2), rgba(138,43,226,0.1));
+            border: 2px solid rgba(0,150,255,0.4);
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: #00bfff;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
         }
-
-        .mobile-nav a {
-            display: block;
-            padding: 1rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            border-bottom: 1px solid var(--border);
+        .pro-players-btn:hover {
+            transform: scale(1.05);
+            border-color: #00bfff;
+            box-shadow: 0 0 30px rgba(0,150,255,0.3);
+            color: white;
         }
-
-        .mobile-nav a:last-child {
-            border-bottom: none;
+        .secrets-btn {
+            position: absolute;
+            top: 130px;
+            left: 20px;
+            background: linear-gradient(135deg, rgba(46,204,113,0.2), rgba(39,174,96,0.1));
+            border: 2px solid rgba(46,204,113,0.4);
+            border-radius: 50px;
+            padding: 12px 24px;
+            color: #2ecc71;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            z-index: 10;
         }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
+        .secrets-btn:hover {
+            transform: scale(1.05);
+            border-color: #2ecc71;
+            box-shadow: 0 0 30px rgba(46,204,113,0.3);
+            color: white;
+        }
+        @media (max-width: 640px) {
+            body {
+                padding: 10px;
+                padding-top: 60px;
+            }
+            .crosshair-btn, .pro-players-btn, .secrets-btn {
+                position: static;
+                margin-bottom: 8px;
+                display: inline-flex;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+                width: 90%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            .header {
+                padding: 30px 10px 20px;
+            }
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            .header p {
+                font-size: 0.9rem;
+                padding: 0 10px;
+            }
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                padding: 10px;
+            }
+            .menu-card {
+                padding: 20px 10px;
+            }
+            .menu-icon {
+                font-size: 2.5rem;
+            }
+            .menu-title {
+                font-size: 1rem;
+            }
+            .menu-desc {
+                font-size: 0.75rem;
+            }
+            .game-mode-switcher {
+                position: fixed;
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                z-index: 9999;
+            }
+            .game-mode-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                background: rgba(0,150,255,0.3);
+                border-color: rgba(0,150,255,0.5);
+            }
+            nav {
+                padding: 8px 0;
+            }
+            nav ul {
+                gap: 4px;
+                padding: 0 5px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                justify-content: flex-start;
+            }
+            nav ul::-webkit-scrollbar {
                 display: none;
             }
-
-            .mobile-menu-btn {
-                display: block;
+            nav a {
+                padding: 5px 8px;
+                font-size: 0.75rem;
+                white-space: nowrap;
+                flex-shrink: 0;
             }
-
-            .header {
-                padding-top: 100px;
-                padding-bottom: 40px;
+            .footer {
+                padding: 30px 10px;
             }
-
-            .header h1 {
-                font-size: 2rem;
+            .footer p {
+                font-size: 0.8rem;
             }
-
-            .header p {
-                font-size: 1rem;
-                padding: 0 1rem;
-            }
-
-            .section {
-                padding: 50px 1rem;
-            }
-
-            .section-title {
-                font-size: 1.75rem;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .maps-grid,
-            .crosshairs-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .weapons-row {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .teams-grid {
+        }
+        @media (max-width: 380px) {
+            .menu-grid {
                 grid-template-columns: 1fr;
             }
         }
-
-        @media (max-width: 480px) {
-            .weapons-row {
-                grid-template-columns: 1fr;
+        /* 游戏细节弹窗样式 */
+        .config-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .config-modal.active {
+            display: block;
+        }
+        @media (max-width: 640px) {
+            .config-modal, .secrets-modal, .pro-players-modal {
+                padding: 10px;
             }
+            .secrets-container {
+                padding: 10px;
+            }
+            .secrets-header {
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+            }
+            .secrets-title {
+                font-size: 1.5rem;
+            }
+            .secrets-subtitle {
+                font-size: 0.9rem;
+            }
+            .secrets-tabs {
+                gap: 8px;
+                margin-bottom: 20px;
+            }
+            .secrets-tab {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+            .config-card {
+                padding: 15px;
+            }
+            .config-header {
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+            .config-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+            .config-title {
+                font-size: 1.1rem;
+            }
+            .config-item {
+                padding: 12px;
+            }
+            .config-item-title {
+                font-size: 0.9rem;
+            }
+            .config-item-desc {
+                font-size: 0.8rem;
+            }
+            .player-share-card {
+                padding: 15px;
+            }
+            .player-share-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            .player-share-title {
+                font-size: 1.2rem;
+            }
+            .code-box {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            .config-image {
+                max-width: 100%;
+            }
+        }
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 25px;
+        }
+        @media (min-width: 768px) {
+            .config-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1200px) {
+            .config-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .config-card {
+            background: linear-gradient(135deg, rgba(255,193,7,0.1), rgba(255,152,0,0.05));
+            border: 2px solid rgba(255,193,7,0.2);
+            border-radius: 24px;
+            padding: 25px;
+            transition: all 0.4s;
+        }
+        .config-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,193,7,0.5);
+            box-shadow: 0 15px 40px rgba(255,193,7,0.2);
+        }
+        .config-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,193,7,0.2);
+        }
+        .config-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255,193,7,0.3), rgba(255,152,0,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        .config-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .config-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .config-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .config-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .config-item-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffc107;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .config-item-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .sensitivity-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .sensitivity-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            min-width: 60px;
+        }
+        .sensitivity-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #ffc107;
+            min-width: 50px;
+            text-align: right;
+        }
+        .player-share-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .player-share-card {
+            background: linear-gradient(135deg, rgba(255,70,85,0.1), rgba(255,70,85,0.05));
+            border: 2px solid rgba(255,70,85,0.3);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        .player-share-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255,70,85,0.2);
+        }
+        .player-share-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255,70,85,0.3), rgba(255,70,85,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        .player-share-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .player-share-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+        .code-section {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        .code-title {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .code-box {
+            background: rgba(255,255,255,0.1);
+            border: 2px dashed rgba(255,70,85,0.5);
+            border-radius: 12px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: #ffd700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            user-select: all;
+        }
+        .code-box:hover {
+            background: rgba(255,70,85,0.2);
+            border-color: #ff4655;
+        }
+        .config-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            margin: 20px auto;
+            display: block;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .secrets-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .secrets-modal.active {
+            display: block;
+        }
+        .secrets-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .secrets-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .secrets-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(46,204,113,0.2);
+            border: 2px solid rgba(46,204,113,0.5);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .secrets-close:hover {
+            background: #2ecc71;
+            transform: rotate(90deg);
+        }
+        .secrets-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .secrets-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .secrets-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .secrets-tab {
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(46,204,113,0.3);
+            border-radius: 30px;
+            color: var(--text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .secrets-tab:hover, .secrets-tab.active {
+            background: rgba(46,204,113,0.2);
+            border-color: #2ecc71;
+        }
+        .secrets-content {
+            display: none;
+        }
+        .secrets-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        .maps-uncommon-angles {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 25px;
+        }
+        @media (min-width: 768px) {
+            .maps-uncommon-angles { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1200px) {
+            .maps-uncommon-angles { grid-template-columns: repeat(3, 1fr); }
+        }
+        .map-angles-card {
+            background: linear-gradient(135deg, rgba(46,204,113,0.1), rgba(39,174,96,0.05));
+            border: 2px solid rgba(46,204,113,0.2);
+            border-radius: 24px;
+            padding: 25px;
+            transition: all 0.4s;
+        }
+        .map-angles-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(46,204,113,0.5);
+            box-shadow: 0 15px 40px rgba(46,204,113,0.2);
+        }
+        .map-angles-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(46,204,113,0.2);
+        }
+        .map-angles-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(46,204,113,0.3), rgba(39,174,96,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        .map-angles-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .map-angles-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .uncommon-spots-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .uncommon-spot-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        .uncommon-spot-item:hover {
+            background: rgba(46,204,113,0.08);
+            transform: translateX(5px);
+        }
+        .spot-location {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #2ecc71;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .spot-location::before {
+            content: '📍';
+        }
+        .spot-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .spot-tip {
+            font-size: 0.8rem;
+            color: #f39c12;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background: rgba(243,156,18,0.1);
+            border-radius: 10px;
+            border-left: 3px solid #f39c12;
+        }
+        .agent-tips-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 20px;
+        }
+        @media (min-width: 640px) {
+            .agent-tips-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .agent-tips-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (min-width: 1400px) {
+            .agent-tips-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .agent-tip-card {
+            background: linear-gradient(135deg, rgba(255,70,85,0.1), rgba(255,70,85,0.03));
+            border: 2px solid rgba(255,70,85,0.2);
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.4s;
+        }
+        .agent-tip-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,70,85,0.4);
+            box-shadow: 0 15px 40px rgba(255,70,85,0.15);
+        }
+        .agent-tip-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .agent-tip-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(255,70,85,0.3), rgba(255,70,85,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .agent-tip-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255,70,85,0.3), rgba(255,70,85,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 2px solid rgba(255,70,85,0.3);
+        }
+        .agent-tip-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .agent-tip-card:hover .agent-tip-avatar img {
+            transform: scale(1.1);
+        }
+        .agent-tip-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+        .agent-tip-role {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .agent-tip-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .agent-tip-item {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding: 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            border-left: 3px solid rgba(255,70,85,0.3);
+        }
+        /* 职业选手弹窗样式 */
+        .pro-players-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 3000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .pro-players-modal.active {
+            display: block;
+        }
+        .pro-players-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .pro-players-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .pro-players-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,70,85,0.2);
+            border: 2px solid rgba(255,70,85,0.5);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pro-players-close:hover {
+            background: var(--accent-color);
+            transform: rotate(90deg);
+        }
+        .pro-players-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: linear-gradient(135deg, #00bfff, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .pro-players-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .playstyle-categories {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 25px;
+        }
+        @media (min-width: 768px) {
+            .playstyle-categories { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1200px) {
+            .playstyle-categories { grid-template-columns: repeat(3, 1fr); }
+        }
+        .playstyle-category {
+            background: linear-gradient(135deg, rgba(0,150,255,0.1), rgba(138,43,226,0.05));
+            border: 2px solid rgba(0,150,255,0.2);
+            border-radius: 24px;
+            padding: 25px;
+            transition: all 0.4s;
+        }
+        .playstyle-category:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0,150,255,0.5);
+            box-shadow: 0 15px 40px rgba(0,150,255,0.2);
+        }
+        .playstyle-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,150,255,0.2);
+        }
+        .playstyle-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        .playstyle-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+        .playstyle-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+        .pro-player-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .pro-player-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 18px;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .pro-player-card:hover {
+            background: rgba(255,255,255,0.06);
+            transform: translateX(5px);
+        }
+        .pro-player-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        .pro-player-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0,150,255,0.3), rgba(138,43,226,0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .pro-player-meta {
+            flex: 1;
+        }
+        .pro-player-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 3px;
+        }
+        .pro-player-team {
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+        .pro-player-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .pro-player-tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            background: rgba(0,150,255,0.15);
+            color: #00bfff;
+            border-radius: 12px;
+            border: 1px solid rgba(0,150,255,0.2);
+        }
+        .pro-player-thoughts {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding: 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            margin-top: 10px;
+        }
+        .pro-player-thoughts strong {
+            color: #ffd700;
+        }
+        .header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            background: linear-gradient(135deg, #ff4655, #ff8a95);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .menu-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 25px;
+        }
+        @media (min-width: 640px) {
+            .menu-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .menu-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        .menu-card {
+            background: linear-gradient(135deg, rgba(255,70,85,0.15), rgba(15,25,35,0.8));
+            border: 2px solid rgba(255,70,85,0.3);
+            border-radius: 24px;
+            padding: 35px 25px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-decoration: none;
+            color: var(--text-color);
+            display: block;
+        }
+        .menu-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 50px rgba(255,70,85,0.3);
+        }
+        .menu-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .menu-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .menu-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .footer a {
+            color: var(--accent-color);
+            text-decoration: none;
         }
     </style>
 </head>
-<body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">VALORANT</a>
-            <ul class="nav-links">
-                <li><a href="./index.html">🏠 首页</a></li>
-                <li><a href="#agents">🎯 特工</a></li>
-                <li><a href="#weapons">🔫 枪械</a></li>
-                <li><a href="#maps">🗺️ 地图</a></li>
-                <li><a href="#teams">🏆 战队</a></li>
-                <li><a href="#crosshairs">🎯 准心</a></li>
-            </ul>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-        </div>
-    </nav>
 
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav" id="mobileNav">
-        <a href="./index.html">🏠 首页</a>
-        <a href="#agents" onclick="closeMobileMenu()">🎯 特工</a>
-        <a href="#weapons" onclick="closeMobileMenu()">🔫 枪械</a>
-        <a href="#maps" onclick="closeMobileMenu()">🗺️ 地图</a>
-        <a href="#teams" onclick="closeMobileMenu()">🏆 战队</a>
-        <a href="#crosshairs" onclick="closeMobileMenu()">🎯 准心</a>
+    <div class="game-mode-switcher">
+        <button class="game-mode-btn" id="gameModeBtn" onclick="toggleGameMode()">
+            📱 如果你来自《无畏契约：源能行动》
+        </button>
     </div>
 
-    <!-- Header -->
-    <header class="header">
-        <h1>VALORANT 档案中心</h1>
-        <p>探索无畏契约的完整世界 — 特工、武器、地图、战队与准心配置</p>
-    </header>
+    <nav>
+        <ul>
+            <li><a href="../index.html">🏠 首页</a></li>
+            <li><a href="./index.html" class="active">🎮 总览</a></li>
+            <li><a href="music.html">🎵 音乐空间</a></li>
+            <li><a href="./valorant-agents.html">🎯 特工</a></li>
+            <li><a href="./valorant-weapons.html">🔫 枪械</a></li>
+            <li><a href="./valorant-maps.html">🗺️ 地图</a></li>
+            <li><a href="./valorant-teams.html">🏆 战队</a></li>
+            <li><a href="./valorant-edg.html">👑 EDG</a></li>
+            <li><a href="./valorant-news.html">📰 资讯</a></li>
+            <li><a href="./valorant-skins.html">💎 皮肤</a></li>
+        </ul>
+    </nav>
 
-    <!-- Agents Section -->
-    <section class="section" id="agents">
-        <h2 class="section-title">特工档案</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon">⚡</div>
-                <span class="tag">决斗者</span>
-                <h3>Jett 捷风</h3>
-                <p>来自韩国的决斗者，拥有卓越的机动性。技能包括冲刺、上升气流和烟雾弹，终极技能是强大的飞刀风暴。</p>
+    <div class="header">
+        <a href="./valorant-crosshairs.html" class="crosshair-btn" id="crosshairBtn">🎯 来看看2026最新的准心合集？</a>
+        <button class="pro-players-btn" onclick="openProPlayersModal()" id="proPlayersBtn">🏆 快来学习职业选手的操作思路！</button>
+        <button class="secrets-btn" onclick="openSecretsModal()" id="secretsBtn">🔍 更多你不知道的细节！</button>
+        <h1 id="mainTitle">Valorant 档案中心 <img src="images/valorant-logo.svg" alt="Valorant" style="height: 0.8em; width: auto; vertical-align: middle; margin-left: 10px; filter: drop-shadow(0 0 10px rgba(255,70,85,0.5));"></h1>
+        <p id="mainDesc">探索无畏契约的完整世界：28位特工、19种武器、11张地图、9支VCT CN战队、EDG传奇故事与最新资讯</p>
+    </div>
+
+    <!-- 职业选手操作思路弹窗 -->
+    <div class="pro-players-modal" id="proPlayersModal">
+        <div class="pro-players-container">
+            <div class="pro-players-header">
+                <button class="pro-players-close" onclick="closeProPlayersModal()">×</button>
+                <h2 class="pro-players-title">🏆 职业选手操作思路解析</h2>
+                <p class="pro-players-subtitle">学习顶尖选手的打法风格，提升你的游戏理解</p>
             </div>
-            <div class="card">
-                <div class="card-icon">🔥</div>
-                <span class="tag">决斗者</span>
-                <h3>Phoenix 不死鸟</h3>
-                <p>来自英国的决斗者，能操控火焰。可以投掷火球、创造火墙，终极技能让他以火凤凰形态重生。</p>
+            <div class="playstyle-categories" id="playstyleCategories"></div>
+        </div>
+    </div>
+
+    <!-- 游戏细节弹窗 -->
+    <div class="secrets-modal" id="secretsModal">
+        <div class="secrets-container">
+            <div class="secrets-header">
+                <button class="secrets-close" onclick="closeSecretsModal()">×</button>
+                <h2 class="secrets-title">🔍 更多你不知道的细节！</h2>
+                <p class="secrets-subtitle">地图非预瞄点 & 特工隐藏技巧，让你出其不意</p>
             </div>
-            <div class="card">
-                <div class="card-icon">🌿</div>
-                <span class="tag">守卫</span>
-                <h3>Sage 贤者</h3>
-                <p>来自中国的守卫，拥有强大的治疗能力。可以放置减速球、复活队友，是团队中不可或缺的后勤支援。</p>
+            <div class="secrets-tabs">
+                <button class="secrets-tab active" onclick="switchSecretsTab('maps')">🗺️ 地图非预瞄点</button>
+                <button class="secrets-tab" onclick="switchSecretsTab('agents')">🎯 特工小细节</button>
             </div>
-            <div class="card">
-                <div class="card-icon">🕸️</div>
-                <span class="tag">守卫</span>
-                <h3>Cypher 零</h3>
-                <p>来自摩洛哥的守卫，擅长情报收集。使用绊线、摄像头和牢笼来监控敌人动向，掌控全局。</p>
+            <div class="secrets-content active" id="mapsContent">
+                <div class="maps-uncommon-angles" id="mapsUncommonAngles"></div>
             </div>
-            <div class="card">
-                <div class="card-icon">👁️</div>
-                <span class="tag">决斗者</span>
-                <h3>Reyna 芮娜</h3>
-                <p>来自墨西哥的决斗者，击败敌人后获得强化。可以吞噬灵魂恢复生命，或进入无形状态。</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🤖</div>
-                <span class="tag">守卫</span>
-                <h3>Killjoy 奇乐</h3>
-                <p>来自德国的守卫，使用高科技装置。放置炮塔、警报机器人和纳米蜂群来守护据点。</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🏹</div>
-                <span class="tag">先锋</span>
-                <h3>Sova 猎枭</h3>
-                <p>来自俄罗斯的先锋，精通追踪。使用侦察箭和无人机来暴露敌人位置，终极技能是穿墙能量箭。</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">👤</div>
-                <span class="tag">控场者</span>
-                <h3>Omen 幽影</h3>
-                <p>神秘的控场者，操控阴影力量。可以传送、放置烟雾，终极技能让他传送到地图任意位置。</p>
+            <div class="secrets-content" id="agentsContent">
+                <div class="agent-tips-grid" id="agentTipsGrid"></div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Weapons Section -->
-    <section class="section" id="weapons">
-        <h2 class="section-title">枪械档案</h2>
-        
-        <div class="weapon-category">
-            <h3>🔪 近战武器</h3>
-            <div class="weapons-row">
-                <div class="weapon-card">
-                    <div class="weapon-icon">🗡️</div>
-                    <div class="weapon-name">战术小刀</div>
-                    <div class="weapon-price">免费</div>
-                    <div class="weapon-damage">左键50 / 右键75</div>
-                </div>
+    <!-- 新手配置弹窗 -->
+    <div class="config-modal" id="configModal">
+        <div class="secrets-container">
+            <div class="secrets-header">
+                <button class="secrets-close" onclick="closeConfigModal()">×</button>
+                <h2 class="secrets-title">⚙️ 新手配置推荐</h2>
+                <p class="secrets-subtitle">键位布局 & 灵敏度设置，助你快速上手移动端</p>
+            </div>
+            <div class="secrets-tabs">
+                <button class="secrets-tab active" onclick="switchConfigTab('fingers')">👆 指法键位</button>
+                <button class="secrets-tab" onclick="switchConfigTab('sensitivity')">🎯 灵敏度设置</button>
+                <button class="secrets-tab" onclick="switchConfigTab('playershare')">👤 玩家分享</button>
+            </div>
+            <div class="secrets-content active" id="fingersContent">
+                <div class="config-grid" id="fingersGrid"></div>
+            </div>
+            <div class="secrets-content" id="sensitivityContent">
+                <div class="config-grid" id="sensitivityGrid"></div>
+            </div>
+            <div class="secrets-content" id="playershareContent">
+                <div class="player-share-container" id="playerShareContainer"></div>
             </div>
         </div>
+    </div>
 
-        <div class="weapon-category">
-            <h3>🔫 手枪</h3>
-            <div class="weapons-row">
-                <div class="weapon-card">
-                    <div class="weapon-icon">🔫</div>
-                    <div class="weapon-name">Classic 经典</div>
-                    <div class="weapon-price">免费</div>
-                    <div class="weapon-damage">头部78 / 身体26</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">🎯</div>
-                    <div class="weapon-name">Shorty 短喷</div>
-                    <div class="weapon-price">150</div>
-                    <div class="weapon-damage">近距离秒杀</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">💥</div>
-                    <div class="weapon-name">Frenzy 狂怒</div>
-                    <div class="weapon-price">450</div>
-                    <div class="weapon-damage">头部78 / 身体26</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">🔥</div>
-                    <div class="weapon-name">Ghost 幽魂</div>
-                    <div class="weapon-price">500</div>
-                    <div class="weapon-damage">头部105 / 身体30</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">💀</div>
-                    <div class="weapon-name">Sheriff 神射</div>
-                    <div class="weapon-price">800</div>
-                    <div class="weapon-damage">头部160 / 身体55</div>
-                </div>
-            </div>
-        </div>
+    <div class="menu-grid">
+        <a href="./valorant-agents.html" class="menu-card" id="card1">
+            <span class="menu-icon" id="icon1">🎯</span>
+            <div class="menu-title" id="title1">特工档案</div>
+            <div class="menu-desc" id="desc1">28位特工完整资料<br>4大职业分类</div>
+        </a>
+        <a href="./valorant-weapons.html" class="menu-card" id="card2">
+            <span class="menu-icon" id="icon2">🔫</span>
+            <div class="menu-title" id="title2">枪械档案</div>
+            <div class="menu-desc" id="desc2">19种武器详细数据<br>6大枪械分类</div>
+        </a>
+        <a href="./valorant-teams.html" class="menu-card" id="card3" onclick="playBackgroundMusic(event)">
+            <span class="menu-icon" id="icon3">🏆</span>
+            <div class="menu-title" id="title3">VCT CN 战队</div>
+            <div class="menu-desc" id="desc3">9支顶尖战队<br>45位明星选手</div>
+        </a>
+        <a href="./valorant-maps.html" class="menu-card" id="card4">
+            <span class="menu-icon" id="icon4">🗺️</span>
+            <div class="menu-title" id="title4">地图档案</div>
+            <div class="menu-desc" id="desc4">11张中文地图<br>全职位战术指南</div>
+        </a>
+        <a href="./valorant-edg.html" class="menu-card" id="card5" onclick="if(document.getElementById('gameModeBtn').classList.contains('mobile')){event.preventDefault();openConfigModal();}">
+            <span class="menu-icon" id="icon5">👑</span>
+            <div class="menu-title" id="title5">EDG 传奇</div>
+            <div class="menu-desc" id="desc5">世界冠军之路<br>从磨难到辉煌</div>
+        </a>
+        <a href="./valorant-news.html" class="menu-card" id="card6">
+            <span class="menu-icon" id="icon6">📰</span>
+            <div class="menu-title" id="title6">最新资讯</div>
+            <div class="menu-desc" id="desc6">游戏更新动态<br>电竞赛事资讯</div>
+        </a>
+    </div>
 
-        <div class="weapon-category">
-            <h3>🔫 冲锋枪</h3>
-            <div class="weapons-row">
-                <div class="weapon-card">
-                    <div class="weapon-icon">⚡</div>
-                    <div class="weapon-name">Stinger 刺针</div>
-                    <div class="weapon-price">950</div>
-                    <div class="weapon-damage">头部67 / 身体27</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">🌪️</div>
-                    <div class="weapon-name">Spectre 幽灵</div>
-                    <div class="weapon-price">1600</div>
-                    <div class="weapon-damage">头部80 / 身体26</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="weapon-category">
-            <h3>🔫 步枪</h3>
-            <div class="weapons-row">
-                <div class="weapon-card">
-                    <div class="weapon-icon">⚔️</div>
-                    <div class="weapon-name">Bulldog 斗牛犬</div>
-                    <div class="weapon-price">2050</div>
-                    <div class="weapon-damage">头部115 / 身体35</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">🦅</div>
-                    <div class="weapon-name">Guardian 捍卫者</div>
-                    <div class="weapon-price">2250</div>
-                    <div class="weapon-damage">头部195 / 身体65</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">👑</div>
-                    <div class="weapon-name">Phantom 幻影</div>
-                    <div class="weapon-price">2900</div>
-                    <div class="weapon-damage">头部140 / 身体35</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">🔱</div>
-                    <div class="weapon-name">Vandal 狂徒</div>
-                    <div class="weapon-price">2900</div>
-                    <div class="weapon-damage">头部160 / 身体40</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="weapon-category">
-            <h3>🎯 狙击枪</h3>
-            <div class="weapons-row">
-                <div class="weapon-card">
-                    <div class="weapon-icon">🎯</div>
-                    <div class="weapon-name">Marshal 警长</div>
-                    <div class="weapon-price">950</div>
-                    <div class="weapon-damage">头部202 / 身体101</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">☠️</div>
-                    <div class="weapon-name">Operator 间谍</div>
-                    <div class="weapon-price">4700</div>
-                                       <div class="weapon-damage">头部255 / 身体150</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="weapon-category">
-            <h3>🔥 机枪</h3>
-            <div class="weapons-row">
-                <div class="weapon-card">
-                    <div class="weapon-icon">🌀</div>
-                    <div class="weapon-name">Ares 战神</div>
-                    <div class="weapon-price">1600</div>
-                    <div class="weapon-damage">头部72 / 身体30</div>
-                </div>
-                <div class="weapon-card">
-                    <div class="weapon-icon">🌋</div>
-                    <div class="weapon-name">Odin 奥丁</div>
-                    <div class="weapon-price">3200</div>
-                    <div class="weapon-damage">头部95 / 身体38</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Maps Section -->
-    <section class="section" id="maps">
-        <h2 class="section-title">地图介绍</h2>
-        <div class="maps-grid">
-            <div class="map-card">
-                <div class="map-header">
-                    <div class="map-emoji">🏛️</div>
-                    <div class="map-info">
-                        <h3>Ascent 亚海悬城</h3>
-                        <span>意大利威尼斯风格</span>
-                    </div>
-                </div>
-                <div class="map-body">
-                    <p>开放式中路的经典地图，A点和B点都有可关闭的门。适合狙击手，中路控制权决定比赛走势。</p>
-                </div>
-            </div>
-            <div class="map-card">
-                <div class="map-header">
-                    <div class="map-emoji">🌅</div>
-                    <div class="map-info">
-                        <h3>Bind 源工重镇</h3>
-                        <span>中东沙漠风格</span>
-                    </div>
-                </div>
-                <div class="map-body">
-                    <p>独特的单向传送带地图，没有中路。A点和B点通过传送门连接，快速转点出其不意。</p>
-                </div>
-            </div>
-            <div class="map-card">
-                <div class="map-header">
-                    <div class="map-emoji">🌲</div>
-                    <div class="map-info">
-                        <h3>Haven 隐世修所</h3>
-                        <span>亚洲寺庙风格</span>
-                    </div>
-                </div>
-                <div class="map-body">
-                    <p>独特的三炸弹点地图。防守方需要分散注意力，进攻方有更多进攻选择。</p>
-                </div>
-            </div>
-            <div class="map-card">
-                <div class="map-header">
-                    <div class="map-emoji">🏗️</div>
-                    <div class="map-info">
-                        <h3>Split 霓虹町</h3>
-                        <span>日本赛博朋克</span>
-                    </div>
-                </div>
-                <div class="map-body">
-                    <p>垂直元素丰富的地图，拥有上升绳索。A点和B点都有高低差，适合立体攻防。</p>
-                </div>
-            </div>
-            <div class="map-card">
-                <div class="map-header">
-                    <div class="map-emoji">❄️</div>
-                    <div class="map-info">
-                        <h3>Icebox 森寒冬港</h3>
-                        <span>北极研究基地</span>
-                    </div>
-                </div>
-                <div class="map-body">
-                    <p>垂直高度最复杂的地图，大量滑索和高低差。对特工技能配合要求极高。</p>
-                </div>
-            </div>
-            <div class="map-card">
-                <div class="map-header">
-                    <div class="map-emoji">🏖️</div>
-                    <div class="map-info">
-                        <h3>Breeze 微风岛屿</h3>
-                        <span>加勒比海滩</span>
-                    </div>
-                </div>
-                <div class="map-body">
-                    <p>最开阔的地图，超长距离交火。A点和B点都很大，适合长枪对枪。</p>
-                </div>
-            </div>
-            <div class="map-card">
-                <div class="map-header">
-                    <div class="map-emoji">⚡</div>
-                    <div class="map-info">
-                        <h3>Fracture 裂变峡谷</h3>
-                        <span>美国沙漠实验室</span>
-                    </div>
-                </div>
-                <div class="map-body">
-                    <p>创新的H型布局，进攻方从中间出生，可以选择进攻任一端。防守方需要快速回防。</p>
-                </div>
-            </div>
-            <div class="map-card">
-                <div class="map-header">
-                    <div class="map-emoji">🐚</div>
-                    <div class="map-info">
-                        <h3>Pearl 深海明珠</h3>
-                        <span>葡萄牙水下城市</span>
-                    </div>
-                </div>
-                <div class="map-body">
-                    <p>紧凑的传统布局地图，没有特殊机制。强调基础枪法和团队配合。</p>
-                </div>
-            </div>
-            <div class="map-card">
-                <div class="map-header">
-                    <div class="map-emoji">🪷</div>
-                    <div class="map-info">
-                        <h3>Lotus 莲华古城</h3>
-                        <span>印度古城风格</span>
-                    </div>
-                </div>
-                <div class="map-body">
-                    <p>三炸弹点地图，拥有可旋转的墙壁门和无声下落区域。战术多样性极高。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Teams Section -->
-    <section class="section" id="teams">
-        <h2 class="section-title">VCT CN 战队</h2>
-        <div class="teams-grid">
-            <div class="team-card">
-                <div class="team-logo">🟥</div>
-                <div class="team-name">EDG</div>
-                <div class="team-players">
-                    <span class="player-tag">ZmjjKK</span>
-                    <span class="player-tag">CHICHOO</span>
-                    <span class="player-tag">nobody</span>
-                    <span class="player-tag">Smoggy</span>
-                    <span class="player-tag">S1Mon</span>
-                </div>
-            </div>
-            <div class="team-card">
-                <div class="team-logo">⬛</div>
-                <div class="team-name">BLG</div>
-                <div class="team-players">
-                    <span class="player-tag">whz</span>
-                    <span class="player-tag">Knight</span>
-                    <span class="player-tag">rushia</span>
-                    <span class="player-tag">Levius</span>
-                    <span class="player-tag">nephh</span>
-                </div>
-            </div>
-            <div class="team-card">
-                <div class="team-logo">🟧</div>
-                <div class="team-name">FPX</div>
-                <div class="team-players">
-                    <span class="player-tag">AAAAY</span>
-                    <span class="player-tag">Lysoar</span>
-                    <span class="player-tag">autumn</span>
-                    <span class="player-tag">Life</span>
-                    <span class="player-tag">BerLIN</span>
-                </div>
-            </div>
-            <div class="team-card">
-                <div class="team-logo">🟦</div>
-                <div class="team-name">TE</div>
-                <div class="team-players">
-                    <span class="player-tag">Kai</span>
-                    <span class="player-tag">LuoK1ng</span>
-                    <span class="player-tag">heybay</span>
-                    <span class="player-tag">Biank</span>
-                    <span class="player-tag">Ff0w0</span>
-                </div>
-            </div>
-            <div class="team-card">
-                <div class="team-logo">🟨</div>
-                <div class="team-name">DRG</div>
-                <div class="team-players">
-                    <span class="player-tag">TvirusLuke</span>
-                    <span class="player-tag">Nicole</span>
-                    <span class="player-tag">Shion7</span>
-                    <span class="player-tag">Kraken</span>
-                    <span class="player-tag">vo0kashu</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Crosshairs Section -->
-    <section class="section" id="crosshairs">
-        <h2 class="section-title">准心合集</h2>
-        <div class="crosshairs-grid">
-            <div class="crosshair-card">
-                <div class="crosshair-preview">
-                    <div class="crosshair-display ch-dot"></div>
-                </div>
-                <div class="crosshair-name">经典小点</div>
-                <div class="crosshair-code">0;s;1;P;c;5;o;1;d;1;z;1;f;0;s;0;0t;1;0l;2;0o;0;0a;1;0f;0;1t;3;1o;2;1a;1;1m;0;1f;0</div>
-                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
-            </div>
-            <div class="crosshair-card">
-                <div class="crosshair-preview">
-                    <div class="crosshair-display ch-cross"></div>
-                </div>
-                <div class="crosshair-name">十字准心</div>
-                <div class="crosshair-code">0;P;c;5;o;1;d;1;z;3;f;0;0t;6;0l;1;0o;1;0a;0.5;0f;0;1b;0</div>
-                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
-            </div>
-            <div class="crosshair-card">
-                <div class="crosshair-preview">
-                    <div class="crosshair-display ch-circle"></div>
-                </div>
-                <div class="crosshair-name">圆圈准心</div>
-                <div class="crosshair-code">0;P;c;5;o;1;f;0;0t;4;0l;1;0o;2;0a;1;0f;0;1b;0</div>
-                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
-            </div>
-            <div class="crosshair-card">
-                <div class="crosshair-preview">
-                    <div class="crosshair-display ch-t"></div>
-                </div>
-                <div class="crosshair-name">T型准心</div>
-                <div class="crosshair-code">0;P;c;5;o;1;d;1;f;0;0t;6;0l;1;0o;0;0a;1;0f;0;1t;0;1l;0;1o;0;1a;0;1m;0;1f;0</div>
-                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
-            </div>
-            <div class="crosshair-card">
-                <div class="crosshair-preview">
-                    <div class="crosshair-display" style="width: 2px; height: 20px; background: #ff00ff; box-shadow: 0 0 3px #ff00ff;"></div>
-                </div>
-                <div class="crosshair-name">单线准心</div>
-                <div class="crosshair-code">0;P;c;5;o;1;d;1;z;1;f;0;0t;1;0l;8;0o;0;0a;1;0f;0;1t;0;1l;0;1o;0;1a;0;1m;0;1f;0</div>
-                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
-            </div>
-            <div class="crosshair-card">
-                <div class="crosshair-preview">
-                    <div style="display: grid; grid-template-columns: repeat(3, 8px); gap: 2px;">
-                        <div style="width: 8px; height: 2px; background: #fff;"></div>
-                        <div></div>
-                        <div style="width: 8px; height: 2px; background: #fff;"></div>
-                        <div></div>
-                        <div style="width: 4px; height: 4px; background: #ff4655; border-radius: 50%;"></div>
-                        <div></div>
-                        <div style="width: 8px; height: 2px; background: #fff;"></div>
-                        <div></div>
-                        <div style="width: 8px; height: 2px; background: #fff;"></div>
-                    </div>
-                </div>
-                <div class="crosshair-name">四点准心</div>
-                <div class="crosshair-code">0;P;c;1;o;1;f;0;0t;4;0l;2;0o;2;0a;1;0f;0;1b;0</div>
-                <button class="copy-btn" onclick="copyCrosshair(this)">复制准心代码</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>Valorant 档案中心 | 无畏契约资料站</p>
-        <p>本页面为粉丝制作，与 Riot Games 无关 | <a href="./index.html">返回首页</a></p>
-    </footer>
+    <div class="footer">
+        <p>Valorant 档案中心 | Made with ❤️ by <a href="about.html">ling1in</a></p>
+    </div>
 
     <script>
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.toggle('active');
-        }
+        // 职业选手操作思路数据
+        const proPlayersData = [
+            {
+                category: '激进突破型',
+                icon: '⚔️',
+                color: '#ff4655',
+                description: '敢于第一个拉出去，为团队打开局面',
+                players: [
+                    {
+                        name: 'ZmjjKK',
+                        team: 'EDG',
+                        emoji: '🔥',
+                        tags: ['决斗专精', '狙击之王', '大心脏'],
+                        thoughts: '<strong>核心思路：</strong>永远相信自己能赢。无论是大狙还是步枪，都要敢于主动对枪。利用预瞄优势，在敌人反应之前完成击杀。关键时刻绝不手软，FMVP的气质就是敢打敢拼。'
+                    },
+                    {
+                        name: 'Life',
+                        team: 'FPX',
+                        emoji: '⚔️',
+                        tags: ['顶级决斗', '多面手', '稳定Carry'],
+                        thoughts: '<strong>核心思路：</strong>根据地图和团队需求灵活选择特工。进点时与队友道具完美配合，不盲目冲第一个，而是等道具到位后瞬间爆发。残局时保持冷静，利用地形优势逐个击破。'
+                    },
+                    {
+                        name: 'whzy',
+                        team: 'BLG',
+                        emoji: '💥',
+                        tags: ['判官之神', '激进派', '神经刀'],
+                        thoughts: '<strong>核心思路：</strong>让对手永远猜不到你的位置。利用非常规位和快节奏打法打乱敌人部署。判官（霰弹枪）不是娱乐，是战术武器——在合适的地图点位，它就是最恐怖的存在。'
+                    }
+                ]
+            },
+            {
+                category: '全能自由人',
+                icon: '🎭',
+                color: '#9b59b6',
+                description: '根据局势灵活切换角色，哪里需要去哪里',
+                players: [
+                    {
+                        name: 'Smoggy',
+                        team: 'EDG',
+                        emoji: '⚡',
+                        tags: ['英雄海', '自由人', '补位王'],
+                        thoughts: '<strong>核心思路：</strong>团队需要什么，我就玩什么。精通所有特工意味着可以随时根据战术需求切换角色。自由人不是乱跑，是在队友需要时出现，在敌人松懈时致命。'
+                    },
+                    {
+                        name: 'CHICHOO',
+                        team: 'EDG',
+                        emoji: '🛡️',
+                        tags: ['哨位/控场', '残局大师', '智商型'],
+                        thoughts: '<strong>核心思路：</strong>信息就是一切。作为哨位要读懂敌人的意图，提前设防；转控场时要精准切割战场。残局不拼枪法拼脑子，每一次走位、每一颗子弹都要有意义。'
+                    },
+                    {
+                        name: 'Kai',
+                        team: 'TE',
+                        emoji: '💪',
+                        tags: ['决斗/哨位', '104杀纪录', '耐力型'],
+                        thoughts: '<strong>核心思路：</strong>持久稳定的输出比爆发更重要。拥有VCT单场104杀纪录的背后，是始终如一的状态保持。无论打什么位置，都要做到"我可以不是最秀的，但一定是最稳的"。'
+                    }
+                ]
+            },
+            {
+                category: '指挥核心型',
+                icon: '🧠',
+                color: '#3498db',
+                description: '掌控全局节奏，用战术碾压对手',
+                players: [
+                    {
+                        name: 'nobody',
+                        team: 'EDG',
+                        emoji: '🎯',
+                        tags: ['IGL', '先锋', '战术大师'],
+                        thoughts: '<strong>核心思路：</strong> valorant是信息游戏。作为指挥，要同时关注小地图、队友状态、敌人习惯、经济情况。每一个决策都是计算后的最优解，让队友只需要专注瞄准，其他交给我。'
+                    },
+                    {
+                        name: 'SiuFatBB',
+                        team: 'WOL',
+                        emoji: '🎪',
+                        tags: ['指挥大师', '套路王', '心理战'],
+                        thoughts: '<strong>核心思路：</strong>让对手跟着你的节奏走。通过假打、转点、非常规战术打乱敌方部署。好的指挥不是让队友去适应战术，而是根据队友特点设计适合他们的战术体系。'
+                    },
+                    {
+                        name: 'BerLIN',
+                        team: 'FPX',
+                        emoji: '🎖️',
+                        tags: ['控场指挥', '鬼才', '地图理解'],
+                        thoughts: '<strong>核心思路：</strong>控场不只是放技能，是控制整个地图的流动。烟墙、毒幕、冰墙都是分割战场的工具。让敌人在我想让他们在的位置出现，然后一举歼灭。'
+                    }
+                ]
+            },
+            {
+                category: '狙击专精型',
+                icon: '🎯',
+                color: '#e74c3c',
+                description: '大狙在手，一夫当关',
+                players: [
+                    {
+                        name: 'ZmjjKK',
+                        team: 'EDG',
+                        emoji: '🏆',
+                        tags: ['大狙皇帝', '双服第一', '明星选手'],
+                        thoughts: '<strong>核心思路：</strong>大狙不是武器，是威慑力。让敌人不敢走这条路，让队友敢做更多事情。空枪不可怕，可怕的是不敢再开第二枪。相信自己，每一发都是决胜弹。'
+                    },
+                    {
+                        name: 'vo0kashu',
+                        team: 'DRG',
+                        emoji: '🎯',
+                        tags: ['瞄准怪物', '俄罗斯外援', '激进狙'],
+                        thoughts: '<strong>核心思路：</strong>狙击手要敢于主动出击，不只是架点等敌人送。利用身法和预判，在敌人想不到的角度开镜。被针对说明你有威胁，换个位置继续狙。'
+                    },
+                    {
+                        name: 'AAAAY',
+                        team: 'FPX',
+                        emoji: '🔫',
+                        tags: ['爆头老祖', '精准派', '步枪狙双绝'],
+                        thoughts: '<strong>核心思路：</strong>不管是大狙还是步枪，第一发子弹都要追求爆头。精准度来自日复一日的练习，形成肌肉记忆后，瞄准就是本能反应。'
+                    }
+                ]
+            },
+            {
+                category: '残局大师型',
+                icon: '🔐',
+                color: '#f39c12',
+                description: '1vX？那是表演时间',
+                players: [
+                    {
+                        name: 'CHICHOO',
+                        team: 'EDG',
+                        emoji: '🏅',
+                        tags: ['残局第一', '冷静派', '抓Timing'],
+                        thoughts: '<strong>核心思路：</strong>残局不是拼枪法，是拼心理素质。首先要冷静分析信息，判断敌人位置；其次要有耐心，等敌人犯错；最后要果断，机会出现时绝不犹豫。'
+                    },
+                    {
+                        name: 'FengF',
+                        team: 'TE',
+                        emoji: '🚀',
+                        tags: ['雷兹王', '空间创造', '灵活多变'],
+                        thoughts: '<strong>核心思路：</strong>利用特工技能创造不公平的对枪环境。雷兹的炸弹跳让你能出现在敌人想不到的位置，在敌人还在找你在哪时就已经死了。残局要敢想敢做。'
+                    },
+                    {
+                        name: 'Abo',
+                        team: 'TEC',
+                        emoji: '🔫',
+                        tags: ['AK之神', '枪男', '机械瞄准'],
+                        thoughts: '<strong>核心思路：</strong>当枪法够硬时，很多局面会变得简单。但不是无脑对枪，是利用地图理解找到1v1的机会，而不是1v多。每一次peek都要有收获。'
+                    }
+                ]
+            },
+            {
+                category: '辅助支援型',
+                icon: '🤝',
+                color: '#2ecc71',
+                description: '为队友创造机会，团队的隐形核心',
+                players: [
+                    {
+                        name: 'zjc',
+                        team: 'EDG',
+                        emoji: '📡',
+                        tags: ['信息先锋', '道具手', '团队型'],
+                        thoughts: '<strong>核心思路：</strong>先锋的任务不是杀人，是帮助队友更好地杀人。闪光、探测、信息——每次释放技能都要考虑队友的位置和需求。为明星选手创造表演舞台。'
+                    },
+                    {
+                        name: 'LuoK1ng',
+                        team: 'TE',
+                        emoji: '🌌',
+                        tags: ['国二烟', '控场专家', '稳定输出'],
+                        thoughts: '<strong>核心思路：</strong>好烟不是遮住视线，是创造战术空间。要学会"单向烟"、"切割烟"、"进攻烟"的不同用法。控场的同时保持输出，做团队的定海神针。'
+                    },
+                    {
+                        name: 'yosemite',
+                        team: 'FPX',
+                        emoji: '🐱',
+                        tags: ['哨位', '梦泪', '单摸大师'],
+                        thoughts: '<strong>核心思路：</strong>哨位不是守点的工具人，是单摸和绕后的威胁。利用摄像头、绊线收集信息，在敌人专注于正面时，从背后给予致命一击。'
+                    }
+                ]
+            }
+        ];
 
-        function closeMobileMenu() {
-            const mobileNav = document.getElementById('mobileNav');
-            mobileNav.classList.remove('active');
-        }
-
-        // Copy Crosshair Code
-        function copyCrosshair(btn) {
-            const code = btn.previousElementSibling.textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                const originalText = btn.textContent;
-                btn.textContent = '已复制 ✓';
-                btn.classList.add('copied');
-                
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.classList.remove('copied');
-                }, 2000);
-            }).catch(err => {
-                console.error('复制失败:', err);
-                btn.textContent = '复制失败';
-                setTimeout(() => {
-                    btn.textContent = '复制准心代码';
-                }, 2000);
-            });
-        }
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const mobileNav = document.getElementById('mobileNav');
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            const navbar = document.querySelector('.navbar');
+        function openProPlayersModal() {
+            const modal = document.getElementById('proPlayersModal');
+            const container = document.getElementById('playstyleCategories');
             
-            if (!navbar.contains(e.target) && mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
+            // 渲染职业选手分类
+            container.innerHTML = proPlayersData.map((category, index) => `
+                <div class="playstyle-category" style="animation: fadeIn 0.5s ease ${index * 0.1}s both;">
+                    <div class="playstyle-header">
+                        <div class="playstyle-icon" style="background: linear-gradient(135deg, ${category.color}33, ${category.color}11);">
+                            ${category.icon}
+                        </div>
+                        <div>
+                            <div class="playstyle-title">${category.category}</div>
+                            <div class="playstyle-desc">${category.description}</div>
+                        </div>
+                    </div>
+                    <div class="pro-player-list">
+                        ${category.players.map(player => `
+                            <div class="pro-player-card">
+                                <div class="pro-player-info">
+                                    <div class="pro-player-avatar">${player.emoji}</div>
+                                    <div class="pro-player-meta">
+                                        <div class="pro-player-name">${player.name}</div>
+                                        <div class="pro-player-team">${player.team}</div>
+                                    </div>
+                                </div>
+                                <div class="pro-player-tags">
+                                    ${player.tags.map(tag => `<span class="pro-player-tag">${tag}</span>`).join('')}
+                                </div>
+                                <div class="pro-player-thoughts">${player.thoughts}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProPlayersModal() {
+            const modal = document.getElementById('proPlayersModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 点击弹窗背景关闭
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('proPlayersModal');
+            const secretsModal = document.getElementById('secretsModal');
+            const configModal = document.getElementById('configModal');
+            if (e.target === modal) {
+                closeProPlayersModal();
+            }
+            if (e.target === secretsModal) {
+                closeSecretsModal();
+            }
+            if (e.target === configModal) {
+                closeConfigModal();
             }
         });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const navHeight = document.querySelector('.navbar').offsetHeight;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
+        // ESC键关闭弹窗
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProPlayersModal();
+                closeSecretsModal();
+                closeConfigModal();
+            }
         });
+
+        // ==================== 游戏细节数据 ====================
+        
+        // 地图非预瞄点数据
+        const mapUncommonAnglesData = [
+            {
+                map: '亚海悬城',
+                emoji: '🌊',
+                color: '#3498db',
+                description: '传统控图地图，隐藏点位丰富',
+                spots: [
+                    { location: 'A大单向箱', description: '从A大进攻时，可以跳上箱子边缘获得非常规高度，能看到包点内却不会被常规预瞄位发现。', tip: '适合捷风/雷兹快速上箱' },
+                    { location: 'B通暗角', description: 'B通入口右侧有个凹陷角落，站进去几乎完全隐身，敌人rush时很难第一时间发现。', tip: '配合奇乐的炮塔效果更佳' },
+                    { location: '中门头顶', description: '利用队友搭人梯或技能可以跳上中门上方横梁，获得俯视整个中路的视野。', tip: '欧门的传送也可以上去' },
+                    { location: 'A包死角', description: 'A包点最深处角落蹲下可以完全避开从A大进来的第一条枪线，适合残局反打。', tip: '等敌人下包时再起立偷袭' }
+                ]
+            },
+            {
+                map: '隐世修所',
+                emoji: '🏛️',
+                color: '#9b59b6',
+                description: '三路地图，非常规位可打乱节奏',
+                spots: [
+                    { location: 'C大书架上', description: 'C大尽头的书架可以通过连续跳跃上去，获得俯视C大的视角，防守方很少会检查这个头顶。', tip: '需要练习跳点，捷风E技能更容易' },
+                    { location: 'A小悬崖', description: 'A小楼梯旁有个悬崖边缘可以站立，能看到A包却不在常规预瞄范围内。', tip: '站稳后不要移动，很容易掉下去' },
+                    { location: '中道箱子堆', description: '中路箱子可以通过特定角度跳上去三层，获得非常规peek点。', tip: '上去后可以看到隧道出口' },
+                    { location: 'B点二楼夹层', description: 'B点二楼有个视觉盲区，蹲在角落里从一楼很难发现。', tip: '适合老六等待时机' }
+                ]
+            },
+            {
+                map: '霓虹町',
+                emoji: '🌃',
+                color: '#e74c3c',
+                description: '纵向双层地图，垂直点位多',
+                spots: [
+                    { location: 'A大通风管', description: 'A大入口的通风管道可以跳上去，获得平视二楼的高度，进攻方很少预瞄这里。', tip: '捷风直接E技能飞上去' },
+                    { location: 'B点双层箱', description: 'B包点的箱子可以通过连续跳跃上到最顶层，配合烟雾可以形成单向视野。', tip: '需要烟雾掩护，否则容易被发现' },
+                    { location: '中街雨棚', description: '中路两侧有雨棚可以跳上去，获得非常规角度偷袭中路对枪的敌人。', tip: '雨棚边缘走动会发出声音' },
+                    { location: 'A二楼夹缝', description: 'A二楼栏杆外有个很窄的平台可以站立，从外面很难发现这里有人。', tip: '风险较高，掉下去就是A大' }
+                ]
+            },
+            {
+                map: '源工重镇',
+                emoji: '🏭',
+                color: '#f39c12',
+                description: '传送门地图，传送点有奇效',
+                spots: [
+                    { location: 'A大管道内', description: 'A大管道内壁有个凸起可以站人，获得俯视A大的高度，敌人进来时视角受限很难发现。', tip: '霓虹可以利用滑铲快速进入' },
+                    { location: 'B包传送门后', description: '防守时躲在B包传送门正后方，敌人从传送门出来有短暂硬直时间可以偷袭。', tip: '注意听传送门启动音效' },
+                    { location: '中门吊桥', description: '中路吊桥下方有横梁可以站人，从地面完全看不到上面有人。', tip: '需要队友配合或特定技能上去' },
+                    { location: 'A小高台边缘', description: 'A小高台外侧边缘可以侧身站人，获得非常规peek角度。', tip: '站得太外会被发现，需要把控距离' }
+                ]
+            },
+            {
+                map: '莲华古城',
+                emoji: '🏯',
+                color: '#e91e63',
+                description: '旋转门机制，点位变化多端',
+                spots: [
+                    { location: 'A大瀑布后', description: 'A大的瀑布水流后可以藏人，从外面看几乎完全遮蔽，近距离才能发现。', tip: '适合配合Cypher的绊线' },
+                    { location: 'C大雕像头', description: 'C大尽头的巨大雕像头部可以站人，获得俯视整个C大的上帝视角。', tip: '捷风直接飞上去最简单' },
+                    { location: 'B点旋转门后', description: 'B点旋转门关闭后躲在门后，开门瞬间有 timing 优势。', tip: '注意听旋转门启动的声音' },
+                    { location: '中庭树顶', description: '地图中央的大树可以通过特定跳跃上到树冠，获得非常规视野。', tip: '树冠上视野极佳但容易被发现' }
+                ]
+            },
+            {
+                map: '裂变峡谷',
+                emoji: '⚛️',
+                color: '#00bcd4',
+                description: '绳索地图，垂直机动性强',
+                spots: [
+                    { location: 'A大绳索顶端', description: 'A大绳索上到顶端后，可以跳到旁边的平台上，获得俯视A包的视角。', tip: '平台很小，掉下去就白给' },
+                    { location: 'B点悬空梁', description: 'B包点上方有悬空梁可以通过绳索上去，蹲在梁上从下方很难发现。', tip: '需要利用绳索或技能上去' },
+                    { location: '中路塔楼夹层', description: '中路塔楼内部有夹层可以藏身，敌人上楼时不会检查这个位置。', tip: '适合防守方老六' },
+                    { location: 'A小断崖边', description: 'A小尽头有个断崖边缘可以站立，能看到A包却不在常规预瞄位。', tip: '站得很极限，稍有不慎就掉下去' }
+                ]
+            },
+            {
+                map: '深海明珠',
+                emoji: '🦪',
+                color: '#3f51b5',
+                description: '滑索地图，快速转移位置',
+                spots: [
+                    { location: 'A大珊瑚礁', description: 'A大入口的珊瑚礁后可以藏人，配合烟雾可以形成单向视野。', tip: '需要烟雾配合才能发挥效果' },
+                    { location: 'B点滑索尽头', description: 'B点滑索滑到尽头后有个小平台，可以转身架住追来的敌人。', tip: '很多人会追着滑索过来，正好反打' },
+                    { location: '中庭水池', description: '地图中央的水池可以蹲进去，只露出头部，非常规高度难以被击中。', tip: '移动速度会变慢，需要注意' },
+                    { location: 'A二楼外沿', description: 'A二楼外侧有个很窄的平台可以侧身站立，获得非常规角度。', tip: '位置很极限，容易被发现' }
+                ]
+            },
+            {
+                map: '森寒冬港',
+                emoji: '❄️',
+                color: '#00acc1',
+                description: 'B点多层结构，垂直对战多',
+                spots: [
+                    { location: 'B点管道上方', description: 'B点管道可以通过箱子跳上去，获得俯视整个B包的上帝视角。', tip: '上去后可以覆盖整个包点' },
+                    { location: 'A大冰柱后', description: 'A大入口的冰柱后可以藏人，配合蓝色色调很难被发现。', tip: '不动的话很难被发现' },
+                    { location: '中路边箱', description: '中路有个箱子可以跳上去获得非常规peek点，进攻方很少会预瞄这里。', tip: '上去后可以看到两边' },
+                    { location: 'B二楼夹层', description: 'B二楼有个视觉盲区，蹲在角落里从一楼和楼梯都看不到。', tip: '适合残局1v多' }
+                ]
+            },
+            {
+                map: '日落之城',
+                emoji: '🌅',
+                color: '#ff5722',
+                description: '中路开阔，市场区域复杂',
+                spots: [
+                    { location: '中路车顶', description: '中路废弃车辆可以跳上车顶，获得非常规高度和视野。', tip: '车顶视野好但掩体少' },
+                    { location: '市场摊位后', description: '市场区域的摊位后可以藏人，非常规位置rush时容易被忽略。', tip: '配合绊线或摄像头预警' },
+                    { location: 'B点二楼外沿', description: 'B点二楼外侧有窄边可以站立，能看到包点却不在常规预瞄位。', tip: '容易掉下去，需要谨慎' },
+                    { location: 'A大沙袋堆', description: 'A大入口沙袋堆可以跳上去获得非常规角度，防守方很少检查这个高度。', tip: '上去后可以架住A大' }
+                ]
+            },
+            {
+                map: '微风岛屿',
+                emoji: '🏝️',
+                color: '#4caf50',
+                description: '开阔地图，远距离对枪多',
+                spots: [
+                    { location: 'B大棕榈树', description: 'B大的棕榈树可以爬上去，获得俯视B大的视野，非常规高度难以被发现。', tip: '树上的视野极佳' },
+                    { location: 'A点塔楼顶层', description: 'A点塔楼可以上到最顶层，获得上帝视角俯瞰整个A区。', tip: '上去需要一定时间，适合防守' },
+                    { location: '中路岩石缝', description: '中路巨大的岩石间有缝隙可以藏身，进攻方rush时很难发现。', tip: '缝隙很窄，需要精准站位' },
+                    { location: 'B点悬崖边', description: 'B包点外侧悬崖边缘可以站立，获得非常规peek角度。', tip: '位置很极限，容易被发现' }
+                ]
+            },
+            {
+                map: '极地寒港',
+                emoji: '🧊',
+                color: '#2196f3',
+                description: '绳索+传送门，机动性极高',
+                spots: [
+                    { location: 'A点塔楼尖', description: 'A点塔楼可以通过绳索上到最顶端，获得全图最高视野。', tip: '顶端视野最好但也最危险' },
+                    { location: 'B大冰墙后', description: 'B大的冰墙后可以藏人，蓝色背景掩护效果很好。', tip: '冰墙可以挡住部分视线' },
+                    { location: '中路索道顶', description: '中路索道滑到尽头后可以继续往上，到达非常规高度。', tip: '需要练习跳点' },
+                    { location: 'A包雪堆后', description: 'A包点雪堆后可以完全蹲下隐藏，敌人搜点不仔细很难发现。', tip: '白色背景掩护效果极佳' }
+                ]
+            }
+        ];
+
+        // 特工小细节数据
+        const agentTipsData = [
+            {
+                name: '捷风',
+                avatar: 'images/agents/捷风.png',
+                role: '决斗',
+                color: '#3498db',
+                tips: [
+                    'E技能可以取消换弹后摇，换弹动画进行到一半时按E可以立刻滑行并保留换弹进度',
+                    '大招的飞刀爆头可以秒杀满血敌人，且击杀后刷新所有飞刀',
+                    'Q技能烟雾可以在空中释放，配合E技能可以做出超远距离的空中烟雾',
+                    '终极技能的飞刀可以穿墙，在知道敌人位置时可以预判穿射'
+                ]
+            },
+            {
+                name: '雷兹',
+                avatar: 'images/agents/雷兹.png',
+                role: '决斗',
+                color: '#e74c3c',
+                tips: [
+                    'C技能手雷可以弹射，利用墙面可以扔到拐角后',
+                    'Q技能炸弹跳可以叠加，连续使用可以获得超高高度',
+                    'E技能小车可以当眼使用，推出去后切换视角可以看到敌人',
+                    '终极火箭筒可以对自己造成伤害，近距离使用时要小心'
+                ]
+            },
+            {
+                name: '不死鸟',
+                avatar: 'images/agents/不死鸟.png',
+                role: '决斗',
+                color: '#e67e22',
+                tips: [
+                    'C技能火墙可以对自己回血，残血时往脚下扔可以回血',
+                    'Q技能闪光可以在拐角处弹墙闪，敌人很难躲避',
+                    'E技能火球持续时间内可以无限回血，站在火里对枪有优势',
+                    '大招复活期间可以移动视角观察敌人位置，复活后可以报点'
+                ]
+            },
+            {
+                name: '霓虹',
+                avatar: 'images/agents/霓虹.png',
+                role: '决斗',
+                color: '#00bcd4',
+                tips: [
+                    'E技能滑铲可以在空中使用，配合跳跃可以滑更远距离',
+                    'Q技能震可以穿墙，可以震到墙后的敌人',
+                    'C技能墙可以在移动中释放，不影响奔跑速度',
+                    '大招击杀会延长时间，连续击杀可以一直保持大招状态'
+                ]
+            },
+            {
+                name: '夜戮',
+                avatar: 'images/agents/夜露.png',
+                role: '决斗',
+                color: '#9b59b6',
+                tips: [
+                    'C技能假脚步可以控制方向，按住方向键可以让假脚步往指定方向走',
+                    'Q技能闪光可以在传送过程中释放，落地瞬间敌人被闪',
+                    'E技能传送可以取消，在传送过程中按装备键可以取消传送',
+                    '大招期间是无敌的，可以用来躲避敌人技能或获取信息'
+                ]
+            },
+            {
+                name: '芮娜',
+                avatar: 'images/agents/芮娜.png',
+                role: '决斗',
+                color: '#8e44ad',
+                tips: [
+                    'C技能眼睛可以被队友打爆，和队友沟通好可以让队友帮忙打掉',
+                    'Q技能吸血可以在击杀后立即使用，无视距离吸取灵魂',
+                    'E技能无敌期间不能开枪，但可以换弹和移动',
+                    '大招击杀刷新技能，可以连续吸血或无敌'
+                ]
+            },
+            {
+                name: '斯凯',
+                avatar: 'images/agents/斯凯.png',
+                role: '先锋',
+                color: '#2ecc71',
+                tips: [
+                    'C技能狼可以控制方向，按住鼠标可以转向',
+                    'Q技能鸟闪可以控制爆炸时机，按住左键越久飞得越远',
+                    'E技能治疗可以同时治疗多个队友，站在一起的队友都能吃到',
+                    '大招的狼可以穿墙，可以隔着墙追踪敌人'
+                ]
+            },
+            {
+                name: '猎枭',
+                avatar: 'images/agents/猎枭.png',
+                role: '先锋',
+                color: '#f39c12',
+                tips: [
+                    'C技能无人机可以标记敌人，标记后队友也能看到',
+                    'Q技能箭可以弹射，利用天花板可以射到掩体后的敌人',
+                    'E技能探测箭可以被打掉，注意 placement 位置',
+                    '大招可以穿墙，知道敌人位置时可以预判穿射'
+                ]
+            },
+            {
+                name: '铁臂',
+                avatar: 'images/agents/铁臂.png',
+                role: '先锋',
+                color: '#795548',
+                tips: [
+                    'C技能震可以穿墙，是清点神器',
+                    'Q技能闪光是延迟引爆，需要预判敌人位置',
+                    'E技能破坏可以破坏奇乐的道具和保安的摄像头',
+                    '大招范围极大，可以覆盖整个包点'
+                ]
+            },
+            {
+                name: '盖可',
+                avatar: 'images/agents/盖可.png',
+                role: '先锋',
+                color: '#8bc34a',
+                tips: [
+                    'C技能皮蛋可以下包和拆包，下包时盖可可以架枪',
+                    'Q技能丢丢可以捡起重复使用，敌人打掉会进入冷却',
+                    'E技能盖可可以控制飞行方向，按住方向键可以转向',
+                    '大招的鲨鱼可以控制追击方向，追着最近的敌人'
+                ]
+            },
+            {
+                name: '零',
+                avatar: 'images/agents/零.png',
+                role: '哨位',
+                color: '#607d8b',
+                tips: [
+                    'C技能摄像头可以标记敌人，标记后持续显示敌人位置',
+                    'Q技能绊线可以放在不寻常的高度，比如箱子顶部',
+                    'E技能烟雾是单向的，防守方可以看到外面但外面看不到里面',
+                    '大招需要尸体，大招范围内所有敌人的位置都会暴露'
+                ]
+            },
+            {
+                name: '奇乐',
+                avatar: 'images/agents/奇乐.png',
+                role: '哨位',
+                color: '#ff9800',
+                tips: [
+                    'C技能炮塔可以放在高台，获得更好的视野',
+                    'Q技能雷可以藏在烟雾里，敌人看不到',
+                    'E技能纳米蜂群可以对自己造成伤害，注意站位',
+                    '大招范围极大且无视地形，可以封锁整个区域'
+                ]
+            },
+            {
+                name: '贤者',
+                avatar: 'images/agents/贤者.png',
+                role: '哨位',
+                color: '#00bcd4',
+                tips: [
+                    'C技能冰墙可以斜着放，覆盖更大的范围',
+                    'Q技能减速球可以弹跳，利用角度可以扔到远处',
+                    'E技能治疗可以给自己或队友，按住右键可以给队友',
+                    '大招需要站定施法，拉人时注意周围环境'
+                ]
+            },
+            {
+                name: '尚勃勒',
+                avatar: 'images/agents/尚勃勒.png',
+                role: '哨位',
+                color: '#ffd700',
+                tips: [
+                    'C技能锚点可以传送到视线外，利用拐角可以安全传送',
+                    'Q技能手枪是免费的，经济局也可以用',
+                    'E技能狙击枪可以开镜后瞬间射击，没有开镜延迟',
+                    '大招击杀会留下大招武器，队友可以捡起来继续使用'
+                ]
+            },
+            {
+                name: '炼狱',
+                avatar: 'images/agents/炼狱.png',
+                role: '控场',
+                color: '#e67e22',
+                tips: [
+                    'C技能烟幕可以远程放置，不需要视野',
+                    'Q技能燃烧弹可以对自己造成伤害，注意站位',
+                    'E技能强化可以给自己和范围内队友加射速',
+                    '大招是直线投放，可以用来清点和封锁区域'
+                ]
+            },
+            {
+                name: '欧门',
+                avatar: 'images/agents/幽影.png',
+                role: '控场',
+                color: '#6c5ce7',
+                tips: [
+                    'C技能烟是球形，可以放在空中',
+                    'Q技能致盲可以穿墙，可以在安全位置使用',
+                    'E技能传送可以传送到视线外，配合烟可以无声传送',
+                    '大招可以全图传送，可以用来绕后或回防'
+                ]
+            },
+            {
+                name: '蝰蛇',
+                avatar: 'images/agents/蝰蛇.png',
+                role: '控场',
+                color: '#27ae60',
+                tips: [
+                    'C技能烟墙可以持续很久，但要注意燃料消耗',
+                    'Q技能烟球可以扔很远，可以用来封远处的视线',
+                    'E技能毒池站在里面可以减伤，对枪时站在毒里有优势',
+                    '大招范围会随时间扩大，持续时间极长'
+                ]
+            },
+            {
+                name: '海神',
+                avatar: 'images/agents/海神.png',
+                role: '控场',
+                color: '#2980b9',
+                tips: [
+                    'C技能水墙可以弯曲，按住鼠标可以控制弯曲方向',
+                    'Q技能波浪可以用来快速进点，也可以用来撤退',
+                    'E技能水球可以遮挡视线，同时给敌人减速',
+                    '大招可以穿墙，范围内所有敌人都会被拉扯'
+                ]
+            },
+            {
+                name: '星礈',
+                avatar: 'images/agents/星礈.png',
+                role: '控场',
+                color: '#9b59b6',
+                tips: [
+                    '进入星界状态时可以放技能，但需要队友保护',
+                    'C技能重力井可以吸附敌人，打断敌人技能',
+                    'Q技能新星脉冲可以眩晕敌人，配合队友击杀',
+                    'E技能星云可以回收重复使用，节约技能'
+                ]
+            },
+            {
+                name: '维斯',
+                avatar: 'images/agents/维斯.png',
+                role: '哨位',
+                color: '#8e44ad',
+                tips: [
+                    'C技能荆棘可以穿墙放置，敌人踩到会暴露位置',
+                    'Q技能墙可以封锁入口，但可以被敌人打破',
+                    'E技能荆棘丛可以造成伤害和减速，区域控制强',
+                    '大招可以全图释放，所有敌人都会被荆棘束缚'
+                ]
+            },
+            {
+                name: '幻棱',
+                avatar: 'images/agents/幻棱.png',
+                role: '决斗',
+                color: '#00cec9',
+                tips: [
+                    'C技能传送可以储存两次，连续使用可以快速位移',
+                    'Q技能闪光可以在传送过程中释放',
+                    'E技能可以让自己免疫伤害，但无法攻击',
+                    '大招可以重置所有技能冷却，连续释放技能'
+                ]
+            },
+            {
+                name: '黑梦',
+                avatar: 'images/agents/黑梦.png',
+                role: '先锋',
+                color: '#d63031',
+                tips: [
+                    'C技能眼球可以被队友打掉，沟通好配合更佳',
+                    'Q技能黑雾可以遮挡视线，同时暴露敌人位置',
+                    'E技能恐惧可以让敌人失去控制乱跑',
+                    '大招可以穿透墙壁，范围内所有敌人都会受影响'
+                ]
+            },
+            {
+                name: '钢锁',
+                avatar: 'images/agents/钢锁.png',
+                role: '哨位',
+                color: '#b2bec3',
+                tips: [
+                    'C技能声波可以探测敌人，同时造成轻微伤害',
+                    'Q技能绊锁可以拉倒敌人，敌人需要时间挣脱',
+                    'E技能墙可以阻挡敌人，但可以被打破',
+                    '大招可以困住敌人，被困住的敌人无法移动'
+                ]
+            },
+            {
+                name: '暮蝶',
+                avatar: 'images/agents/暮蝶.png',
+                role: '控场',
+                color: '#fd79a8',
+                tips: [
+                    'C技能烟可以死后使用，死后仍然可以帮助团队',
+                    'Q技能吸血可以给自己回血，同时也可以给队友',
+                    'E技能位移可以穿墙，可以用来快速转移',
+                    '大招可以在濒死时使用，变成幽灵状态继续战斗'
+                ]
+            },
+            {
+                name: '壹决',
+                avatar: 'images/agents/壹决.png',
+                role: '决斗',
+                color: '#0984e3',
+                tips: [
+                    'C技能护盾可以抵挡一次伤害，适合peek时使用',
+                    'Q技能陷阱可以放置在地上，敌人踩到会暴露',
+                    'E技能冲刺可以快速位移，同时刷新护盾',
+                    '大招可以拉敌人单挑，1v1环境下优势明显'
+                ]
+            },
+            {
+                name: 'K/O',
+                avatar: 'images/agents/K_O.png',
+                role: '先锋',
+                color: '#e17055',
+                tips: [
+                    'C技能闪光是瞬间引爆，不需要预判',
+                    'Q技能碎片可以造成高额伤害，配合闪光使用',
+                    'E技能匕首可以沉默敌人，打断敌人技能',
+                    '大招可以复活队友，被复活的队友有短暂无敌'
+                ]
+            },
+            {
+                name: '火男',
+                avatar: 'images/agents/不死鸟.png',
+                role: '决斗',
+                color: '#e74c3c',
+                tips: [
+                    'C技能火墙可以给自己回血，残血时救命神器',
+                    'Q技能闪光弹可以在拐角处弹墙闪',
+                    'E技能火球可以在移动中释放，不影响速度',
+                    '大招复活期间可以移动视角观察，复活后立即报点'
+                ]
+            }
+        ];
+
+        // 打开游戏细节弹窗
+        function openSecretsModal() {
+            const modal = document.getElementById('secretsModal');
+            renderMapsUncommonAngles();
+            renderAgentTips();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭游戏细节弹窗
+        function closeSecretsModal() {
+            const modal = document.getElementById('secretsModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 切换标签页
+        function switchSecretsTab(tab) {
+            const tabs = document.querySelectorAll('.secrets-tab');
+            const contents = document.querySelectorAll('.secrets-content');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'maps') {
+                tabs[0].classList.add('active');
+                document.getElementById('mapsContent').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('agentsContent').classList.add('active');
+            }
+        }
+
+        // 渲染地图非预瞄点
+        function renderMapsUncommonAngles() {
+            const container = document.getElementById('mapsUncommonAngles');
+            let html = '';
+            
+            for (let i = 0; i < mapUncommonAnglesData.length; i++) {
+                const map = mapUncommonAnglesData[i];
+                let spotsHtml = '';
+                
+                for (let j = 0; j < map.spots.length; j++) {
+                    const spot = map.spots[j];
+                    spotsHtml += '<div class="uncommon-spot-item">' +
+                        '<div class="spot-location">' + spot.location + '</div>' +
+                        '<div class="spot-description">' + spot.description + '</div>' +
+                        '<div class="spot-tip">💡 ' + spot.tip + '</div>' +
+                    '</div>';
+                }
+                
+                html += '<div class="map-angles-card" style="animation: fadeIn 0.5s ease ' + (i * 0.1) + 's both;">' +
+                    '<div class="map-angles-header">' +
+                        '<div class="map-angles-icon" style="background: linear-gradient(135deg, ' + map.color + '33, ' + map.color + '11);">' +
+                            map.emoji +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="map-angles-title">' + map.map + '</div>' +
+                            '<div class="map-angles-desc">' + map.description + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="uncommon-spots-list">' + spotsHtml + '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // 渲染特工小细节
+        function renderAgentTips() {
+            const container = document.getElementById('agentTipsGrid');
+            let html = '';
+            
+            for (let i = 0; i < agentTipsData.length; i++) {
+                const agent = agentTipsData[i];
+                let tipsHtml = '';
+                
+                for (let j = 0; j < agent.tips.length; j++) {
+                    tipsHtml += '<div class="agent-tip-item">' + agent.tips[j] + '</div>';
+                }
+                
+                html += '<div class="agent-tip-card" style="animation: fadeIn 0.5s ease ' + (i * 0.05) + 's both;">' +
+                    '<div class="agent-tip-header">' +
+                        '<div class="agent-tip-avatar">' +
+                            '<img src="' + agent.avatar + '" alt="' + agent.name + '" onerror="this.style.display=\'none\';this.parentNode.innerHTML=\'<span style=font-size:1.5rem>\\u2605</span>\';">' +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="agent-tip-name">' + agent.name + '</div>' +
+                            '<div class="agent-tip-role">' + agent.role + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="agent-tip-list">' + tipsHtml + '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // 点击弹窗背景关闭
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('proPlayersModal');
+            const secretsModal = document.getElementById('secretsModal');
+            if (e.target === modal) {
+                closeProPlayersModal();
+            }
+            if (e.target === secretsModal) {
+                closeSecretsModal();
+            }
+        });
+
+        // ESC键关闭弹窗
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProPlayersModal();
+                closeSecretsModal();
+            }
+        });
+
+        // ==================== 游戏模式切换功能 ====================
+        
+        let isMobileMode = localStorage.getItem('gameMode') === 'mobile';
+        
+        // PC版内容数据
+        const pcContent = {
+            title: 'Valorant 档案中心 <img src="images/valorant-logo.svg" alt="Valorant" style="height: 0.8em; width: auto; vertical-align: middle; margin-left: 10px; filter: drop-shadow(0 0 10px rgba(255,70,85,0.5));">',
+            desc: '探索无畏契约的完整世界：28位特工、19种武器、11张地图、9支VCT CN战队、EDG传奇故事与最新资讯',
+            crosshairBtn: '🎯 来看看2026最新的准心合集？',
+            proPlayersBtn: '🏆 快来学习职业选手的操作思路！',
+            secretsBtn: '🔍 更多你不知道的细节！',
+            cards: [
+                { icon: '🎯', title: '特工档案', desc: '28位特工完整资料<br>4大职业分类' },
+                { icon: '🔫', title: '枪械档案', desc: '19种武器详细数据<br>6大枪械分类' },
+                { icon: '🏆', title: 'VCT CN 战队', desc: '9支顶尖战队<br>45位明星选手' },
+                { icon: '🗺️', title: '地图档案', desc: '11张中文地图<br>全职位战术指南' },
+                { icon: '👑', title: 'EDG 传奇', desc: '世界冠军之路<br>从磨难到辉煌' },
+                { icon: '📰', title: '最新资讯', desc: '游戏更新动态<br>电竞赛事资讯' }
+            ],
+            proPlayersTitle: '🏆 职业选手操作思路解析',
+            proPlayersSubtitle: '学习顶尖选手的打法风格，提升你的游戏理解',
+            secretsTitle: '🔍 更多你不知道的细节！',
+            secretsSubtitle: '地图非预瞄点 & 特工隐藏技巧，让你出其不意',
+            mapsTab: '🗺️ 地图非预瞄点',
+            agentsTab: '🎯 特工小细节',
+            footer: 'Valorant 档案中心 | Made with ❤️ by <a href="about.html">ling1in</a>',
+            switchBtnText: '📱 如果你来自《无畏契约：源能行动》'
+        };
+        
+        // 手游版《源能行动》内容数据（真实准确的特工/地图/枪械列表）
+        const mobileContent = {
+            title: '📱 无畏契约：源能行动',
+            desc: '随时随地，掌上竞技！体验专为移动端优化的快节奏5v5战术射击',
+            crosshairBtn: '🎯 来看看手游专属准心代码？',
+            proPlayersBtn: '', // 移动端隐藏
+            secretsBtn: '', // 移动端隐藏
+            cards: [
+                { icon: '🎯', title: '源能特工', desc: '17位首发特工<br>专为移动端优化' },
+                { icon: '🔫', title: '手游枪械', desc: '18种武器<br>仅缺少追猎' },
+                { icon: '🏆', title: '手游电竞', desc: '源能行动职业联赛<br>移动端电竞新纪元' },
+                { icon: '🗺️', title: '源能地图', desc: '6张经典地图<br>适配手游快节奏' },
+                { icon: '⚙️', title: '新手配置', desc: '二指/三指/四指键位分享<br>高/中/低敏灵敏度设置' },
+                { icon: '📰', title: '手游资讯', desc: '源能行动更新动态<br>手游专属活动' }
+            ],
+            proPlayersTitle: '🎮 手游大神操作教学',
+            proPlayersSubtitle: '学习移动端顶尖玩家的三指/四指操作与走位',
+            secretsTitle: '💡 手游独家技巧',
+            secretsSubtitle: '自动瞄准优化 & 陀螺仪使用秘诀',
+            mapsTab: '🗺️ 源能地图点位',
+            agentsTab: '🎯 源能特工技巧',
+            footer: '无畏契约：源能行动 | Made with ❤️ by <a href="about.html">ling1in</a>',
+            switchBtnText: '🎮 返回《Valorant》PC版'
+        };
+        
+        // 源能行动手游特工数据（17位首发特工）
+        const mobileAgentsData = [
+            {
+                name: '捷风',
+                avatar: 'images/agents/捷风.png',
+                role: '决斗',
+                color: '#3498db',
+                tips: [
+                    '手游中E技能滑行有自动瞄准辅助，更容易命中移动目标',
+                    '大招飞刀在手游中可以通过陀螺仪微调瞄准',
+                    '跳跃射击在手游中稳定性更好，可以多用跳peek',
+                    '手游捷风的烟雾释放速度更快，适合快速突进'
+                ]
+            },
+            {
+                name: '雷兹',
+                avatar: 'images/agents/雷兹.png',
+                role: '决斗',
+                color: '#e74c3c',
+                tips: [
+                    '手游中炸弹跳可以通过一键连招实现，操作更简便',
+                    'C技能手雷在手游中有投掷辅助线，更容易精准投掷',
+                    'E技能小车在手游中会自动标记敌人位置',
+                    '大招火箭筒在手游中有轻微的锁定辅助'
+                ]
+            },
+            {
+                name: '不死鸟',
+                avatar: 'images/agents/不死鸟.png',
+                role: '决斗',
+                color: '#e67e22',
+                tips: [
+                    '手游中火墙释放有辅助瞄准，更容易放在理想位置',
+                    'Q技能闪光在手游中引爆时间更短，需要更快反应',
+                    'E技能火球在手游中可以边移动边释放',
+                    '大招复活期间手游中可以自由转动视角观察'
+                ]
+            },
+            {
+                name: '霓虹',
+                avatar: 'images/agents/霓虹.png',
+                role: '决斗',
+                color: '#00bcd4',
+                tips: [
+                    '手游中霓虹的滑铲可以通过滑动按钮快速触发',
+                    '大招在手游中可以边跑边射击，操作更流畅',
+                    'E技能滑铲在手游中可以轻松实现连续滑铲',
+                    '手游霓虹的震可以穿墙，是清点的好帮手'
+                ]
+            },
+            {
+                name: '夜戮',
+                avatar: 'images/agents/夜露.png',
+                role: '决斗',
+                color: '#9b59b6',
+                tips: [
+                    '手游中假脚步可以通过快捷按钮一键释放',
+                    '传送在手游中有距离指示，更容易掌握范围',
+                    '大招在手游中是无敌状态，可以用来探点',
+                    'Q技能闪光在手游中可以穿墙释放'
+                ]
+            },
+            {
+                name: '芮娜',
+                avatar: 'images/agents/芮娜.png',
+                role: '决斗',
+                color: '#8e44ad',
+                tips: [
+                    '手游中C技能眼睛有自动追踪功能',
+                    '吸血和位移在手游中可以通过快捷按钮快速选择',
+                    '大招在手游中有视觉增强效果，更容易发现敌人',
+                    '击杀刷新在手游中有明显的UI提示'
+                ]
+            },
+            {
+                name: '斯凯',
+                avatar: 'images/agents/斯凯.png',
+                role: '先锋',
+                color: '#2ecc71',
+                tips: [
+                    '手游中C技能狼可以通过陀螺仪控制方向',
+                    'Q技能鸟闪在手游中爆炸范围有视觉提示',
+                    'E技能治疗在手游中可以自动锁定范围内队友',
+                    '大招在手游中追踪速度更快'
+                ]
+            },
+            {
+                name: '猎枭',
+                avatar: 'images/agents/猎枭.png',
+                role: '先锋',
+                color: '#f39c12',
+                tips: [
+                    '手游中无人机控制有虚拟摇杆，操作更直观',
+                    'Q技能箭在手游中有抛物线辅助，更容易命中',
+                    'E技能探测箭在手游中探测范围有UI显示',
+                    '大招在手游中可以穿墙，配合信息使用'
+                ]
+            },
+            {
+                name: '铁臂',
+                avatar: 'images/agents/铁臂.png',
+                role: '先锋',
+                color: '#795548',
+                tips: [
+                    '手游中震可以穿墙，是清点利器',
+                    '闪光在手游中延迟时间有倒计时提示',
+                    'E技能在手游中可以破坏敌方道具',
+                    '大招在手游中范围有红色区域提示'
+                ]
+            },
+            {
+                name: '盖可',
+                avatar: 'images/agents/盖可.png',
+                role: '先锋',
+                color: '#8bc34a',
+                tips: [
+                    '手游中皮蛋下包/拆包可以一键操作',
+                '丢丢在手游中会自动追踪附近敌人',
+                    '技能在手游中可以通过快捷按钮召回',
+                    '大招在手游中控制更灵活'
+                ]
+            },
+            {
+                name: '零',
+                avatar: 'images/agents/零.png',
+                role: '哨位',
+                color: '#607d8b',
+                tips: [
+                    '手游中摄像头可以通过快捷按钮快速切换视角',
+                    '绊线在手游中可以放在各种高度',
+                    'E技能烟雾在手游中是单向视野',
+                    '大招在手游中需要靠近尸体使用'
+                ]
+            },
+            {
+                name: '奇乐',
+                avatar: 'images/agents/奇乐.png',
+                role: '哨位',
+                color: '#ff9800',
+                tips: [
+                    '手游中炮塔可以放在各种高台位置',
+                    '雷可以藏在各种角落，手游中更难发现',
+                    '纳米蜂群在手游中范围有清晰显示',
+                    '大招在手游中封锁范围很大'
+                ]
+            },
+            {
+                name: '贤者',
+                avatar: 'images/agents/贤者.png',
+                role: '哨位',
+                color: '#00bcd4',
+                tips: [
+                    '手游中冰墙可以通过快捷按钮快速放置',
+                    '减速球在手游中有抛物线辅助',
+                    '治疗在手游中可以自动锁定队友',
+                    '大招在手游中拉人时间更短'
+                ]
+            },
+            {
+                name: '尚勃勒',
+                avatar: 'images/agents/尚勃勒.png',
+                role: '哨位',
+                color: '#ffd700',
+                tips: [
+                    '手游中锚点传送可以通过快捷按钮一键完成',
+                    '免费手枪在经济局中很有用',
+                    'E技能在手游中开镜更快',
+                    '大招在手游中击杀会掉落武器'
+                ]
+            },
+            {
+                name: '炼狱',
+                avatar: 'images/agents/炼狱.png',
+                role: '控场',
+                color: '#e67e22',
+                tips: [
+                    '手游中烟雾可以通过小地图快速放置',
+                    '燃烧弹在手游中有抛物线辅助',
+                    'E技能强化在手游中有明显的UI提示',
+                    '大招是直线投放，可以清点和封锁'
+                ]
+            },
+            {
+                name: '欧门',
+                avatar: 'images/agents/幽影.png',
+                role: '控场',
+                color: '#6c5ce7',
+                tips: [
+                    '手游中烟可以放在空中各种位置',
+                    '致盲在手游中可以穿墙释放',
+                    '传送在手游中有距离限制提示',
+                    '大招在手游中可以全图传送'
+                ]
+            },
+            {
+                name: '蝰蛇',
+                avatar: 'images/agents/蝰蛇.png',
+                role: '控场',
+                color: '#27ae60',
+                tips: [
+                    '手游中烟墙有燃料条显示，更容易管理',
+                    '烟球在手游中可以扔很远',
+                    '毒池在手游中站在里面会减伤',
+                    '大招在手游中范围会随时间扩大'
+                ]
+            }
+        ];
+        
+        // 新手配置数据 - 键位设置
+        const fingerConfigData = [
+            {
+                name: '二指操作',
+                icon: '✌️',
+                color: '#ff6b6b',
+                desc: '最基础的入门操作方式，适合新手玩家',
+                settings: [
+                    { label: '左手拇指', value: '移动摇杆' },
+                    { label: '右手拇指', value: '视角+开火+技能' },
+                    { label: '开火模式', value: '自动开火或混合' },
+                    { label: '适合人群', value: '刚入门的纯新手' }
+                ],
+                tips: '建议开启自动开火辅助，降低操作门槛'
+            },
+            {
+                name: '三指操作',
+                icon: '👌',
+                color: '#4ecdc4',
+                desc: '进阶操作，左手食指负责开火，提升对枪能力',
+                settings: [
+                    { label: '左手拇指', value: '移动摇杆' },
+                    { label: '左手食指', value: '开火键（左上）' },
+                    { label: '右手拇指', value: '视角+技能' },
+                    { label: '适合人群', value: '有一定基础的玩家' }
+                ],
+                tips: '推荐开启陀螺仪辅助瞄准，提升精准度'
+            },
+            {
+                name: '四指操作',
+                icon: '🖐️',
+                color: '#45b7d1',
+                desc: '高阶操作，双手食指负责开火和瞄准，身法更灵活',
+                settings: [
+                    { label: '左手拇指', value: '移动摇杆' },
+                    { label: '左手食指', value: '开火键（左上）' },
+                    { label: '右手拇指', value: '视角滑动' },
+                    { label: '右手食指', value: '瞄准/开镜（右上）' }
+                ],
+                tips: '需要较长时间练习，但上限最高，推荐陀螺仪全开'
+            }
+        ];
+
+        // 新手配置数据 - 灵敏度设置
+        const sensitivityConfigData = [
+            {
+                name: '低敏流派',
+                icon: '🐢',
+                color: '#95a5a6',
+                desc: '稳定精准，适合狙击和点射玩家',
+                settings: [
+                    { label: '自由视角', value: '3-5' },
+                    { label: '开火灵敏度', value: '2-4' },
+                    { label: '开镜灵敏度', value: '1-3' },
+                    { label: '陀螺仪', value: '建议开启' }
+                ],
+                tips: '优点是压枪稳、精准度高，缺点是转身慢，需要练习快速滑屏转身'
+            },
+            {
+                name: '中敏流派',
+                icon: '⚖️',
+                color: '#f39c12',
+                desc: '平衡稳定，适合大多数玩家',
+                settings: [
+                    { label: '自由视角', value: '6-8' },
+                    { label: '开火灵敏度', value: '4-6' },
+                    { label: '开镜灵敏度', value: '3-5' },
+                    { label: '陀螺仪', value: '建议开启' }
+                ],
+                tips: '推荐大多数玩家使用，兼顾精准度和灵活性，容易上手'
+            },
+            {
+                name: '高敏流派',
+                icon: '🚀',
+                color: '#e74c3c',
+                desc: '灵活快速，适合近战和突击玩家',
+                settings: [
+                    { label: '自由视角', value: '9-12' },
+                    { label: '开火灵敏度', value: '7-9' },
+                    { label: '开镜灵敏度', value: '5-7' },
+                    { label: '陀螺仪', value: '必须开启' }
+                ],
+                tips: '转身快、跟枪灵活，但需要很强的肌肉记忆，压枪难度较高'
+            }
+        ];
+
+        // 玩家分享配置（站长推荐）
+        const playerShareConfig = {
+            name: 'ling1in 推荐配置',
+            icon: '👤',
+            color: '#ff4655',
+            desc: '站长个人配置，不开陀螺仪，适合新手参考',
+            layoutCode: 'P9Oj8jy8LWoYP2cy',
+            crosshairCode: 'P9Oj8jy8UKW0P17V',
+            settings: [
+                { label: '灵敏度方案', value: '中' },
+                { label: '镜头转向模式', value: '速度加速' },
+                { label: '加速度设置', value: '100%' },
+                { label: '转向辅助', value: '开启' },
+                { label: '灵敏度一键调节', value: '160%' },
+                { label: '开火复用镜头灵敏度', value: '开启' },
+                { label: '垂直灵敏度', value: '90%' },
+                { label: '陀螺仪', value: '关闭' }
+            ],
+            tips: '此配置不开陀螺仪，纯手搓操作，键位布局和灵敏度如上图所示，新手可以参考调整后找到适合自己的设置'
+        };
+
+        // 源能行动手游地图数据（6张首发地图）
+        const mobileMapsData = [
+            {
+                map: '亚海悬城',
+                emoji: '🌊',
+                color: '#3498db',
+                description: '经典控图地图，手游版节奏更快',
+                spots: [
+                    { location: 'A大快速上箱', description: '手游中可以通过跳跃辅助一键上箱', tip: '捷风/雷兹可以快速占领高点' },
+                    { location: 'B通老六位', description: '手游版B通角落蹲伏更难被发现', tip: '适合零/奇乐设伏' },
+                    { location: '中路架点', description: '手游中中路对枪距离适中', tip: '狙击手 favorite' }
+                ]
+            },
+            {
+                map: '隐世修所',
+                emoji: '🏛️',
+                color: '#9b59b6',
+                description: '三路地图，手游版B点更容易攻下',
+                spots: [
+                    { location: 'C大书架', description: '手游中可以轻松跳上书架', tip: '获得俯视视角' },
+                    { location: 'A小悬崖', description: '手游版跌落保护更友好', tip: '可以大胆站位' },
+                    { location: '中路箱顶', description: '手游跳跃机制优化，更容易跳上', tip: '非常规peek点' }
+                ]
+            },
+            {
+                map: '霓虹町',
+                emoji: '🌃',
+                color: '#e74c3c',
+                description: '双层地图，手游版垂直机动性增强',
+                spots: [
+                    { location: 'A大通风管', description: '手游中可以轻松跳上通风管', tip: '捷风E技能可直接上' },
+                    { location: 'B点双层箱', description: '手游版箱子更容易跳上去', tip: '配合烟雾单向视野' },
+                    { location: '中街雨棚', description: '手游中雨棚可以跳上去偷袭', tip: '适合老六玩家' }
+                ]
+            },
+            {
+                map: '源工重镇',
+                emoji: '🏭',
+                color: '#f39c12',
+                description: '传送门地图，手游版传送更快',
+                spots: [
+                    { location: '传送门后', description: '手游中传送后有短暂无敌', tip: '可以快速反打' },
+                    { location: 'A大管道', description: '手游版管道内可以站立', tip: '非常规架点' },
+                    { location: '中门吊桥', description: '手游中可以跳上横梁', tip: '敌人很难发现' }
+                ]
+            },
+            {
+                map: '莲华古城',
+                emoji: '🏯',
+                color: '#e91e63',
+                description: '旋转门地图，手游版节奏更快',
+                spots: [
+                    { location: '旋转门后', description: '手游中旋转门关闭更快', tip: '可以利用timing偷袭' },
+                    { location: 'C大雕像', description: '手游中可以跳上雕像头', tip: '上帝视角' },
+                    { location: 'A大瀑布', description: '手游中瀑布后可以完全隐藏', tip: '配合绊线使用' }
+                ]
+            },
+            {
+                map: '森寒冬港',
+                emoji: '❄️',
+                color: '#00acc1',
+                description: 'B点多层，手游版B点简化',
+                spots: [
+                    { location: 'B管道上', description: '手游版管道更容易跳上去', tip: '俯视B包' },
+                    { location: 'A大冰柱', description: '手游中冰柱后可以躲藏', tip: '蓝色背景掩护' },
+                    { location: '中路箱顶', description: '手游中更容易跳上箱子', tip: '非常规peek' }
+                ]
+            }
+        ];
+        
+        // 源能行动手游枪械数据（15种核心武器）
+        const mobileWeaponsData = [
+            { name: '制式手枪', type: '手枪', desc: '免费开局武器，手游中自动开火模式很实用' },
+            { name: '短管', type: '手枪', desc: '经济局选择，近距离伤害爆炸' },
+            { name: '狂弑', type: '手枪', desc: '全自动手枪，跑打神器' },
+            { name: '鬼魅', type: '手枪', desc: '带消音，精准度高，eco局首选' },
+            { name: '蜂刺', type: '冲锋枪', desc: '跑打准，适合冲锋' },
+            { name: '恶灵', type: '冲锋枪', desc: '稳定性好，中距离也能打' },
+            { name: '判官', type: '霰弹枪', desc: '近距离一枪秒，手游中更易瞄准' },
+            { name: '雄鹿', type: '霰弹枪', desc: '便宜好用，经济局选择' },
+            { name: '戍卫', type: '步枪', desc: '半自动步枪，点头神器' },
+            { name: '狂徒', type: '步枪', desc: 'AK，一枪头，最受欢迎的主战' },
+            { name: '幻象', type: '步枪', desc: 'M4，稳定性好，带消音' },
+            { name: '战神', type: '重型武器', desc: '轻机枪，穿墙能力强' },
+            { name: '奥丁', type: '重型武器', desc: '重机枪，架点神器' },
+            { name: '间谍', type: '狙击枪', desc: '大狙，手游中开镜更稳' },
+            { name: '飞将', type: '狙击枪', desc: '连狙，容错率高' }
+        ];
+        
+        // 切换游戏模式
+        function toggleGameMode() {
+            isMobileMode = !isMobileMode;
+            localStorage.setItem('gameMode', isMobileMode ? 'mobile' : 'pc');
+            applyGameMode();
+        }
+        
+        // 应用游戏模式
+        function applyGameMode() {
+            const content = isMobileMode ? mobileContent : pcContent;
+            const btn = document.getElementById('gameModeBtn');
+            
+            // 更新按钮样式和文字
+            btn.innerHTML = content.switchBtnText;
+            if (isMobileMode) {
+                btn.classList.add('mobile');
+            } else {
+                btn.classList.remove('mobile');
+            }
+            
+            // 更新标题和描述
+            document.getElementById('mainTitle').innerHTML = content.title;
+            document.getElementById('mainDesc').textContent = content.desc;
+            
+            // 更新准心合集按钮文字和链接
+            const crosshairBtn = document.getElementById('crosshairBtn');
+            crosshairBtn.innerHTML = content.crosshairBtn;
+            if (isMobileMode) {
+                crosshairBtn.href = 'valorant-crosshairs.html?mobile=1';
+            } else {
+                crosshairBtn.href = 'valorant-crosshairs.html';
+            }
+            
+            // 显示/隐藏职业选手和细节按钮
+            const proPlayersBtn = document.getElementById('proPlayersBtn');
+            const secretsBtn = document.getElementById('secretsBtn');
+            if (isMobileMode) {
+                proPlayersBtn.style.display = 'none';
+                secretsBtn.style.display = 'none';
+            } else {
+                proPlayersBtn.style.display = 'inline-flex';
+                secretsBtn.style.display = 'inline-flex';
+                proPlayersBtn.innerHTML = content.proPlayersBtn;
+                secretsBtn.innerHTML = content.secretsBtn;
+            }
+            
+            // 更新卡片内容（包括图标、标题、描述）
+            for (let i = 0; i < 6; i++) {
+                document.getElementById('icon' + (i + 1)).textContent = content.cards[i].icon;
+                document.getElementById('title' + (i + 1)).textContent = content.cards[i].title;
+                document.getElementById('desc' + (i + 1)).innerHTML = content.cards[i].desc;
+            }
+            
+            // 更新第5个卡片（新手配置/EDG传奇）的点击行为
+            const card5 = document.getElementById('card5');
+            if (isMobileMode) {
+                card5.href = 'javascript:void(0);';
+                card5.onclick = function() { openConfigModal(); return false; };
+            } else {
+                card5.href = 'valorant-edg.html';
+                card5.onclick = null;
+            }
+            
+            // 更新弹窗标题
+            document.querySelector('.pro-players-title').innerHTML = content.proPlayersTitle;
+            document.querySelector('.pro-players-subtitle').textContent = content.proPlayersSubtitle;
+            document.querySelector('.secrets-title').innerHTML = content.secretsTitle;
+            document.querySelector('.secrets-subtitle').textContent = content.secretsSubtitle;
+            
+            // 更新标签页文字
+            const tabs = document.querySelectorAll('.secrets-tab');
+            tabs[0].innerHTML = content.mapsTab;
+            tabs[1].innerHTML = content.agentsTab;
+            
+            // 更新页脚
+            document.querySelector('.footer p').innerHTML = content.footer;
+            
+            // 更新页面标题
+            document.title = isMobileMode ? '无畏契约：源能行动 | ling1in' : 'Valorant 档案中心 | ling1in';
+            
+            // 重新渲染特工和地图内容（切换数据源）
+            if (isMobileMode) {
+                renderMobileAgents();
+                renderMobileMaps();
+            } else {
+                renderMapsUncommonAngles();
+                renderAgentTips();
+            }
+        }
+        
+        // 渲染源能行动手游特工
+        function renderMobileAgents() {
+            const container = document.getElementById('agentTipsGrid');
+            let html = '';
+            
+            for (let i = 0; i < mobileAgentsData.length; i++) {
+                const agent = mobileAgentsData[i];
+                let tipsHtml = '';
+                
+                for (let j = 0; j < agent.tips.length; j++) {
+                    tipsHtml += '<div class="agent-tip-item">' + agent.tips[j] + '</div>';
+                }
+                
+                html += '<div class="agent-tip-card" style="animation: fadeIn 0.5s ease ' + (i * 0.05) + 's both;">' +
+                    '<div class="agent-tip-header">' +
+                        '<div class="agent-tip-avatar">' +
+                            '<img src="' + agent.avatar + '" alt="' + agent.name + '" onerror="this.style.display=\'none\';this.parentNode.innerHTML=\'<span style=font-size:1.5rem>★</span>\';">' +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="agent-tip-name">' + agent.name + '</div>' +
+                            '<div class="agent-tip-role">' + agent.role + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="agent-tip-list">' + tipsHtml + '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        // 渲染源能行动手游地图
+        function renderMobileMaps() {
+            const container = document.getElementById('mapsUncommonAngles');
+            let html = '';
+            
+            for (let i = 0; i < mobileMapsData.length; i++) {
+                const map = mobileMapsData[i];
+                let spotsHtml = '';
+                
+                for (let j = 0; j < map.spots.length; j++) {
+                    const spot = map.spots[j];
+                    spotsHtml += '<div class="uncommon-spot-item">' +
+                        '<div class="spot-location">' + spot.location + '</div>' +
+                        '<div class="spot-description">' + spot.description + '</div>' +
+                        '<div class="spot-tip">💡 ' + spot.tip + '</div>' +
+                    '</div>';
+                }
+                
+                html += '<div class="map-angles-card" style="animation: fadeIn 0.5s ease ' + (i * 0.1) + 's both;">' +
+                    '<div class="map-angles-header">' +
+                        '<div class="map-angles-icon" style="background: linear-gradient(135deg, ' + map.color + '33, ' + map.color + '11);">' +
+                            map.emoji +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="map-angles-title">' + map.map + '</div>' +
+                            '<div class="map-angles-desc">' + map.description + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="uncommon-spots-list">' + spotsHtml + '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // ==================== 新手配置弹窗功能 ====================
+        
+        // 打开新手配置弹窗
+        function openConfigModal() {
+            const modal = document.getElementById('configModal');
+            renderFingerConfigs();
+            renderSensitivityConfigs();
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭新手配置弹窗
+        function closeConfigModal() {
+            const modal = document.getElementById('configModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 切换配置标签页
+        function switchConfigTab(tab) {
+            const tabs = document.querySelectorAll('#configModal .secrets-tab');
+            const contents = document.querySelectorAll('#configModal .secrets-content');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            
+            if (tab === 'fingers') {
+                tabs[0].classList.add('active');
+                document.getElementById('fingersContent').classList.add('active');
+            } else if (tab === 'sensitivity') {
+                tabs[1].classList.add('active');
+                document.getElementById('sensitivityContent').classList.add('active');
+            } else if (tab === 'playershare') {
+                tabs[2].classList.add('active');
+                document.getElementById('playershareContent').classList.add('active');
+                renderPlayerShareConfig();
+            }
+        }
+
+        // 渲染键位配置
+        function renderFingerConfigs() {
+            const container = document.getElementById('fingersGrid');
+            let html = '';
+            
+            for (let i = 0; i < fingerConfigData.length; i++) {
+                const config = fingerConfigData[i];
+                let settingsHtml = '';
+                
+                for (let j = 0; j < config.settings.length; j++) {
+                    const setting = config.settings[j];
+                    settingsHtml += '<div class="config-item">' +
+                        '<div class="config-item-title">' + setting.label + '</div>' +
+                        '<div class="config-item-desc">' + setting.value + '</div>' +
+                    '</div>';
+                }
+                
+                html += '<div class="config-card" style="animation: fadeIn 0.5s ease ' + (i * 0.1) + 's both;">' +
+                    '<div class="config-header">' +
+                        '<div class="config-icon" style="background: linear-gradient(135deg, ' + config.color + '33, ' + config.color + '11);">' +
+                            config.icon +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="config-title">' + config.name + '</div>' +
+                            '<div class="config-desc">' + config.desc + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="config-list">' + settingsHtml + '</div>' +
+                    '<div style="margin-top:15px;padding:12px;background:rgba(255,193,7,0.1);border-radius:10px;border-left:3px solid #ffc107;">' +
+                        '<div style="font-size:0.8rem;color:#ffc107;">💡 ' + config.tips + '</div>' +
+                    '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // 渲染灵敏度配置
+        function renderSensitivityConfigs() {
+            const container = document.getElementById('sensitivityGrid');
+            let html = '';
+            
+            for (let i = 0; i < sensitivityConfigData.length; i++) {
+                const config = sensitivityConfigData[i];
+                let settingsHtml = '';
+                
+                for (let j = 0; j < config.settings.length; j++) {
+                    const setting = config.settings[j];
+                    settingsHtml += '<div class="config-item">' +
+                        '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+                            '<span style="font-size:0.85rem;color:var(--text-secondary);">' + setting.label + '</span>' +
+                            '<span style="font-size:1rem;font-weight:700;color:' + config.color + ';">' + setting.value + '</span>' +
+                        '</div>' +
+                    '</div>';
+                }
+                
+                html += '<div class="config-card" style="animation: fadeIn 0.5s ease ' + (i * 0.1) + 's both;">' +
+                    '<div class="config-header">' +
+                        '<div class="config-icon" style="background: linear-gradient(135deg, ' + config.color + '33, ' + config.color + '11);">' +
+                            config.icon +
+                        '</div>' +
+                        '<div>' +
+                            '<div class="config-title">' + config.name + '</div>' +
+                            '<div class="config-desc">' + config.desc + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="config-list">' + settingsHtml + '</div>' +
+                    '<div style="margin-top:15px;padding:12px;background:rgba(255,193,7,0.1);border-radius:10px;border-left:3px solid #ffc107;">' +
+                        '<div style="font-size:0.8rem;color:#ffc107;">💡 ' + config.tips + '</div>' +
+                    '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // 渲染玩家分享配置
+        function renderPlayerShareConfig() {
+            const container = document.getElementById('playerShareContainer');
+            const config = playerShareConfig;
+            
+            let settingsHtml = '';
+            for (let j = 0; j < config.settings.length; j++) {
+                const setting = config.settings[j];
+                settingsHtml += '<div class="config-item">' +
+                    '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+                        '<span style="font-size:0.85rem;color:var(--text-secondary);">' + setting.label + '</span>' +
+                        '<span style="font-size:1rem;font-weight:700;color:' + config.color + ';">' + setting.value + '</span>' +
+                    '</div>' +
+                '</div>';
+            }
+            
+            container.innerHTML = '<div class="player-share-card" style="animation: fadeIn 0.5s ease;">' +
+                '<div class="player-share-header">' +
+                    '<div class="player-share-icon">' +
+                        config.icon +
+                    '</div>' +
+                    '<div>' +
+                        '<div class="player-share-title">' + config.name + '</div>' +
+                        '<div class="player-share-desc">' + config.desc + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-bottom:25px;">' +
+                    '<div class="code-section">' +
+                        '<div class="code-title">📋 键位布局代码（点击复制）</div>' +
+                        '<div class="code-box" onclick="copyCode(this)">' + config.layoutCode + '</div>' +
+                    '</div>' +
+                    '<div class="code-section">' +
+                        '<div class="code-title">🎯 准心代码（点击复制）</div>' +
+                        '<div class="code-box" onclick="copyCode(this)">' + config.crosshairCode + '</div>' +
+                    '</div>' +
+                '</div>' +
+                '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:25px;">' +
+                    '<div>' +
+                        '<div style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:10px;">🎮 键位布局图示</div>' +
+                        '<img src="images/user-layout.jpg" alt="键位布局" class="config-image">' +
+                    '</div>' +
+                    '<div>' +
+                        '<div style="font-size:0.9rem;color:var(--text-secondary);margin-bottom:10px;">🎯 灵敏度设置图示</div>' +
+                        '<img src="images/user-sensitivity.jpg" alt="灵敏度设置" class="config-image">' +
+                    '</div>' +
+                '</div>' +
+                '<div class="config-list">' + settingsHtml + '</div>' +
+                '<div style="margin-top:20px;padding:15px;background:rgba(255,70,85,0.1);border-radius:12px;border-left:4px solid #ff4655;">' +
+                    '<div style="font-size:0.9rem;color:#ff8a95;">💡 ' + config.tips + '</div>' +
+                '</div>' +
+            '</div>';
+        }
+
+        // 复制代码到剪贴板
+        function copyCode(element) {
+            const code = element.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = element.textContent;
+                element.textContent = '✅ 已复制!';
+                element.style.background = 'rgba(46,204,113,0.3)';
+                setTimeout(() => {
+                    element.textContent = originalText;
+                    element.style.background = 'rgba(255,255,255,0.1)';
+                }, 1500);
+            }).catch(() => {
+                // 如果剪贴板API失败，使用传统方法
+                const range = document.createRange();
+                range.selectNode(element);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                
+                const originalText = element.textContent;
+                element.textContent = '✅ 已复制!';
+                element.style.background = 'rgba(46,204,113,0.3)';
+                setTimeout(() => {
+                    element.textContent = originalText;
+                    element.style.background = 'rgba(255,255,255,0.1)';
+                }, 1500);
+            });
+        }
+        
+        // 页面加载时应用保存的模式
+        if (isMobileMode) {
+            applyGameMode();
+        }
+
+        // 后台音乐播放 - 直接跳转网易云播放页面
+        function playBackgroundMusic(event) {
+            // 保存播放状态
+            sessionStorage.setItem('playingMusic', '2068401809');
+            sessionStorage.setItem('musicPlayingTime', Date.now().toString());
+            
+            // 显示提示
+            showMusicToast('🎵 正在打开音乐播放器...');
+            
+            // 延迟后跳转，让用户看到提示
+            setTimeout(() => {
+                window.open('https://music.163.com/#/song?id=2068401809&autoplay=true', '_blank');
+            }, 500);
+        }
+
+        // 显示提示
+        function showMusicToast(message) {
+            // 移除已有的toast
+            const existingToast = document.getElementById('music-toast');
+            if (existingToast) existingToast.remove();
+            
+            const toast = document.createElement('div');
+            toast.id = 'music-toast';
+            toast.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #ff4655, #ff6b7a);
+                color: white;
+                padding: 20px 40px;
+                border-radius: 15px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                z-index: 10000;
+                box-shadow: 0 10px 40px rgba(255, 70, 85, 0.4);
+                animation: popIn 0.3s ease;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'popOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        }
+
+        // 添加动画样式
+        const toastStyle = document.createElement('style');
+        toastStyle.textContent = `
+            @keyframes popIn {
+                from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            }
+            @keyframes popOut {
+                from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                to { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            }
+        `;
+        document.head.appendChild(toastStyle);
     </script>
 </body>
 </html>
