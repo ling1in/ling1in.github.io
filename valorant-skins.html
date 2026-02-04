@@ -151,15 +151,20 @@
 
         /* 皮肤图片区域 */
         .skin-image {
-            width: 120px;
-            height: 80px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(255,70,85,0.2), rgba(15,25,35,0.5));
+            width: 160px;
+            height: 60px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(255,70,85,0.1), rgba(15,25,35,0.3));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
             flex-shrink: 0;
+            overflow: hidden;
+        }
+        .skin-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         /* 皮肤信息 */
@@ -323,9 +328,9 @@
             rifle: [
                 {
                     rank: 1,
-                    name: '混沌序幕',
-                    weapon: '狂徒 / 幻影',
-                    emoji: '🔥',
+                    name: '混沌序曲',
+                    weapon: '狂徒',
+                    image: 'valorant/skins/rifle/chaos-vandal.png',
                     price: 2175,
                     feelScore: 9.8,
                     visualScore: 9.5,
@@ -335,9 +340,9 @@
                 },
                 {
                     rank: 2,
-                    name: '离子圣芒',
+                    name: '离子武器',
                     weapon: '狂徒 / 幻影',
-                    emoji: '⚡',
+                    image: 'valorant/skins/rifle/ion-vandal.png',
                     price: 2175,
                     feelScore: 9.5,
                     visualScore: 9.2,
@@ -347,22 +352,22 @@
                 },
                 {
                     rank: 3,
-                    name: '紫金狂潮',
+                    name: '盖亚的复仇',
                     weapon: '狂徒 / 幻影',
-                    emoji: '💜',
+                    image: 'valorant/skins/rifle/gaia-vandal.png',
                     price: 2175,
                     feelScore: 9.3,
                     visualScore: 9.0,
                     soundScore: 9.2,
-                    review: '紫色贵族气质！独特的能量音效，击杀特效炫目。枪身质感高级，扫射时稳定性感觉更好，是一款非常均衡的皮肤。',
-                    tags: ['贵族气质', '特效华丽', '稳定']
+                    review: '自然元素创新之作！石头与藤蔓的结合独具匠心，音效清脆带有回响。虽然手感偏轻，但独特的视觉风格让它拥有众多拥趸。',
+                    tags: ['自然风', '创意独特', '轻量化']
                 },
                 {
                     rank: 4,
-                    name: '掠夺印象',
+                    name: '破败军械',
                     weapon: '狂徒 / 幻影',
-                    emoji: '🌑',
-                    price: 2175,
+                    image: 'valorant/skins/rifle/reaver-vandal.png',
+                    price: 1775,
                     feelScore: 9.0,
                     visualScore: 8.8,
                     soundScore: 9.1,
@@ -371,60 +376,60 @@
                 },
                 {
                     rank: 5,
-                    name: '盖亚复仇',
+                    name: '光明哨兵',
                     weapon: '狂徒 / 幻影',
-                    emoji: '🌿',
+                    image: 'valorant/skins/rifle/sentinel-vandal.png',
                     price: 2175,
                     feelScore: 8.8,
                     visualScore: 9.0,
                     soundScore: 8.5,
-                    review: '自然元素创新之作！石头与藤蔓的结合独具匠心，音效清脆带有回响。虽然手感偏轻，但独特的视觉风格让它拥有众多拥趸。',
-                    tags: ['自然风', '创意独特', '轻量化']
-                },
-                {
-                    rank: 6,
-                    name: '光之哨兵',
-                    weapon: '幻影',
-                    emoji: '✨',
-                    price: 2175,
-                    feelScore: 8.7,
-                    visualScore: 9.1,
-                    soundScore: 8.6,
                     review: '圣光主题！枪身会随着击杀发光，满级后特效极为华丽。手感偏软但连贯性好，适合幻影这种需要连发的武器。',
                     tags: ['圣光特效', '成长性', '幻影首选']
                 },
                 {
-                    rank: 7,
-                    name: ' RGX 11z Pro',
+                    rank: 6,
+                    name: 'RGX 11z Pro',
                     weapon: '狂徒 / 幻影',
-                    emoji: '🎮',
+                    image: 'valorant/skins/rifle/rgx-vandal.png',
                     price: 2175,
-                    feelScore: 8.5,
-                    visualScore: 9.3,
-                    soundScore: 8.4,
+                    feelScore: 8.7,
+                    visualScore: 9.1,
+                    soundScore: 8.6,
                     review: 'RGB灯效天花板！流光溢彩的外观配合击杀计数器，科技感拉满。手感中规中矩，但颜值足以弥补一切。',
                     tags: ['RGB灯效', '计数器', '颜值担当']
                 },
                 {
-                    rank: 8,
+                    rank: 7,
                     name: '异星霸主',
-                    weapon: '狂徒',
-                    emoji: '👽',
+                    weapon: '狂徒 / 幻影',
+                    image: 'valorant/skins/rifle/araxys-vandal.png',
                     price: 2175,
+                    feelScore: 8.5,
+                    visualScore: 9.3,
+                    soundScore: 8.4,
+                    review: '生物机械风！会动的枪身特效独此一家，换弹动画震撼。虽然手感略显沉重，但独特的视觉体验让它值得一试。',
+                    tags: ['生物机械', '动态特效', '独特']
+                },
+                {
+                    rank: 8,
+                    name: '上古龙炎',
+                    weapon: '狂徒',
+                    image: 'valorant/skins/rifle/elderflame-vandal.png',
+                    price: 2475,
                     feelScore: 8.3,
                     visualScore: 8.9,
                     soundScore: 8.2,
-                    review: '生物机械风！会动的枪身特效独此一家，换弹动画震撼。虽然手感略显沉重，但独特的视觉体验让它值得一试。',
-                    tags: ['生物机械', '动态特效', '独特']
+                    review: '龙族主题！龙形枪身霸气侧漏，击杀特效震撼。虽然价格较高且手感偏轻，但独特的视觉体验让它值得一试。',
+                    tags: ['龙族主题', '霸气', '独特']
                 }
             ],
             sniper: [
                 {
                     rank: 1,
-                    name: '龙炎冥驹',
+                    name: '上古龙炎',
                     weapon: '冥驹',
-                    emoji: '🐉',
-                    price: 2175,
+                    image: 'valorant/skins/sniper/elderflame-operator.png',
+                    price: 2475,
                     feelScore: 9.7,
                     visualScore: 9.4,
                     soundScore: 9.6,
@@ -433,9 +438,9 @@
                 },
                 {
                     rank: 2,
-                    name: '离子圣芒',
+                    name: '离子武器',
                     weapon: '冥驹',
-                    emoji: '⚡',
+                    image: 'valorant/skins/sniper/ion-operator.png',
                     price: 2175,
                     feelScore: 9.4,
                     visualScore: 9.1,
@@ -447,7 +452,7 @@
                     rank: 3,
                     name: '鎏金帝王',
                     weapon: '飞将',
-                    emoji: '👑',
+                    image: 'valorant/skins/sniper/sovereign-marshal.png',
                     price: 1275,
                     feelScore: 9.2,
                     visualScore: 8.8,
@@ -457,10 +462,10 @@
                 },
                 {
                     rank: 4,
-                    name: '起源冥驹',
+                    name: '起源',
                     weapon: '冥驹',
-                    emoji: '🌀',
-                    price: 2175,
+                    image: 'valorant/skins/sniper/origin-operator.png',
+                    price: 1775,
                     feelScore: 8.9,
                     visualScore: 9.2,
                     soundScore: 8.7,
@@ -469,23 +474,23 @@
                 },
                 {
                     rank: 5,
-                    name: 'Sovereign 至尊龙炎',
-                    weapon: '飞将',
-                    emoji: '🐲',
+                    name: '破败军械',
+                    weapon: '冥驹',
+                    image: 'valorant/skins/sniper/reaver-operator.png',
                     price: 1775,
                     feelScore: 8.7,
                     visualScore: 8.9,
                     soundScore: 8.5,
-                    review: '龙族主题！高贵的龙纹装饰配合独特的音效，让每一枪都充满仪式感。虽然价格偏高，但独特的外观值得拥有。',
-                    tags: ['龙纹', '高贵', '仪式感']
+                    review: '暗黑系狙击！独特的眼球设计和击杀特效，让每一枪都充满仪式感。虽然价格偏高，但独特的外观值得拥有。',
+                    tags: ['暗黑风', '击杀特效', '仪式感']
                 }
             ],
             melee: [
                 {
                     rank: 1,
-                    name: '掠夺之爪',
+                    name: '破败王者之残刃',
                     weapon: '爪子刀',
-                    emoji: '🐾',
+                    image: 'valorant/skins/melee/reaver-karambit.png',
                     price: 4350,
                     feelScore: 9.9,
                     visualScore: 9.6,
@@ -497,7 +502,7 @@
                     rank: 2,
                     name: '混沌大剑',
                     weapon: '双手剑',
-                    emoji: '⚔️',
+                    image: 'valorant/skins/melee/chaos-sword.png',
                     price: 4350,
                     feelScore: 9.7,
                     visualScore: 9.8,
@@ -507,10 +512,10 @@
                 },
                 {
                     rank: 3,
-                    name: '龙炎刀',
-                    weapon: '龙刀',
-                    emoji: '🔥',
-                    price: 4350,
+                    name: '上古龙炎',
+                    weapon: '苦无',
+                    image: 'valorant/skins/melee/elderflame-dagger.png',
+                    price: 4950,
                     feelScore: 9.5,
                     visualScore: 9.7,
                     soundScore: 9.4,
@@ -519,9 +524,9 @@
                 },
                 {
                     rank: 4,
-                    name: ' RGX 显卡爪刀',
+                    name: 'RGX 11z Pro',
                     weapon: '爪刀',
-                    emoji: '🎮',
+                    image: 'valorant/skins/melee/rgx-karambit.png',
                     price: 4350,
                     feelScore: 9.3,
                     visualScore: 9.5,
@@ -531,9 +536,9 @@
                 },
                 {
                     rank: 5,
-                    name: '离子爪刀',
+                    name: '离子武器',
                     weapon: '爪刀',
-                    emoji: '⚡',
+                    image: 'valorant/skins/melee/ion-karambit.png',
                     price: 4350,
                     feelScore: 9.1,
                     visualScore: 9.3,
@@ -545,7 +550,7 @@
                     rank: 6,
                     name: '盖亚之怒',
                     weapon: '斧头',
-                    emoji: '🪓',
+                    image: 'valorant/skins/melee/gaia-axe.png',
                     price: 3550,
                     feelScore: 8.8,
                     visualScore: 8.9,
@@ -555,21 +560,21 @@
                 },
                 {
                     rank: 7,
-                    name: '鱼扇',
+                    name: '金角扇',
                     weapon: '折扇',
-                    emoji: '🐟',
+                    image: 'valorant/skins/melee/fish-fan.png',
                     price: 3550,
                     feelScore: 8.5,
                     visualScore: 9.0,
                     soundScore: 8.3,
-                    review: '整活神器！用鱼打人你见过吗？虽然手感一般，但娱乐性拉满。检视动画搞笑，是放松心情的最佳选择。',
-                    tags: ['整活', '娱乐性', '搞笑']
+                    review: '整活神器！金角生辉系列的折扇，检视动画独特有趣。虽然手感一般，但娱乐性拉满，是放松心情的最佳选择。',
+                    tags: ['整活', '娱乐性', '金角生辉']
                 },
                 {
                     rank: 8,
                     name: '紫金爪刀',
                     weapon: '爪刀',
-                    emoji: '💜',
+                    image: 'valorant/skins/melee/prime-karambit.png',
                     price: 4350,
                     feelScore: 8.3,
                     visualScore: 8.7,
@@ -607,7 +612,7 @@
                     <div class="rank-number rank-${skin.rank <= 3 ? skin.rank : 'other'}">
                         ${skin.rank <= 3 ? '★' : ''}${skin.rank}
                     </div>
-                    <div class="skin-image">${skin.emoji}</div>
+                    <div class="skin-image"><img src="${skin.image}" alt="${skin.name}" loading="lazy"></div>
                     <div class="skin-info">
                         <div class="skin-header">
                             <span class="skin-name">${skin.name}</span>
