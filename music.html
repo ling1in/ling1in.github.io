@@ -437,12 +437,17 @@
     </style>
 <style>
     /* 隐藏导航栏 */
-    nav {
+    nav, header nav, body > nav {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
     }
-    /* 调整body的padding-top，因为导航栏固定高度不再需要 */
+    /* 调整body的padding-top */
     body {
         padding-top: 15px !important;
+        margin-top: 0 !important;
     }
 </style>
 </head>
