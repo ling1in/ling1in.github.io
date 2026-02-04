@@ -22,51 +22,6 @@
             --kaomoji-color: #e85a71;
         }
 
-        [data-theme="lain"] {
-            --bg-gradient: linear-gradient(180deg, #0a0a0f 0%, #1a0a1a 30%, #0f0510 60%, #000000 100%);
-            --text-color: #ff0040;
-            --text-secondary: #cc0033;
-            --accent-color: #ff0040;
-            --accent-secondary: #990033;
-            --card-bg: rgba(20, 0, 10, 0.9);
-            --card-border: rgba(255, 0, 64, 0.3);
-            --shadow-color: rgba(255, 0, 64, 0.3);
-            --font-main: 'Noto Serif JP', serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --cursor-color: rgba(255, 0, 64, 0.8);
-            --kaomoji-color: #ff0040;
-        }
-
-        [data-theme="inception"] {
-            --bg-gradient: linear-gradient(180deg, #2c3e50 0%, #34495e 30%, #5d6d7e 60%, #85929e 100%);
-            --text-color: #f39c12;
-            --text-secondary: #d68910;
-            --accent-color: #f39c12;
-            --accent-secondary: #e67e22;
-            --card-bg: rgba(44, 62, 80, 0.95);
-            --card-border: rgba(243, 156, 18, 0.3);
-            --shadow-color: rgba(243, 156, 18, 0.2);
-            --font-main: 'Playfair Display', serif;
-            --font-mono: 'Playfair Display', serif;
-            --cursor-color: rgba(243, 156, 18, 0.8);
-            --kaomoji-color: #f39c12;
-        }
-
-        [data-theme="matrix"] {
-            --bg-gradient: linear-gradient(180deg, #000000 0%, #0d1f0d 30%, #001a00 60%, #000000 100%);
-            --text-color: #00ff00;
-            --text-secondary: #00cc00;
-            --accent-color: #00ff00;
-            --accent-secondary: #00aa00;
-            --card-bg: rgba(0, 20, 0, 0.95);
-            --card-border: rgba(0, 255, 0, 0.3);
-            --shadow-color: rgba(0, 255, 0, 0.2);
-            --font-main: 'JetBrains Mono', monospace;
-            --font-mono: 'JetBrains Mono', monospace;
-            --cursor-color: rgba(0, 255, 0, 0.8);
-            --kaomoji-color: #00ff00;
-        }
-
         html {
             font-size: 16px;
             -webkit-text-size-adjust: 100%;
@@ -94,54 +49,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
         
-        /* 主题切换按钮 */
-        .theme-switcher {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-            display: flex;
-            gap: 6px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 6px;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        [data-theme="lain"] .theme-switcher,
-        [data-theme="matrix"] .theme-switcher {
-            background: rgba(0,0,0,0.4);
-        }
-
-        .theme-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.9);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .theme-btn:hover { transform: scale(1.15); }
-        .theme-btn:active { transform: scale(0.95); }
-        .theme-btn.active {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .theme-btn[data-theme="default"] { background: linear-gradient(135deg, #87CEEB, #FFB6C1); }
-        .theme-btn[data-theme="lain"] { background: #ff0040; color: white; }
-        .theme-btn[data-theme="inception"] { background: #f39c12; color: white; }
-        .theme-btn[data-theme="matrix"] { background: #000; color: #00ff00; border: 1px solid #00ff00; }
-        
         /* 导航栏 */
         nav {
             background: rgba(255,255,255,0.7);
@@ -156,17 +63,6 @@
             z-index: 99;
             box-shadow: 0 2px 20px var(--shadow-color);
             transition: all 0.5s;
-        }
-
-        [data-theme="lain"] nav,
-        [data-theme="matrix"] nav {
-            background: rgba(0,0,0,0.6);
-            border-bottom: 1px solid var(--accent-color);
-        }
-
-        [data-theme="inception"] nav {
-            background: rgba(44, 62, 80, 0.8);
-            border-bottom: 1px solid rgba(243,156,18,0.3);
         }
 
         nav ul {
@@ -290,20 +186,10 @@
             border: 1px solid transparent;
         }
 
-        [data-theme="lain"] .song-item,
-        [data-theme="matrix"] .song-item {
-            background: rgba(0,0,0,0.3);
-        }
-
         .song-item:hover {
             background: rgba(255,255,255,0.8);
             border-color: var(--accent-color);
             transform: translateX(5px);
-        }
-
-        [data-theme="lain"] .song-item:hover,
-        [data-theme="matrix"] .song-item:hover {
-            background: rgba(0,0,0,0.5);
         }
 
         .song-cover {
@@ -551,13 +437,6 @@
     </style>
 </head>
 <body>
-    <!-- 主题切换按钮 -->
-    <div class="theme-switcher">
-        <button class="theme-btn active" data-theme="default" title="新海诚">🌸</button>
-        <button class="theme-btn" data-theme="lain" title="玲音">👁️</button>
-        <button class="theme-btn" data-theme="inception" title="盗梦空间">🌀</button>
-        <button class="theme-btn" data-theme="matrix" title="黑客帝国">💊</button>
-    </div>
 
     <!-- 飘浮音符 -->
     <div class="music-note">🎵</div>
@@ -887,26 +766,6 @@
     </div>
 
     <script>
-        // 主题切换
-        const themeBtns = document.querySelectorAll('.theme-btn');
-        const html = document.documentElement;
-        
-        const savedTheme = localStorage.getItem('theme') || 'default';
-        html.setAttribute('data-theme', savedTheme);
-        themeBtns.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.theme === savedTheme);
-        });
-        
-        themeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const theme = btn.dataset.theme;
-                html.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-                themeBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-
         // 播放按钮交互
         document.querySelectorAll('.play-btn, .control-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {

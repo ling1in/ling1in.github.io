@@ -57,30 +57,6 @@
             font-size: 0.9rem;
         }
         nav a:hover, nav a.active { background: var(--accent-color); color: white; }
-        .theme-switcher {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-            display: flex;
-            gap: 6px;
-            background: rgba(255,255,255,0.1);
-            padding: 6px;
-            border-radius: 25px;
-        }
-        .theme-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            background: rgba(255,255,255,0.9);
-        }
-        .theme-btn.active {
-            border: 2px solid var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
         .game-mode-switcher {
             position: fixed;
             top: 55px;
@@ -207,9 +183,7 @@
             .agent-card { padding: 15px 10px; }
             .agent-avatar { width: 60px; height: 60px; }
             .agent-name { font-size: 0.9rem; }
-            .theme-switcher { top: 5px; right: 5px; padding: 4px; }
-            .theme-btn { width: 28px; height: 28px; font-size: 0.9rem; }
-            .game-mode-switcher { top: 45px; right: 5px; }
+            .game-mode-switcher { top: 10px; right: 10px; }
             .game-mode-btn { padding: 8px 12px; font-size: 0.75rem; }
         }
         @media (max-width: 380px) {
@@ -361,13 +335,6 @@
         }
     </style>
 </head>
-<body>
-    <div class="theme-switcher">
-        <button class="theme-btn active" data-theme="default">🎮</button>
-        <button class="theme-btn" data-theme="lain">👁️</button>
-        <button class="theme-btn" data-theme="inception">🌀</button>
-        <button class="theme-btn" data-theme="matrix">💊</button>
-    </div>
 
     <div class="game-mode-switcher">
         <button class="game-mode-btn" id="gameModeBtn" onclick="toggleGameMode()">
@@ -668,29 +635,6 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeAgentModal();
         });
-
-        // 主题切换
-        const themeBtns = document.querySelectorAll('.theme-btn');
-        const body = document.body;
-        
-        const savedTheme = localStorage.getItem('theme') || 'default';
-        body.setAttribute('data-theme', savedTheme);
-        updateActiveButton(savedTheme);
-        
-        themeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const theme = btn.getAttribute('data-theme');
-                body.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-                updateActiveButton(theme);
-            });
-        });
-        
-        function updateActiveButton(theme) {
-            themeBtns.forEach(btn => {
-                btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
-            });
-        }
 
         // 页面加载时应用保存的游戏模式
         if (isMobileMode) {

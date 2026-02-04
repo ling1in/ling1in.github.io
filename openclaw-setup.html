@@ -28,66 +28,6 @@
             --code-color: #cdd6f4;
         }
 
-        /* 玲音主题 */
-        [data-theme="lain"] {
-            --bg-gradient: linear-gradient(180deg, #0a0a0f 0%, #1a0a1a 30%, #0f0510 60%, #000000 100%);
-            --text-color: #ff0040;
-            --text-secondary: #cc0033;
-            --accent-color: #ff0040;
-            --accent-secondary: #990033;
-            --card-bg: rgba(20, 0, 10, 0.9);
-            --card-border: rgba(255, 0, 64, 0.3);
-            --shadow-color: rgba(255, 0, 64, 0.3);
-            --font-main: 'Noto Serif JP', serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --cursor-color: rgba(255, 0, 64, 0.8);
-            --kaomoji-color: #ff0040;
-            --nav-bg: rgba(0,0,0,0.6);
-            --nav-border: rgba(255, 0, 64, 0.3);
-            --code-bg: rgba(10, 0, 5, 0.95);
-            --code-color: #ff0040;
-        }
-
-        /* 盗梦空间主题 */
-        [data-theme="inception"] {
-            --bg-gradient: linear-gradient(180deg, #2c3e50 0%, #34495e 30%, #5d6d7e 60%, #85929e 100%);
-            --text-color: #f39c12;
-            --text-secondary: #d68910;
-            --accent-color: #f39c12;
-            --accent-secondary: #e67e22;
-            --card-bg: rgba(44, 62, 80, 0.95);
-            --card-border: rgba(243, 156, 18, 0.3);
-            --shadow-color: rgba(243, 156, 18, 0.2);
-            --font-main: 'Playfair Display', serif;
-            --font-mono: 'Playfair Display', serif;
-            --cursor-color: rgba(243, 156, 18, 0.8);
-            --kaomoji-color: #f39c12;
-            --nav-bg: rgba(44, 62, 80, 0.8);
-            --nav-border: rgba(243,156,18,0.3);
-            --code-bg: rgba(30, 40, 50, 0.95);
-            --code-color: #f39c12;
-        }
-
-        /* 黑客帝国主题 */
-        [data-theme="matrix"] {
-            --bg-gradient: linear-gradient(180deg, #000000 0%, #0d1f0d 30%, #001a00 60%, #000000 100%);
-            --text-color: #00ff00;
-            --text-secondary: #00cc00;
-            --accent-color: #00ff00;
-            --accent-secondary: #00aa00;
-            --card-bg: rgba(0, 20, 0, 0.95);
-            --card-border: rgba(0, 255, 0, 0.3);
-            --shadow-color: rgba(0, 255, 0, 0.2);
-            --font-main: 'JetBrains Mono', monospace;
-            --font-mono: 'JetBrains Mono', monospace;
-            --cursor-color: rgba(0, 255, 0, 0.8);
-            --kaomoji-color: #00ff00;
-            --nav-bg: rgba(0,0,0,0.6);
-            --nav-border: rgba(0, 255, 0, 0.3);
-            --code-bg: rgba(0, 20, 0, 0.95);
-            --code-color: #00ff00;
-        }
-
         html {
             font-size: 16px;
             -webkit-text-size-adjust: 100%;
@@ -115,60 +55,6 @@
             padding-top: 70px;
         }
 
-        /* 主题切换按钮 */
-        .theme-switcher {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-            display: flex;
-            gap: 6px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 6px;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        [data-theme="lain"] .theme-switcher,
-        [data-theme="matrix"] .theme-switcher {
-            background: rgba(0,0,0,0.4);
-        }
-
-        .theme-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.9);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .theme-btn:hover {
-            transform: scale(1.15);
-        }
-
-        .theme-btn:active {
-            transform: scale(0.95);
-        }
-
-        .theme-btn.active {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .theme-btn[data-theme="default"] { background: linear-gradient(135deg, #87CEEB, #FFB6C1); }
-        .theme-btn[data-theme="lain"] { background: #ff0040; color: white; }
-        .theme-btn[data-theme="inception"] { background: #f39c12; color: white; }
-        .theme-btn[data-theme="matrix"] { background: #000; color: #00ff00; border: 1px solid #00ff00; }
-        
         /* 背景装饰 - 新海诚 */
         body::before {
             content: '';
@@ -189,26 +75,6 @@
             transition: opacity 0.5s;
         }
 
-        /* 玲音主题背景 - 静电效果 */
-        [data-theme="lain"]::before {
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,64,0.03) 2px, rgba(255,0,64,0.03) 4px);
-            opacity: 0.5;
-        }
-
-        /* 盗梦空间背景 - 迷雾 */
-        [data-theme="inception"]::before {
-            background-image: 
-                radial-gradient(circle at 30% 30%, rgba(243,156,18,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05) 0%, transparent 40%);
-            opacity: 0.6;
-        }
-
-        /* 黑客帝国背景 - 代码雨效果由JS处理 */
-        [data-theme="matrix"]::before {
-            display: none;
-        }
-        
         /* 飘落的樱花/粒子 */
         .sakura {
             position: fixed;
@@ -221,32 +87,6 @@
             pointer-events: none;
         }
 
-        /* 玲音主题 - 红色碎片 */
-        [data-theme="lain"] .sakura {
-            background: radial-gradient(circle, rgba(255,0,64,0.9) 0%, rgba(255,0,64,0.4) 50%, transparent 70%);
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            border-radius: 0;
-        }
-
-        /* 盗梦空间主题 - 金色尘埃 */
-        [data-theme="inception"] .sakura {
-            background: radial-gradient(circle, rgba(243,156,18,0.9) 0%, rgba(243,156,18,0.4) 50%, transparent 70%);
-        }
-
-        /* 黑客帝国主题 - 绿色代码 */
-        [data-theme="matrix"] .sakura {
-            width: 10px;
-            height: 14px;
-            background: rgba(0,255,0,0.8);
-            border-radius: 0;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: #00ff00;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
         .sakura:nth-child(1) { left: 5%; animation-duration: 12s; animation-delay: 0s; }
         .sakura:nth-child(2) { left: 15%; animation-duration: 14s; animation-delay: 2s; }
         .sakura:nth-child(3) { left: 25%; animation-duration: 11s; animation-delay: 4s; }
@@ -419,18 +259,6 @@
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
-        [data-theme="lain"] .symptom {
-            background: rgba(255, 0, 64, 0.15);
-            border-left-color: #ff0040;
-        }
-        [data-theme="inception"] .symptom {
-            background: rgba(243, 156, 18, 0.15);
-            border-left-color: #f39c12;
-        }
-        [data-theme="matrix"] .symptom {
-            background: rgba(0, 255, 0, 0.15);
-            border-left-color: #00ff00;
-        }
         .symptom h3 {
             color: #e74c3c;
             margin-bottom: 10px;
@@ -438,10 +266,6 @@
             align-items: center;
             gap: 8px;
         }
-        [data-theme="lain"] .symptom h3 { color: #ff0040; }
-        [data-theme="inception"] .symptom h3 { color: #f39c12; }
-        [data-theme="matrix"] .symptom h3 { color: #00ff00; }
-        
         /* 诊断框 */
         .diagnosis {
             background: rgba(245, 158, 11, 0.1);
@@ -450,26 +274,10 @@
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
-        [data-theme="lain"] .diagnosis {
-            background: rgba(153, 0, 51, 0.2);
-            border-left-color: #990033;
-        }
-        [data-theme="inception"] .diagnosis {
-            background: rgba(230, 126, 34, 0.15);
-            border-left-color: #e67e22;
-        }
-        [data-theme="matrix"] .diagnosis {
-            background: rgba(0, 170, 0, 0.15);
-            border-left-color: #00aa00;
-        }
         .diagnosis h3 {
             color: #d97706;
             margin-bottom: 10px;
         }
-        [data-theme="lain"] .diagnosis h3 { color: #cc0033; }
-        [data-theme="inception"] .diagnosis h3 { color: #d68910; }
-        [data-theme="matrix"] .diagnosis h3 { color: #00cc00; }
-        
         /* 折腾记录 */
         .attempts {
             margin: 20px 0;
@@ -494,23 +302,6 @@
             background: rgba(59, 130, 246, 0.1);
             border: 1px solid rgba(59, 130, 246, 0.3);
         }
-        [data-theme="lain"] .attempt.fail {
-            background: rgba(255, 0, 64, 0.15);
-            border-color: rgba(255, 0, 64, 0.4);
-        }
-        [data-theme="lain"] .attempt.success {
-            background: rgba(153, 0, 51, 0.2);
-            border-color: rgba(153, 0, 51, 0.4);
-        }
-        [data-theme="matrix"] .attempt.fail {
-            background: rgba(255, 0, 0, 0.15);
-            border-color: rgba(255, 0, 0, 0.4);
-        }
-        [data-theme="matrix"] .attempt.success {
-            background: rgba(0, 255, 0, 0.15);
-            border-color: rgba(0, 255, 0, 0.4);
-        }
-        
         /* 代码块 */
         .code-block {
             background: var(--code-bg);
@@ -700,11 +491,6 @@
 
         /* 响应式 */
         @media (max-width: 900px) {
-            .theme-switcher {
-                top: 10px;
-                right: 10px;
-                transform: scale(0.9);
-            }
             .header h1 {
                 font-size: 2em;
             }
@@ -715,10 +501,8 @@
 
         @media (max-width: 768px) {
             body { padding: 12px; padding-top: 65px; }
-            .theme-switcher { top: 8px; right: 8px; }
-            .theme-btn { width: 28px; height: 28px; font-size: 0.85em; }
             nav { padding: 10px 0; }
-            nav ul { padding: 0 75px 0 10px; gap: 8px; }
+            nav ul { padding: 0 15px; gap: 8px; }
             nav a { padding: 6px 12px; font-size: 0.85rem; }
             .guide-container { padding: 15px; }
             .chapter { padding: 20px 15px; }
@@ -727,7 +511,6 @@
 
         @media (max-width: 380px) {
             body { padding-top: 60px; }
-            .theme-btn { width: 26px; height: 26px; font-size: 0.8em; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -740,13 +523,6 @@
     </style>
 </head>
 <body>
-    <!-- 主题切换按钮 -->
-    <div class="theme-switcher">
-        <button class="theme-btn active" data-theme="default" title="新海诚">🌸</button>
-        <button class="theme-btn" data-theme="lain" title="玲音">👁️</button>
-        <button class="theme-btn" data-theme="inception" title="盗梦空间">🌀</button>
-        <button class="theme-btn" data-theme="matrix" title="黑客帝国">💊</button>
-    </div>
 
     <!-- 飘落的樱花/粒子 -->
     <div class="sakura"></div>
@@ -1058,62 +834,6 @@ openclaw setup</code></div>
     </footer>
     
     <script>
-        // 主题切换系统
-        (function() {
-            const themeBtns = document.querySelectorAll('.theme-btn');
-            const body = document.body;
-            
-            // 从 localStorage 读取主题
-            const savedTheme = localStorage.getItem('theme') || 'default';
-            body.setAttribute('data-theme', savedTheme);
-            updateActiveButton(savedTheme);
-            
-            // 黑客帝国主题特殊处理 - 添加代码字符
-            if (savedTheme === 'matrix') {
-                initMatrixCode();
-            }
-            
-            themeBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const theme = btn.getAttribute('data-theme');
-                    body.setAttribute('data-theme', theme);
-                    localStorage.setItem('theme', theme);
-                    updateActiveButton(theme);
-                    
-                    // 黑客帝国主题初始化代码雨
-                    if (theme === 'matrix') {
-                        initMatrixCode();
-                    } else {
-                        removeMatrixCode();
-                    }
-                });
-            });
-            
-            function updateActiveButton(theme) {
-                themeBtns.forEach(btn => {
-                    btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
-                });
-            }
-            
-            // 黑客帝国代码雨
-            function initMatrixCode() {
-                if (document.querySelector('.matrix-code')) return;
-                const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
-                for (let i = 0; i < 20; i++) {
-                    const code = document.createElement('div');
-                    code.className = 'matrix-code';
-                    code.textContent = chars[Math.floor(Math.random() * chars.length)];
-                    code.style.left = Math.random() * 100 + '%';
-                    code.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                    code.style.animationDelay = Math.random() * 2 + 's';
-                    document.body.appendChild(code);
-                }
-            }
-            
-            function removeMatrixCode() {
-                document.querySelectorAll('.matrix-code').forEach(el => el.remove());
-            }
-        })();
 
         // 樱花拖尾特效
         (function() {
@@ -1126,17 +846,7 @@ openclaw setup</code></div>
                 sakura.style.left = x + 'px';
                 sakura.style.top = y + 'px';
                 
-                const theme = document.body.getAttribute('data-theme');
-                let colors;
-                if (theme === 'lain') {
-                    colors = ['rgba(255,0,64,0.8)', 'rgba(200,0,50,0.8)'];
-                } else if (theme === 'matrix') {
-                    colors = ['rgba(0,255,0,0.8)'];
-                } else if (theme === 'inception') {
-                    colors = ['rgba(243,156,18,0.8)', 'rgba(230,126,34,0.8)'];
-                } else {
-                    colors = ['rgba(255,183,197,0.8)', 'rgba(255,192,203,0.8)', 'rgba(255,160,180,0.8)', 'rgba(255,218,225,0.8)'];
-                }
+                const colors = ['rgba(255,183,197,0.8)', 'rgba(255,192,203,0.8)', 'rgba(255,160,180,0.8)', 'rgba(255,218,225,0.8)'];
                 
                 sakura.style.background = colors[Math.floor(Math.random() * colors.length)];
                 const rotation = Math.random() * 360;

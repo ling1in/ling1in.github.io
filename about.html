@@ -22,51 +22,6 @@
             --kaomoji-color: #e85a71;
         }
 
-        [data-theme="lain"] {
-            --bg-gradient: linear-gradient(180deg, #0a0a0f 0%, #1a0a1a 30%, #0f0510 60%, #000000 100%);
-            --text-color: #ff0040;
-            --text-secondary: #cc0033;
-            --accent-color: #ff0040;
-            --accent-secondary: #990033;
-            --card-bg: rgba(20, 0, 10, 0.9);
-            --card-border: rgba(255, 0, 64, 0.3);
-            --shadow-color: rgba(255, 0, 64, 0.3);
-            --font-main: 'Noto Serif JP', serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --cursor-color: rgba(255, 0, 64, 0.8);
-            --kaomoji-color: #ff0040;
-        }
-
-        [data-theme="inception"] {
-            --bg-gradient: linear-gradient(180deg, #2c3e50 0%, #34495e 30%, #5d6d7e 60%, #85929e 100%);
-            --text-color: #f39c12;
-            --text-secondary: #d68910;
-            --accent-color: #f39c12;
-            --accent-secondary: #e67e22;
-            --card-bg: rgba(44, 62, 80, 0.95);
-            --card-border: rgba(243, 156, 18, 0.3);
-            --shadow-color: rgba(243, 156, 18, 0.2);
-            --font-main: 'Playfair Display', serif;
-            --font-mono: 'Playfair Display', serif;
-            --cursor-color: rgba(243, 156, 18, 0.8);
-            --kaomoji-color: #f39c12;
-        }
-
-        [data-theme="matrix"] {
-            --bg-gradient: linear-gradient(180deg, #000000 0%, #0d1f0d 30%, #001a00 60%, #000000 100%);
-            --text-color: #00ff00;
-            --text-secondary: #00cc00;
-            --accent-color: #00ff00;
-            --accent-secondary: #00aa00;
-            --card-bg: rgba(0, 20, 0, 0.95);
-            --card-border: rgba(0, 255, 0, 0.3);
-            --shadow-color: rgba(0, 255, 0, 0.2);
-            --font-main: 'JetBrains Mono', monospace;
-            --font-mono: 'JetBrains Mono', monospace;
-            --cursor-color: rgba(0, 255, 0, 0.8);
-            --kaomoji-color: #00ff00;
-        }
-
         html {
             font-size: 16px;
             -webkit-text-size-adjust: 100%;
@@ -94,54 +49,6 @@
             -moz-osx-font-smoothing: grayscale;
         }
         
-        /* 主题切换按钮 */
-        .theme-switcher {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-            display: flex;
-            gap: 6px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 6px;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        [data-theme="lain"] .theme-switcher,
-        [data-theme="matrix"] .theme-switcher {
-            background: rgba(0,0,0,0.4);
-        }
-
-        .theme-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.9);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .theme-btn:hover { transform: scale(1.15); }
-        .theme-btn:active { transform: scale(0.95); }
-        .theme-btn.active {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .theme-btn[data-theme="default"] { background: linear-gradient(135deg, #87CEEB, #FFB6C1); }
-        .theme-btn[data-theme="lain"] { background: #ff0040; color: white; }
-        .theme-btn[data-theme="inception"] { background: #f39c12; color: white; }
-        .theme-btn[data-theme="matrix"] { background: #000; color: #00ff00; border: 1px solid #00ff00; }
-        
         /* 蓝天白云背景 */
         body::before {
             content: '';
@@ -159,11 +66,6 @@
             z-index: 0;
         }
 
-        [data-theme="lain"] body::before,
-        [data-theme="matrix"] body::before {
-            display: none;
-        }
-        
         /* 飘落的樱花 */
         .sakura {
             position: fixed;
@@ -174,15 +76,6 @@
             animation: fall linear infinite;
             z-index: 0;
             pointer-events: none;
-        }
-        [data-theme="lain"] .sakura {
-            background: radial-gradient(circle, var(--cursor-color) 0%, rgba(255,0,64,0.4) 50%, transparent 70%);
-        }
-        [data-theme="inception"] .sakura {
-            background: radial-gradient(circle, var(--cursor-color) 0%, rgba(243,156,18,0.4) 50%, transparent 70%);
-        }
-        [data-theme="matrix"] .sakura {
-            background: radial-gradient(circle, var(--cursor-color) 0%, rgba(0,255,0,0.4) 50%, transparent 70%);
         }
         .sakura:nth-child(1) { left: 15%; animation-duration: 13s; animation-delay: 0s; }
         .sakura:nth-child(2) { left: 35%; animation-duration: 11s; animation-delay: 3s; }
@@ -210,11 +103,6 @@
             text-shadow: 0 2px 10px rgba(255,255,255,0.8);
         }
         
-        [data-theme="lain"] .floating-quote,
-        [data-theme="matrix"] .floating-quote {
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
         .floating-quote .jp {
             font-family: 'Noto Serif JP', sans-serif;
             display: block;
@@ -284,19 +172,6 @@
             box-shadow: 0 5px 20px rgba(255, 183, 197, 0.3);
         }
 
-        [data-theme="lain"] .back-link:hover {
-            background: rgba(255,0,64,0.2);
-            box-shadow: 0 5px 20px rgba(255,0,64,0.3);
-        }
-        [data-theme="inception"] .back-link:hover {
-            background: rgba(243,156,18,0.2);
-            box-shadow: 0 5px 20px rgba(243,156,18,0.3);
-        }
-        [data-theme="matrix"] .back-link:hover {
-            background: rgba(0,255,0,0.2);
-            box-shadow: 0 5px 20px rgba(0,255,0,0.3);
-        }
-        
         /* 主卡片 */
         .card {
             background: var(--card-bg);
@@ -317,19 +192,6 @@
             border-color: rgba(255,183,197,0.5);
         }
 
-        [data-theme="lain"] .card:hover {
-            box-shadow: 0 12px 40px rgba(255, 0, 64, 0.3);
-            border-color: rgba(255,0,64,0.5);
-        }
-        [data-theme="inception"] .card:hover {
-            box-shadow: 0 12px 40px rgba(243, 156, 18, 0.3);
-            border-color: rgba(243,156,18,0.5);
-        }
-        [data-theme="matrix"] .card:hover {
-            box-shadow: 0 12px 40px rgba(0, 255, 0, 0.3);
-            border-color: rgba(0,255,0,0.5);
-        }
-        
         /* 头像 */
         .avatar {
             width: 150px;
@@ -341,16 +203,6 @@
             box-shadow: 0 8px 30px var(--shadow-color);
         }
 
-        [data-theme="lain"] .avatar {
-            border-color: rgba(255,0,64,0.6);
-        }
-        [data-theme="inception"] .avatar {
-            border-color: rgba(243,156,18,0.6);
-        }
-        [data-theme="matrix"] .avatar {
-            border-color: rgba(0,255,0,0.6);
-        }
-        
         h1 { 
             text-align: center; 
             font-size: clamp(1.8rem, 6vw, 2.5rem);
@@ -361,22 +213,6 @@
             background-clip: text;
         }
 
-        [data-theme="lain"] h1 {
-            background: linear-gradient(135deg, #ff0040 0%, #990033 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-        [data-theme="inception"] h1 {
-            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-        [data-theme="matrix"] h1 {
-            background: linear-gradient(135deg, #00ff00 0%, #00aa00 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-        }
-        
         p {
             color: var(--text-secondary);
             margin-bottom: 15px;
@@ -405,19 +241,6 @@
             font-weight: 500;
         }
 
-        [data-theme="lain"] .info span {
-            background: linear-gradient(135deg, rgba(255,0,64,0.2) 0%, rgba(153,0,51,0.2) 100%);
-            border-color: rgba(255,0,64,0.4);
-        }
-        [data-theme="inception"] .info span {
-            background: linear-gradient(135deg, rgba(243,156,18,0.2) 0%, rgba(230,126,34,0.2) 100%);
-            border-color: rgba(243,156,18,0.4);
-        }
-        [data-theme="matrix"] .info span {
-            background: linear-gradient(135deg, rgba(0,255,0,0.15) 0%, rgba(0,170,0,0.15) 100%);
-            border-color: rgba(0,255,0,0.4);
-        }
-        
         ul {
             list-style: none;
             padding-left: 0;
@@ -435,23 +258,12 @@
             opacity: 0.8;
         }
 
-        [data-theme="lain"] li::before {
-            content: '👁️';
-        }
-        [data-theme="inception"] li::before {
-            content: '🌀';
-        }
-        [data-theme="matrix"] li::before {
-            content: '💊';
-        }
 
         @media (max-width: 768px) {
             body { padding: 12px; padding-top: 65px; }
-            .theme-switcher { top: 8px; right: 8px; }
-            .theme-btn { width: 28px; height: 28px; font-size: 0.85em; }
             /* 导航栏移动端优化 */
             nav { padding: 10px 0; }
-            nav ul { padding: 0 75px 0 10px; gap: 8px; }
+            nav ul { padding: 0 15px; gap: 8px; }
             nav a { padding: 6px 12px; font-size: 0.85rem; border-radius: 16px; }
             /* 内容区域优化 */
             .container { padding: 0 10px; }
@@ -459,7 +271,6 @@
 
         @media (max-width: 380px) {
             body { padding-top: 60px; }
-            .theme-btn { width: 26px; height: 26px; font-size: 0.8em; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -472,13 +283,6 @@
     </style>
 </head>
 <body>
-    <!-- 主题切换按钮 -->
-    <div class="theme-switcher">
-        <button class="theme-btn active" data-theme="default" title="新海诚">🌸</button>
-        <button class="theme-btn" data-theme="lain" title="玲音">👁️</button>
-        <button class="theme-btn" data-theme="inception" title="盗梦空间">🌀</button>
-        <button class="theme-btn" data-theme="matrix" title="黑客帝国">💊</button>
-    </div>
 
     <!-- 飘落的樱花 -->
     <div class="sakura"></div>
@@ -631,34 +435,12 @@
         // 樱花拖尾特效
         (function() {
             function getThemeColors() {
-                const theme = document.body.getAttribute('data-theme') || 'default';
-                const colors = {
-                    default: [
-                        'rgba(255, 183, 197, 0.8)',
-                        'rgba(255, 192, 203, 0.8)',
-                        'rgba(255, 160, 180, 0.8)',
-                        'rgba(255, 218, 225, 0.8)'
-                    ],
-                    lain: [
-                        'rgba(255, 0, 64, 0.8)',
-                        'rgba(200, 0, 50, 0.8)',
-                        'rgba(150, 0, 40, 0.8)',
-                        'rgba(255, 50, 100, 0.8)'
-                    ],
-                    inception: [
-                        'rgba(243, 156, 18, 0.8)',
-                        'rgba(230, 126, 34, 0.8)',
-                        'rgba(211, 142, 33, 0.8)',
-                        'rgba(255, 180, 50, 0.8)'
-                    ],
-                    matrix: [
-                        'rgba(0, 255, 0, 0.8)',
-                        'rgba(0, 200, 0, 0.8)',
-                        'rgba(50, 255, 50, 0.8)',
-                        'rgba(0, 150, 0, 0.8)'
-                    ]
-                };
-                return colors[theme] || colors.default;
+                return [
+                    'rgba(255, 183, 197, 0.8)',
+                    'rgba(255, 192, 203, 0.8)',
+                    'rgba(255, 160, 180, 0.8)',
+                    'rgba(255, 218, 225, 0.8)'
+                ];
             }
 
             function createSakura(x, y) {
@@ -758,30 +540,6 @@
             setInterval(checkIdle, 100);
         })();
 
-        // 主题切换系统
-        (function() {
-            const themeBtns = document.querySelectorAll('.theme-btn');
-            const body = document.body;
-            
-            const savedTheme = localStorage.getItem('theme') || 'default';
-            body.setAttribute('data-theme', savedTheme);
-            updateActiveButton(savedTheme);
-            
-            themeBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const theme = btn.getAttribute('data-theme');
-                    body.setAttribute('data-theme', theme);
-                    localStorage.setItem('theme', theme);
-                    updateActiveButton(theme);
-                });
-            });
-            
-            function updateActiveButton(theme) {
-                themeBtns.forEach(btn => {
-                    btn.classList.toggle('active', btn.getAttribute('data-theme') === theme);
-                });
-            }
-        })();
     </script>
     
 </body>
