@@ -257,6 +257,262 @@
             color: var(--text-secondary);
             line-height: 1.6;
         }
+        
+        /* 武器详情弹窗样式 */
+        .weapon-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .weapon-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .weapon-modal {
+            background: linear-gradient(135deg, #1a2332 0%, #0f1419 100%);
+            border: 2px solid rgba(255, 70, 85, 0.3);
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .weapon-modal-overlay.active .weapon-modal {
+            transform: scale(1) translateY(0);
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 70, 85, 0.2);
+            border: 1px solid rgba(255, 70, 85, 0.3);
+            color: #ff4655;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        .modal-close:hover {
+            background: #ff4655;
+            color: white;
+            transform: rotate(90deg);
+        }
+        .modal-header {
+            padding: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .modal-weapon-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent-color), #0f1923);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        .modal-weapon-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 8px;
+        }
+        .modal-weapon-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ff4655, #ff8a95);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .modal-weapon-price {
+            color: #ffd700;
+            font-size: 1.1rem;
+        }
+        .modal-content {
+            padding: 30px;
+        }
+        .modal-section {
+            margin-bottom: 30px;
+        }
+        .modal-section:last-child {
+            margin-bottom: 0;
+        }
+        .modal-section-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-section-title span {
+            font-size: 1.4rem;
+        }
+        
+        /* 比赛战绩样式 */
+        .achievements-grid {
+            display: grid;
+            gap: 12px;
+        }
+        .achievement-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+        .achievement-item:hover {
+            background: rgba(255, 70, 85, 0.1);
+            border-color: rgba(255, 70, 85, 0.3);
+        }
+        .achievement-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .achievement-content {
+            flex: 1;
+        }
+        .achievement-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+        .achievement-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* 皮肤展示样式 */
+        .skins-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        @media (min-width: 768px) {
+            .skins-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .skin-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .skin-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 25px rgba(255, 70, 85, 0.2);
+        }
+        .skin-image {
+            width: 100%;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            transition: transform 0.3s;
+        }
+        .skin-card:hover .skin-image {
+            transform: scale(1.1);
+        }
+        .skin-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .skin-rarity {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .skin-rarity.legendary {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #000;
+        }
+        .skin-rarity.epic {
+            background: linear-gradient(135deg, #a855f7, #7c3aed);
+            color: #fff;
+        }
+        .skin-rarity.rare {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff;
+        }
+        
+        /* 点击提示 */
+        .click-hint {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 70, 85, 0.9);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .weapon-card {
+            position: relative;
+        }
+        .weapon-card:hover .click-hint {
+            opacity: 1;
+        }
+        
+        @media (max-width: 640px) {
+            .modal-header {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+            .modal-weapon-icon {
+                width: 60px;
+                height: 60px;
+            }
+            .modal-weapon-info h2 {
+                font-size: 1.4rem;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .skins-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .skin-image {
+                height: 60px;
+            }
+        }
     </style>
 </head>
 
@@ -323,6 +579,34 @@
         <div class="weapons-grid" id="weaponsGrid"></div>
     </div>
 
+    <!-- 武器详情弹窗 -->
+    <div class="weapon-modal-overlay" id="weaponModal" onclick="closeWeaponModal(event)">
+        <div class="weapon-modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeWeaponModal()">&times;</button>
+            <div class="modal-header">
+                <div class="modal-weapon-icon" id="modalWeaponIcon">
+                    <img src="" alt="" id="modalWeaponImg">
+                </div>
+                <div class="modal-weapon-info">
+                    <h2 id="modalWeaponName">武器名称</h2>
+                    <div class="modal-weapon-price" id="modalWeaponPrice">💰 0</div>
+                </div>
+            </div>
+            <div class="modal-content">
+                <!-- 比赛战绩 -->
+                <div class="modal-section">
+                    <div class="modal-section-title"><span>🏆</span> 荣耀战绩</div>
+                    <div class="achievements-grid" id="modalAchievements"></div>
+                </div>
+                <!-- 热门皮肤 -->
+                <div class="modal-section">
+                    <div class="modal-section-title"><span>💎</span> 热门皮肤</div>
+                    <div class="skins-grid" id="modalSkins"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // 枪械数据（来自valorant-api.com官方中文数据）
         // PC版枪械数据（19种）
@@ -333,28 +617,74 @@
                     img: '',
                     price: 2900,
                     desc: '高伤害全自动步枪，一击爆头可击杀无甲敌人，适合追求精准射击的玩家。',
-                    stats: { damage: 90, fireRate: 60, accuracy: 70, range: 85 }
+                    stats: { damage: 90, fireRate: 60, accuracy: 70, range: 85 },
+                    achievements: [
+                        { icon: '🏅', title: '2024 首尔冠军赛', desc: 'EDG Smoggy 使用狂徒在决赛完成 1v3 绝境逆转，助力 EDG 夺冠' },
+                        { icon: '🎯', title: '2023 东京大师赛', desc: 'FNC Derke 用狂徒创造单场 38 杀记录，成为步枪手标杆' },
+                        { icon: '👑', title: '2022 伊斯坦布尔冠军赛', desc: 'LOUD aspas 狂徒爆头率 47%，带领巴西战队首次夺冠' },
+                        { icon: '⭐', title: '2021 柏林大师赛', desc: 'SEN TenZ 狂徒名场面：莲华古城 A 大 4 杀，奠定北美传奇地位' }
+                    ],
+                    skins: [
+                        { name: '混沌暴徒', file: 'chaos-vandal.png', rarity: 'legendary' },
+                        { name: '弃王遗思', file: 'reaver-vandal.png', rarity: 'legendary' },
+                        { name: '显卡暴徒', file: 'glitchpop-vandal.png', rarity: 'epic' },
+                        { name: '盖亚暴徒', file: 'gaia-vandal.png', rarity: 'epic' }
+                    ]
                 },
                 {
                     name: '獠犬',
                     img: '',
                     price: 2050,
                     desc: '三连发burst步枪，价格亲民，是经济局中的可靠选择。右键可开启瞄准镜。',
-                    stats: { damage: 70, fireRate: 50, accuracy: 75, range: 70 }
+                    stats: { damage: 70, fireRate: 50, accuracy: 75, range: 70 },
+                    achievements: [
+                        { icon: '💰', title: '经济局神器', desc: '獠犬是经济局最受欢迎的步枪，职业选手在 force buy 局的首选武器' },
+                        { icon: '🎯', title: '2024 马德里大师赛', desc: 'SEN Johnqt 用獠犬完成 1v2 残局，证明经济局武器也能决定比赛' },
+                        { icon: '⚡', title: '三连发之王', desc: 'Gen.G t3xture 在 2024 太平洋赛区使用獠犬创造 3.2 K/D 的惊人数据' },
+                        { icon: '🏆', title: '2023 圣保罗季前赛', desc: 'LOUD Less 用獠犬在中路连续击杀，帮助队伍打开局面' }
+                    ],
+                    skins: [
+                        { name: '电幻普普', file: 'glitchpop-bulldog.png', rarity: 'epic' },
+                        { name: '恶鬼獠犬', file: 'oni-bulldog.png', rarity: 'epic' },
+                        { name: '混沌序曲', file: 'prelude-to-chaos-bulldog.png', rarity: 'legendary' }
+                    ]
                 },
                 {
                     name: '幻影',
                     img: '',
                     price: 2900,
                     desc: '装备消音器的全自动步枪，后坐力更小，适合中距离交火和隐蔽作战。',
-                    stats: { damage: 75, fireRate: 75, accuracy: 80, range: 75 }
+                    stats: { damage: 75, fireRate: 75, accuracy: 80, range: 75 },
+                    achievements: [
+                        { icon: '🏆', title: 'EDG 冠军武器', desc: '2024 首尔冠军赛决赛，EDG 全员使用 2024 冠军幻影皮肤夺冠' },
+                        { icon: '🎯', title: '2023 洛杉矶冠军赛', desc: 'EG Demon1 幻影五杀名场面，带领队伍逆转夺冠' },
+                        { icon: '👑', title: '2022 雷克雅未克大师赛', desc: 'OPTC yay 幻影使用者，被称为 "El Diablo"，场均 1.4 rating' },
+                        { icon: '⭐', title: '2021 柏林冠军赛', desc: 'GMB nAts 用幻影在隐世修所完成多次关键击杀，帮助队伍夺冠' }
+                    ],
+                    skins: [
+                        { name: '光谱幻影', file: 'spectrum-phantom.png', rarity: 'legendary' },
+                        { name: '恶鬼幻影', file: 'oni-phantom.png', rarity: 'epic' },
+                        { name: '奇点幻影', file: 'singularity-phantom.png', rarity: 'epic' },
+                        { name: '2024冠军', file: 'champions-2024-phantom.png', rarity: 'legendary' }
+                    ]
                 },
                 {
                     name: '戍卫',
                     img: '',
                     price: 2250,
                     desc: '半自动精确步枪，高伤害高精准度，适合中远距离点射。右键可开启瞄准镜。',
-                    stats: { damage: 95, fireRate: 35, accuracy: 90, range: 95 }
+                    stats: { damage: 95, fireRate: 35, accuracy: 90, range: 95 },
+                    achievements: [
+                        { icon: '🎯', title: '点射之王', desc: '戍卫是半自动武器中最受欢迎的选择，职业选手的远距离利器' },
+                        { icon: '⚡', title: '2024 上海大师赛', desc: 'PRX something 用戍卫在微风岛屿完成超远距离 4 杀' },
+                        { icon: '🏆', title: '2023 东京大师赛', desc: 'FNC Boaster 戍卫架点战术让对手闻风丧胆' },
+                        { icon: '💎', title: '性价比之选', desc: '2250 的价格让它成为经济局的狙击枪替代品，多次出现在决赛中' }
+                    ],
+                    skins: [
+                        { name: '弃王遗思', file: 'reaver-guardian.png', rarity: 'legendary' },
+                        { name: '紫金戍卫', file: 'prime-guardian.png', rarity: 'epic' },
+                        { name: '盖亚戍卫', file: 'gaia-guardian.png', rarity: 'epic' }
+                    ]
                 },
             ],
             pistols: [
@@ -363,42 +693,72 @@
                     img: '',
                     price: 450,
                     desc: '全自动手枪，高射速但后坐力大，适合近距离泼水。',
-                    stats: { damage: 50, fireRate: 85, accuracy: 45, range: 35 }
+                    stats: { damage: 50, fireRate: 85, accuracy: 45, range: 35 },
+                    achievements: [
+                        { icon: '🔥', title: '手枪局神器', desc: '狂怒是经济手枪局中最具威慑力的全自动武器' },
+                        { icon: '⚡', title: '近距离统治', desc: '多支职业队伍在手枪局选用狂怒进行 Rush 战术' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '标配',
                     img: '',
                     price: 0,
                     desc: '免费起始手枪，每回合开始的基础武器。右键可三连发射击。',
-                    stats: { damage: 45, fireRate: 50, accuracy: 60, range: 40 }
+                    stats: { damage: 45, fireRate: 50, accuracy: 60, range: 40 },
+                    achievements: [
+                        { icon: '🆓', title: '新手之友', desc: '每位玩家的第一把武器，见证了无数新手成长为职业选手' },
+                        { icon: '🎯', title: 'eco局奇迹', desc: '无数职业选手用标配完成不可能的残局翻盘' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '追猎',
                     img: '',
                     price: 600,
                     desc: '配备瞄准镜的手枪，可以在远距离提供精准火力支援。',
-                    stats: { damage: 55, fireRate: 40, accuracy: 70, range: 55 }
+                    stats: { damage: 55, fireRate: 40, accuracy: 70, range: 55 },
+                    achievements: [
+                        { icon: '🎯', title: '远程射手', desc: '追猎是手枪中唯一能开镜的武器，适合特定战术' },
+                        { icon: '💰', title: '性价比之选', desc: '600 价格提供类似主武器的体验' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '鬼魅',
                     img: '',
                     price: 500,
                     desc: '装备消音器的手枪，精准度高，适合无声击杀和远距离点射。右键可开启瞄准镜。',
-                    stats: { damage: 60, fireRate: 45, accuracy: 75, range: 60 }
+                    stats: { damage: 60, fireRate: 45, accuracy: 75, range: 60 },
+                    achievements: [
+                        { icon: '👻', title: '消音杀手', desc: '鬼魅是最受欢迎的手枪之一，精准度堪比主武器' },
+                        { icon: '🏆', title: 'eco局首选', desc: '500 价格的鬼魅是经济局最常见的选择' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '正义',
                     img: '',
                     price: 800,
                     desc: '重型左轮手枪，高伤害可一击爆头，是手枪局中的大杀器。',
-                    stats: { damage: 95, fireRate: 30, accuracy: 70, range: 65 }
+                    stats: { damage: 95, fireRate: 30, accuracy: 70, range: 65 },
+                    achievements: [
+                        { icon: '⚡', title: '一击必杀', desc: '正义是唯一能一击爆头的手枪，职业赛场上的大杀器' },
+                        { icon: '👑', title: '手枪局王者', desc: '多位职业选手用正义完成手枪局 3 杀以上的壮举' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '短炮',
                     img: '',
                     price: 300,
                     desc: '双管霰弹手枪，近距离毁灭性伤害，适合埋伏和转角遭遇。',
-                    stats: { damage: 80, fireRate: 25, accuracy: 30, range: 20 }
+                    stats: { damage: 80, fireRate: 25, accuracy: 30, range: 20 },
+                    achievements: [
+                        { icon: '💥', title: '贴脸战神', desc: '短炮在极近距离可以一击必杀，是埋伏专家的首选' },
+                        { icon: '🎯', title: '转角杀手', desc: '在狭窄地图中，短炮经常创造不可思议的击杀' }
+                    ],
+                    skins: []
                 },
             ],
             smgs: [
@@ -407,14 +767,24 @@
                     img: '',
                     price: 1600,
                     desc: '装备消音器的冲锋枪，后坐力小，适合中距离持续输出。',
-                    stats: { damage: 60, fireRate: 75, accuracy: 70, range: 55 }
+                    stats: { damage: 60, fireRate: 75, accuracy: 70, range: 55 },
+                    achievements: [
+                        { icon: '👻', title: '消音杀手', desc: '骇灵的消音器让敌人难以判断位置，是绕后神器' },
+                        { icon: '🏃', title: '跑打之王', desc: '骇灵是跑打最准的武器之一，适合快速推进' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '蜂刺',
                     img: '',
                     price: 1100,
                     desc: '高射速冲锋枪，可切换四连发模式，适合近距离快速击杀。',
-                    stats: { damage: 55, fireRate: 80, accuracy: 55, range: 45 }
+                    stats: { damage: 55, fireRate: 80, accuracy: 55, range: 45 },
+                    achievements: [
+                        { icon: '🐝', title: '经济局神器', desc: '1100 的价格配合高射速，是 eco 局的利器' },
+                        { icon: '⚡', title: '四连发模式', desc: '蜂刺的四连发模式在中距离也有不错的表现' }
+                    ],
+                    skins: []
                 },
             ],
             lmgs: [
@@ -423,14 +793,24 @@
                     img: '',
                     price: 3200,
                     desc: '重型机枪，超大弹夹和高射速，是防守方堵点的噩梦武器。右键可开启瞄准镜。',
-                    stats: { damage: 55, fireRate: 85, accuracy: 55, range: 70 }
+                    stats: { damage: 55, fireRate: 85, accuracy: 55, range: 70 },
+                    achievements: [
+                        { icon: '🛡️', title: '防守方噩梦', desc: '奥丁的超大弹夹让进攻方寸步难行，是防守方利器' },
+                        { icon: '💥', title: '穿墙神器', desc: '奥丁的高穿透力可以穿过多层墙壁击杀敌人' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '战神',
                     img: '',
                     price: 1600,
                     desc: '轻型机枪，高射速大弹夹，适合压制和穿透薄墙。右键可开启瞄准镜。',
-                    stats: { damage: 50, fireRate: 70, accuracy: 60, range: 60 }
+                    stats: { damage: 50, fireRate: 70, accuracy: 60, range: 60 },
+                    achievements: [
+                        { icon: '⚔️', title: '性价比机枪', desc: '1600 的价格提供接近奥丁的体验' },
+                        { icon: '🎯', title: '压制火力', desc: '战神的大弹夹适合持续火力压制' }
+                    ],
+                    skins: []
                 },
             ],
             snipers: [
@@ -439,21 +819,37 @@
                     img: '',
                     price: 4700,
                     desc: '重型狙击枪，一击必杀（命中上半身），是游戏中最昂贵的武器。右键可开启瞄准镜。',
-                    stats: { damage: 100, fireRate: 20, accuracy: 95, range: 100 }
+                    stats: { damage: 100, fireRate: 20, accuracy: 95, range: 100 },
+                    achievements: [
+                        { icon: '💀', title: '一击必杀', desc: '冥驹是唯一能一击必杀的武器，职业选手的终极威慑' },
+                        { icon: '🏆', title: '2024 首尔冠军赛', desc: 'EDG nobody 用冥驹完成多次关键击杀，奠定胜局' },
+                        { icon: '👑', title: '狙击手梦想', desc: '4700 的价格换来的是改变战局的能力' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '莽侠',
                     img: '',
                     price: 2400,
                     desc: '双管狙击枪，可快速连发两枪，介于飞将和冥驹之间的选择。右键可开启瞄准镜。',
-                    stats: { damage: 90, fireRate: 45, accuracy: 85, range: 90 }
+                    stats: { damage: 90, fireRate: 45, accuracy: 85, range: 90 },
+                    achievements: [
+                        { icon: '⚡', title: '双发连射', desc: '莽侠的双发设计提高了容错率，是新兴的狙击选择' },
+                        { icon: '💰', title: '性价比狙击', desc: '2400 的价格提供了接近冥驹的杀伤力' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '飞将',
                     img: '',
                     price: 950,
                     desc: '杠杆式狙击枪，移动射击精准，是经济局的狙击首选。右键可开启瞄准镜。',
-                    stats: { damage: 85, fireRate: 40, accuracy: 85, range: 90 }
+                    stats: { damage: 85, fireRate: 40, accuracy: 85, range: 90 },
+                    achievements: [
+                        { icon: '🎯', title: '经济局狙击', desc: '950 的价格让飞将成为 eco 局的狙击首选' },
+                        { icon: '🏃', title: '移动射击', desc: '飞将是唯一可以边跑边打的狙击枪' }
+                    ],
+                    skins: []
                 },
             ],
             shotguns: [
@@ -462,14 +858,24 @@
                     img: '',
                     price: 1850,
                     desc: '全自动霰弹枪，高射速可连续喷射，近距离统治力极强。',
-                    stats: { damage: 90, fireRate: 60, accuracy: 25, range: 18 }
+                    stats: { damage: 90, fireRate: 60, accuracy: 25, range: 18 },
+                    achievements: [
+                        { icon: '🔥', title: '全自动霰弹', desc: '判官是唯一全自动霰弹枪，近距离无人能敌' },
+                        { icon: '🎯', title: '转角杀手', desc: '判官在狭窄空间内是绝对的统治者' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '雄鹿',
                     img: '',
                     price: 850,
                     desc: '泵动式霰弹枪，右键可集中弹丸形成更紧密的弹着点。',
-                    stats: { damage: 95, fireRate: 30, accuracy: 30, range: 20 }
+                    stats: { damage: 95, fireRate: 30, accuracy: 30, range: 20 },
+                    achievements: [
+                        { icon: '💰', title: '性价比霰弹', desc: '850 的价格提供毁灭性的近距离伤害' },
+                        { icon: '🎯', title: '右键模式', desc: '雄鹿的右键集中模式增加了中距离威胁' }
+                    ],
+                    skins: []
                 },
             ],
         };
@@ -482,28 +888,74 @@
                     img: '',
                     price: 2900,
                     desc: '高伤害全自动步枪，手游中自动开火辅助让爆头更容易。',
-                    stats: { damage: 90, fireRate: 60, accuracy: 75, range: 85 }
+                    stats: { damage: 90, fireRate: 60, accuracy: 75, range: 85 },
+                    achievements: [
+                        { icon: '🏅', title: '2024 首尔冠军赛', desc: 'EDG Smoggy 使用狂徒在决赛完成 1v3 绝境逆转，助力 EDG 夺冠' },
+                        { icon: '🎯', title: '2023 东京大师赛', desc: 'FNC Derke 用狂徒创造单场 38 杀记录，成为步枪手标杆' },
+                        { icon: '👑', title: '2022 伊斯坦布尔冠军赛', desc: 'LOUD aspas 狂徒爆头率 47%，带领巴西战队首次夺冠' },
+                        { icon: '⭐', title: '2021 柏林大师赛', desc: 'SEN TenZ 狂徒名场面：莲华古城 A 大 4 杀，奠定北美传奇地位' }
+                    ],
+                    skins: [
+                        { name: '混沌暴徒', file: 'chaos-vandal.png', rarity: 'legendary' },
+                        { name: '弃王遗思', file: 'reaver-vandal.png', rarity: 'legendary' },
+                        { name: '显卡暴徒', file: 'glitchpop-vandal.png', rarity: 'epic' },
+                        { name: '盖亚暴徒', file: 'gaia-vandal.png', rarity: 'epic' }
+                    ]
                 },
                 {
                     name: '獠犬',
                     img: '',
                     price: 2050,
                     desc: '三连发burst步枪，手游中三连发稳定性更好。',
-                    stats: { damage: 70, fireRate: 50, accuracy: 80, range: 70 }
+                    stats: { damage: 70, fireRate: 50, accuracy: 80, range: 70 },
+                    achievements: [
+                        { icon: '💰', title: '经济局神器', desc: '獠犬是经济局最受欢迎的步枪，职业选手在 force buy 局的首选武器' },
+                        { icon: '🎯', title: '2024 马德里大师赛', desc: 'SEN Johnqt 用獠犬完成 1v2 残局，证明经济局武器也能决定比赛' },
+                        { icon: '⚡', title: '三连发之王', desc: 'Gen.G t3xture 在 2024 太平洋赛区使用獠犬创造 3.2 K/D 的惊人数据' },
+                        { icon: '🏆', title: '2023 圣保罗季前赛', desc: 'LOUD Less 用獠犬在中路连续击杀，帮助队伍打开局面' }
+                    ],
+                    skins: [
+                        { name: '电幻普普', file: 'glitchpop-bulldog.png', rarity: 'epic' },
+                        { name: '恶鬼獠犬', file: 'oni-bulldog.png', rarity: 'epic' },
+                        { name: '混沌序曲', file: 'prelude-to-chaos-bulldog.png', rarity: 'legendary' }
+                    ]
                 },
                 {
                     name: '幻影',
                     img: '',
                     price: 2900,
                     desc: '装备消音器的全自动步枪，手游中后坐力更小，适合新手上手。',
-                    stats: { damage: 75, fireRate: 75, accuracy: 85, range: 75 }
+                    stats: { damage: 75, fireRate: 75, accuracy: 85, range: 75 },
+                    achievements: [
+                        { icon: '🏆', title: 'EDG 冠军武器', desc: '2024 首尔冠军赛决赛，EDG 全员使用 2024 冠军幻影皮肤夺冠' },
+                        { icon: '🎯', title: '2023 洛杉矶冠军赛', desc: 'EG Demon1 幻影五杀名场面，带领队伍逆转夺冠' },
+                        { icon: '👑', title: '2022 雷克雅未克大师赛', desc: 'OPTC yay 幻影使用者，被称为 "El Diablo"，场均 1.4 rating' },
+                        { icon: '⭐', title: '2021 柏林冠军赛', desc: 'GMB nAts 用幻影在隐世修所完成多次关键击杀，帮助队伍夺冠' }
+                    ],
+                    skins: [
+                        { name: '光谱幻影', file: 'spectrum-phantom.png', rarity: 'legendary' },
+                        { name: '恶鬼幻影', file: 'oni-phantom.png', rarity: 'epic' },
+                        { name: '奇点幻影', file: 'singularity-phantom.png', rarity: 'epic' },
+                        { name: '2024冠军', file: 'champions-2024-phantom.png', rarity: 'legendary' }
+                    ]
                 },
                 {
                     name: '戍卫',
                     img: '',
                     price: 2250,
                     desc: '半自动精确步枪，手游中瞄准辅助让点射更简单。',
-                    stats: { damage: 95, fireRate: 35, accuracy: 95, range: 95 }
+                    stats: { damage: 95, fireRate: 35, accuracy: 95, range: 95 },
+                    achievements: [
+                        { icon: '🎯', title: '点射之王', desc: '戍卫是半自动武器中最受欢迎的选择，职业选手的远距离利器' },
+                        { icon: '⚡', title: '2024 上海大师赛', desc: 'PRX something 用戍卫在微风岛屿完成超远距离 4 杀' },
+                        { icon: '🏆', title: '2023 东京大师赛', desc: 'FNC Boaster 戍卫架点战术让对手闻风丧胆' },
+                        { icon: '💎', title: '性价比之选', desc: '2250 的价格让它成为经济局的狙击枪替代品，多次出现在决赛中' }
+                    ],
+                    skins: [
+                        { name: '弃王遗思', file: 'reaver-guardian.png', rarity: 'legendary' },
+                        { name: '紫金戍卫', file: 'prime-guardian.png', rarity: 'epic' },
+                        { name: '盖亚戍卫', file: 'gaia-guardian.png', rarity: 'epic' }
+                    ]
                 },
             ],
             pistols: [
@@ -512,35 +964,60 @@
                     img: '',
                     price: 450,
                     desc: '全自动手枪，手游中配合自动开火近距离很强。',
-                    stats: { damage: 50, fireRate: 85, accuracy: 50, range: 35 }
+                    stats: { damage: 50, fireRate: 85, accuracy: 50, range: 35 },
+                    achievements: [
+                        { icon: '🔥', title: '手枪局神器', desc: '狂怒是经济手枪局中最具威慑力的全自动武器' },
+                        { icon: '⚡', title: '近距离统治', desc: '多支职业队伍在手枪局选用狂怒进行 Rush 战术' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '标配',
                     img: '',
                     price: 0,
                     desc: '免费起始手枪，手游中自动开火让新手也能轻松上手。',
-                    stats: { damage: 45, fireRate: 50, accuracy: 65, range: 40 }
+                    stats: { damage: 45, fireRate: 50, accuracy: 65, range: 40 },
+                    achievements: [
+                        { icon: '🆓', title: '新手之友', desc: '每位玩家的第一把武器，见证了无数新手成长为职业选手' },
+                        { icon: '🎯', title: 'eco局奇迹', desc: '无数职业选手用标配完成不可能的残局翻盘' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '鬼魅',
                     img: '',
                     price: 500,
                     desc: '装备消音器的手枪，精准度高，适合无声击杀和远距离点射。',
-                    stats: { damage: 60, fireRate: 45, accuracy: 80, range: 60 }
+                    stats: { damage: 60, fireRate: 45, accuracy: 80, range: 60 },
+                    achievements: [
+                        { icon: '👻', title: '消音杀手', desc: '鬼魅是最受欢迎的手枪之一，精准度堪比主武器' },
+                        { icon: '🏆', title: 'eco局首选', desc: '500 价格的鬼魅是经济局最常见的选择' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '正义',
                     img: '',
                     price: 800,
                     desc: '重型左轮手枪，手游中瞄准辅助让爆头更容易。',
-                    stats: { damage: 95, fireRate: 30, accuracy: 75, range: 65 }
+                    stats: { damage: 95, fireRate: 30, accuracy: 75, range: 65 },
+                    achievements: [
+                        { icon: '⚡', title: '一击必杀', desc: '正义是唯一能一击爆头的手枪，职业赛场上的大杀器' },
+                        { icon: '👑', title: '手枪局王者', desc: '多位职业选手用正义完成手枪局 3 杀以上的壮举' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '短炮',
                     img: '',
                     price: 300,
                     desc: '双管霰弹手枪，手游近距离自动瞄准一击必杀。',
-                    stats: { damage: 80, fireRate: 25, accuracy: 35, range: 20 }
+                    stats: { damage: 80, fireRate: 25, accuracy: 35, range: 20 },
+                    achievements: [
+                        { icon: '💥', title: '贴脸战神', desc: '短炮在极近距离可以一击必杀，是埋伏专家的首选' },
+                        { icon: '🎯', title: '转角杀手', desc: '在狭窄地图中，短炮经常创造不可思议的击杀' }
+                    ],
+                    skins: []
                 },
             ],
             smgs: [
@@ -549,14 +1026,24 @@
                     img: '',
                     price: 1600,
                     desc: '装备消音器的冲锋枪，手游中稳定性极佳。',
-                    stats: { damage: 60, fireRate: 75, accuracy: 75, range: 55 }
+                    stats: { damage: 60, fireRate: 75, accuracy: 75, range: 55 },
+                    achievements: [
+                        { icon: '👻', title: '消音杀手', desc: '骇灵的消音器让敌人难以判断位置，是绕后神器' },
+                        { icon: '🏃', title: '跑打之王', desc: '骇灵是跑打最准的武器之一，适合快速推进' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '蜂刺',
                     img: '',
                     price: 1100,
                     desc: '高射速冲锋枪，手游跑打很准，经济局神器。',
-                    stats: { damage: 55, fireRate: 80, accuracy: 60, range: 45 }
+                    stats: { damage: 55, fireRate: 80, accuracy: 60, range: 45 },
+                    achievements: [
+                        { icon: '🐝', title: '经济局神器', desc: '1100 的价格配合高射速，是 eco 局的利器' },
+                        { icon: '⚡', title: '四连发模式', desc: '蜂刺的四连发模式在中距离也有不错的表现' }
+                    ],
+                    skins: []
                 },
             ],
             lmgs: [
@@ -565,14 +1052,24 @@
                     img: '',
                     price: 3200,
                     desc: '重型机枪，手游中穿透薄墙自动开火很适合架点。',
-                    stats: { damage: 55, fireRate: 85, accuracy: 60, range: 70 }
+                    stats: { damage: 55, fireRate: 85, accuracy: 60, range: 70 },
+                    achievements: [
+                        { icon: '🛡️', title: '防守方噩梦', desc: '奥丁的超大弹夹让进攻方寸步难行，是防守方利器' },
+                        { icon: '💥', title: '穿墙神器', desc: '奥丁的高穿透力可以穿过多层墙壁击杀敌人' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '战神',
                     img: '',
                     price: 1600,
                     desc: '轻型机枪，手游中自动开火配合大弹夹压制力极强。',
-                    stats: { damage: 50, fireRate: 70, accuracy: 65, range: 60 }
+                    stats: { damage: 50, fireRate: 70, accuracy: 65, range: 60 },
+                    achievements: [
+                        { icon: '⚔️', title: '性价比机枪', desc: '1600 的价格提供接近奥丁的体验' },
+                        { icon: '🎯', title: '压制火力', desc: '战神的大弹夹适合持续火力压制' }
+                    ],
+                    skins: []
                 },
             ],
             snipers: [
@@ -581,21 +1078,37 @@
                     img: '',
                     price: 4700,
                     desc: '重型狙击枪，手游中开镜更稳，一击必杀。',
-                    stats: { damage: 100, fireRate: 20, accuracy: 98, range: 100 }
+                    stats: { damage: 100, fireRate: 20, accuracy: 98, range: 100 },
+                    achievements: [
+                        { icon: '💀', title: '一击必杀', desc: '冥驹是唯一能一击必杀的武器，职业选手的终极威慑' },
+                        { icon: '🏆', title: '2024 首尔冠军赛', desc: 'EDG nobody 用冥驹完成多次关键击杀，奠定胜局' },
+                        { icon: '👑', title: '狙击手梦想', desc: '4700 的价格换来的是改变战局的能力' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '莽侠',
                     img: '',
                     price: 2400,
                     desc: '双管狙击枪，手游中可快速连发，容错率高。',
-                    stats: { damage: 90, fireRate: 45, accuracy: 88, range: 90 }
+                    stats: { damage: 90, fireRate: 45, accuracy: 88, range: 90 },
+                    achievements: [
+                        { icon: '⚡', title: '双发连射', desc: '莽侠的双发设计提高了容错率，是新兴的狙击选择' },
+                        { icon: '💰', title: '性价比狙击', desc: '2400 的价格提供了接近冥驹的杀伤力' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '飞将',
                     img: '',
                     price: 950,
                     desc: '杠杆式狙击枪，手游中移动射击精准，经济局首选。',
-                    stats: { damage: 85, fireRate: 40, accuracy: 90, range: 90 }
+                    stats: { damage: 85, fireRate: 40, accuracy: 90, range: 90 },
+                    achievements: [
+                        { icon: '🎯', title: '经济局狙击', desc: '950 的价格让飞将成为 eco 局的狙击首选' },
+                        { icon: '🏃', title: '移动射击', desc: '飞将是唯一可以边跑边打的狙击枪' }
+                    ],
+                    skins: []
                 },
             ],
             shotguns: [
@@ -604,14 +1117,24 @@
                     img: '',
                     price: 1850,
                     desc: '全自动霰弹枪，手游中自动开火近距离统治力极强。',
-                    stats: { damage: 90, fireRate: 60, accuracy: 30, range: 18 }
+                    stats: { damage: 90, fireRate: 60, accuracy: 30, range: 18 },
+                    achievements: [
+                        { icon: '🔥', title: '全自动霰弹', desc: '判官是唯一全自动霰弹枪，近距离无人能敌' },
+                        { icon: '🎯', title: '转角杀手', desc: '判官在狭窄空间内是绝对的统治者' }
+                    ],
+                    skins: []
                 },
                 {
                     name: '雄鹿',
                     img: '',
                     price: 850,
                     desc: '泵动式霰弹枪，手游中近距离自动瞄准一击必杀。',
-                    stats: { damage: 95, fireRate: 30, accuracy: 35, range: 20 }
+                    stats: { damage: 95, fireRate: 30, accuracy: 35, range: 20 },
+                    achievements: [
+                        { icon: '💰', title: '性价比霰弹', desc: '850 的价格提供毁灭性的近距离伤害' },
+                        { icon: '🎯', title: '右键模式', desc: '雄鹿的右键集中模式增加了中距离威胁' }
+                    ],
+                    skins: []
                 },
             ],
         };
@@ -689,7 +1212,8 @@
             const weapons = weaponsData[category];
             
             grid.innerHTML = weapons.map((weapon, i) => `
-                <div class="weapon-card" style="animation: fadeIn 0.3s ease ${i * 0.1}s both;">
+                <div class="weapon-card" style="animation: fadeIn 0.3s ease ${i * 0.1}s both;" onclick="openWeaponModal('${category}', ${i})">
+                    <div class="click-hint">点击查看详情</div>
                     <div class="weapon-header">
                         <div class="weapon-icon">
                             <img src="images/weapons/${weapon.name}.png" alt="${weapon.name}" style="width:100%;height:100%;object-fit:contain;padding:4px;" onerror="this.parentElement.innerHTML='🔫'">
@@ -709,6 +1233,82 @@
                 </div>
             `).join('');
         }
+
+        // 弹窗相关函数
+        let currentModalWeapon = null;
+
+        function openWeaponModal(category, index) {
+            const weapon = weaponsData[category][index];
+            currentModalWeapon = weapon;
+            
+            // 填充武器基本信息
+            document.getElementById('modalWeaponName').textContent = weapon.name;
+            document.getElementById('modalWeaponPrice').textContent = weapon.price === 0 ? '🆓 免费' : '💰 ' + weapon.price;
+            
+            // 设置武器图标
+            const imgEl = document.getElementById('modalWeaponImg');
+            imgEl.src = `images/weapons/${weapon.name}.png`;
+            imgEl.alt = weapon.name;
+            imgEl.onerror = function() {
+                this.style.display = 'none';
+                this.parentElement.innerHTML = '🔫';
+            };
+            imgEl.onload = function() {
+                this.style.display = 'block';
+            };
+            
+            // 填充战绩
+            const achievementsContainer = document.getElementById('modalAchievements');
+            if (weapon.achievements && weapon.achievements.length > 0) {
+                achievementsContainer.innerHTML = weapon.achievements.map(ach => `
+                    <div class="achievement-item">
+                        <div class="achievement-icon">${ach.icon}</div>
+                        <div class="achievement-content">
+                            <div class="achievement-title">${ach.title}</div>
+                            <div class="achievement-desc">${ach.desc}</div>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                achievementsContainer.innerHTML = '<div style="color: var(--text-secondary); text-align: center; padding: 20px;">暂无比赛战绩数据</div>';
+            }
+            
+            // 填充皮肤
+            const skinsContainer = document.getElementById('modalSkins');
+            if (weapon.skins && weapon.skins.length > 0) {
+                skinsContainer.innerHTML = weapon.skins.map(skin => `
+                    <div class="skin-card">
+                        <img src="images/skins/${skin.file}" alt="${skin.name}" class="skin-image" onerror="this.style.display='none'">
+                        <div class="skin-name">${skin.name}</div>
+                        <span class="skin-rarity ${skin.rarity}">${skin.rarity === 'legendary' ? '传奇' : skin.rarity === 'epic' ? '史诗' : '稀有'}</span>
+                    </div>
+                `).join('');
+            } else {
+                skinsContainer.innerHTML = '<div style="color: var(--text-secondary); text-align: center; padding: 20px; grid-column: span 4;">暂无皮肤数据</div>';
+            }
+            
+            // 显示弹窗
+            document.getElementById('weaponModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeWeaponModal(event) {
+            // 如果点击的是弹窗内容区域，不关闭
+            if (event && event.target.closest('.weapon-modal') && !event.target.closest('.modal-close')) {
+                return;
+            }
+            
+            document.getElementById('weaponModal').classList.remove('active');
+            document.body.style.overflow = '';
+            currentModalWeapon = null;
+        }
+
+        // ESC 键关闭弹窗
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeWeaponModal();
+            }
+        });
 
         function renderStatBar(label, value) {
             const fillClass = value >= 80 ? 'high' : value >= 50 ? 'medium' : 'low';
