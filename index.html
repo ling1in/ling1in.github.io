@@ -51,7 +51,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* 背景装饰 - 新海诚 */
+        /* 背景装饰 - 新海诚 (优化性能) */
         body::before {
             content: '';
             position: fixed;
@@ -67,7 +67,9 @@
             pointer-events: none;
             z-index: 0;
             opacity: 1;
-            transition: opacity 0.5s;
+            /* 使用 transform 创建新的合成层，优化性能 */
+            transform: translateZ(0);
+            will-change: opacity;
         }
 
 
@@ -81,6 +83,8 @@
             animation: fall linear infinite;
             z-index: 0;
             pointer-events: none;
+            will-change: transform, opacity;
+            transform: translateZ(0);
         }
 
         .sakura:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
@@ -236,7 +240,9 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
-            transition: all 0.5s ease;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            will-change: transform;
+            transform: translateZ(0);
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -1029,24 +1035,25 @@
                 setTimeout(() => sakura.remove(), 1500);
             }
             
-            let lastTime = 0;
-            const throttle = 30;
+            // 使用 requestAnimationFrame 优化性能
+            let mouseThrottle = null;
+            let touchThrottle = null;
             
             document.addEventListener('mousemove', function(e) {
-                const now = Date.now();
-                if (now - lastTime > throttle) {
+                if (mouseThrottle) return;
+                mouseThrottle = requestAnimationFrame(() => {
                     createSakura(e.clientX, e.clientY);
-                    lastTime = now;
-                }
+                    mouseThrottle = null;
+                });
             });
             
             document.addEventListener('touchmove', function(e) {
-                const now = Date.now();
-                if (now - lastTime > throttle) {
+                if (touchThrottle) return;
+                touchThrottle = requestAnimationFrame(() => {
                     const touch = e.touches[0];
                     createSakura(touch.clientX, touch.clientY);
-                    lastTime = now;
-                }
+                    touchThrottle = null;
+                });
             });
         })();
         
@@ -1106,7 +1113,8 @@
                 }
             }
             
-            setInterval(checkIdle, 100);
+            // 降低检查频率到每秒一次
+            setInterval(checkIdle, 1000);
         })();
 
         // 北京时间显示
@@ -1141,10 +1149,11 @@
                 const weekDay = weekDays[beijingTime.getDay()];
                 dateDisplay.textContent = `${year}年${month}月${day}日 ${weekDay}`;
                 
-                // 每秒脉冲效果
-                timeDisplay.classList.remove('pulse');
-                void timeDisplay.offsetWidth; // 触发重绘
-                timeDisplay.classList.add('pulse');
+                // 脉冲效果（使用 CSS animation 代替强制重排）
+                if (timeDisplay && !timeDisplay.classList.contains('pulse')) {
+                    timeDisplay.classList.add('pulse');
+                    setTimeout(() => timeDisplay.classList.remove('pulse'), 500);
+                }
             }
             
             updateTime();
