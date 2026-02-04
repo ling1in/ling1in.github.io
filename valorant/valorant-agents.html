@@ -63,6 +63,32 @@
             right: 10px;
             z-index: 1000;
         }
+        .tips-button {
+            position: fixed;
+            top: 100px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .tips-btn {
+            background: linear-gradient(135deg, rgba(255,70,85,0.2), rgba(255,70,85,0.1));
+            border: 2px solid rgba(255,70,85,0.4);
+            border-radius: 25px;
+            padding: 10px 20px;
+            color: #ff4655;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+        .tips-btn:hover {
+            transform: scale(1.05);
+            border-color: #ff4655;
+            box-shadow: 0 0 20px rgba(255,70,85,0.3);
+        }
         .game-mode-btn {
             background: linear-gradient(135deg, rgba(255,215,0,0.2), rgba(255,140,0,0.1));
             border: 2px solid rgba(255,215,0,0.4);
@@ -185,6 +211,8 @@
             .agent-name { font-size: 0.9rem; }
             .game-mode-switcher { top: 10px; right: 10px; }
             .game-mode-btn { padding: 8px 12px; font-size: 0.75rem; }
+            .tips-button { top: 50px; right: 10px; }
+            .tips-btn { padding: 8px 12px; font-size: 0.75rem; }
         }
         @media (max-width: 380px) {
             .role-selection { grid-template-columns: 1fr; }
@@ -551,12 +579,121 @@
         @media (max-width: 480px) {
             .all-agents-grid { grid-template-columns: repeat(2, 1fr); }
         }
+        
+        /* 战斗技巧模态框 */
+        .tips-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .tips-modal.active { display: flex; }
+        .tips-content {
+            background: linear-gradient(135deg, #1a2332, #0f1419);
+            border: 2px solid var(--accent-color);
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s;
+        }
+        .tips-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, rgba(255,70,85,0.2), transparent);
+            border-bottom: 1px solid rgba(255,70,85,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .tips-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+        .tips-body {
+            padding: 30px;
+        }
+        .tips-category {
+            margin-bottom: 30px;
+        }
+        .tips-category-title {
+            font-size: 1.3rem;
+            color: #ffd700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .tip-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 18px;
+            transition: all 0.3s;
+        }
+        .tip-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            background: rgba(255,70,85,0.1);
+        }
+        .tip-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tip-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .tip-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+        .tag-basic { background: rgba(0,200,255,0.2); color: #00c8ff; }
+        .tag-advanced { background: rgba(255,215,0,0.2); color: #ffd700; }
+        .tag-pro { background: rgba(255,70,85,0.2); color: #ff4655; }
+        @media (max-width: 768px) {
+            .tips-content { max-height: 90vh; }
+            .tips-header { padding: 20px; }
+            .tips-title { font-size: 1.2rem; }
+            .tips-body { padding: 20px; }
+            .tips-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 
     <div class="game-mode-switcher">
         <button class="game-mode-btn" id="gameModeBtn" onclick="toggleGameMode()">
             📱 如果你来自《无畏契约：源能行动》
+        </button>
+    </div>
+
+    <div class="tips-button">
+        <button class="tips-btn" onclick="showTipsModal()">
+            🎯 来学习一下各种战斗技巧以攀升段位
         </button>
     </div>
 
@@ -658,6 +795,128 @@
                 <div class="bio-section">
                     <h3>🔥 成名战役</h3>
                     <p id="bioFamous"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 战斗技巧模态框 -->
+    <div class="tips-modal" id="tipsModal">
+        <div class="tips-content">
+            <div class="tips-header">
+                <div class="tips-title">🎯 战斗技巧大全 - 助你攀升段位</div>
+                <button class="agent-modal-close" onclick="closeTipsModal()">✕</button>
+            </div>
+            <div class="tips-body">
+                <!-- 身位控制技巧 -->
+                <div class="tips-category">
+                    <div class="tips-category-title">👤 身位控制技巧</div>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-name">👁️ Peek（探头）</div>
+                            <div class="tip-desc">快速从掩体后探出查看敌人位置，利用AD键快速左右移动，最小化暴露身体面积。</div>
+                            <span class="tip-tag tag-basic">基础</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">⚡ Swing Peek（摆身）</div>
+                            <div class="tip-desc">按住方向键的同时移动鼠标，以弧形轨迹快速拉出身位，让敌人难以预判你的位置。</div>
+                            <span class="tip-tag tag-advanced">进阶</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">🦘 Jump Peek（跳看）</div>
+                            <div class="tip-desc">跳跃时短暂暴露来获取信息，适用于获取高台或窗口信息，落地瞬间开枪反打。</div>
+                            <span class="tip-tag tag-advanced">进阶</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">👣 静步 Peek</div>
+                            <div class="tip-desc">按住Shift静步移动探头，消除脚步声，适合残局或偷袭时使用，保持隐蔽性。</div>
+                            <span class="tip-tag tag-basic">基础</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">🔄 Jiggle Peek（快速晃动）</div>
+                            <div class="tip-desc">极快速地连续AD晃动，引诱敌人开枪暴露位置，同时观察敌人动向。</div>
+                            <span class="tip-tag tag-advanced">进阶</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">🎯 Wide Swing（大拉）</div>
+                            <div class="tip-desc">大幅度拉出掩体，利用速度优势让架枪的敌人反应不及，适合有信息优势时使用。</div>
+                            <span class="tip-tag tag-pro">高阶</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 对枪技巧 -->
+                <div class="tips-category">
+                    <div class="tips-category-title">🔫 对枪技巧</div>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-name">🎯 摆射（Counter-Strafe）</div>
+                            <div class="tip-desc">移动中瞬间反向按键急停，让准星瞬间恢复精准，然后进行射击。Valorant的核心对枪技巧。</div>
+                            <span class="tip-tag tag-pro">必学</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">💦 泼水（Spray）</div>
+                            <div class="tip-desc">连续射击并控制弹道下压，适用于近距离交战。需要掌握各武器的弹道模式。</div>
+                            <span class="tip-tag tag-basic">基础</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">🦆 蹲扫（Crouch Spray）</div>
+                            <div class="tip-desc">射击时蹲下降低后坐力，同时让敌人瞄准失效。但要注意不要过度依赖。</div>
+                            <span class="tip-tag tag-advanced">进阶</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">🔄 扫射转移（Spray Transfer）</div>
+                            <div class="tip-desc">在泼水过程中将准星从一个敌人转移到另一个，保持射击连续性，适合应对多人。</div>
+                            <span class="tip-tag tag-pro">高阶</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">🔥 预瞄（Pre-aim）</div>
+                            <div class="tip-desc">在peek之前将准星预置在敌人头部可能出现的位置，减少拉枪时间，提高秒杀率。</div>
+                            <span class="tip-tag tag-pro">必学</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">💨 点射（Tap/Burst）</div>
+                            <div class="tip-desc">2-3发一组的短点射，保持精准度的同时输出伤害，中远距离对枪首选。</div>
+                            <span class="tip-tag tag-basic">基础</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 定位与心态 -->
+                <div class="tips-category">
+                    <div class="tips-category-title">🧠 定位与心态</div>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <div class="tip-name">🧘 冷静定位</div>
+                            <div class="tip-desc">不要盲目追求快速击杀，保持稳定心态，准确定位敌人头部后再开枪。宁可慢半拍，也要准。</div>
+                            <span class="tip-tag tag-pro">心态</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">🎯 交叉火力</div>
+                            <div class="tip-desc">与队友形成交叉角度，让敌人无法同时应对两个方向，创造以多打少的局面。</div>
+                            <span class="tip-tag tag-advanced">团队</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">⏰ 时间控制</div>
+                            <div class="tip-desc">掌握回合时间节奏，学会在正确的时间做正确的事：什么时候该守、该攻、该保存。</div>
+                            <span class="tip-tag tag-pro">意识</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">👂 声音利用</div>
+                            <div class="tip-desc">仔细听脚步声、换弹声、技能声，获取敌人位置信息。戴耳机是必备条件。</div>
+                            <span class="tip-tag tag-basic">基础</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">🗺️ 地图控制</div>
+                            <div class="tip-desc">控制地图关键位置，利用烟雾、闪光等道具创造优势，不要无脑冲点。</div>
+                            <span class="tip-tag tag-advanced">意识</span>
+                        </div>
+                        <div class="tip-card">
+                            <div class="tip-name">💰 经济管理</div>
+                            <div class="tip-desc">合理规划每回合的购买，知道什么时候该全力、eco或半起。团队经济同步很重要。</div>
+                            <span class="tip-tag tag-advanced">策略</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1164,6 +1423,18 @@
             document.body.style.overflow = '';
         }
 
+        // 显示战斗技巧模态框
+        function showTipsModal() {
+            document.getElementById('tipsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭战斗技巧模态框
+        function closeTipsModal() {
+            document.getElementById('tipsModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         // 点击弹窗外部关闭
         document.getElementById('allAgentsModal').addEventListener('click', function(e) {
             if (e.target === this) closeAllAgentsModal();
@@ -1173,11 +1444,16 @@
             if (e.target === this) closeAgentBioModal();
         });
 
+        document.getElementById('tipsModal').addEventListener('click', function(e) {
+            if (e.target === this) closeTipsModal();
+        });
+
         // ESC键关闭弹窗
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeAgentBioModal();
                 closeAllAgentsModal();
+                closeTipsModal();
             }
         });
     </script>
