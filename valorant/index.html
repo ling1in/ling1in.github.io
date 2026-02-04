@@ -1298,6 +1298,95 @@
         .rank-immortal { color: #ff4500; border-color: #ff4500; }
         .rank-radiant { color: #ff4655; border-color: #ff4655; }
         
+        /* 段位图标点击效果 */
+        .rank-icon {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+        .rank-icon:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 30px currentColor;
+        }
+        .rank-icon:active {
+            transform: scale(0.95);
+        }
+        
+        /* 评论气泡 */
+        .rank-comment {
+            position: absolute;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #333;
+            font-weight: 500;
+            white-space: nowrap;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 10px currentColor;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .rank-comment::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+        }
+        /* 气泡箭头方向 */
+        .rank-comment.from-left::before {
+            right: -16px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left-color: rgba(255,255,255,0.95);
+        }
+        .rank-comment.from-right::before {
+            left: -16px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-right-color: rgba(255,255,255,0.95);
+        }
+        .rank-comment.from-top::before {
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top-color: rgba(255,255,255,0.95);
+        }
+        .rank-comment.from-bottom::before {
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-color: rgba(255,255,255,0.95);
+        }
+        
+        /* 评论飞出动画 */
+        @keyframes popFromLeft {
+            0% { opacity: 0; transform: translateX(-30px) scale(0.5); }
+            50% { opacity: 1; transform: translateX(10px) scale(1.1); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @keyframes popFromRight {
+            0% { opacity: 0; transform: translateX(30px) scale(0.5); }
+            50% { opacity: 1; transform: translateX(-10px) scale(1.1); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        @keyframes popFromTop {
+            0% { opacity: 0; transform: translateY(-30px) scale(0.5); }
+            50% { opacity: 1; transform: translateY(10px) scale(1.1); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes popFromBottom {
+            0% { opacity: 0; transform: translateY(30px) scale(0.5); }
+            50% { opacity: 1; transform: translateY(-10px) scale(1.1); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .rank-comment.animate-left { animation: popFromLeft 0.5s ease forwards; }
+        .rank-comment.animate-right { animation: popFromRight 0.5s ease forwards; }
+        .rank-comment.animate-top { animation: popFromTop 0.5s ease forwards; }
+        .rank-comment.animate-bottom { animation: popFromBottom 0.5s ease forwards; }
+        
         .rank-description {
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.1);
@@ -2592,11 +2681,140 @@
             document.body.style.overflow = '';
         }
 
+        // 段位评论数据
+        const rankComments = {
+            'radiant': [
+                '这个段位的人是真的存在吗？', '传说中的大佬聚集地', '一般人看不到的风景',
+                '每个服务器只有500个神仙', '我答应你这是用脑电波玩的', '看看就好，别想了',
+                '这就是顶峰吗？', '我的梦想终点站', '他们应该都有外挂吧（羡慕）'
+            ],
+            'immortal': [
+                '几乎是职业选手了', '这个段位的人都很少着急', '只比辐能战魂差一点点',
+                '永恒的追求者', '大多数人的天花板', '高手中的高手',
+                '我看他们都是用脑子玩的', '永恒不是目标，是起点', '上下模拟器启动'
+            ],
+            'ascendant': [
+                '开始懂得用脑子玩了', '这个段位很少有真的贬缘', '半只脚踏入高手行列',
+                '神话段位，人人向往', '终于不是靠枪法了', '开始懂得配合的意义',
+                '这里的人都会说"我是蛮子"', '称赞的门槛', '前路也还有很长要走'
+            ],
+            'diamond': [
+                '钻石水平的基础功很扎实', '这个段位特别卷', '开始有自己的理解了',
+                '钻石不是你的保护伞', '从这里开始真正的游戏', '大多数玩家的棱镜',
+                '一路上的坎坷都是成长', '钻石永恒，岁月待你', '这里已经不能靠运气了'
+            ],
+            'platinum': [
+                '白金是大多数人的天花板', '从这里开始需要思考了', '有想法但执行不够',
+                '白金是深渊的海洋', '很多人在这里停留很久', '需要系统性练习才能突破',
+                '白金一星和白金三星差距很大', '这里的人都有个钻石梦', '上下浮动最大的段位'
+            ],
+            'gold': [
+                '黄金是最快乐的段位', '大多数玩家的安乐窝', '刚刚入门的气味',
+                '这里的人都觉得自己能上钻石', '黄金是通往高手的必经之路', '基础功开始变得扎实',
+                '很多人说从黄金出不去', '享受游戏的最佳段位', '这里的小伙伴都很友好'
+            ],
+            'silver': [
+                '白银是很奇妙的段位', '上不去下不来的尴尬位置', '有一定基础但不够稳定',
+                '白银是学习的阶段', '这里的人都在摸索', '不稳定是最大的特点',
+                '白银一星和白银三星完全不一样', '需要多打定位赛确定实力', '这里有许多未来的钻石'
+            ],
+            'bronze': [
+                '青铜是新手村', '这里的人都在学习基础', '刚分清楚人是人机是机器',
+                '青铜的水很深', '每个人都觉得自己不属于这里', '青铜一星可能比青铜三星厉害',
+                '这里是梦开始的地方', '青铜的人都很有潜力', '不要小看青铜，有人是被坑下来的'
+            ],
+            'iron': [
+                '黑铁是最纯粹的快乐', '每个人都从这里开始', '这里没有压力，只有快乐',
+                '黑铁是梦想的起点', '这里的人都很有精神', '失败也是成长的一部分',
+                '黑铁是最可爱的段位', '这里的每一步都是进步', '黑铁不可耻，我们都是从这里走出来的'
+            ]
+        };
+        
+        // 点击段位图标显示评论
+        function showRankComment(rankIcon, rankKey) {
+            const comments = rankComments[rankKey];
+            if (!comments || comments.length === 0) return;
+            
+            // 随机选择一条评论
+            const comment = comments[Math.floor(Math.random() * comments.length)];
+            
+            // 随机选择位置方向（上、下、左、右）
+            const directions = ['left', 'right', 'top', 'bottom'];
+            const direction = directions[Math.floor(Math.random() * directions.length)];
+            
+            // 创建评论元素
+            const commentEl = document.createElement('div');
+            commentEl.className = `rank-comment from-${direction} animate-${direction}`;
+            commentEl.textContent = comment;
+            
+            // 设置位置
+            const rect = rankIcon.getBoundingClientRect();
+            const containerRect = rankIcon.closest('.rank-info').getBoundingClientRect();
+            
+            // 相对于 rank-info 的位置
+            const relativeLeft = rect.left - containerRect.left;
+            const relativeTop = rect.top - containerRect.top;
+            
+            commentEl.style.position = 'absolute';
+            
+            // 根据方向设置位置
+            switch(direction) {
+                case 'left':
+                    commentEl.style.right = (containerRect.width - relativeLeft + 10) + 'px';
+                    commentEl.style.top = (relativeTop + rect.height/2 - 15) + 'px';
+                    break;
+                case 'right':
+                    commentEl.style.left = (relativeLeft + rect.width + 10) + 'px';
+                    commentEl.style.top = (relativeTop + rect.height/2 - 15) + 'px';
+                    break;
+                case 'top':
+                    commentEl.style.left = (relativeLeft + rect.width/2) + 'px';
+                    commentEl.style.transform = 'translateX(-50%)';
+                    commentEl.style.bottom = (containerRect.height - relativeTop + 10) + 'px';
+                    break;
+                case 'bottom':
+                    commentEl.style.left = (relativeLeft + rect.width/2) + 'px';
+                    commentEl.style.transform = 'translateX(-50%)';
+                    commentEl.style.top = (relativeTop + rect.height + 10) + 'px';
+                    break;
+            }
+            
+            // 添加到容器
+            const container = rankIcon.closest('.rank-info');
+            container.style.position = 'relative';
+            container.appendChild(commentEl);
+            
+            // 3秒后移除
+            setTimeout(() => {
+                commentEl.style.opacity = '0';
+                commentEl.style.transform += ' scale(0.5)';
+                commentEl.style.transition = 'all 0.3s ease';
+                setTimeout(() => commentEl.remove(), 300);
+            }, 3000);
+        }
+        
+        // 为段位图标添加点击事件
+        function initRankIconClicks() {
+            const rankIcons = document.querySelectorAll('.rank-icon');
+            const rankKeys = ['radiant', 'immortal', 'ascendant', 'diamond', 'platinum', 'gold', 'silver', 'bronze', 'iron'];
+            
+            rankIcons.forEach((icon, index) => {
+                if (rankKeys[index]) {
+                    icon.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        showRankComment(this, rankKeys[index]);
+                    });
+                }
+            });
+        }
+        
         // 打开段位展示弹窗
         function openRankModal() {
             const modal = document.getElementById('rankModal');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            // 初始化点击事件
+            setTimeout(initRankIconClicks, 100);
         }
 
         // 关闭段位展示弹窗
