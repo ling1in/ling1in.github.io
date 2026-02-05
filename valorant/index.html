@@ -1933,39 +1933,34 @@
     </div>
 
     <div class="menu-grid">
-        <a href="./valorant-intro.html" class="menu-card" id="card1">
-            <span class="menu-icon" id="icon1">✨</span>
-            <div class="menu-title" id="title1">快速了解VALORANT</div>
-            <div class="menu-desc" id="desc1">新手入门必看<br>视频、图片、文字一站式了解</div>
+        <a href="./valorant-agents.html" class="menu-card" id="card1">
+            <span class="menu-icon" id="icon1">🎯</span>
+            <div class="menu-title" id="title1">特工档案</div>
+            <div class="menu-desc" id="desc1">28位特工完整资料<br>4大职业分类</div>
         </a>
-        <a href="./valorant-agents.html" class="menu-card" id="card2">
-            <span class="menu-icon" id="icon2">🎯</span>
-            <div class="menu-title" id="title2">特工档案</div>
-            <div class="menu-desc" id="desc2">28位特工完整资料<br>4大职业分类</div>
+        <a href="./valorant-weapons.html" class="menu-card" id="card2">
+            <span class="menu-icon" id="icon2">🔫</span>
+            <div class="menu-title" id="title2">枪械档案</div>
+            <div class="menu-desc" id="desc2">19种武器详细数据<br>6大枪械分类</div>
         </a>
-        <a href="./valorant-weapons.html" class="menu-card" id="card3">
-            <span class="menu-icon" id="icon3">🔫</span>
-            <div class="menu-title" id="title3">枪械档案</div>
-            <div class="menu-desc" id="desc3">19种武器详细数据<br>6大枪械分类</div>
-        </a>
-        <a href="./valorant-teams.html" class="menu-card" id="card4" onclick="playBackgroundMusic(event)">
-            <span class="menu-icon" id="icon4">🏆</span>
-            <div class="menu-title" id="title4">VCT CN 战队</div>
-            <div class="menu-desc" id="desc4">9支顶尖战队<br>45位明星选手</div>
+        <a href="./valorant-teams.html" class="menu-card" id="card3" onclick="playBackgroundMusic(event)">
+            <span class="menu-icon" id="icon3">🏆</span>
+            <div class="menu-title" id="title3">VCT CN 战队</div>
+            <div class="menu-desc" id="desc3">9支顶尖战队<br>45位明星选手</div>
             <button class="edg-history-btn" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='./valorant-edg.html';" title="EDG传奇">
                 👑 来看看2024 VCT CN冠军战队的历史
             </button>
         </a>
-        <a href="./valorant-maps.html" class="menu-card" id="card5">
-            <span class="menu-icon" id="icon5">🗺️</span>
-            <div class="menu-title" id="title5">地图档案</div>
-            <div class="menu-desc" id="desc5">11张中文地图<br>全职位战术指南</div>
+        <a href="./valorant-maps.html" class="menu-card" id="card4">
+            <span class="menu-icon" id="icon4">🗺️</span>
+            <div class="menu-title" id="title4">地图档案</div>
+            <div class="menu-desc" id="desc4">11张中文地图<br>全职位战术指南</div>
         </a>
 
-        <a href="./valorant-news.html" class="menu-card" id="card6">
-            <span class="menu-icon" id="icon6">📰</span>
-            <div class="menu-title" id="title6">最新资讯</div>
-            <div class="menu-desc" id="desc6">游戏更新动态<br>电竞赛事资讯</div>
+        <a href="./valorant-news.html" class="menu-card" id="card5">
+            <span class="menu-icon" id="icon5">📰</span>
+            <div class="menu-title" id="title5">最新资讯</div>
+            <div class="menu-desc" id="desc5">游戏更新动态<br>电竞赛事资讯</div>
         </a>
     </div>
 
@@ -2981,7 +2976,6 @@
             proPlayersBtn: '🏆 快来学习职业选手的操作思路！',
             secretsBtn: '🔍 更多你不知道的细节！',
             cards: [
-                { icon: '✨', title: '快速了解VALORANT', desc: '新手入门必看<br>视频、图片、文字一站式了解' },
                 { icon: '🎯', title: '特工档案', desc: '28位特工完整资料<br>4大职业分类' },
                 { icon: '🔫', title: '枪械档案', desc: '19种武器详细数据<br>6大枪械分类' },
                 { icon: '🏆', title: 'VCT CN 战队', desc: '9支顶尖战队<br>45位明星选手' },
@@ -3474,20 +3468,10 @@
             }
             
             // 更新卡片内容（包括图标、标题、描述）
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 5; i++) {
                 document.getElementById('icon' + (i + 1)).textContent = content.cards[i].icon;
                 document.getElementById('title' + (i + 1)).textContent = content.cards[i].title;
                 document.getElementById('desc' + (i + 1)).innerHTML = content.cards[i].desc;
-            }
-            
-            // 更新第5个卡片（新手配置/EDG传奇）的点击行为
-            const card5 = document.getElementById('card5');
-            if (isMobileMode) {
-                card5.href = 'javascript:void(0);';
-                card5.onclick = function() { openConfigModal(); return false; };
-            } else {
-                card5.href = 'valorant-edg.html';
-                card5.onclick = null;
             }
             
             // 更新弹窗标题
