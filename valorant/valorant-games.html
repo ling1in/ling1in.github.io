@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有趣的 VALORANT 小游戏 | ling1in</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            --text-color: #ece8e1;
+            --text-secondary: #8b978f;
+            --accent-color: #ff4655;
+            --card-bg: rgba(255,255,255,0.05);
+            --card-border: rgba(255,255,255,0.1);
+            --shadow-color: rgba(255, 70, 85, 0.2);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 20px;
+            padding-top: 70px;
+        }
+        nav {
+            background: rgba(15, 25, 35, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255, 70, 85, 0.3);
+        }
+        nav ul {
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        nav a:hover, nav a.active { background: var(--accent-color); color: white; }
+        
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            background: linear-gradient(135deg, #ff4655, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 游戏卡片网格 */
+        .games-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        @media (min-width: 640px) {
+            .games-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .games-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        
+        .game-card {
+            background: linear-gradient(135deg, rgba(255,70,85,0.1), rgba(15,25,35,0.8));
+            border: 2px solid rgba(255,70,85,0.3);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-decoration: none;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 280px;
+        }
+        .game-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 50px var(--shadow-color);
+        }
+        .game-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .game-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ff4655, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .game-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+        .game-tag {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(255,70,85,0.2);
+            border: 1px solid rgba(255,70,85,0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #ff8a95;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="./index.html">🏠 返回首页</a></li>
+            <li><a href="./valorant-agents.html">🎯 特工</a></li>
+            <li><a href="./valorant-teams.html">🏆 战队</a></li>
+            <li><a href="./valorant-news.html">📰 资讯</a></li>
+        </ul>
+    </nav>
+
+    <div class="header">
+        <h1>🎮 有趣的 VALORANT 小游戏</h1>
+        <p>挑战你的游戏知识，享受游戏乐趣</p>
+    </div>
+
+    <div class="container">
+        <div class="games-grid">
+            <!-- 问答游戏 -->
+            <a href="./game-quiz.html" class="game-card">
+                <span class="game-icon">🧠</span>
+                <div class="game-title">知识问答挑战</div>
+                <div class="game-desc">测试你对VALORANT的了解程度，包括特工技能、地图知识、游戏机制等多种题目。看看你能得多少分！</div>
+                <span class="game-tag">推荐尝试</span>
+            </a>
+
+            <!-- 特工猜谜 -->
+            <a href="./game-guess-agent.html" class="game-card">
+                <span class="game-icon">🎯</span>
+                <div class="game-title">特工猜谜</div>
+                <div class="game-desc">根据技能描述猜出是哪位特工，或者根据声音特征辨认特工。考验你对28位特工的熟悉程度。</div>
+                <span class="game-tag">新手推荐</span>
+            </a>
+
+            <!-- 响应速度挑战 -->
+            <a href="./game-reaction.html" class="game-card">
+                <span class="game-icon">⚡</span>
+                <div class="game-title">响应速度挑战</div>
+                <div class="game-desc">测试你的反应速度和点击精度！在目标出现的瞬间尽快点击，模拟临场反应能力。</div>
+                <span class="game-tag">休闲娱乐</span>
+            </a>
+
+            <!-- 经济管理模拟器 -->
+            <a href="./game-economy.html" class="game-card">
+                <span class="game-icon">💰</span>
+                <div class="game-title">经济管理模拟器</div>
+                <div class="game-desc">学习和练习经济管理，在不同情况下做出最佳的购买决策，提升游戏意识。</div>
+                <span class="game-tag">提升技巧</span>
+            </a>
+
+            <!-- 决斗模拟 -->
+            <a href="./game-duel.html" class="game-card">
+                <span class="game-icon">🔫</span>
+                <div class="game-title">1v1 决斗模拟</div>
+                <div class="game-desc">通过选择不同的身位和拓展，学习如何在1v1对枪中获胜。包含身位控制和预拢训练。</div>
+                <span class="game-tag">竞技提升</span>
+            </a>
+
+            <!-- 皮肤测试 -->
+            <a href="./game-skin-quiz.html" class="game-card">
+                <span class="game-icon">💎</span>
+                <div class="game-title">皮肤认知测试</div>
+                <div class="game-desc">看图识别各种烈火、龙焰等热门皮肤系列，测试你是否是真正的皮肤收藏家。</div>
+                <span class="game-tag">趣味测试</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>VALORANT 小游戏 | Made with ❤️ by <a href="../about.html">ling1in</a></p>
+    </div>
+
+    <script src="../js/easter-egg.js"></script>
+</body>
+</html>
