@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>皮肤认知测试 | VALORANT 小游戏</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            --text-color: #ece8e1;
+            --text-secondary: #8b978f;
+            --accent-color: #ff4655;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 20px;
+            padding-top: 70px;
+        }
+        nav {
+            background: rgba(15, 25, 35, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255, 70, 85, 0.3);
+        }
+        nav ul {
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 20px;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+        nav a:hover { background: var(--accent-color); }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff4655, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .game-container {
+            background: linear-gradient(135deg, rgba(255,70,85,0.1), rgba(15,25,35,0.8));
+            border: 2px solid rgba(255,70,85,0.3);
+            border-radius: 24px;
+            padding: 30px;
+        }
+        
+        .skin-display {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 25px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .skin-emoji {
+            font-size: 6rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 0 20px rgba(255,70,85,0.5));
+        }
+        .skin-hint {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .option {
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        .option:hover {
+            background: rgba(255,70,85,0.1);
+            border-color: rgba(255,70,85,0.3);
+            transform: translateY(-3px);
+        }
+        .option.correct {
+            background: rgba(46,204,113,0.2);
+            border-color: #2ecc71;
+        }
+        .option.wrong {
+            background: rgba(231,76,60,0.2);
+            border-color: #e74c3c;
+        }
+        .option.disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ff4655, #ff6b7a);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 30px auto 0;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,70,85,0.3);
+        }
+        
+        .result {
+            text-align: center;
+            padding: 40px;
+        }
+        .hidden { display: none !important; }
+        
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4655, #ffd700);
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="./valorant-games.html">返回游戏大厅</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>💎 皮肤认知测试</h1>
+            <p style="color: var(--text-secondary); margin-top: 10px;">看图识皮肤，测试你的皮肤知识</p>
+        </div>
+
+        <div class="game-container">
+            <div id="startScreen" style="text-align: center; padding: 60px 40px;">
+                <div style="font-size: 4rem; margin-bottom: 20px;">💎</div>
+                <h2 style="margin-bottom: 20px;">皮肤大师挑战</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 30px; line-height: 1.8;">
+                    根据提示猜出是哪个皮肤系列<br>
+                    测试你是不是真正的皮肤收藏家！
+                </p>
+                <button class="btn" onclick="startGame()">开始测试</button>
+            </div>
+
+            <div id="gameScreen" class="hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="skin-display">
+                    <div class="skin-emoji" id="skinEmoji">🔫</div>
+                    <div class="skin-hint" id="skinHint">加载中...</div>
+                </div>
+                <div class="options" id="optionsContainer"></div>
+            </div>
+
+            <div id="resultScreen" class="result hidden">
+                <div style="font-size: 5rem; margin-bottom: 20px;">🏆</div>
+                <h2 style="margin-bottom: 20px;">测试完成！</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 10px;">答对 <span id="score" style="color: #ffd700; font-size: 2rem;">0</span>/6 题</p>
+                <p id="feedback" style="color: var(--text-secondary); margin-bottom: 30px;"></p>
+                <button class="btn" onclick="restartGame()">再测一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const skins = [
+            {
+                emoji: "🔥",
+                hint: "这个系列的皮肤带有火焰特效，深受玩家喜爱",
+                options: ["烈火", "亡灵", "暗夜", "赋格"],
+                correct: 0,
+                name: "烈火"
+            },
+            {
+                emoji: "🐉",
+                hint: "中国风的龙纹皮肤，非常经典",
+                options: ["龙焰", "古城", "苍龙", "玉龙"],
+                correct: 0,
+                name: "龙焰"
+            },
+            {
+                emoji: "🌙",
+                hint: "科幻风格，带有星空特效",
+                options: ["星际", "银河", "宇宙", "星河"],
+                correct: 1,
+                name: "银河"
+            },
+            {
+                emoji: "💀",
+                hint: "暗黑风格，带有骷髅元素",
+                options: ["亡灵", "佩扬", "幽冥", "魔灵"],
+                correct: 0,
+                name: "亡灵"
+            },
+            {
+                emoji: "⚔️",
+                hint: "古代武器风格，带有剑刃特效",
+                options: ["传说", "英雄", "战神", "古剑"],
+                correct: 0,
+                name: "传说"
+            },
+            {
+                emoji: "🐱",
+                hint: "可爱的动物主题，非常受女玩家喜爱",
+                options: ["萌狐", "幻影", "云朵", "星之华"],
+                correct: 0,
+                name: "萌狐"
+            }
+        ];
+
+        let current = 0;
+        let score = 0;
+
+        function startGame() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            showSkin();
+        }
+
+        function showSkin() {
+            const s = skins[current];
+            document.getElementById('skinEmoji').textContent = s.emoji;
+            document.getElementById('skinHint').textContent = s.hint;
+            document.getElementById('progressFill').style.width = ((current + 1) / skins.length * 100) + '%';
+            
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            
+            s.options.forEach((opt, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'option';
+                btn.textContent = opt;
+                btn.onclick = () => checkAnswer(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(idx) {
+            const s = skins[current];
+            const opts = document.querySelectorAll('.option');
+            opts.forEach(o => o.classList.add('disabled'));
+            
+            if (idx === s.correct) {
+                opts[idx].classList.add('correct');
+                score++;
+            } else {
+                opts[idx].classList.add('wrong');
+                opts[s.correct].classList.add('correct');
+            }
+            
+            setTimeout(() => {
+                current++;
+                if (current < skins.length) {
+                    showSkin();
+                } else {
+                    showResult();
+                }
+            }, 1500);
+        }
+
+        function showResult() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+            document.getElementById('score').textContent = score;
+            
+            let fb = '';
+            if (score === 6) fb = '完美！你是皮肤收藏家！';
+            else if (score >= 5) fb = '很好！对皮肤很了解！';
+            else if (score >= 4) fb = '还可以，多逛逛商店就懂了！';
+            else fb = '看来你需要多关注皮肤！';
+            document.getElementById('feedback').textContent = fb;
+        }
+
+        function restartGame() {
+            current = 0;
+            score = 0;
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

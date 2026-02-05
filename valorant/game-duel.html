@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1v1 决斗模拟 | VALORANT 小游戏</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(180deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            --text-color: #ece8e1;
+            --text-secondary: #8b978f;
+            --accent-color: #ff4655;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            color: var(--text-color);
+            padding: 20px;
+            padding-top: 70px;
+        }
+        nav {
+            background: rgba(15, 25, 35, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 12px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            border-bottom: 1px solid rgba(255, 70, 85, 0.3);
+        }
+        nav ul {
+            list-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 20px;
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+        nav a:hover { background: var(--accent-color); }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .header h1 {
+            font-size: 2rem;
+            background: linear-gradient(135deg, #ff4655, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .game-container {
+            background: linear-gradient(135deg, rgba(255,70,85,0.1), rgba(15,25,35,0.8));
+            border: 2px solid rgba(255,70,85,0.3);
+            border-radius: 24px;
+            padding: 30px;
+        }
+        
+        .duel-area {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 40px;
+            margin: 20px 0;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .enemy {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff4655, #ff6b7a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            box-shadow: 0 0 30px rgba(255,70,85,0.5);
+        }
+        
+        .situation {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            width: 100%;
+        }
+        
+        .choices {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+        }
+        .choice {
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .choice:hover {
+            background: rgba(255,70,85,0.1);
+            border-color: rgba(255,70,85,0.3);
+            transform: translateY(-3px);
+        }
+        .choice.correct {
+            background: rgba(46,204,113,0.2);
+            border-color: #2ecc71;
+        }
+        .choice.wrong {
+            background: rgba(231,76,60,0.2);
+            border-color: #e74c3c;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ff4655, #ff6b7a);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,70,85,0.3);
+        }
+        
+        .result {
+            text-align: center;
+            padding: 40px;
+        }
+        .hidden { display: none !important; }
+        
+        .crosshair {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="./valorant-games.html">返回游戏大厅</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>🔫 1v1 决斗模拟</h1>
+            <p style="color: var(--text-secondary); margin-top: 10px;">学习身位控制和决斗技巧</p>
+        </div>
+
+        <div class="game-container">
+            <div id="startScreen" style="text-align: center; padding: 60px 40px;">
+                <div style="font-size: 4rem; margin-bottom: 20px;">🎯</div>
+                <h2 style="margin-bottom: 20px;">决斗训练</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 30px; line-height: 1.8;">
+                    在1v1对枪中选择最佳身位和策略<br>
+                    学习Peek、大拉、假身位等技巧
+                </p>
+                <button class="btn" onclick="startGame()">开始训练</button>
+            </div>
+
+            <div id="gameScreen" class="hidden">
+                <div class="duel-area">
+                    <div class="enemy">🧙</div>
+                    <div class="situation" id="situationText">加载中...</div>
+                    <div class="choices" id="choicesContainer"></div>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <span style="color: var(--text-secondary);">颜色代表难度：绿色=推荐 黄色=中等 红色=高难</span>
+                </div>
+            </div>
+
+            <div id="resultScreen" class="result hidden">
+                <div style="font-size: 5rem; margin-bottom: 20px;">🏆</div>
+                <h2 style="margin-bottom: 20px;">训练完成！</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 10px;">答对 <span id="score" style="color: #ffd700; font-size: 2rem;">0</span>/5 题</p>
+                <p id="feedback" style="color: var(--text-secondary); margin-bottom: 30px;"></p>
+                <button class="btn" onclick="restartGame()">再来一次</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const duels = [
+            {
+                text: "敌人在这个角位架枪，你应该怎么做？",
+                options: [
+                    { text: "小拉（Jiggle Peek）看位置", correct: true, desc: "安全获取信息" },
+                    { text: "大拉出去对枪", correct: false, desc: "容易被秒" },
+                    { text: "等敌人出来", correct: false, desc: "浪费时间" },
+                    { text: "扔闪光弹出去", correct: false, desc: "浪费道具" }
+                ]
+            },
+            {
+                text: "敌人残血躲在墙后，你知道他在哪但没把握秒他",
+                options: [
+                    { text: "预拢后大拉", correct: true, desc: "打他个粗不防" },
+                    { text: "慢慢摸近", correct: false, desc: "给敌人时间恢复" },
+                    { text: "等他拳血恢复", correct: false, desc: "不可取" },
+                    { text: "换点打别处", correct: false, desc: "浪费机会" }
+                ]
+            },
+            {
+                text: "你在露大身位对枪，敌人却只露小身位",
+                options: [
+                    { text: "也用小身位对枪", correct: true, desc: "保持对枪优势" },
+                    { text: "继续大身位打", correct: false, desc: "你会吃亏" },
+                    { text: "撞钞打一拒", correct: false, desc: "不稳定" },
+                    { text: "撒手不管", correct: false, desc: "放弃机会" }
+                ]
+            },
+            {
+                text: "听到敌人脚步声在靠近，你准备好了",
+                options: [
+                    { text: "冷静等待，预拢好头部", correct: true, desc: "稳定发挥" },
+                    { text: "激动地冲出去", correct: false, desc: "容易失误" },
+                    { text: "转身跑路", correct: false, desc: "把背部交给敌人" },
+                    { text: "开枪打墙", correct: false, desc: "暴露位置" }
+                ]
+            },
+            {
+                text: "敌人很勉强，你需要一击必杀",
+                options: [
+                    { text: "碰到头部再开枪", correct: true, desc: "确保命中" },
+                    { text: "乱扫冲锋", correct: false, desc: "浪费子弹" },
+                    { text: "冲上去凌波", correct: false, desc: "变成活靴子" },
+                    { text: "等他自己出错", correct: false, desc: "被动等死" }
+                ]
+            }
+        ];
+
+        let current = 0;
+        let score = 0;
+
+        function startGame() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            showDuel();
+        }
+
+        function showDuel() {
+            const d = duels[current];
+            document.getElementById('situationText').textContent = d.text;
+            
+            const container = document.getElementById('choicesContainer');
+            container.innerHTML = '';
+            
+            d.options.forEach((opt, idx) => {
+                const btn = document.createElement('div');
+                btn.className = 'choice';
+                btn.innerHTML = `<div style="font-weight: 600; margin-bottom: 5px;">${opt.text}</div><div style="font-size: 0.85rem; color: var(--text-secondary);">${opt.desc}</div>`;
+                btn.onclick = () => checkAnswer(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(idx) {
+            const d = duels[current];
+            const choices = document.querySelectorAll('.choice');
+            choices.forEach(c => c.style.pointerEvents = 'none');
+            
+            if (d.options[idx].correct) {
+                choices[idx].classList.add('correct');
+                score++;
+            } else {
+                choices[idx].classList.add('wrong');
+                choices[d.options.findIndex(o => o.correct)].classList.add('correct');
+            }
+            
+            setTimeout(() => {
+                current++;
+                if (current < duels.length) {
+                    showDuel();
+                } else {
+                    showResult();
+                }
+            }, 2000);
+        }
+
+        function showResult() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.remove('hidden');
+            document.getElementById('score').textContent = score;
+            
+            let fb = '';
+            if (score === 5) fb = '完美！你是决斗大师！';
+            else if (score >= 4) fb = '很好！对枪很有理解！';
+            else if (score >= 3) fb = '还可以，多练练就熟了！';
+            else fb = '建议多打打死斗模式！';
+            document.getElementById('feedback').textContent = fb;
+        }
+
+        function restartGame() {
+            current = 0;
+            score = 0;
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
